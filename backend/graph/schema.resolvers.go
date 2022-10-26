@@ -12,8 +12,13 @@ import (
 )
 
 // CreateUser is the resolver for the createUser field.
-func (r *mutationResolver) CreateUser(ctx context.Context, input model.UserCreate) (*model.User, error) {
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.UserCreateInput) (*model.User, error) {
 	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
+}
+
+// CreateCountry is the resolver for the createCountry field.
+func (r *mutationResolver) CreateCountry(ctx context.Context, input model.CountryCreateInput) (*model.Country, error) {
+	panic(fmt.Errorf("not implemented: CreateCountry - createCountry"))
 }
 
 // User is the resolver for the user field.

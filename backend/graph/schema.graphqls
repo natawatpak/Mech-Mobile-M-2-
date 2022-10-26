@@ -42,10 +42,20 @@ type product {
   createTime: String!
 }
 
-input userCreate {
-  userID: ID
-  userFName: String!
-  userLName: String!
+input userCreateInput {
+  id: ID
+  FName: String!
+  email: String!
+  gender: String!
+  DoB: String!
+  countryCode: Int!
+  createTime: String!
+}
+
+input countryCreateInput {
+  code: Int!
+  name: String!
+  continent: String!
 }
 
 type Query {
@@ -53,5 +63,6 @@ type Query {
 }
 
 type Mutation {
-  createUser(input: userCreate!): user!
+  createUser(input: userCreateInput!): user!
+  createCountry(input: countryCreateInput!): country!
 }

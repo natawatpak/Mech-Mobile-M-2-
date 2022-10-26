@@ -8,6 +8,12 @@ type Country struct {
 	Continent string `json:"continent"`
 }
 
+type CountryCreateInput struct {
+	Code      int    `json:"code"`
+	Name      string `json:"name"`
+	Continent string `json:"continent"`
+}
+
 type Merchant struct {
 	ID          string `json:"id"`
 	Name        string `json:"name"`
@@ -42,8 +48,12 @@ type User struct {
 	CreateTime  string `json:"createTime"`
 }
 
-type UserCreate struct {
-	UserID    *string `json:"userID"`
-	UserFName string  `json:"userFName"`
-	UserLName string  `json:"userLName"`
+type UserCreateInput struct {
+	ID          *string `json:"id"`
+	FName       string  `json:"FName"`
+	Email       string  `json:"email"`
+	Gender      string  `json:"gender"`
+	DoB         string  `json:"DoB"`
+	CountryCode int     `json:"countryCode"`
+	CreateTime  string  `json:"createTime"`
 }

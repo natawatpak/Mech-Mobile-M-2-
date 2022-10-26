@@ -45,7 +45,8 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	Mutation struct {
-		CreateUser func(childComplexity int, input model.UserCreate) int
+		CreateCountry func(childComplexity int, input model.CountryCreateInput) int
+		CreateUser    func(childComplexity int, input model.UserCreateInput) int
 	}
 
 	Query struct {
@@ -94,7 +95,8 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreateUser(ctx context.Context, input model.UserCreate) (*model.User, error)
+	CreateUser(ctx context.Context, input model.UserCreateInput) (*model.User, error)
+	CreateCountry(ctx context.Context, input model.CountryCreateInput) (*model.Country, error)
 }
 type QueryResolver interface {
 	User(ctx context.Context) ([]*model.User, error)
@@ -115,6 +117,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	_ = ec
 	switch typeName + "." + field {
 
+	case "Mutation.createCountry":
+		if e.complexity.Mutation.CreateCountry == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_createCountry_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.CreateCountry(childComplexity, args["input"].(model.CountryCreateInput)), true
+
 	case "Mutation.createUser":
 		if e.complexity.Mutation.CreateUser == nil {
 			break
@@ -125,7 +139,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateUser(childComplexity, args["input"].(model.UserCreate)), true
+		return e.complexity.Mutation.CreateUser(childComplexity, args["input"].(model.UserCreateInput)), true
 
 	case "Query.user":
 		if e.complexity.Query.User == nil {
@@ -317,7 +331,8 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	rc := graphql.GetOperationContext(ctx)
 	ec := executionContext{rc, e}
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
-		ec.unmarshalInputuserCreate,
+		ec.unmarshalInputcountryCreateInput,
+		ec.unmarshalInputuserCreateInput,
 	)
 	first := true
 
@@ -422,10 +437,20 @@ type product {
   createTime: String!
 }
 
-input userCreate {
-  userID: ID
-  userFName: String!
-  userLName: String!
+input userCreateInput {
+  id: ID
+  FName: String!
+  email: String!
+  gender: String!
+  DoB: String!
+  countryCode: Int!
+  createTime: String!
+}
+
+input countryCreateInput {
+  code: Int!
+  name: String!
+  continent: String!
 }
 
 type Query {
@@ -433,7 +458,8 @@ type Query {
 }
 
 type Mutation {
-  createUser(input: userCreate!): user!
+  createUser(input: userCreateInput!): user!
+  createCountry(input: countryCreateInput!): country!
 }
 `, BuiltIn: false},
 }
@@ -443,13 +469,28 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 
 // region    ***************************** args.gotpl *****************************
 
+func (ec *executionContext) field_Mutation_createCountry_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.CountryCreateInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNcountryCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCountryCreateInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.UserCreate
+	var arg0 model.UserCreateInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNuserCreate2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUserCreate(ctx, tmp)
+		arg0, err = ec.unmarshalNuserCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUserCreateInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -525,7 +566,7 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateUser(rctx, fc.Args["input"].(model.UserCreate))
+		return ec.resolvers.Mutation().CreateUser(rctx, fc.Args["input"].(model.UserCreateInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -576,6 +617,69 @@ func (ec *executionContext) fieldContext_Mutation_createUser(ctx context.Context
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Mutation_createUser_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_createCountry(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_createCountry(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().CreateCountry(rctx, fc.Args["input"].(model.CountryCreateInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.Country)
+	fc.Result = res
+	return ec.marshalNcountry2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCountry(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_createCountry(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "code":
+				return ec.fieldContext_country_code(ctx, field)
+			case "name":
+				return ec.fieldContext_country_name(ctx, field)
+			case "continent":
+				return ec.fieldContext_country_continent(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type country", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_createCountry_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
 	}
@@ -3644,41 +3748,117 @@ func (ec *executionContext) fieldContext_user_createTime(ctx context.Context, fi
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputuserCreate(ctx context.Context, obj interface{}) (model.UserCreate, error) {
-	var it model.UserCreate
+func (ec *executionContext) unmarshalInputcountryCreateInput(ctx context.Context, obj interface{}) (model.CountryCreateInput, error) {
+	var it model.CountryCreateInput
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"userID", "userFName", "userLName"}
+	fieldsInOrder := [...]string{"code", "name", "continent"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
 			continue
 		}
 		switch k {
-		case "userID":
+		case "code":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userID"))
-			it.UserID, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("code"))
+			it.Code, err = ec.unmarshalNInt2int(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "userFName":
+		case "name":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userFName"))
-			it.UserFName, err = ec.unmarshalNString2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
+			it.Name, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "userLName":
+		case "continent":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userLName"))
-			it.UserLName, err = ec.unmarshalNString2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("continent"))
+			it.Continent, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputuserCreateInput(ctx context.Context, obj interface{}) (model.UserCreateInput, error) {
+	var it model.UserCreateInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"id", "FName", "email", "gender", "DoB", "countryCode", "createTime"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "id":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+			it.ID, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "FName":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("FName"))
+			it.FName, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "email":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
+			it.Email, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "gender":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("gender"))
+			it.Gender, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "DoB":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("DoB"))
+			it.DoB, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "countryCode":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("countryCode"))
+			it.CountryCode, err = ec.unmarshalNInt2int(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createTime":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("createTime"))
+			it.CreateTime, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3719,6 +3899,15 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_createUser(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "createCountry":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_createCountry(ctx, field)
 			})
 
 			if out.Values[i] == graphql.Null {
@@ -4711,6 +4900,25 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
+func (ec *executionContext) marshalNcountry2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCountry(ctx context.Context, sel ast.SelectionSet, v model.Country) graphql.Marshaler {
+	return ec._country(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNcountry2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCountry(ctx context.Context, sel ast.SelectionSet, v *model.Country) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._country(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNcountryCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCountryCreateInput(ctx context.Context, v interface{}) (model.CountryCreateInput, error) {
+	res, err := ec.unmarshalInputcountryCreateInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) marshalNuser2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
 	return ec._user(ctx, sel, &v)
 }
@@ -4769,8 +4977,8 @@ func (ec *executionContext) marshalNuser2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑM
 	return ec._user(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNuserCreate2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUserCreate(ctx context.Context, v interface{}) (model.UserCreate, error) {
-	res, err := ec.unmarshalInputuserCreate(ctx, v)
+func (ec *executionContext) unmarshalNuserCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUserCreateInput(ctx context.Context, v interface{}) (model.UserCreateInput, error) {
+	res, err := ec.unmarshalInputuserCreateInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
