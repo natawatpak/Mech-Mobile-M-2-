@@ -7,8 +7,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/Dirk94/website-thumbnail-generator/backend/graph/generated"
-	"github.com/Dirk94/website-thumbnail-generator/backend/graph/model"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 )
 
 // CreateUser is the resolver for the createUser field.

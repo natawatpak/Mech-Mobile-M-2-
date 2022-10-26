@@ -7,8 +7,8 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/Dirk94/website-thumbnail-generator/backend/graph"
-	"github.com/Dirk94/website-thumbnail-generator/backend/graph/generated"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
 )
 
 const defaultPort = "8080"

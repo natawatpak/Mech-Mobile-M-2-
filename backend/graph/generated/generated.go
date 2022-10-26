@@ -13,7 +13,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/Dirk94/website-thumbnail-generator/backend/graph/model"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -449,7 +449,7 @@ func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, 
 	var arg0 model.UserCreate
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNuserCreate2githubᚗcomᚋDirk94ᚋwebsiteᚑthumbnailᚑgeneratorᚋbackendᚋgraphᚋmodelᚐUserCreate(ctx, tmp)
+		arg0, err = ec.unmarshalNuserCreate2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUserCreate(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -539,7 +539,7 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalNuser2ᚖgithubᚗcomᚋDirk94ᚋwebsiteᚑthumbnailᚑgeneratorᚋbackendᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNuser2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -610,7 +610,7 @@ func (ec *executionContext) _Query_user(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.([]*model.User)
 	fc.Result = res
-	return ec.marshalNuser2ᚕᚖgithubᚗcomᚋDirk94ᚋwebsiteᚑthumbnailᚑgeneratorᚋbackendᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNuser2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4711,11 +4711,11 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) marshalNuser2githubᚗcomᚋDirk94ᚋwebsiteᚑthumbnailᚑgeneratorᚋbackendᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNuser2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
 	return ec._user(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNuser2ᚕᚖgithubᚗcomᚋDirk94ᚋwebsiteᚑthumbnailᚑgeneratorᚋbackendᚋgraphᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNuser2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -4739,7 +4739,7 @@ func (ec *executionContext) marshalNuser2ᚕᚖgithubᚗcomᚋDirk94ᚋwebsite�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNuser2ᚖgithubᚗcomᚋDirk94ᚋwebsiteᚑthumbnailᚑgeneratorᚋbackendᚋgraphᚋmodelᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalNuser2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4759,7 +4759,7 @@ func (ec *executionContext) marshalNuser2ᚕᚖgithubᚗcomᚋDirk94ᚋwebsite�
 	return ret
 }
 
-func (ec *executionContext) marshalNuser2ᚖgithubᚗcomᚋDirk94ᚋwebsiteᚑthumbnailᚑgeneratorᚋbackendᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNuser2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -4769,7 +4769,7 @@ func (ec *executionContext) marshalNuser2ᚖgithubᚗcomᚋDirk94ᚋwebsiteᚑth
 	return ec._user(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNuserCreate2githubᚗcomᚋDirk94ᚋwebsiteᚑthumbnailᚑgeneratorᚋbackendᚋgraphᚋmodelᚐUserCreate(ctx context.Context, v interface{}) (model.UserCreate, error) {
+func (ec *executionContext) unmarshalNuserCreate2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐUserCreate(ctx context.Context, v interface{}) (model.UserCreate, error) {
 	res, err := ec.unmarshalInputuserCreate(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
