@@ -2,19 +2,48 @@
 
 package model
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+type Country struct {
+	Code      int    `json:"code"`
+	Name      string `json:"name"`
+	Continent string `json:"continent"`
 }
 
-type Todo struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	Done bool   `json:"done"`
-	User *User  `json:"user"`
+type Merchant struct {
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	AdminID     string `json:"adminID"`
+	CountryCode int    `json:"countryCode"`
+	CreateTime  string `json:"createTime"`
+}
+
+type Order struct {
+	ID         string `json:"id"`
+	UserID     string `json:"userID"`
+	Status     string `json:"status"`
+	CreateTime string `json:"createTime"`
+}
+
+type Product struct {
+	ID         string `json:"id"`
+	MerchantID string `json:"merchantID"`
+	Name       string `json:"name"`
+	Price      int    `json:"price"`
+	Status     string `json:"status"`
+	CreateTime string `json:"createTime"`
 }
 
 type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID          string `json:"id"`
+	FName       string `json:"FName"`
+	Email       string `json:"email"`
+	Gender      string `json:"gender"`
+	DoB         string `json:"DoB"`
+	CountryCode int    `json:"countryCode"`
+	CreateTime  string `json:"createTime"`
+}
+
+type UserCreate struct {
+	UserID    *string `json:"userID"`
+	UserFName string  `json:"userFName"`
+	UserLName string  `json:"userLName"`
 }
