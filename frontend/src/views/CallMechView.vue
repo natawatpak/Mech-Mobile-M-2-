@@ -9,7 +9,7 @@
 import HomePage from '@/components/HomePage.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'CallMechView',
   components: {
     HomePage
   }
