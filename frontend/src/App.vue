@@ -1,56 +1,10 @@
 <template>
-  <div id="app" class="container">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 py-5">
-        <h1>Generate a thumbnail of a Pokemon</h1>
-
-        <form v-on:submit.prevent="makeWebsiteThumbnail">
-          <div class="form-group">
-            <input
-              v-model="websiteUrl"
-              type="text"
-              id="website-input"
-              placeholder="Enter a Pokemon No."
-              class="form-control"
-            />
-          </div>
-          <div class="form-group">
-            <button class="btn btn-primary">Generate!</button>
-          </div>
-        </form>
-        <img :src="thumbnailUrl"/>
-      </div>
-    </div>
-  </div>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </nav>
+  <router-view/>
 </template>
-
-<script>
-import axios from "axios";
-
-export default {
-  name: "App",
-
-  data() {
-    return {
-      websiteUrl: "",
-      thumbnailUrl: "",
-    };
-  },
-
-  methods: {
-    makeWebsiteThumbnail() {
-      axios
-        .get("https://pokeapi.co/api/v2/pokemon/" + this.websiteUrl)
-        .then((response) => {
-          this.thumbnailUrl = response.data.sprites.front_default;
-        })
-        .catch((error) => {
-          window.alert(`The API returned an error: ${error}`);
-        });
-    },
-  },
-};
-</script>
 
 <style>
 #app {
@@ -59,6 +13,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
