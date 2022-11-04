@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <HomePage/>
+    <CallMech/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HomePage from '@/components/HomePage.vue'
+import CallMech from '@/components/CallMech.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'CallMechView',
   components: {
-    HomePage
+    CallMech
   }
 }
 </script>
