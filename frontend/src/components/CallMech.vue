@@ -14,7 +14,8 @@
       </section>
     </v-card>
     <v-spacer class="my-5"></v-spacer>
-    <v-card variant="tonal" class="text-left pa-4">
+
+    <v-card variant="tonal" class="text-left pa-4" @click="selectCarModal=true">
       <v-card-title>Car detail</v-card-title>
       <section>
         <v-card-text>
@@ -24,24 +25,33 @@
         </v-card-text>
       </section>
     </v-card>
+
+    <v-dialog v-model="selectCarModal">
+      <v-card>
+        <v-card-text v-for="(car,index) in cars" :key="index" @click="selectCar(car)">
+          {{car.brand}} : {{car.plate}}
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <v-spacer class="my-5"></v-spacer>
     <v-card variant="tonal" class="text-left pa-4">
       <v-card-title>Problem {{problem}}</v-card-title>
       <v-card-text class="d-flex">
         <v-list>
-          <v-list-item>
+          <v-list-item class="pa-0 ma-0">
             <v-checkbox v-model="problem" value="1" label="Problem1"></v-checkbox>
           </v-list-item>
-          <v-list-item>
+          <v-list-item class="pa-0 ma-0">
             <v-checkbox v-model="problem" value="3" label="Problem3"></v-checkbox>
           </v-list-item>
         </v-list>
 
         <v-list>
-          <v-list-item>
+          <v-list-item class="pa-0 ma-0">
             <v-checkbox v-model="problem" value="2" label="Problem2"></v-checkbox>
           </v-list-item>
-          <v-list-item>
+          <v-list-item class="pa-0 ma-0">
             <v-checkbox v-model="problem" value="4" label="Problem4"></v-checkbox>
           </v-list-item>
         </v-list>
@@ -59,7 +69,11 @@
       ></v-textarea>
     </v-container>
     <v-spacer class="my-5"></v-spacer>
-    <v-file-input counter show-size truncate-length="20"></v-file-input>
+    <v-file-input counter v-model="files" multiple show-size truncate-length="20"></v-file-input>
+    <v-spacer class="my-5"></v-spacer>
+    <section class="text-center">
+      <router-link to="/loading"><v-btn>Find Service</v-btn></router-link>
+    </section>
   </div>
 </template>
 
@@ -70,9 +84,16 @@ export default {
     return {
       map: null,
       currentLocation: { lat: 0, lng: 0 },
-      car: { type: "SUV", brand: "MG", plate: "ก2113" },
+      car: { id:"1", type: "SUV", brand: "MG", plate: "ก2113" },
+      cars: [
+        { id:"1", type: "SUV", brand: "MG", plate: "ก2113" },
+        { id:"2", type: "Sedan", brand: "MG", plate: "ก4113" },
+        { id:"3", type: "Van", brand: "MG", plate: "ก8113" }
+      ],
+      selectCarModal: false,
       problem: [],
-      description: undefined
+      description: undefined,
+      files: []
     };
   },
   mounted() {
@@ -120,6 +141,10 @@ export default {
           color: "#FFF"
         }
       });
+    },
+    selectCar(car){
+      this.car = car
+      this.selectCarModal = false
     }
   }
 };

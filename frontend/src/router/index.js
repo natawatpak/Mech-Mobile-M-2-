@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import LoadingView from '../views/LoadingView.vue'
 
 const routes = [
   {
@@ -19,6 +20,16 @@ const routes = [
     path: '/callmech',
     name: 'callmech',
     component: () => import('../views/CallMechView.vue')
+  },
+  {
+    path: '/loading',
+    name: 'loading',
+    component: LoadingView
+  },
+  {
+    path: '/progress',
+    name: 'progress',
+    component: () => import('../views/ProgressView.vue')
   }
 ]
 
