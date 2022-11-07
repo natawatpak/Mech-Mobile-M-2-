@@ -7,6 +7,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/sqlitedialect"
 	"github.com/uptrace/bun/driver/sqliteshim"
@@ -27,53 +28,146 @@ func NewDBOperator(dbName string) (*SQLop, error) {
 		bundebug.FromEnv("BUNDEBUG"),
 	))
 	return &SQLop{
-		userModel: new(model.User),
-		db:        db,
+		cusModel: new(model.Customer),
+		db:       db,
 	}, err
 }
 
-func (op *SQLop) CreateCountryTable(ctx context.Context) (sql.Result, error) {
-	sqlResult, err := op.db.NewCreateTable().
-		Model((*model.Country)(nil)).
+func (op *SQLop) DropAllTable(ctx context.Context) (sql.Result, error) {
+	sqlDeleteCustomer, err := op.db.NewDropTable().
+		Model((*model.Customer)(nil)).
+		IfExists().
 		Exec(ctx)
-	return sqlResult, err
-}
-
-func (op *SQLop) CountryCreate(ctx context.Context, countryInput *model.CountryCreateInput) (*model.Country, error) {
-	userToBeAdd := model.Country{
-		Code:      countryInput.Code,
-		Name:      countryInput.Name,
-		Continent: countryInput.Continent,
+	if util.CheckErr(err) {
+		return sqlDeleteCustomer, err
 	}
-	_, err := op.db.NewInsert().Model(&userToBeAdd).Exec(ctx)
-	return &userToBeAdd, err
-}
-
-func (op *SQLop) CreateUserTable(ctx context.Context) (sql.Result, error) {
-	sqlResult, err := op.db.NewCreateTable().
-		Model((*model.User)(nil)).
-		ForeignKey(`("country_code") REFERENCES Country ("Code") ON DELETE CASCADE`).
+	sqlDeleteCar, err := op.db.NewDropTable().
+		Model((*model.Car)(nil)).
+		IfExists().
 		Exec(ctx)
-	return sqlResult, err
+	if util.CheckErr(err) {
+		return sqlDeleteCar, err
+	}
+	sqlDeleteShop, err := op.db.NewDropTable().
+		Model((*model.Shop)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlDeleteShop, err
+	}
+	sqlDeleteShopService, err := op.db.NewDropTable().
+		Model((*model.ShopService)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlDeleteShopService, err
+	}
+	sqlDeleteService, err := op.db.NewDropTable().
+		Model((*model.Service)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlDeleteService, err
+	}
+	sqlDeleteTicketService, err := op.db.NewDropTable().
+		Model((*model.TicketService)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlDeleteTicketService, err
+	}
+	sqlDeleteActiveTicket, err := op.db.NewDropTable().
+		Model((*model.ActiveTicket)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlDeleteActiveTicket, err
+	}
+	sqlDeleteTicket, err := op.db.NewDropTable().
+		Model((*model.Ticket)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlDeleteTicket, err
+	}
+	return sqlDeleteTicket, err
 }
 
-func (op *SQLop) UserCreate(ctx context.Context, userInput *model.UserCreateInput) (*model.User, error) {
+func (op *SQLop) CreateAllTables(ctx context.Context) (sql.Result, error) {
+	sqlResultCus, err := op.db.NewCreateTable().
+		Model((*model.Customer)(nil)).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlResultCus, err
+	}
+	sqlResultCar, err := op.db.NewCreateTable().
+		Model((*model.Car)(nil)).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlResultCar, err
+	}
+	sqlResultShop, err := op.db.NewCreateTable().
+		Model((*model.Shop)(nil)).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlResultShop, err
+	}
+	sqlResultShopService, err := op.db.NewCreateTable().
+		Model((*model.ShopService)(nil)).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlResultShopService, err
+	}
+	sqlResultService, err := op.db.NewCreateTable().
+		Model((*model.Service)(nil)).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlResultService, err
+	}
+	sqlResultTicketService, err := op.db.NewCreateTable().
+		Model((*model.TicketService)(nil)).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlResultTicketService, err
+	}
+	sqlResultActiveTicket, err := op.db.NewCreateTable().
+		Model((*model.ActiveTicket)(nil)).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlResultActiveTicket, err
+	}
+	sqlResultTicket, err := op.db.NewCreateTable().
+		Model((*model.Ticket)(nil)).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlResultTicket, err
+	}
+
+	sqlIndexResult, err := op.db.NewCreateIndex().
+		Model((*model.Ticket)(nil)).
+		Index("ticket_index_0").
+		Column("customerId", "carId").
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return sqlIndexResult, err
+	}
+
+	return sqlIndexResult, err
+}
+
+func (op *SQLop) CustomerCreate(ctx context.Context, cusInput *model.CustomerCreateInput) (*model.Customer, error) {
 	newID := uuid.New().String()
-	userToBeAdd := model.User{
-		ID:          newID,
-		FName:       userInput.FName,
-		Email:       userInput.Email,
-		Gender:      userInput.Gender,
-		DoB:         userInput.DoB,
-		CountryCode: userInput.CountryCode,
-		CreateTime:  userInput.CreateTime,
+	cusToBeAdd := model.Customer{
+		ID:    newID,
+		FName: cusInput.FName,
+		Email: cusInput.Email,
 	}
-	_, err := op.db.NewInsert().Model(&userToBeAdd).Exec(ctx)
-	return &userToBeAdd, err
+	_, err := op.db.NewInsert().Model(&cusToBeAdd).Exec(ctx)
+	return &cusToBeAdd, err
 }
 
-func (op *SQLop) UserList(ctx context.Context) ([]*model.User, error) {
-	user := new([]*model.User)
-	err := op.db.NewSelect().Model(user).Scan(ctx, user)
-	return *user, err
+func (op *SQLop) CustomerList(ctx context.Context) ([]*model.Customer, error) {
+	customer := new([]*model.Customer)
+	err := op.db.NewSelect().Model(customer).Scan(ctx, customer)
+	return *customer, err
 }

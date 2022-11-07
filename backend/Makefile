@@ -13,3 +13,6 @@ gen:
 
 server:
 	go run main.go
+
+backup:
+	cd graph/model && ls && cp models_gen.go backup
