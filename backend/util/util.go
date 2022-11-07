@@ -7,6 +7,13 @@ import (
 
 const alphanumeric string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
+func CheckErr(err error) bool {
+	if err != nil {
+		return true
+	}
+	return false
+}
+
 func RandomBoolean() bool {
 	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(2) == 1

@@ -8,16 +8,20 @@ import (
 )
 
 type SQLop struct {
-	db            *bun.DB
-	userModel     *model.User
-	countryModel  *model.Country
-	merchantModel *model.Merchant
-	orderModel    *model.Order
-	productModel  *model.Product
+	db           *bun.DB
+	cusModel     *model.Customer
+	carModel     *model.Car
+	ticketModel  *model.Ticket
+	shopModel    *model.Shop
+	serviceModel *model.Service
+
+	shopService   *model.ShopService
+	activeTicket  *model.ActiveTicket
+	ticketService *model.TicketService
 }
 
 type DatabaseOp interface {
-	UserCreate(ctx context.Context, userInput *model.UserCreateInput) (*model.User, error)
+	CustomerCreate(ctx context.Context, userInput *model.CustomerCreateInput) (*model.Customer, error)
 
-	UserList(ctx context.Context) ([]*model.User, error)
+	CustomerList(ctx context.Context) ([]*model.Customer, error)
 }

@@ -45,7 +45,7 @@ type CarCreateInput struct {
 }
 
 type Customer struct {
-	ID    string `json:"ID" bun:"id,rel:has-many,join:id=owner_id,pk"`
+	ID    string `json:"ID" bun:"id,pk"`
 	FName string `json:"fName" bun:",notnull"`
 	LName string `json:"lName" bun:",notnull"`
 	Tel   string `json:"tel" bun:",notnull"`
