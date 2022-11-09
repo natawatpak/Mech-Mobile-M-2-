@@ -5,12 +5,13 @@ import (
 	"database/sql"
 	"fmt"
 
+	_ "github.com/lib/pq"
+
 	"github.com/google/uuid"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 	"github.com/uptrace/bun"
-	"github.com/uptrace/bun/dialect/sqlitedialect"
-	"github.com/uptrace/bun/driver/sqliteshim"
+	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/extra/bundebug"
 )
 
@@ -20,20 +21,22 @@ func PrintIfErrorExist(err error) {
 	}
 }
 
-func NewDBOperator(dbName string) (*SQLop, error) {
-	sqldb, err := sql.Open(sqliteshim.ShimName, dbName)
-	db := bun.NewDB(sqldb, sqlitedialect.New())
-	db.AddQueryHook(bundebug.NewQueryHook(
+func NewDBOperator(inDSN string) (*SQLop, error) {
+	db, err := sql.Open("postgres", inDSN)
+	bunDB := bun.NewDB(db, pgdialect.New())
+	bunDB.AddQueryHook(bundebug.NewQueryHook(
 		bundebug.WithVerbose(true),
 		bundebug.FromEnv("BUNDEBUG"),
 	))
+	err = db.Ping()
+	util.CheckErr(err)
 	return &SQLop{
 		cusModel: new(model.Customer),
-		db:       db,
+		db:       bunDB,
 	}, err
 }
 
-func (op *SQLop) DropAllTable(ctx context.Context) (sql.Result, error) {
+func (op *SQLop) CreateTables(ctx context.Context) (sql.Result, error) {
 	sqlDeleteCustomer, err := op.db.NewDropTable().
 		Model((*model.Customer)(nil)).
 		IfExists().
@@ -90,10 +93,7 @@ func (op *SQLop) DropAllTable(ctx context.Context) (sql.Result, error) {
 	if util.CheckErr(err) {
 		return sqlDeleteTicket, err
 	}
-	return sqlDeleteTicket, err
-}
 
-func (op *SQLop) CreateAllTables(ctx context.Context) (sql.Result, error) {
 	sqlResultCus, err := op.db.NewCreateTable().
 		Model((*model.Customer)(nil)).
 		Exec(ctx)
@@ -146,7 +146,7 @@ func (op *SQLop) CreateAllTables(ctx context.Context) (sql.Result, error) {
 	sqlIndexResult, err := op.db.NewCreateIndex().
 		Model((*model.Ticket)(nil)).
 		Index("ticket_index_0").
-		Column("customerId", "carId").
+		Column("customer_id", "car_id").
 		Exec(ctx)
 	if util.CheckErr(err) {
 		return sqlIndexResult, err

@@ -35,10 +35,7 @@ func testSetup(dbName string) (context.Context, *resource.SQLop) {
 func TestTableCreateFunc(t *testing.T) {
 	ctx, operator := testSetup("sql.DB")
 
-	dropResult, err := operator.DropAllTable(ctx)
-	println(dropResult)
-	println(err)
-	createResult, err := operator.CreateAllTables(ctx)
+	createResult, err := operator.CreateTables(ctx)
 	println(createResult)
 	println(err)
 }

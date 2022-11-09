@@ -47,6 +47,7 @@ type ComplexityRoot struct {
 	Mutation struct {
 		ActiveTicketCreate  func(childComplexity int, input model.ActiveTicketCreateInput) int
 		CarCreate           func(childComplexity int, input model.CarCreateInput) int
+		CreateTable         func(childComplexity int) int
 		CustomerCreate      func(childComplexity int, input model.CustomerCreateInput) int
 		ServiceCreate       func(childComplexity int, input model.ServiceCreateInput) int
 		ShopCreate          func(childComplexity int, input model.ShopCreateInput) int
@@ -131,6 +132,7 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
+	CreateTable(ctx context.Context) (*model.Customer, error)
 	CustomerCreate(ctx context.Context, input model.CustomerCreateInput) (*model.Customer, error)
 	CarCreate(ctx context.Context, input model.CarCreateInput) (*model.Car, error)
 	TicketCreate(ctx context.Context, input model.TicketCreateInput) (*model.Ticket, error)
@@ -189,6 +191,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.CarCreate(childComplexity, args["input"].(model.CarCreateInput)), true
+
+	case "Mutation.createTable":
+		if e.complexity.Mutation.CreateTable == nil {
+			break
+		}
+
+		return e.complexity.Mutation.CreateTable(childComplexity), true
 
 	case "Mutation.customerCreate":
 		if e.complexity.Mutation.CustomerCreate == nil {
@@ -684,6 +693,8 @@ type Query {
 }
 
 type Mutation {
+  createTable: customer
+
   customerCreate(input: customerCreateInput!): customer!
   carCreate(input: carCreateInput!): car!
   ticketCreate(input: ticketCreateInput!): ticket!
@@ -1000,6 +1011,59 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 // endregion ************************** directives.gotpl **************************
 
 // region    **************************** field.gotpl *****************************
+
+func (ec *executionContext) _Mutation_createTable(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_createTable(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().CreateTable(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.Customer)
+	fc.Result = res
+	return ec.marshalOcustomer2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomer(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_createTable(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ID":
+				return ec.fieldContext_customer_ID(ctx, field)
+			case "fName":
+				return ec.fieldContext_customer_fName(ctx, field)
+			case "lName":
+				return ec.fieldContext_customer_lName(ctx, field)
+			case "tel":
+				return ec.fieldContext_customer_tel(ctx, field)
+			case "email":
+				return ec.fieldContext_customer_email(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type customer", field.Name)
+		},
+	}
+	return fc, nil
+}
 
 func (ec *executionContext) _Mutation_customerCreate(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Mutation_customerCreate(ctx, field)
@@ -6098,6 +6162,12 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Mutation")
+		case "createTable":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_createTable(ctx, field)
+			})
+
 		case "customerCreate":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
@@ -8226,6 +8296,13 @@ func (ec *executionContext) marshalO__Type2ᚖgithubᚗcomᚋ99designsᚋgqlgen�
 		return graphql.Null
 	}
 	return ec.___Type(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOcustomer2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomer(ctx context.Context, sel ast.SelectionSet, v *model.Customer) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._customer(ctx, sel, v)
 }
 
 // endregion ***************************** type.gotpl *****************************

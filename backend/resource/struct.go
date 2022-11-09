@@ -2,6 +2,7 @@ package resource
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 	"github.com/uptrace/bun"
@@ -21,6 +22,8 @@ type SQLop struct {
 }
 
 type DatabaseOp interface {
+	CreateTables(ctx context.Context) (sql.Result, error)
+
 	CustomerCreate(ctx context.Context, userInput *model.CustomerCreateInput) (*model.Customer, error)
 
 	CustomerList(ctx context.Context) ([]*model.Customer, error)
