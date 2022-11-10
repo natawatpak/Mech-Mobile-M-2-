@@ -17,16 +17,10 @@ server:
 backup:
 	cd graph/model && ls && cp models_gen.go backup
 
-dockerBuildUP:
-	docker-compose up --build
-
-dockerDown:
-	docker-compose down
-
 dockerUp:
 	docker run --name postgres -e POSTGRES_PASSWORD=Eauu0244 -p 5432:5432 -d postgres
 
 
 dockerClear:
-	docker kill $(docker ps -q)
-	docker rm $(docker ps -a -q)
+	docker kill $$(docker ps -q)
+	docker rm $$(docker ps -a -q)
