@@ -11,6 +11,12 @@ import (
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 )
 
+// CreateTable is the resolver for the createTable field.
+func (r *mutationResolver) CreateTable(ctx context.Context) (*model.Customer, error) {
+	_, err := r.DB.CreateTables(ctx)
+	return nil, err
+}
+
 // CustomerCreate is the resolver for the customerCreate field.
 func (r *mutationResolver) CustomerCreate(ctx context.Context, input model.CustomerCreateInput) (*model.Customer, error) {
 	panic(fmt.Errorf("not implemented: CustomerCreate - customerCreate"))
