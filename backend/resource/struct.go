@@ -2,7 +2,6 @@ package resource
 
 import (
 	"context"
-	"database/sql"
 
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 	"github.com/uptrace/bun"
@@ -22,9 +21,13 @@ type SQLop struct {
 }
 
 type DatabaseOp interface {
-	CreateTables(ctx context.Context) (sql.Result, error)
+	DropTable(ctx context.Context) (bool, error)
+	CreateTables(ctx context.Context) (bool, error)
 
 	CustomerCreate(ctx context.Context, userInput *model.CustomerCreateInput) (*model.Customer, error)
-
+	CustomerUpdateMulti(ctx context.Context, updateInput model.Customer) ([]*model.Customer, error)
+	CustomerDelete(ctx context.Context, ID string) (*model.Customer, error)
+	CustomerDeleteAll(ctx context.Context) ([]*model.Customer, error)
+	CustomerFindByID(ctx context.Context, ID string) ([]*model.Customer, error)
 	CustomerList(ctx context.Context) ([]*model.Customer, error)
 }

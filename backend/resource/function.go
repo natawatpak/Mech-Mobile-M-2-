@@ -36,123 +36,154 @@ func NewDBOperator(inDSN string) (*SQLop, error) {
 	}, err
 }
 
-func (op *SQLop) CreateTables(ctx context.Context) (sql.Result, error) {
-	sqlDeleteCustomer, err := op.db.NewDropTable().
-		Model((*model.Customer)(nil)).
-		IfExists().
-		Exec(ctx)
-	if util.CheckErr(err) {
-		return sqlDeleteCustomer, err
-	}
-	sqlDeleteCar, err := op.db.NewDropTable().
-		Model((*model.Car)(nil)).
-		IfExists().
-		Exec(ctx)
-	if util.CheckErr(err) {
-		return sqlDeleteCar, err
-	}
-	sqlDeleteShop, err := op.db.NewDropTable().
-		Model((*model.Shop)(nil)).
-		IfExists().
-		Exec(ctx)
-	if util.CheckErr(err) {
-		return sqlDeleteShop, err
-	}
-	sqlDeleteShopService, err := op.db.NewDropTable().
-		Model((*model.ShopService)(nil)).
-		IfExists().
-		Exec(ctx)
-	if util.CheckErr(err) {
-		return sqlDeleteShopService, err
-	}
-	sqlDeleteService, err := op.db.NewDropTable().
-		Model((*model.Service)(nil)).
-		IfExists().
-		Exec(ctx)
-	if util.CheckErr(err) {
-		return sqlDeleteService, err
-	}
-	sqlDeleteTicketService, err := op.db.NewDropTable().
+func (op *SQLop) DropTable(ctx context.Context) (bool, error) {
+	//ticket service
+	_, err := op.db.NewDropTable().
 		Model((*model.TicketService)(nil)).
 		IfExists().
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlDeleteTicketService, err
+		return false, err
 	}
-	sqlDeleteActiveTicket, err := op.db.NewDropTable().
+	//active ticket
+	_, err = op.db.NewDropTable().
 		Model((*model.ActiveTicket)(nil)).
 		IfExists().
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlDeleteActiveTicket, err
+		return false, err
 	}
-	sqlDeleteTicket, err := op.db.NewDropTable().
+	//ticket
+	_, err = op.db.NewDropTable().
 		Model((*model.Ticket)(nil)).
 		IfExists().
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlDeleteTicket, err
+		return false, err
 	}
+	//shop Service
+	_, err = op.db.NewDropTable().
+		Model((*model.ShopService)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	//service
+	_, err = op.db.NewDropTable().
+		Model((*model.Service)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	//shop
+	_, err = op.db.NewDropTable().
+		Model((*model.Shop)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	//car
+	_, err = op.db.NewDropTable().
+		Model((*model.Car)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	//customer
+	_, err = op.db.NewDropTable().
+		Model((*model.Customer)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	return true, nil
+}
 
-	sqlResultCus, err := op.db.NewCreateTable().
+func (op *SQLop) CreateTables(ctx context.Context) (bool, error) {
+	// customer
+	_, err := op.db.NewCreateTable().
 		Model((*model.Customer)(nil)).
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlResultCus, err
+		return false, err
 	}
-	sqlResultCar, err := op.db.NewCreateTable().
+	//car
+	_, err = op.db.NewCreateTable().
 		Model((*model.Car)(nil)).
+		ForeignKey(`("owner_id") REFERENCES "customers" ("id") ON DELETE CASCADE`).
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlResultCar, err
+		return false, err
 	}
-	sqlResultShop, err := op.db.NewCreateTable().
+	//shop
+	_, err = op.db.NewCreateTable().
 		Model((*model.Shop)(nil)).
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlResultShop, err
+		return false, err
 	}
-	sqlResultShopService, err := op.db.NewCreateTable().
-		Model((*model.ShopService)(nil)).
-		Exec(ctx)
-	if util.CheckErr(err) {
-		return sqlResultShopService, err
-	}
-	sqlResultService, err := op.db.NewCreateTable().
+	//Service
+	_, err = op.db.NewCreateTable().
 		Model((*model.Service)(nil)).
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlResultService, err
+		return false, err
 	}
-	sqlResultTicketService, err := op.db.NewCreateTable().
-		Model((*model.TicketService)(nil)).
+	//shop service
+	_, err = op.db.NewCreateTable().
+		Model((*model.ShopService)(nil)).
+		ForeignKey(`("shop_id") REFERENCES "shops" ("id") ON DELETE CASCADE`).
+		ForeignKey(`("service_id") REFERENCES "services" ("id") ON DELETE CASCADE`).
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlResultTicketService, err
+		return false, err
 	}
-	sqlResultActiveTicket, err := op.db.NewCreateTable().
-		Model((*model.ActiveTicket)(nil)).
-		Exec(ctx)
-	if util.CheckErr(err) {
-		return sqlResultActiveTicket, err
-	}
-	sqlResultTicket, err := op.db.NewCreateTable().
+	//Ticket
+	_, err = op.db.NewCreateTable().
 		Model((*model.Ticket)(nil)).
+		ForeignKey(`("customer_id") REFERENCES "customers" ("id") ON DELETE CASCADE`).
+		ForeignKey(`("car_id") REFERENCES "cars" ("id") ON DELETE CASCADE`).
+		ForeignKey(`("shop_id") REFERENCES "shops" ("id") ON DELETE CASCADE`).
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlResultTicket, err
+		return false, err
 	}
-
-	sqlIndexResult, err := op.db.NewCreateIndex().
+	//Active Ticket
+	_, err = op.db.NewCreateTable().
+		Model((*model.ActiveTicket)(nil)).
+		ForeignKey(`("id") REFERENCES "tickets" ("id") ON DELETE CASCADE`).
+		ForeignKey(`("car_id") REFERENCES "cars" ("id") ON DELETE CASCADE`).
+		ForeignKey(`("customer_id") REFERENCES "customers" ("id") ON DELETE CASCADE`).
+		ForeignKey(`("shop_id") REFERENCES "shops" ("id") ON DELETE CASCADE`).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	//Ticket Service
+	_, err = op.db.NewCreateTable().
+		Model((*model.TicketService)(nil)).
+		ForeignKey(`("ticket_id") REFERENCES "tickets" ("id") ON DELETE CASCADE`).
+		ForeignKey(`("service_id") REFERENCES "services" ("id") ON DELETE CASCADE`).
+		ForeignKey(`("ticket_id") REFERENCES "active_tickets" ("id") ON DELETE CASCADE`).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	_, err = op.db.NewCreateIndex().
 		Model((*model.Ticket)(nil)).
 		Index("ticket_index_0").
 		Column("customer_id", "car_id").
 		Exec(ctx)
 	if util.CheckErr(err) {
-		return sqlIndexResult, err
+		return false, err
 	}
 
-	return sqlIndexResult, err
+	return true, err
 }
 
 func (op *SQLop) CustomerCreate(ctx context.Context, cusInput *model.CustomerCreateInput) (*model.Customer, error) {
@@ -160,14 +191,51 @@ func (op *SQLop) CustomerCreate(ctx context.Context, cusInput *model.CustomerCre
 	cusToBeAdd := model.Customer{
 		ID:    newID,
 		FName: cusInput.FName,
+		LName: cusInput.LName,
+		Tel:   cusInput.Tel,
 		Email: cusInput.Email,
 	}
 	_, err := op.db.NewInsert().Model(&cusToBeAdd).Exec(ctx)
 	return &cusToBeAdd, err
 }
 
+func (op *SQLop) CustomerUpdateMulti(ctx context.Context, updateInput model.Customer) ([]*model.Customer, error) {
+	_, err := op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
+	resultCustomer, _ := op.CustomerFindByID(ctx, updateInput.ID)
+	return resultCustomer, err
+}
+
+func (op *SQLop) CustomerDelete(ctx context.Context, ID string) (*model.Customer, error) {
+	resultCustomer, err := op.CustomerFindByID(ctx, ID)
+	PrintIfErrorExist(err)
+	_, err = op.db.NewDelete().Model(op.cusModel).Where("id = ?", ID).Exec(ctx)
+	targetID := -1
+	for i, v := range resultCustomer {
+		if ID == v.ID {
+			targetID = i
+		}
+	}
+	return resultCustomer[targetID], err
+}
+
+func (op *SQLop) CustomerDeleteAll(ctx context.Context) ([]*model.Customer, error) {
+	cusArr, err := op.CustomerList(ctx)
+	PrintIfErrorExist(err)
+	for _, v := range cusArr {
+		_, err := op.CustomerDelete(ctx, v.ID)
+		PrintIfErrorExist(err)
+	}
+	return cusArr, err
+}
+
+func (op *SQLop) CustomerFindByID(ctx context.Context, ID string) ([]*model.Customer, error) {
+	arrModel := new([]*model.Customer)
+	err := op.db.NewSelect().Model(op.cusModel).Where("id = ?", ID).Scan(ctx, arrModel)
+	return *arrModel, err
+}
+
 func (op *SQLop) CustomerList(ctx context.Context) ([]*model.Customer, error) {
 	customer := new([]*model.Customer)
-	err := op.db.NewSelect().Model(customer).Scan(ctx, customer)
+	err := op.db.NewSelect().Model(op.cusModel).Scan(ctx, customer)
 	return *customer, err
 }

@@ -2,6 +2,10 @@
 
 package model
 
+type DeleteIDInput struct {
+	ID string `json:"ID"`
+}
+
 type ActiveTicket struct {
 	ID         string `json:"ID" bun:"id,pk"`
 	CarID      string `json:"carID" bun:",unique"`
@@ -58,6 +62,14 @@ type CustomerCreateInput struct {
 	LName string  `json:"lName"`
 	Tel   string  `json:"tel"`
 	Email string  `json:"email"`
+}
+
+type CustomerUpdateInput struct {
+	ID    string `json:"ID"`
+	FName string `json:"fName"`
+	LName string `json:"lName"`
+	Tel   string `json:"tel"`
+	Email string `json:"email"`
 }
 
 type Service struct {

@@ -9,17 +9,52 @@ import (
 
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
+// DropTable is the resolver for the dropTable field.
+func (r *mutationResolver) DropTable(ctx context.Context) (bool, error) {
+	_, err := r.DB.DropTable(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	return true, err
+}
+
 // CreateTable is the resolver for the createTable field.
-func (r *mutationResolver) CreateTable(ctx context.Context) (*model.Customer, error) {
+func (r *mutationResolver) CreateTable(ctx context.Context) (bool, error) {
 	_, err := r.DB.CreateTables(ctx)
-	return nil, err
+	if util.CheckErr(err) {
+		return false, err
+	}
+	return true, err
 }
 
 // CustomerCreate is the resolver for the customerCreate field.
 func (r *mutationResolver) CustomerCreate(ctx context.Context, input model.CustomerCreateInput) (*model.Customer, error) {
-	panic(fmt.Errorf("not implemented: CustomerCreate - customerCreate"))
+	if input.ID != nil {
+		return nil, fmt.Errorf("id must be null")
+	}
+	returnCustomer, err := r.DB.CustomerCreate(ctx, &input)
+	return returnCustomer, err
+}
+
+// CustomerUpdateMulti is the resolver for the customerUpdateMulti field.
+func (r *mutationResolver) CustomerUpdateMulti(ctx context.Context, input model.CustomerUpdateInput) ([]*model.Customer, error) {
+	result, err := r.DB.CustomerUpdateMulti(ctx, model.Customer(input))
+	return result, err
+}
+
+// CustomerDelete is the resolver for the customerDelete field.
+func (r *mutationResolver) CustomerDelete(ctx context.Context, input model.DeleteIDInput) (*model.Customer, error) {
+	result, err := r.DB.CustomerDelete(ctx, input.ID)
+	return result, err
+}
+
+// CustomerDeleteAll is the resolver for the customerDeleteAll field.
+func (r *mutationResolver) CustomerDeleteAll(ctx context.Context) ([]*model.Customer, error) {
+	result, err := r.DB.CustomerDeleteAll(ctx)
+	return result, err
 }
 
 // CarCreate is the resolver for the carCreate field.
@@ -59,7 +94,8 @@ func (r *mutationResolver) TicketServiceCreate(ctx context.Context, input model.
 
 // Customer is the resolver for the customer field.
 func (r *queryResolver) Customer(ctx context.Context) ([]*model.Customer, error) {
-	panic(fmt.Errorf("not implemented: Customer - customer"))
+	result, err := r.DB.CustomerList(ctx)
+	return result, err
 }
 
 // Car is the resolver for the car field.

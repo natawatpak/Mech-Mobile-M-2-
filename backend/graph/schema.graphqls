@@ -15,9 +15,14 @@ type Query {
 }
 
 type Mutation {
-  createTable: customer
+  dropTable: Boolean!
+  createTable: Boolean!
 
   customerCreate(input: customerCreateInput!): customer!
+  customerUpdateMulti(input: customerUpdateInput!): [customer!]
+  customerDelete(input: DeleteIDInput!): customer!
+  customerDeleteAll: [customer!]
+
   carCreate(input: carCreateInput!): car!
   ticketCreate(input: ticketCreateInput!): ticket!
   shopCreate(input: shopCreateInput!): shop!
@@ -26,6 +31,10 @@ type Mutation {
   shopServiceCreate(input: shopServiceCreateInput!): shopService!
   activeTicketCreate(input: activeTicketCreateInput!): activeTicket!
   ticketServiceCreate(input: ticketServiceCreateInput!): ticketService!
+}
+
+input DeleteIDInput {
+  ID: ID!
 }
 
 type customer {
@@ -38,6 +47,14 @@ type customer {
 
 input customerCreateInput {
   ID: ID
+  fName: String!
+  lName: String!
+  tel: String!
+  email: String!
+}
+
+input customerUpdateInput {
+  ID: ID!
   fName: String!
   lName: String!
   tel: String!

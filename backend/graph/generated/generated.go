@@ -49,6 +49,10 @@ type ComplexityRoot struct {
 		CarCreate           func(childComplexity int, input model.CarCreateInput) int
 		CreateTable         func(childComplexity int) int
 		CustomerCreate      func(childComplexity int, input model.CustomerCreateInput) int
+		CustomerDelete      func(childComplexity int, input model.DeleteIDInput) int
+		CustomerDeleteAll   func(childComplexity int) int
+		CustomerUpdateMulti func(childComplexity int, input model.CustomerUpdateInput) int
+		DropTable           func(childComplexity int) int
 		ServiceCreate       func(childComplexity int, input model.ServiceCreateInput) int
 		ShopCreate          func(childComplexity int, input model.ShopCreateInput) int
 		ShopServiceCreate   func(childComplexity int, input model.ShopServiceCreateInput) int
@@ -132,8 +136,12 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreateTable(ctx context.Context) (*model.Customer, error)
+	DropTable(ctx context.Context) (bool, error)
+	CreateTable(ctx context.Context) (bool, error)
 	CustomerCreate(ctx context.Context, input model.CustomerCreateInput) (*model.Customer, error)
+	CustomerUpdateMulti(ctx context.Context, input model.CustomerUpdateInput) ([]*model.Customer, error)
+	CustomerDelete(ctx context.Context, input model.DeleteIDInput) (*model.Customer, error)
+	CustomerDeleteAll(ctx context.Context) ([]*model.Customer, error)
 	CarCreate(ctx context.Context, input model.CarCreateInput) (*model.Car, error)
 	TicketCreate(ctx context.Context, input model.TicketCreateInput) (*model.Ticket, error)
 	ShopCreate(ctx context.Context, input model.ShopCreateInput) (*model.Shop, error)
@@ -210,6 +218,44 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.CustomerCreate(childComplexity, args["input"].(model.CustomerCreateInput)), true
+
+	case "Mutation.customerDelete":
+		if e.complexity.Mutation.CustomerDelete == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_customerDelete_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.CustomerDelete(childComplexity, args["input"].(model.DeleteIDInput)), true
+
+	case "Mutation.customerDeleteAll":
+		if e.complexity.Mutation.CustomerDeleteAll == nil {
+			break
+		}
+
+		return e.complexity.Mutation.CustomerDeleteAll(childComplexity), true
+
+	case "Mutation.customerUpdateMulti":
+		if e.complexity.Mutation.CustomerUpdateMulti == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_customerUpdateMulti_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.CustomerUpdateMulti(childComplexity, args["input"].(model.CustomerUpdateInput)), true
+
+	case "Mutation.dropTable":
+		if e.complexity.Mutation.DropTable == nil {
+			break
+		}
+
+		return e.complexity.Mutation.DropTable(childComplexity), true
 
 	case "Mutation.serviceCreate":
 		if e.complexity.Mutation.ServiceCreate == nil {
@@ -608,9 +654,11 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	rc := graphql.GetOperationContext(ctx)
 	ec := executionContext{rc, e}
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
+		ec.unmarshalInputDeleteIDInput,
 		ec.unmarshalInputactiveTicketCreateInput,
 		ec.unmarshalInputcarCreateInput,
 		ec.unmarshalInputcustomerCreateInput,
+		ec.unmarshalInputcustomerUpdateInput,
 		ec.unmarshalInputserviceCreateInput,
 		ec.unmarshalInputshopCreateInput,
 		ec.unmarshalInputshopServiceCreateInput,
@@ -693,9 +741,14 @@ type Query {
 }
 
 type Mutation {
-  createTable: customer
+  dropTable: Boolean!
+  createTable: Boolean!
 
   customerCreate(input: customerCreateInput!): customer!
+  customerUpdateMulti(input: customerUpdateInput!): [customer!]
+  customerDelete(input: DeleteIDInput!): customer!
+  customerDeleteAll: [customer!]
+
   carCreate(input: carCreateInput!): car!
   ticketCreate(input: ticketCreateInput!): ticket!
   shopCreate(input: shopCreateInput!): shop!
@@ -704,6 +757,10 @@ type Mutation {
   shopServiceCreate(input: shopServiceCreateInput!): shopService!
   activeTicketCreate(input: activeTicketCreateInput!): activeTicket!
   ticketServiceCreate(input: ticketServiceCreateInput!): ticketService!
+}
+
+input DeleteIDInput {
+  ID: ID!
 }
 
 type customer {
@@ -716,6 +773,14 @@ type customer {
 
 input customerCreateInput {
   ID: ID
+  fName: String!
+  lName: String!
+  tel: String!
+  email: String!
+}
+
+input customerUpdateInput {
+  ID: ID!
   fName: String!
   lName: String!
   tel: String!
@@ -884,6 +949,36 @@ func (ec *executionContext) field_Mutation_customerCreate_args(ctx context.Conte
 	return args, nil
 }
 
+func (ec *executionContext) field_Mutation_customerDelete_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.DeleteIDInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNDeleteIDInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐDeleteIDInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_customerUpdateMulti_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.CustomerUpdateInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNcustomerUpdateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomerUpdateInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Mutation_serviceCreate_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -1012,6 +1107,50 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
+func (ec *executionContext) _Mutation_dropTable(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_dropTable(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().DropTable(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_dropTable(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Mutation_createTable(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Mutation_createTable(ctx, field)
 	if err != nil {
@@ -1033,11 +1172,14 @@ func (ec *executionContext) _Mutation_createTable(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Customer)
+	res := resTmp.(bool)
 	fc.Result = res
-	return ec.marshalOcustomer2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomer(ctx, field.Selections, res)
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createTable(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1047,19 +1189,7 @@ func (ec *executionContext) fieldContext_Mutation_createTable(ctx context.Contex
 		IsMethod:   true,
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			switch field.Name {
-			case "ID":
-				return ec.fieldContext_customer_ID(ctx, field)
-			case "fName":
-				return ec.fieldContext_customer_fName(ctx, field)
-			case "lName":
-				return ec.fieldContext_customer_lName(ctx, field)
-			case "tel":
-				return ec.fieldContext_customer_tel(ctx, field)
-			case "email":
-				return ec.fieldContext_customer_email(ctx, field)
-			}
-			return nil, fmt.Errorf("no field named %q was found under type customer", field.Name)
+			return nil, errors.New("field of type Boolean does not have child fields")
 		},
 	}
 	return fc, nil
@@ -1128,6 +1258,190 @@ func (ec *executionContext) fieldContext_Mutation_customerCreate(ctx context.Con
 	if fc.Args, err = ec.field_Mutation_customerCreate_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_customerUpdateMulti(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_customerUpdateMulti(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().CustomerUpdateMulti(rctx, fc.Args["input"].(model.CustomerUpdateInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*model.Customer)
+	fc.Result = res
+	return ec.marshalOcustomer2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomerᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_customerUpdateMulti(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ID":
+				return ec.fieldContext_customer_ID(ctx, field)
+			case "fName":
+				return ec.fieldContext_customer_fName(ctx, field)
+			case "lName":
+				return ec.fieldContext_customer_lName(ctx, field)
+			case "tel":
+				return ec.fieldContext_customer_tel(ctx, field)
+			case "email":
+				return ec.fieldContext_customer_email(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type customer", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_customerUpdateMulti_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_customerDelete(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_customerDelete(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().CustomerDelete(rctx, fc.Args["input"].(model.DeleteIDInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.Customer)
+	fc.Result = res
+	return ec.marshalNcustomer2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomer(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_customerDelete(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ID":
+				return ec.fieldContext_customer_ID(ctx, field)
+			case "fName":
+				return ec.fieldContext_customer_fName(ctx, field)
+			case "lName":
+				return ec.fieldContext_customer_lName(ctx, field)
+			case "tel":
+				return ec.fieldContext_customer_tel(ctx, field)
+			case "email":
+				return ec.fieldContext_customer_email(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type customer", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_customerDelete_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_customerDeleteAll(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_customerDeleteAll(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().CustomerDeleteAll(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*model.Customer)
+	fc.Result = res
+	return ec.marshalOcustomer2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomerᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_customerDeleteAll(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ID":
+				return ec.fieldContext_customer_ID(ctx, field)
+			case "fName":
+				return ec.fieldContext_customer_fName(ctx, field)
+			case "lName":
+				return ec.fieldContext_customer_lName(ctx, field)
+			case "tel":
+				return ec.fieldContext_customer_tel(ctx, field)
+			case "email":
+				return ec.fieldContext_customer_email(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type customer", field.Name)
+		},
 	}
 	return fc, nil
 }
@@ -5663,6 +5977,34 @@ func (ec *executionContext) fieldContext_ticketService_serviceID(ctx context.Con
 
 // region    **************************** input.gotpl *****************************
 
+func (ec *executionContext) unmarshalInputDeleteIDInput(ctx context.Context, obj interface{}) (model.DeleteIDInput, error) {
+	var it model.DeleteIDInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"ID"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "ID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
+			it.ID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputactiveTicketCreateInput(ctx context.Context, obj interface{}) (model.ActiveTicketCreateInput, error) {
 	var it model.ActiveTicketCreateInput
 	asMap := map[string]interface{}{}
@@ -5842,6 +6184,66 @@ func (ec *executionContext) unmarshalInputcustomerCreateInput(ctx context.Contex
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
 			it.ID, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "fName":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("fName"))
+			it.FName, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lName":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lName"))
+			it.LName, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tel":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tel"))
+			it.Tel, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "email":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
+			it.Email, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputcustomerUpdateInput(ctx context.Context, obj interface{}) (model.CustomerUpdateInput, error) {
+	var it model.CustomerUpdateInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"ID", "fName", "lName", "tel", "email"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "ID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
+			it.ID, err = ec.unmarshalNID2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -6162,12 +6564,24 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Mutation")
+		case "dropTable":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_dropTable(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "createTable":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_createTable(ctx, field)
 			})
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "customerCreate":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
@@ -6177,6 +6591,27 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "customerUpdateMulti":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_customerUpdateMulti(ctx, field)
+			})
+
+		case "customerDelete":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_customerDelete(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "customerDeleteAll":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_customerDeleteAll(ctx, field)
+			})
+
 		case "carCreate":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
@@ -7251,6 +7686,11 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
+func (ec *executionContext) unmarshalNDeleteIDInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐDeleteIDInput(ctx context.Context, v interface{}) (model.DeleteIDInput, error) {
+	res, err := ec.unmarshalInputDeleteIDInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {
 	res, err := graphql.UnmarshalID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -7720,6 +8160,11 @@ func (ec *executionContext) marshalNcustomer2ᚖgithubᚗcomᚋnatawatpakᚋMech
 
 func (ec *executionContext) unmarshalNcustomerCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomerCreateInput(ctx context.Context, v interface{}) (model.CustomerCreateInput, error) {
 	res, err := ec.unmarshalInputcustomerCreateInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNcustomerUpdateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomerUpdateInput(ctx context.Context, v interface{}) (model.CustomerUpdateInput, error) {
+	res, err := ec.unmarshalInputcustomerUpdateInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -8298,11 +8743,51 @@ func (ec *executionContext) marshalO__Type2ᚖgithubᚗcomᚋ99designsᚋgqlgen�
 	return ec.___Type(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOcustomer2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomer(ctx context.Context, sel ast.SelectionSet, v *model.Customer) graphql.Marshaler {
+func (ec *executionContext) marshalOcustomer2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomerᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Customer) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
-	return ec._customer(ctx, sel, v)
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNcustomer2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomer(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
 }
 
 // endregion ***************************** type.gotpl *****************************
