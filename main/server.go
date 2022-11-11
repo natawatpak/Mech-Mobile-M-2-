@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"encoding/json"
 )
 
 func main() {
 	fs := http.FileServer(http.Dir("./frontend/dist"))
 	http.Handle("/", fs)
+	http.HandleFunc("/hello", hello)
 
 	fmt.Println("Server listening on port 3000")
 	log.Panic(
@@ -16,9 +18,9 @@ func main() {
 	)
 }
 
-func homePageHandler(w http.ResponseWriter, r *http.Request) {
-	_, err := fmt.Fprintf(w, "hello world")
-	checkError(err)
+func hello(w http.ResponseWriter, r *http.Request) {
+	txt := "hello world"
+	json.NewEncoder(w).Encode(txt)
 }
 
 func checkError(err error) {
