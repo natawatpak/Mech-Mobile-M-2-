@@ -63,18 +63,19 @@ type ComplexityRoot struct {
 		ServiceCreate            func(childComplexity int, input model.ServiceCreateInput) int
 		ServiceDelete            func(childComplexity int, input model.DeleteIDInput) int
 		ServiceDeleteAll         func(childComplexity int) int
-		ShopCDelete              func(childComplexity int, input model.DeleteIDInput) int
-		ShopCDeleteAll           func(childComplexity int) int
-		ShopCUpdateMulti         func(childComplexity int, input model.ShopUpdateInput) int
+		ServiceUpdateMulti       func(childComplexity int, input model.ServiceUpdateInput) int
 		ShopCreate               func(childComplexity int, input model.ShopCreateInput) int
+		ShopDelete               func(childComplexity int, input model.DeleteIDInput) int
+		ShopDeleteAll            func(childComplexity int) int
 		ShopServiceCreate        func(childComplexity int, input model.ShopServiceCreateInput) int
-		ShopServiceDelete        func(childComplexity int, input model.DeleteIDInput) int
+		ShopServiceDelete        func(childComplexity int, input model.ShopServiceDeleteInput) int
 		ShopServiceDeleteAll     func(childComplexity int) int
+		ShopUpdateMulti          func(childComplexity int, input model.ShopUpdateInput) int
 		TicketCreate             func(childComplexity int, input model.TicketCreateInput) int
 		TicketDelete             func(childComplexity int, input model.DeleteIDInput) int
 		TicketDeleteAll          func(childComplexity int) int
 		TicketServiceCreate      func(childComplexity int, input model.TicketServiceCreateInput) int
-		TicketServiceDelete      func(childComplexity int, input model.DeleteIDInput) int
+		TicketServiceDelete      func(childComplexity int, input model.TicketServiceCreateInput) int
 		TicketServiceDeleteAll   func(childComplexity int) int
 		TicketUpdateMulti        func(childComplexity int, input model.TicketUpdateInput) int
 	}
@@ -83,6 +84,7 @@ type ComplexityRoot struct {
 		ActiveTicketByCustomer func(childComplexity int, input string) int
 		ActiveTicketByID       func(childComplexity int, input string) int
 		ActiveTicketByShop     func(childComplexity int, input string) int
+		ActiveTicketByStats    func(childComplexity int, input model.Status) int
 		ActiveTickets          func(childComplexity int) int
 		CarByID                func(childComplexity int, input string) int
 		CarByOwner             func(childComplexity int, input string) int
@@ -92,13 +94,13 @@ type ComplexityRoot struct {
 		ServiceByID            func(childComplexity int, input string) int
 		Services               func(childComplexity int) int
 		ShopByID               func(childComplexity int, input string) int
-		ShopServiceByID        func(childComplexity int, input string) int
+		ShopServiceByID        func(childComplexity int, input model.ShopServiceCreateInput) int
 		ShopServices           func(childComplexity int) int
 		Shops                  func(childComplexity int) int
 		TicketByCustomer       func(childComplexity int, input model.TicketByCustomerInput) int
 		TicketByID             func(childComplexity int, input string) int
 		TicketByShop           func(childComplexity int, input model.TicketByShopInput) int
-		TicketServiceByID      func(childComplexity int, input string) int
+		TicketServiceByID      func(childComplexity int, input model.TicketServiceCreateInput) int
 		TicketServices         func(childComplexity int) int
 		Tickets                func(childComplexity int) int
 	}
@@ -188,17 +190,18 @@ type MutationResolver interface {
 	ActiveTicketDeleteStatus(ctx context.Context, input model.Status) ([]*model.ActiveTicket, error)
 	ActiveTicketDeleteAll(ctx context.Context) ([]*model.ActiveTicket, error)
 	ShopCreate(ctx context.Context, input model.ShopCreateInput) (*model.Shop, error)
-	ShopCUpdateMulti(ctx context.Context, input model.ShopUpdateInput) (*model.Shop, error)
-	ShopCDelete(ctx context.Context, input model.DeleteIDInput) (*model.Shop, error)
-	ShopCDeleteAll(ctx context.Context) ([]*model.Shop, error)
+	ShopUpdateMulti(ctx context.Context, input model.ShopUpdateInput) (*model.Shop, error)
+	ShopDelete(ctx context.Context, input model.DeleteIDInput) (*model.Shop, error)
+	ShopDeleteAll(ctx context.Context) ([]*model.Shop, error)
 	ServiceCreate(ctx context.Context, input model.ServiceCreateInput) (*model.Service, error)
+	ServiceUpdateMulti(ctx context.Context, input model.ServiceUpdateInput) (*model.Service, error)
 	ServiceDelete(ctx context.Context, input model.DeleteIDInput) (*model.Service, error)
 	ServiceDeleteAll(ctx context.Context) ([]*model.Service, error)
 	ShopServiceCreate(ctx context.Context, input model.ShopServiceCreateInput) (*model.ShopService, error)
-	ShopServiceDelete(ctx context.Context, input model.DeleteIDInput) (*model.ShopService, error)
+	ShopServiceDelete(ctx context.Context, input model.ShopServiceDeleteInput) (*model.ShopService, error)
 	ShopServiceDeleteAll(ctx context.Context) ([]*model.ShopService, error)
 	TicketServiceCreate(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error)
-	TicketServiceDelete(ctx context.Context, input model.DeleteIDInput) (*model.TicketService, error)
+	TicketServiceDelete(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error)
 	TicketServiceDeleteAll(ctx context.Context) ([]*model.TicketService, error)
 }
 type QueryResolver interface {
@@ -215,13 +218,14 @@ type QueryResolver interface {
 	Shops(ctx context.Context) ([]*model.Shop, error)
 	ServiceByID(ctx context.Context, input string) (*model.Service, error)
 	Services(ctx context.Context) ([]*model.Service, error)
-	ShopServiceByID(ctx context.Context, input string) (*model.ShopService, error)
+	ShopServiceByID(ctx context.Context, input model.ShopServiceCreateInput) (*model.ShopService, error)
 	ShopServices(ctx context.Context) ([]*model.ShopService, error)
 	ActiveTicketByID(ctx context.Context, input string) (*model.ActiveTicket, error)
 	ActiveTicketByCustomer(ctx context.Context, input string) ([]*model.ActiveTicket, error)
 	ActiveTicketByShop(ctx context.Context, input string) ([]*model.ActiveTicket, error)
+	ActiveTicketByStats(ctx context.Context, input model.Status) ([]*model.ActiveTicket, error)
 	ActiveTickets(ctx context.Context) ([]*model.ActiveTicket, error)
-	TicketServiceByID(ctx context.Context, input string) (*model.TicketService, error)
+	TicketServiceByID(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error)
 	TicketServices(ctx context.Context) ([]*model.TicketService, error)
 }
 
@@ -426,36 +430,17 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.ServiceDeleteAll(childComplexity), true
 
-	case "Mutation.shopCDelete":
-		if e.complexity.Mutation.ShopCDelete == nil {
+	case "Mutation.serviceUpdateMulti":
+		if e.complexity.Mutation.ServiceUpdateMulti == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_shopCDelete_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_serviceUpdateMulti_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.ShopCDelete(childComplexity, args["input"].(model.DeleteIDInput)), true
-
-	case "Mutation.shopCDeleteAll":
-		if e.complexity.Mutation.ShopCDeleteAll == nil {
-			break
-		}
-
-		return e.complexity.Mutation.ShopCDeleteAll(childComplexity), true
-
-	case "Mutation.shopCUpdateMulti":
-		if e.complexity.Mutation.ShopCUpdateMulti == nil {
-			break
-		}
-
-		args, err := ec.field_Mutation_shopCUpdateMulti_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Mutation.ShopCUpdateMulti(childComplexity, args["input"].(model.ShopUpdateInput)), true
+		return e.complexity.Mutation.ServiceUpdateMulti(childComplexity, args["input"].(model.ServiceUpdateInput)), true
 
 	case "Mutation.shopCreate":
 		if e.complexity.Mutation.ShopCreate == nil {
@@ -468,6 +453,25 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.ShopCreate(childComplexity, args["input"].(model.ShopCreateInput)), true
+
+	case "Mutation.shopDelete":
+		if e.complexity.Mutation.ShopDelete == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_shopDelete_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.ShopDelete(childComplexity, args["input"].(model.DeleteIDInput)), true
+
+	case "Mutation.shopDeleteAll":
+		if e.complexity.Mutation.ShopDeleteAll == nil {
+			break
+		}
+
+		return e.complexity.Mutation.ShopDeleteAll(childComplexity), true
 
 	case "Mutation.shopServiceCreate":
 		if e.complexity.Mutation.ShopServiceCreate == nil {
@@ -491,7 +495,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.ShopServiceDelete(childComplexity, args["input"].(model.DeleteIDInput)), true
+		return e.complexity.Mutation.ShopServiceDelete(childComplexity, args["input"].(model.ShopServiceDeleteInput)), true
 
 	case "Mutation.shopServiceDeleteAll":
 		if e.complexity.Mutation.ShopServiceDeleteAll == nil {
@@ -499,6 +503,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.ShopServiceDeleteAll(childComplexity), true
+
+	case "Mutation.shopUpdateMulti":
+		if e.complexity.Mutation.ShopUpdateMulti == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_shopUpdateMulti_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.ShopUpdateMulti(childComplexity, args["input"].(model.ShopUpdateInput)), true
 
 	case "Mutation.ticketCreate":
 		if e.complexity.Mutation.TicketCreate == nil {
@@ -553,7 +569,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.TicketServiceDelete(childComplexity, args["input"].(model.DeleteIDInput)), true
+		return e.complexity.Mutation.TicketServiceDelete(childComplexity, args["input"].(model.TicketServiceCreateInput)), true
 
 	case "Mutation.ticketServiceDeleteAll":
 		if e.complexity.Mutation.TicketServiceDeleteAll == nil {
@@ -609,6 +625,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.ActiveTicketByShop(childComplexity, args["input"].(string)), true
+
+	case "Query.activeTicketByStats":
+		if e.complexity.Query.ActiveTicketByStats == nil {
+			break
+		}
+
+		args, err := ec.field_Query_activeTicketByStats_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.ActiveTicketByStats(childComplexity, args["input"].(model.Status)), true
 
 	case "Query.activeTickets":
 		if e.complexity.Query.ActiveTickets == nil {
@@ -708,7 +736,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.ShopServiceByID(childComplexity, args["input"].(string)), true
+		return e.complexity.Query.ShopServiceByID(childComplexity, args["input"].(model.ShopServiceCreateInput)), true
 
 	case "Query.shopServices":
 		if e.complexity.Query.ShopServices == nil {
@@ -770,7 +798,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.TicketServiceByID(childComplexity, args["input"].(string)), true
+		return e.complexity.Query.TicketServiceByID(childComplexity, args["input"].(model.TicketServiceCreateInput)), true
 
 	case "Query.ticketServices":
 		if e.complexity.Query.TicketServices == nil {
@@ -1078,6 +1106,7 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 		ec.unmarshalInputserviceUpdateInput,
 		ec.unmarshalInputshopCreateInput,
 		ec.unmarshalInputshopServiceCreateInput,
+		ec.unmarshalInputshopServiceDeleteInput,
 		ec.unmarshalInputshopUpdateInput,
 		ec.unmarshalInputticketByCustomerInput,
 		ec.unmarshalInputticketByShopInput,
@@ -1167,15 +1196,16 @@ type Query {
   serviceByID(input: ID!): service!
   services: [service!]!
 
-  shopServiceByID(input: ID!): shopService
+  shopServiceByID(input: shopServiceCreateInput!): shopService
   shopServices: [shopService!]!
 
   activeTicketByID(input: ID!): activeTicket!
   activeTicketByCustomer(input: ID!): [activeTicket!]!
   activeTicketByShop(input: ID!): [activeTicket!]!
+  activeTicketByStats(input: status!):[activeTicket!]
   activeTickets: [activeTicket!]!
 
-  ticketServiceByID(input: ID!): ticketService
+  ticketServiceByID(input: ticketServiceCreateInput!): ticketService
   ticketServices: [ticketService!]!
 }
 
@@ -1206,20 +1236,21 @@ type Mutation {
 
 
   shopCreate(input: shopCreateInput!): shop!
-  shopCUpdateMulti(input: shopUpdateInput!): shop!
-  shopCDelete(input: DeleteIDInput!): shop!
-  shopCDeleteAll: [shop!]
+  shopUpdateMulti(input: shopUpdateInput!): shop!
+  shopDelete(input: DeleteIDInput!): shop!
+  shopDeleteAll: [shop!]
 
   serviceCreate(input: serviceCreateInput!): service!
+  serviceUpdateMulti(input: serviceUpdateInput!): service!
   serviceDelete(input: DeleteIDInput!): service!
   serviceDeleteAll: [service!]
 
   shopServiceCreate(input: shopServiceCreateInput!): shopService!
-  shopServiceDelete(input: DeleteIDInput!): shopService!
+  shopServiceDelete(input: shopServiceDeleteInput!): shopService!
   shopServiceDeleteAll: [shopService!]
 
   ticketServiceCreate(input: ticketServiceCreateInput!): ticketService!
-  ticketServiceDelete(input: DeleteIDInput!): ticketService!
+  ticketServiceDelete(input: ticketServiceCreateInput!): ticketService!
   ticketServiceDeleteAll: [ticketService!]
 }
 
@@ -1384,6 +1415,11 @@ type shopService {
 }
 
 input shopServiceCreateInput {
+  shopID: ID!
+  serviceID: ID!
+}
+
+input shopServiceDeleteInput {
   shopID: ID!
   serviceID: ID!
 }
@@ -1612,28 +1648,13 @@ func (ec *executionContext) field_Mutation_serviceDelete_args(ctx context.Contex
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_shopCDelete_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_serviceUpdateMulti_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.DeleteIDInput
+	var arg0 model.ServiceUpdateInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNDeleteIDInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐDeleteIDInput(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["input"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_shopCUpdateMulti_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 model.ShopUpdateInput
-	if tmp, ok := rawArgs["input"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNshopUpdateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopUpdateInput(ctx, tmp)
+		arg0, err = ec.unmarshalNserviceUpdateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐServiceUpdateInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1649,6 +1670,21 @@ func (ec *executionContext) field_Mutation_shopCreate_args(ctx context.Context, 
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNshopCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopCreateInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_shopDelete_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.DeleteIDInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNDeleteIDInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐDeleteIDInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1675,10 +1711,25 @@ func (ec *executionContext) field_Mutation_shopServiceCreate_args(ctx context.Co
 func (ec *executionContext) field_Mutation_shopServiceDelete_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.DeleteIDInput
+	var arg0 model.ShopServiceDeleteInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNDeleteIDInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐDeleteIDInput(ctx, tmp)
+		arg0, err = ec.unmarshalNshopServiceDeleteInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopServiceDeleteInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_shopUpdateMulti_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.ShopUpdateInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNshopUpdateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopUpdateInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1735,10 +1786,10 @@ func (ec *executionContext) field_Mutation_ticketServiceCreate_args(ctx context.
 func (ec *executionContext) field_Mutation_ticketServiceDelete_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.DeleteIDInput
+	var arg0 model.TicketServiceCreateInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNDeleteIDInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐDeleteIDInput(ctx, tmp)
+		arg0, err = ec.unmarshalNticketServiceCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketServiceCreateInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1814,6 +1865,21 @@ func (ec *executionContext) field_Query_activeTicketByShop_args(ctx context.Cont
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_activeTicketByStats_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.Status
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNstatus2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐStatus(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1900,10 +1966,10 @@ func (ec *executionContext) field_Query_shopByID_args(ctx context.Context, rawAr
 func (ec *executionContext) field_Query_shopServiceByID_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 string
+	var arg0 model.ShopServiceCreateInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		arg0, err = ec.unmarshalNshopServiceCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopServiceCreateInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1960,10 +2026,10 @@ func (ec *executionContext) field_Query_ticketByShop_args(ctx context.Context, r
 func (ec *executionContext) field_Query_ticketServiceByID_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 string
+	var arg0 model.TicketServiceCreateInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		arg0, err = ec.unmarshalNticketServiceCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketServiceCreateInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3311,8 +3377,8 @@ func (ec *executionContext) fieldContext_Mutation_shopCreate(ctx context.Context
 	return fc, nil
 }
 
-func (ec *executionContext) _Mutation_shopCUpdateMulti(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Mutation_shopCUpdateMulti(ctx, field)
+func (ec *executionContext) _Mutation_shopUpdateMulti(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_shopUpdateMulti(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -3325,7 +3391,7 @@ func (ec *executionContext) _Mutation_shopCUpdateMulti(ctx context.Context, fiel
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ShopCUpdateMulti(rctx, fc.Args["input"].(model.ShopUpdateInput))
+		return ec.resolvers.Mutation().ShopUpdateMulti(rctx, fc.Args["input"].(model.ShopUpdateInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3342,7 +3408,7 @@ func (ec *executionContext) _Mutation_shopCUpdateMulti(ctx context.Context, fiel
 	return ec.marshalNshop2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShop(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Mutation_shopCUpdateMulti(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Mutation_shopUpdateMulti(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Mutation",
 		Field:      field,
@@ -3371,15 +3437,15 @@ func (ec *executionContext) fieldContext_Mutation_shopCUpdateMulti(ctx context.C
 		}
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
-	if fc.Args, err = ec.field_Mutation_shopCUpdateMulti_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+	if fc.Args, err = ec.field_Mutation_shopUpdateMulti_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
 	}
 	return fc, nil
 }
 
-func (ec *executionContext) _Mutation_shopCDelete(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Mutation_shopCDelete(ctx, field)
+func (ec *executionContext) _Mutation_shopDelete(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_shopDelete(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -3392,7 +3458,7 @@ func (ec *executionContext) _Mutation_shopCDelete(ctx context.Context, field gra
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ShopCDelete(rctx, fc.Args["input"].(model.DeleteIDInput))
+		return ec.resolvers.Mutation().ShopDelete(rctx, fc.Args["input"].(model.DeleteIDInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3409,7 +3475,7 @@ func (ec *executionContext) _Mutation_shopCDelete(ctx context.Context, field gra
 	return ec.marshalNshop2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShop(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Mutation_shopCDelete(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Mutation_shopDelete(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Mutation",
 		Field:      field,
@@ -3438,15 +3504,15 @@ func (ec *executionContext) fieldContext_Mutation_shopCDelete(ctx context.Contex
 		}
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
-	if fc.Args, err = ec.field_Mutation_shopCDelete_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+	if fc.Args, err = ec.field_Mutation_shopDelete_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
 	}
 	return fc, nil
 }
 
-func (ec *executionContext) _Mutation_shopCDeleteAll(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Mutation_shopCDeleteAll(ctx, field)
+func (ec *executionContext) _Mutation_shopDeleteAll(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_shopDeleteAll(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -3459,7 +3525,7 @@ func (ec *executionContext) _Mutation_shopCDeleteAll(ctx context.Context, field 
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ShopCDeleteAll(rctx)
+		return ec.resolvers.Mutation().ShopDeleteAll(rctx)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3473,7 +3539,7 @@ func (ec *executionContext) _Mutation_shopCDeleteAll(ctx context.Context, field 
 	return ec.marshalOshop2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Mutation_shopCDeleteAll(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Mutation_shopDeleteAll(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Mutation",
 		Field:      field,
@@ -3553,6 +3619,67 @@ func (ec *executionContext) fieldContext_Mutation_serviceCreate(ctx context.Cont
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Mutation_serviceCreate_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_serviceUpdateMulti(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_serviceUpdateMulti(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().ServiceUpdateMulti(rctx, fc.Args["input"].(model.ServiceUpdateInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.Service)
+	fc.Result = res
+	return ec.marshalNservice2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐService(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_serviceUpdateMulti(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ID":
+				return ec.fieldContext_service_ID(ctx, field)
+			case "name":
+				return ec.fieldContext_service_name(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type service", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_serviceUpdateMulti_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
 	}
@@ -3742,7 +3869,7 @@ func (ec *executionContext) _Mutation_shopServiceDelete(ctx context.Context, fie
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ShopServiceDelete(rctx, fc.Args["input"].(model.DeleteIDInput))
+		return ec.resolvers.Mutation().ShopServiceDelete(rctx, fc.Args["input"].(model.ShopServiceDeleteInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3911,7 +4038,7 @@ func (ec *executionContext) _Mutation_ticketServiceDelete(ctx context.Context, f
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().TicketServiceDelete(rctx, fc.Args["input"].(model.DeleteIDInput))
+		return ec.resolvers.Mutation().TicketServiceDelete(rctx, fc.Args["input"].(model.TicketServiceCreateInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4871,7 +4998,7 @@ func (ec *executionContext) _Query_shopServiceByID(ctx context.Context, field gr
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().ShopServiceByID(rctx, fc.Args["input"].(string))
+		return ec.resolvers.Query().ShopServiceByID(rctx, fc.Args["input"].(model.ShopServiceCreateInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -5172,6 +5299,72 @@ func (ec *executionContext) fieldContext_Query_activeTicketByShop(ctx context.Co
 	return fc, nil
 }
 
+func (ec *executionContext) _Query_activeTicketByStats(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_activeTicketByStats(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().ActiveTicketByStats(rctx, fc.Args["input"].(model.Status))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*model.ActiveTicket)
+	fc.Result = res
+	return ec.marshalOactiveTicket2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐActiveTicketᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_activeTicketByStats(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ID":
+				return ec.fieldContext_activeTicket_ID(ctx, field)
+			case "carID":
+				return ec.fieldContext_activeTicket_carID(ctx, field)
+			case "customerID":
+				return ec.fieldContext_activeTicket_customerID(ctx, field)
+			case "problem":
+				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "shopID":
+				return ec.fieldContext_activeTicket_shopID(ctx, field)
+			case "status":
+				return ec.fieldContext_activeTicket_status(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_activeTicketByStats_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Query_activeTickets(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Query_activeTickets(ctx, field)
 	if err != nil {
@@ -5244,7 +5437,7 @@ func (ec *executionContext) _Query_ticketServiceByID(ctx context.Context, field 
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().TicketServiceByID(rctx, fc.Args["input"].(string))
+		return ec.resolvers.Query().TicketServiceByID(rctx, fc.Args["input"].(model.TicketServiceCreateInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -9589,6 +9782,42 @@ func (ec *executionContext) unmarshalInputshopServiceCreateInput(ctx context.Con
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputshopServiceDeleteInput(ctx context.Context, obj interface{}) (model.ShopServiceDeleteInput, error) {
+	var it model.ShopServiceDeleteInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"shopID", "serviceID"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "shopID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("shopID"))
+			it.ShopID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "serviceID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("serviceID"))
+			it.ServiceID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputshopUpdateInput(ctx context.Context, obj interface{}) (model.ShopUpdateInput, error) {
 	var it model.ShopUpdateInput
 	asMap := map[string]interface{}{}
@@ -10149,34 +10378,43 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "shopCUpdateMulti":
+		case "shopUpdateMulti":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_shopCUpdateMulti(ctx, field)
+				return ec._Mutation_shopUpdateMulti(ctx, field)
 			})
 
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "shopCDelete":
+		case "shopDelete":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_shopCDelete(ctx, field)
+				return ec._Mutation_shopDelete(ctx, field)
 			})
 
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "shopCDeleteAll":
+		case "shopDeleteAll":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_shopCDeleteAll(ctx, field)
+				return ec._Mutation_shopDeleteAll(ctx, field)
 			})
 
 		case "serviceCreate":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_serviceCreate(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "serviceUpdateMulti":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_serviceUpdateMulti(ctx, field)
 			})
 
 			if out.Values[i] == graphql.Null {
@@ -10676,6 +10914,26 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "activeTicketByStats":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_activeTicketByStats(ctx, field)
 				return res
 			}
 
@@ -12101,6 +12359,11 @@ func (ec *executionContext) unmarshalNserviceCreateInput2githubᚗcomᚋnatawatp
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) unmarshalNserviceUpdateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐServiceUpdateInput(ctx context.Context, v interface{}) (model.ServiceUpdateInput, error) {
+	res, err := ec.unmarshalInputserviceUpdateInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) marshalNshop2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShop(ctx context.Context, sel ast.SelectionSet, v model.Shop) graphql.Marshaler {
 	return ec._shop(ctx, sel, &v)
 }
@@ -12224,6 +12487,11 @@ func (ec *executionContext) marshalNshopService2ᚖgithubᚗcomᚋnatawatpakᚋM
 
 func (ec *executionContext) unmarshalNshopServiceCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopServiceCreateInput(ctx context.Context, v interface{}) (model.ShopServiceCreateInput, error) {
 	res, err := ec.unmarshalInputshopServiceCreateInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNshopServiceDeleteInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopServiceDeleteInput(ctx context.Context, v interface{}) (model.ShopServiceDeleteInput, error) {
+	res, err := ec.unmarshalInputshopServiceDeleteInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 

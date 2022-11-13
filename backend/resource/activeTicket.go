@@ -67,9 +67,21 @@ func (op *SQLop) ActiveTicketFindByID(ctx context.Context, ID string) (*model.Ac
 	return arrModel, err
 }
 
-func (op *SQLop) ActiveTicketListStatus(ctx context.Context, input model.Status) ([]*model.ActiveTicket, error) {
+func (op *SQLop) ActiveTicketFindByStatus(ctx context.Context, input model.Status) ([]*model.ActiveTicket, error) {
 	ActiveTicket := new([]*model.ActiveTicket)
 	err := op.db.NewSelect().Model(op.activeTicket).Where("status = ?", input).Scan(ctx, ActiveTicket)
+	return *ActiveTicket, err
+}
+
+func (op *SQLop) ActiveTicketFindByCustomer(ctx context.Context, ID string) ([]*model.ActiveTicket, error) {
+	ActiveTicket := new([]*model.ActiveTicket)
+	err := op.db.NewSelect().Model(op.activeTicket).Where("customer_id = ?", ID).Scan(ctx, ActiveTicket)
+	return *ActiveTicket, err
+}
+
+func (op *SQLop) ActiveTicketFindByShop(ctx context.Context, ID string) ([]*model.ActiveTicket, error) {
+	ActiveTicket := new([]*model.ActiveTicket)
+	err := op.db.NewSelect().Model(op.activeTicket).Where("shop_id = ?", ID).Scan(ctx, ActiveTicket)
 	return *ActiveTicket, err
 }
 

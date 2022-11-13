@@ -6,7 +6,6 @@ package graph
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
@@ -114,92 +113,125 @@ func (r *mutationResolver) TicketDeleteAll(ctx context.Context) ([]*model.Ticket
 
 // ActiveTicketCreate is the resolver for the activeTicketCreate field.
 func (r *mutationResolver) ActiveTicketCreate(ctx context.Context, input model.ActiveTicketCreateInput) (*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTicketCreate - activeTicketCreate"))
+	if input.ID != nil {
+		return nil, errors.New("id must be null")
+	}
+	returnCustomer, err := r.DB.ActiveTicketCreate(ctx, &input)
+	return returnCustomer, err
 }
 
 // ActiveTicketUpdateMulti is the resolver for the activeTicketUpdateMulti field.
 func (r *mutationResolver) ActiveTicketUpdateMulti(ctx context.Context, input model.ActiveTicketUpdateInput) (*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTicketUpdateMulti - activeTicketUpdateMulti"))
+	result, err := r.DB.ActiveTicketUpdateMulti(ctx, model.ActiveTicket(input))
+	return result, err
 }
 
 // ActiveTicketDelete is the resolver for the activeTicketDelete field.
 func (r *mutationResolver) ActiveTicketDelete(ctx context.Context, input model.DeleteIDInput) (*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTicketDelete - activeTicketDelete"))
+	result, err := r.DB.ActiveTicketDelete(ctx, input.ID)
+	return result, err
 }
 
 // ActiveTicketDeleteStatus is the resolver for the activeTicketDeleteStatus field.
 func (r *mutationResolver) ActiveTicketDeleteStatus(ctx context.Context, input model.Status) ([]*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTicketDeleteStatus - activeTicketDeleteStatus"))
+	result, err := r.DB.ActiveTicketFindByStatus(ctx, input)
+	return result, err
 }
 
 // ActiveTicketDeleteAll is the resolver for the activeTicketDeleteAll field.
 func (r *mutationResolver) ActiveTicketDeleteAll(ctx context.Context) ([]*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTicketDeleteAll - activeTicketDeleteAll"))
+	result, err := r.DB.ActiveTicketDeleteAll(ctx)
+	return result, err
 }
 
 // ShopCreate is the resolver for the shopCreate field.
 func (r *mutationResolver) ShopCreate(ctx context.Context, input model.ShopCreateInput) (*model.Shop, error) {
-	panic(fmt.Errorf("not implemented: ShopCreate - shopCreate"))
+	if input.ID != nil {
+		return nil, errors.New("id must be null")
+	}
+	returnCustomer, err := r.DB.ShopCreate(ctx, &input)
+	return returnCustomer, err
 }
 
-// ShopCUpdateMulti is the resolver for the shopCUpdateMulti field.
-func (r *mutationResolver) ShopCUpdateMulti(ctx context.Context, input model.ShopUpdateInput) (*model.Shop, error) {
-	panic(fmt.Errorf("not implemented: ShopCUpdateMulti - shopCUpdateMulti"))
+// ShopUpdateMulti is the resolver for the shopUpdateMulti field.
+func (r *mutationResolver) ShopUpdateMulti(ctx context.Context, input model.ShopUpdateInput) (*model.Shop, error) {
+	result, err := r.DB.ShopUpdateMulti(ctx, model.Shop(input))
+	return result, err
 }
 
-// ShopCDelete is the resolver for the shopCDelete field.
-func (r *mutationResolver) ShopCDelete(ctx context.Context, input model.DeleteIDInput) (*model.Shop, error) {
-	panic(fmt.Errorf("not implemented: ShopCDelete - shopCDelete"))
+// ShopDelete is the resolver for the shopDelete field.
+func (r *mutationResolver) ShopDelete(ctx context.Context, input model.DeleteIDInput) (*model.Shop, error) {
+	result, err := r.DB.ShopDelete(ctx, input.ID)
+	return result, err
 }
 
-// ShopCDeleteAll is the resolver for the shopCDeleteAll field.
-func (r *mutationResolver) ShopCDeleteAll(ctx context.Context) ([]*model.Shop, error) {
-	panic(fmt.Errorf("not implemented: ShopCDeleteAll - shopCDeleteAll"))
+// ShopDeleteAll is the resolver for the shopDeleteAll field.
+func (r *mutationResolver) ShopDeleteAll(ctx context.Context) ([]*model.Shop, error) {
+	result, err := r.DB.ShopDeleteAll(ctx)
+	return result, err
 }
 
 // ServiceCreate is the resolver for the serviceCreate field.
 func (r *mutationResolver) ServiceCreate(ctx context.Context, input model.ServiceCreateInput) (*model.Service, error) {
-	panic(fmt.Errorf("not implemented: ServiceCreate - serviceCreate"))
+	if input.ID != nil {
+		return nil, errors.New("id must be null")
+	}
+	returnCustomer, err := r.DB.ServiceCreate(ctx, &input)
+	return returnCustomer, err
+}
+
+// ServiceUpdateMulti is the resolver for the serviceUpdateMulti field.
+func (r *mutationResolver) ServiceUpdateMulti(ctx context.Context, input model.ServiceUpdateInput) (*model.Service, error) {
+	result, err := r.DB.ServiceUpdateMulti(ctx, input)
+	return result, err
 }
 
 // ServiceDelete is the resolver for the serviceDelete field.
 func (r *mutationResolver) ServiceDelete(ctx context.Context, input model.DeleteIDInput) (*model.Service, error) {
-	panic(fmt.Errorf("not implemented: ServiceDelete - serviceDelete"))
+	result, err := r.DB.ServiceDelete(ctx, input.ID)
+	return result, err
 }
 
 // ServiceDeleteAll is the resolver for the serviceDeleteAll field.
 func (r *mutationResolver) ServiceDeleteAll(ctx context.Context) ([]*model.Service, error) {
-	panic(fmt.Errorf("not implemented: ServiceDeleteAll - serviceDeleteAll"))
+	result, err := r.DB.ServiceDeleteAll(ctx)
+	return result, err
 }
 
 // ShopServiceCreate is the resolver for the shopServiceCreate field.
 func (r *mutationResolver) ShopServiceCreate(ctx context.Context, input model.ShopServiceCreateInput) (*model.ShopService, error) {
-	panic(fmt.Errorf("not implemented: ShopServiceCreate - shopServiceCreate"))
+	returnCustomer, err := r.DB.ShopServiceCreate(ctx, &input)
+	return returnCustomer, err
 }
 
 // ShopServiceDelete is the resolver for the shopServiceDelete field.
-func (r *mutationResolver) ShopServiceDelete(ctx context.Context, input model.DeleteIDInput) (*model.ShopService, error) {
-	panic(fmt.Errorf("not implemented: ShopServiceDelete - shopServiceDelete"))
+func (r *mutationResolver) ShopServiceDelete(ctx context.Context, input model.ShopServiceDeleteInput) (*model.ShopService, error) {
+	returnCustomer, err := r.DB.ShopServiceDelete(ctx, &input)
+	return returnCustomer, err
 }
 
 // ShopServiceDeleteAll is the resolver for the shopServiceDeleteAll field.
 func (r *mutationResolver) ShopServiceDeleteAll(ctx context.Context) ([]*model.ShopService, error) {
-	panic(fmt.Errorf("not implemented: ShopServiceDeleteAll - shopServiceDeleteAll"))
+	returnCustomer, err := r.DB.ShopServiceDeleteAll(ctx)
+	return returnCustomer, err
 }
 
 // TicketServiceCreate is the resolver for the ticketServiceCreate field.
 func (r *mutationResolver) TicketServiceCreate(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error) {
-	panic(fmt.Errorf("not implemented: TicketServiceCreate - ticketServiceCreate"))
+	returnCustomer, err := r.DB.TicketServiceCreate(ctx, &input)
+	return returnCustomer, err
 }
 
 // TicketServiceDelete is the resolver for the ticketServiceDelete field.
-func (r *mutationResolver) TicketServiceDelete(ctx context.Context, input model.DeleteIDInput) (*model.TicketService, error) {
-	panic(fmt.Errorf("not implemented: TicketServiceDelete - ticketServiceDelete"))
+func (r *mutationResolver) TicketServiceDelete(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error) {
+	returnCustomer, err := r.DB.TicketServiceDelete(ctx, &input)
+	return returnCustomer, err
 }
 
 // TicketServiceDeleteAll is the resolver for the ticketServiceDeleteAll field.
 func (r *mutationResolver) TicketServiceDeleteAll(ctx context.Context) ([]*model.TicketService, error) {
-	panic(fmt.Errorf("not implemented: TicketServiceDeleteAll - ticketServiceDeleteAll"))
+	returnCustomer, err := r.DB.TicketServiceDeleteAll(ctx)
+	return returnCustomer, err
 }
 
 // CustomerByID is the resolver for the customerByID field.
@@ -258,62 +290,80 @@ func (r *queryResolver) Tickets(ctx context.Context) ([]*model.Ticket, error) {
 
 // ShopByID is the resolver for the shopByID field.
 func (r *queryResolver) ShopByID(ctx context.Context, input string) (*model.Shop, error) {
-	panic(fmt.Errorf("not implemented: ShopByID - shopByID"))
+	result, err := r.DB.ShopFindByID(ctx, input)
+	return result, err
 }
 
 // Shops is the resolver for the shops field.
 func (r *queryResolver) Shops(ctx context.Context) ([]*model.Shop, error) {
-	panic(fmt.Errorf("not implemented: Shops - shops"))
+	result, err := r.DB.ShopList(ctx)
+	return result, err
 }
 
 // ServiceByID is the resolver for the serviceByID field.
 func (r *queryResolver) ServiceByID(ctx context.Context, input string) (*model.Service, error) {
-	panic(fmt.Errorf("not implemented: ServiceByID - serviceByID"))
+	result, err := r.DB.ServiceFindByID(ctx, input)
+	return result, err
 }
 
 // Services is the resolver for the services field.
 func (r *queryResolver) Services(ctx context.Context) ([]*model.Service, error) {
-	panic(fmt.Errorf("not implemented: Services - services"))
+	result, err := r.DB.ServiceList(ctx)
+	return result, err
 }
 
 // ShopServiceByID is the resolver for the shopServiceByID field.
-func (r *queryResolver) ShopServiceByID(ctx context.Context, input string) (*model.ShopService, error) {
-	panic(fmt.Errorf("not implemented: ShopServiceByID - shopServiceByID"))
+func (r *queryResolver) ShopServiceByID(ctx context.Context, input model.ShopServiceCreateInput) (*model.ShopService, error) {
+	result, err := r.DB.ShopServiceFindByID(ctx, input)
+	return result, err
 }
 
 // ShopServices is the resolver for the shopServices field.
 func (r *queryResolver) ShopServices(ctx context.Context) ([]*model.ShopService, error) {
-	panic(fmt.Errorf("not implemented: ShopServices - shopServices"))
+	result, err := r.DB.ShopServiceList(ctx)
+	return result, err
 }
 
 // ActiveTicketByID is the resolver for the activeTicketByID field.
 func (r *queryResolver) ActiveTicketByID(ctx context.Context, input string) (*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTicketByID - activeTicketByID"))
+	result, err := r.DB.ActiveTicketFindByID(ctx, input)
+	return result, err
 }
 
 // ActiveTicketByCustomer is the resolver for the activeTicketByCustomer field.
 func (r *queryResolver) ActiveTicketByCustomer(ctx context.Context, input string) ([]*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTicketByCustomer - activeTicketByCustomer"))
+	result, err := r.DB.ActiveTicketFindByCustomer(ctx, input)
+	return result, err
 }
 
 // ActiveTicketByShop is the resolver for the activeTicketByShop field.
 func (r *queryResolver) ActiveTicketByShop(ctx context.Context, input string) ([]*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTicketByShop - activeTicketByShop"))
+	result, err := r.DB.ActiveTicketFindByShop(ctx, input)
+	return result, err
+}
+
+// ActiveTicketByStats is the resolver for the activeTicketByStats field.
+func (r *queryResolver) ActiveTicketByStats(ctx context.Context, input model.Status) ([]*model.ActiveTicket, error) {
+	result, err := r.DB.ActiveTicketFindByStatus(ctx, input)
+	return result, err
 }
 
 // ActiveTickets is the resolver for the activeTickets field.
 func (r *queryResolver) ActiveTickets(ctx context.Context) ([]*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTickets - activeTickets"))
+	result, err := r.DB.ActiveTicketList(ctx)
+	return result, err
 }
 
 // TicketServiceByID is the resolver for the ticketServiceByID field.
-func (r *queryResolver) TicketServiceByID(ctx context.Context, input string) (*model.TicketService, error) {
-	panic(fmt.Errorf("not implemented: TicketServiceByID - ticketServiceByID"))
+func (r *queryResolver) TicketServiceByID(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error) {
+	result, err := r.DB.TicketServiceFindByID(ctx, input)
+	return result, err
 }
 
 // TicketServices is the resolver for the ticketServices field.
 func (r *queryResolver) TicketServices(ctx context.Context) ([]*model.TicketService, error) {
-	panic(fmt.Errorf("not implemented: TicketServices - ticketServices"))
+	result, err := r.DB.TicketServiceList(ctx)
+	return result, err
 }
 
 // Mutation returns generated.MutationResolver implementation.
@@ -324,13 +374,3 @@ func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
-
-// !!! WARNING !!!
-// The code below was going to be deleted when updating resolvers. It has been copied here so you have
-// one last chance to move it out of harms way if you want. There are two reasons this happens:
-//  - When renaming or deleting a resolver the old code will be put in here. You can safely delete
-//    it when you're done.
-//  - You have helper methods in this file. Move them out to keep these resolver files clean.
-func (r *mutationResolver) ActiveTicketDeleteActive(ctx context.Context) ([]*model.ActiveTicket, error) {
-	panic(fmt.Errorf("not implemented: ActiveTicketDeleteActive - activeTicketDeleteActive"))
-}

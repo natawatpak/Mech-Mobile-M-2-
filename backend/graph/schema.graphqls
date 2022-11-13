@@ -21,15 +21,16 @@ type Query {
   serviceByID(input: ID!): service!
   services: [service!]!
 
-  shopServiceByID(input: ID!): shopService
+  shopServiceByID(input: shopServiceCreateInput!): shopService
   shopServices: [shopService!]!
 
   activeTicketByID(input: ID!): activeTicket!
   activeTicketByCustomer(input: ID!): [activeTicket!]!
   activeTicketByShop(input: ID!): [activeTicket!]!
+  activeTicketByStats(input: status!):[activeTicket!]
   activeTickets: [activeTicket!]!
 
-  ticketServiceByID(input: ID!): ticketService
+  ticketServiceByID(input: ticketServiceCreateInput!): ticketService
   ticketServices: [ticketService!]!
 }
 
@@ -60,20 +61,21 @@ type Mutation {
 
 
   shopCreate(input: shopCreateInput!): shop!
-  shopCUpdateMulti(input: shopUpdateInput!): shop!
-  shopCDelete(input: DeleteIDInput!): shop!
-  shopCDeleteAll: [shop!]
+  shopUpdateMulti(input: shopUpdateInput!): shop!
+  shopDelete(input: DeleteIDInput!): shop!
+  shopDeleteAll: [shop!]
 
   serviceCreate(input: serviceCreateInput!): service!
+  serviceUpdateMulti(input: serviceUpdateInput!): service!
   serviceDelete(input: DeleteIDInput!): service!
   serviceDeleteAll: [service!]
 
   shopServiceCreate(input: shopServiceCreateInput!): shopService!
-  shopServiceDelete(input: DeleteIDInput!): shopService!
+  shopServiceDelete(input: shopServiceDeleteInput!): shopService!
   shopServiceDeleteAll: [shopService!]
 
   ticketServiceCreate(input: ticketServiceCreateInput!): ticketService!
-  ticketServiceDelete(input: DeleteIDInput!): ticketService!
+  ticketServiceDelete(input: ticketServiceCreateInput!): ticketService!
   ticketServiceDeleteAll: [ticketService!]
 }
 
@@ -238,6 +240,11 @@ type shopService {
 }
 
 input shopServiceCreateInput {
+  shopID: ID!
+  serviceID: ID!
+}
+
+input shopServiceDeleteInput {
   shopID: ID!
   serviceID: ID!
 }

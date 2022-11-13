@@ -139,6 +139,11 @@ type ShopServiceCreateInput struct {
 	ServiceID string `json:"serviceID"`
 }
 
+type ShopServiceDeleteInput struct {
+	ShopID    string `json:"shopID"`
+	ServiceID string `json:"serviceID"`
+}
+
 type ShopUpdateInput struct {
 	ID      string `json:"ID"`
 	Name    string `json:"name"`
