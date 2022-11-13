@@ -2,6 +2,12 @@
 
 package model
 
+import (
+	"fmt"
+	"io"
+	"strconv"
+)
+
 type DeleteIDInput struct {
 	ID string `json:"ID"`
 }
@@ -24,6 +30,15 @@ type ActiveTicketCreateInput struct {
 	Status     string  `json:"status"`
 }
 
+type ActiveTicketUpdateInput struct {
+	ID         string `json:"ID"`
+	CarID      string `json:"carID"`
+	CustomerID string `json:"customerID"`
+	Problem    string `json:"problem"`
+	ShopID     string `json:"shopID"`
+	Status     string `json:"status"`
+}
+
 type Car struct {
 	ID        string `json:"ID" bun:"id,pk"`
 	OwnerID   string `json:"ownerID" bun:",notnull"`
@@ -33,8 +48,7 @@ type Car struct {
 	Color     string `json:"color" bun:",notnull"`
 	Type      string `json:"type" bun:",notnull"`
 	Brand     string `json:"brand" bun:",notnull"`
-	Build     string `json:"build"`
-}
+	Build     *string `json:"build"`}
 
 type CarCreateInput struct {
 	ID        *string `json:"ID"`
@@ -45,7 +59,19 @@ type CarCreateInput struct {
 	Color     string  `json:"color"`
 	Type      string  `json:"type"`
 	Brand     string  `json:"brand"`
-	Build     string  `json:"build"`
+	Build     *string `json:"build"`
+}
+
+type CarUpdateInput struct {
+	ID        string  `json:"ID"`
+	OwnerID   string  `json:"ownerID"`
+	PlateNum  string  `json:"plateNum"`
+	PlateType string  `json:"plateType"`
+	IssuedAt  string  `json:"issuedAt"`
+	Color     string  `json:"color"`
+	Type      string  `json:"type"`
+	Brand     string  `json:"brand"`
+	Build     *string `json:"build"`
 }
 
 type Customer struct {
@@ -82,6 +108,11 @@ type ServiceCreateInput struct {
 	Name string  `json:"name"`
 }
 
+type ServiceUpdateInput struct {
+	ID   string `json:"ID"`
+	Name string `json:"name"`
+}
+
 type Shop struct {
 	ID      string `json:"ID" bun:"id,pk"`
 	Name    string `json:"name" bun:",notnull"`
@@ -108,6 +139,19 @@ type ShopServiceCreateInput struct {
 	ServiceID string `json:"serviceID"`
 }
 
+type ShopServiceDeleteInput struct {
+	ShopID    string `json:"shopID"`
+	ServiceID string `json:"serviceID"`
+}
+
+type ShopUpdateInput struct {
+	ID      string `json:"ID"`
+	Name    string `json:"name"`
+	Tel     string `json:"tel"`
+	Email   string `json:"email"`
+	Address string `json:"address"`
+}
+
 type Ticket struct {
 	ID           string `json:"ID" bun:"id,pk"`
 	CustomerID   string `json:"customerID" bun:",notnull"`
@@ -117,6 +161,20 @@ type Ticket struct {
 	ShopID       string `json:"shopID"`
 	AcceptedTime string `json:"acceptedTime"`
 	Status       string `json:"status" bun:",notnull"`
+}
+
+type TicketByCustomerInput struct {
+	CustomerID string `json:"customerID"`
+	FromTime   string `json:"fromTime"`
+	ToTime     string `json:"toTime"`
+	Status     string `json:"status"`
+}
+
+type TicketByShopInput struct {
+	ShopID   string `json:"shopID"`
+	FromTime string `json:"fromTime"`
+	ToTime   string `json:"toTime"`
+	Status   string `json:"status"`
 }
 
 type TicketCreateInput struct {
@@ -138,4 +196,56 @@ type TicketService struct {
 type TicketServiceCreateInput struct {
 	TicketID  string `json:"ticketID"`
 	ServiceID string `json:"serviceID"`
+}
+
+type TicketUpdateInput struct {
+	ID           string `json:"ID"`
+	CustomerID   string `json:"customerID"`
+	CarID        string `json:"carID"`
+	Problem      string `json:"problem"`
+	CreateTime   string `json:"createTime"`
+	ShopID       string `json:"shopID"`
+	AcceptedTime string `json:"acceptedTime"`
+	Status       string `json:"status"`
+}
+
+type Status string
+
+const (
+	StatusActive Status = "active"
+	StatusFinish Status = "finish"
+)
+
+var AllStatus = []Status{
+	StatusActive,
+	StatusFinish,
+}
+
+func (e Status) IsValid() bool {
+	switch e {
+	case StatusActive, StatusFinish:
+		return true
+	}
+	return false
+}
+
+func (e Status) String() string {
+	return string(e)
+}
+
+func (e *Status) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Status(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid status", str)
+	}
+	return nil
+}
+
+func (e Status) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
 }

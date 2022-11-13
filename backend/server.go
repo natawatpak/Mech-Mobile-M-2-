@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 	"os"
 
 	"github.com/99designs/gqlgen/graphql/handler"
-	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/go-chi/chi"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/resource"
@@ -14,7 +17,7 @@ import (
 )
 
 func main() {
-	// r := chi.NewRouter()
+	r := chi.NewRouter()
 
 	viper.SetConfigName("postgresConfig")
 	viper.SetConfigType("json")
@@ -30,7 +33,7 @@ func main() {
 	var user string = viper.GetString("connectionDetail.user")
 	var password string = viper.GetString("connectionDetail.password")
 	var dbname string = viper.GetString("connectionDetail.dbname")
-	// var goChiPort string = viper.GetString("connectionDetail.goChiPort")
+	var goChiPort string = viper.GetString("connectionDetail.goChiPort")
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
 		"password=%s dbname=%s sslmode=disable",
@@ -49,11 +52,11 @@ func main() {
 		),
 	)
 
-	lambda.Start(srv)
+	// lambda.Start(srv)
 
-	// r.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	// r.Handle("/query", srv)
+	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	r.Handle("/query", srv)
 
-	// log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
-	// log.Fatal(http.ListenAndServe(":"+goChiPort, r))
+	log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
+	log.Fatal(http.ListenAndServe(":"+goChiPort, r))
 }
