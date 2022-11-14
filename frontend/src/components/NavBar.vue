@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar flat app>
+    <v-app-bar elevation = "4" flat app>
         <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title class="text-uppercase grey--text">
         <span class="font-weight-bold">M^2</span>
@@ -9,11 +9,11 @@
       
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app>
-        <v-list>
+    <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+      <v-list nav dense>
         <v-list-item><router-link to="/"><v-btn flat> Home</v-btn></router-link></v-list-item>
         <v-list-item><router-link to="/about"><v-btn flat> About</v-btn></router-link></v-list-item>
-    </v-list>
+      </v-list>
     </v-navigation-drawer>
   </nav>
 </template>
@@ -25,7 +25,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #18139c;
 }
 </style>
 

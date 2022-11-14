@@ -7,12 +7,16 @@
         </router-link>
       </v-list-item>
       <v-list-item>
-        <v-btn variant="tonal" color="blue" size="large">Call Slide car!!</v-btn>
+        <router-link to="/callcar" class="text-decoration-none">
+          <v-btn variant="tonal" color="blue" size="large">Call Slide car!!</v-btn>
+        </router-link>
       </v-list-item>
     </v-list>
   </div>
 </template>
 
+<style>
+</style>
 <script>
 export default {
   data() {
