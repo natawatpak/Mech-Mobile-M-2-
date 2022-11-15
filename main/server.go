@@ -23,6 +23,7 @@ func main() {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
 
+
 	resp, err := graph.CustomerCreate(ctx, graphqlClient, &graph.CustomerCreateInput{
 		FName: "hello",
 		LName: "world",
@@ -39,11 +40,6 @@ func main() {
 		log.Fatal(err)
 	}
 	println(*respquery)
-}
-
-func homePageHandler(w http.ResponseWriter, r *http.Request) {
-	_, err := fmt.Fprintf(w, "hello world")
-	checkError(err)
 }
 
 func checkError(err error) {

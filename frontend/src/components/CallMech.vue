@@ -31,6 +31,9 @@
         <v-card-text v-for="(car,index) in cars" :key="index" @click="selectCar(car)">
           {{car.brand}} : {{car.plate}}
         </v-card-text>
+        <v-card-text @click="selectCar(car)">
+          {{car.brand}} : {{car.plate}}
+        </v-card-text>
       </v-card>
     </v-dialog>
 
