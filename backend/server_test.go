@@ -11,6 +11,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/Khan/genqlient/graphql"
 	"github.com/go-chi/chi"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
@@ -37,8 +38,6 @@ var inputCustomer = model.CustomerCreateInput{
 }
 
 func testSetup() (context.Context, *resource.SQLop) {
-	r := chi.NewRouter()
-
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	if cancel != nil {
 		fmt.Printf("Context cancel msg : %v\n\n", cancel)
@@ -58,7 +57,6 @@ func testSetup() (context.Context, *resource.SQLop) {
 	var user string = viper.GetString("connectionDetail.user")
 	var password string = viper.GetString("connectionDetail.password")
 	var dbname string = viper.GetString("connectionDetail.dbname")
-	var goChiPort string = viper.GetString("connectionDetail.goChiPort")
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
 		"password=%s dbname=%s sslmode=disable",
@@ -67,22 +65,6 @@ func testSetup() (context.Context, *resource.SQLop) {
 	if util.CheckErr(err) {
 		println(err.Error())
 	}
-
-	srv := handler.NewDefaultServer(
-		generated.NewExecutableSchema(
-			generated.Config{
-				Resolvers: &graph.Resolver{
-					DB: operator,
-				},
-			},
-		),
-	)
-
-	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	r.Handle("/query", srv)
-
-	log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
-	log.Fatal(http.ListenAndServe(":"+goChiPort, r))
 
 	return ctx, operator
 }
@@ -155,4 +137,22 @@ func TestOpCreateFunc(t *testing.T) {
 	assert.Equal(t, &currentExpectCustomer, returnCustomer)
 	assert.Equal(t, nil, err)
 
+}
+
+func TestExample(t *testing.T) {
+	ctx, _ := testSetup()
+
+	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+
+	resp, err := graph.CustomerCreate(ctx, graphqlClient, &graph.CustomerCreateInput{
+		FName: "hello",
+		LName: "world",
+		Tel:   "098123456789",
+		Email: "hello@gmail.com",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	createdCus := resp.CustomerCreate
+	assert.Equal(t, "hello", createdCus.FName)
 }
