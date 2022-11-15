@@ -12,7 +12,7 @@ gen:
 	go run github.com/99designs/gqlgen generate
 
 server:
-	go run serverLocal.go
+	go run server.go
 
 backup:
 	cd graph/model && ls && cp models_gen.go backup
@@ -24,10 +24,3 @@ dockerUp:
 dockerClear:
 	docker kill $$(docker ps -q)
 	docker rm $$(docker ps -a -q)
-
-deploy:
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o main
-	zip deployment.zip main
-
-client:
-	genqlient graph/genqlient.yaml
