@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -8,8 +9,11 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/awslabs/aws-lambda-go-api-proxy/core"
 	"github.com/awslabs/aws-lambda-go-api-proxy/gorillamux"
+	routerProxy "github.com/awslabs/aws-lambda-go-api-proxy/gorillamux"
 	"github.com/gorilla/mux"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
@@ -17,33 +21,14 @@ import (
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
-// Handler is a wrapper around lambda and mux so that we can continue to use mux via lambda
-// func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-// 	log.Print(request)
-// 	if len(request.Body) < 1 {
-// 		return events.APIGatewayProxyResponse{}, QueryNameNotProvided
-// 	}
+var gorillaLambda *routerProxy.GorillaMuxAdapter
 
-// 	var params struct {
-// 		Query         string                 `json:"query"`
-// 		OperationName string                 `json:"operationName"`
-// 		Variables     map[string]interface{} `json:"variables"`
-// 	}
-// 	if err := json.Unmarshal([]byte(request.Body), &params); err != nil {
-// 		log.Print("Could not decode body", err)
-// 	}
-
-// 	response := mainSchema.Exec(ctx, params.Query, params.OperationName, params.Variables)
-// 	responseJSON, err := json.Marshal(response)
-// 	if err != nil {
-// 		log.Print("Could not decode body")
-// 	}
-
-// 	return events.APIGatewayProxyResponse{
-// 		Body:       string(responseJSON),
-// 		StatusCode: 200,
-// 	}, nil
-// }
+func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	// If no name is provided in the HTTP request body, throw an error
+	switchAble, err := gorillaLambda.ProxyWithContext(ctx, *core.NewSwitchableAPIGatewayRequestV1(&req))
+	resp := switchAble.Version1()
+	return *resp, err
+}
 
 func main() {
 	r := mux.NewRouter()
@@ -65,26 +50,24 @@ func main() {
 		log.Println("Not found", r.RequestURI)
 		http.Error(w, fmt.Sprintf("Not found: %s", r.RequestURI), http.StatusNotFound)
 	})
-	schema := generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{DB: operator}})
-	server := handler.NewDefaultServer(schema)
-	r.Handle("/query", server)
-	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {
-		adapter := gorillamux.NewV2(r)
-		lambda.Start(adapter.ProxyWithContext)
-	} else {
-		srv := handler.NewDefaultServer(
-			generated.NewExecutableSchema(
-				generated.Config{
-					Resolvers: &graph.Resolver{
-						DB: operator,
-					},
-				},
-			),
-		)
 
-		r.Handle("/", playground.Handler("GraphQL playground", "/query"))
-		r.Handle("/query", srv)
+	srv := handler.NewDefaultServer(
+		generated.NewExecutableSchema(
+			generated.Config{
+				Resolvers: &graph.Resolver{
+					DB: operator,
+				},
+			},
+		),
+	)
+
+	r.Handle("/playground", playground.Handler("GraphQL playground", "/"))
+	r.Handle("/", srv)
+
+	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {
+		gorillaLambda = gorillamux.New(r)
+		lambda.Start(Handler)
+	} else {
 
 		log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
 		log.Fatal(http.ListenAndServe(":"+goChiPort, r))
