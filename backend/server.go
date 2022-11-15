@@ -25,6 +25,11 @@ var gorillaLambda *routerProxy.GorillaMuxAdapter
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	// If no name is provided in the HTTP request body, throw an error
+	log.Println(ctx)
+	log.Println(req.Body)
+	log.Println(req.Headers)
+	log.Println(req.HTTPMethod)
+	log.Println(req.Path)
 	switchAble, err := gorillaLambda.ProxyWithContext(ctx, *core.NewSwitchableAPIGatewayRequestV1(&req))
 	resp := switchAble.Version1()
 	return *resp, err
