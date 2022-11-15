@@ -3,10 +3,18 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
+	"net/http"
 	"os"
 	"testing"
 	"time"
 
+	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/Khan/genqlient/graphql"
+	"github.com/go-chi/chi"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/resource"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
@@ -61,6 +69,51 @@ func testSetup() (context.Context, *resource.SQLop) {
 	return ctx, operator
 }
 
+func TestTestSetup(t *testing.T) {
+	r := chi.NewRouter()
+
+	viper.SetConfigName("postgresConfig")
+	viper.SetConfigType("json")
+	viper.AddConfigPath(".")
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	var host string = viper.GetString("connectionDetail.host")
+	var port string = viper.GetString("connectionDetail.port")
+	var user string = viper.GetString("connectionDetail.user")
+	var password string = viper.GetString("connectionDetail.password")
+	var dbname string = viper.GetString("connectionDetail.dbname")
+	var goChiPort string = viper.GetString("connectionDetail.goChiPort")
+
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
+	operator, err := resource.NewDBOperator(psqlInfo)
+	if util.CheckErr(err) {
+		println(err.Error())
+	}
+
+	srv := handler.NewDefaultServer(
+		generated.NewExecutableSchema(
+			generated.Config{
+				Resolvers: &graph.Resolver{
+					DB: operator,
+				},
+			},
+		),
+	)
+
+	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	r.Handle("/query", srv)
+
+	log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
+	log.Fatal(http.ListenAndServe(":"+goChiPort, r))
+
+}
+
 func TestTableDropFunc(t *testing.T) {
 	ctx, operator := testSetup()
 
@@ -84,4 +137,22 @@ func TestOpCreateFunc(t *testing.T) {
 	assert.Equal(t, &currentExpectCustomer, returnCustomer)
 	assert.Equal(t, nil, err)
 
+}
+
+func TestExample(t *testing.T) {
+	ctx, _ := testSetup()
+
+	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+
+	resp, err := graph.CustomerCreate(ctx, graphqlClient, &graph.CustomerCreateInput{
+		FName: "hello",
+		LName: "world",
+		Tel:   "098123456789",
+		Email: "hello@gmail.com",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	createdCus := resp.CustomerCreate
+	assert.Equal(t, "hello", createdCus.FName)
 }
