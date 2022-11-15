@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
@@ -17,7 +16,6 @@ import (
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/resource"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
-	"github.com/spf13/viper"
 )
 
 var muxAdapter *gorillamux.GorillaMuxAdapter
@@ -27,20 +25,20 @@ func init() {
 	// start the mux router
 	r := mux.NewRouter()
 
-	viper.SetConfigName("postgresConfig")
-	viper.SetConfigType("json")
-	viper.AddConfigPath(".")
-	err := viper.ReadInConfig()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	// viper.SetConfigName("postgresConfig")
+	// viper.SetConfigType("json")
+	// viper.AddConfigPath(".")
+	// err := viper.ReadInConfig()
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	os.Exit(1)
+	// }
 
-	var host string = viper.GetString("connectionDetail.host")
-	var port string = viper.GetString("connectionDetail.port")
-	var user string = viper.GetString("connectionDetail.user")
-	var password string = viper.GetString("connectionDetail.password")
-	var dbname string = viper.GetString("connectionDetail.dbname")
+	var host string = "localhost"
+	var port string = "5432"
+	var user string = "postgres"
+	var password string = "Eauu0244"
+	var dbname string = "postgres"
 	// var goChiPort string = viper.GetString("connectionDetail.goChiPort")
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
