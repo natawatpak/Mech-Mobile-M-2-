@@ -1,24 +1,5 @@
 package main
 
-import (
-	"fmt"
-	"log"
-	"net/http"
-	"os"
-
-	"github.com/99designs/gqlgen/graphql/handler"
-	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/go-chi/chi"
-	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/awslabs/aws-lambda-go-api-proxy/gorillamux"
-	"github.com/gorilla/mux"
-	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
-	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
-	"github.com/natawatpak/Mech-Mobile-M-2-/backend/resource"
-	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
-	"github.com/spf13/viper"
-)
-
 // Handler is a wrapper around lambda and mux so that we can continue to use mux via lambda
 // func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 // 	log.Print(request)
@@ -47,48 +28,48 @@ import (
 // 	}, nil
 // }
 
-func main() {
-	r := mux.NewRouter()
+// func main() {
+// 	r := mux.NewRouter()
 
-	var host string = "localhost"
-	var port string = "5432"
-	var user string = "postgres"
-	var password string = "Eauu0244"
-	var dbname string = "postgres"
-	var goChiPort string = "8081"
+// 	var host string = "localhost"
+// 	var port string = "5432"
+// 	var user string = "postgres"
+// 	var password string = "Eauu0244"
+// 	var dbname string = "postgres"
+// 	var goChiPort string = "8081"
 
-	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+// 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
+// 		"password=%s dbname=%s sslmode=disable",
+// 		host, port, user, password, dbname)
 
-	operator, err := resource.NewDBOperator(psqlInfo)
-	util.CheckErr(err)
-	r.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Not found", r.RequestURI)
-		http.Error(w, fmt.Sprintf("Not found: %s", r.RequestURI), http.StatusNotFound)
-	})
-	schema := generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{DB: operator}})
-	server := handler.NewDefaultServer(schema)
-	r.Handle("/query", server)
-	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {
-		adapter := gorillamux.NewV2(r)
-		lambda.Start(adapter.ProxyWithContext)
-	} else {
-		srv := handler.NewDefaultServer(
-			generated.NewExecutableSchema(
-				generated.Config{
-					Resolvers: &graph.Resolver{
-						DB: operator,
-					},
-				},
-			),
-		)
+// 	operator, err := resource.NewDBOperator(psqlInfo)
+// 	util.CheckErr(err)
+// 	r.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+// 		log.Println("Not found", r.RequestURI)
+// 		http.Error(w, fmt.Sprintf("Not found: %s", r.RequestURI), http.StatusNotFound)
+// 	})
+// 	schema := generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{DB: operator}})
+// 	server := handler.NewDefaultServer(schema)
+// 	r.Handle("/query", server)
+// 	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
+// 	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {
+// 		adapter := gorillamux.NewV2(r)
+// 		lambda.Start(adapter.ProxyWithContext)
+// 	} else {
+// 		srv := handler.NewDefaultServer(
+// 			generated.NewExecutableSchema(
+// 				generated.Config{
+// 					Resolvers: &graph.Resolver{
+// 						DB: operator,
+// 					},
+// 				},
+// 			),
+// 		)
 
-		r.Handle("/", playground.Handler("GraphQL playground", "/query"))
-		r.Handle("/query", srv)
+// 		r.Handle("/", playground.Handler("GraphQL playground", "/query"))
+// 		r.Handle("/query", srv)
 
-		log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
-		log.Fatal(http.ListenAndServe(":"+goChiPort, r))
-	}
-}
+// 		log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
+// 		log.Fatal(http.ListenAndServe(":"+goChiPort, r))
+// 	}
+// }
