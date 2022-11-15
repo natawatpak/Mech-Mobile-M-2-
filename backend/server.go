@@ -10,7 +10,6 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/gorilla/mux"
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
@@ -25,17 +24,7 @@ var (
 )
 
 func init() {
-	// start the mux router
 	r := mux.NewRouter()
-
-	// viper.SetConfigName("postgresConfig")
-	// viper.SetConfigType("json")
-	// viper.AddConfigPath(".")
-	// err := viper.ReadInConfig()
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	os.Exit(1)
-	// }
 
 	var host string = "localhost"
 	var port string = "5432"
@@ -58,6 +47,7 @@ func init() {
 
 // Handler is a wrapper around lambda and mux so that we can continue to use mux via lambda
 func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	log.Print(request)
 	if len(request.Body) < 1 {
 		return events.APIGatewayProxyResponse{}, QueryNameNotProvided
 	}
@@ -83,47 +73,47 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (events
 	}, nil
 }
 
-func main() {
-	// r := chi.NewRouter()
+// func main() {
+// r := chi.NewRouter()
 
-	// viper.SetConfigName("postgresConfig")
-	// viper.SetConfigType("json")
-	// viper.AddConfigPath(".")
-	// err := viper.ReadInConfig()
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	os.Exit(1)
-	// }
+// viper.SetConfigName("postgresConfig")
+// viper.SetConfigType("json")
+// viper.AddConfigPath(".")
+// err := viper.ReadInConfig()
+// if err != nil {
+// 	fmt.Println(err)
+// 	os.Exit(1)
+// }
 
-	// var host string = viper.GetString("connectionDetail.host")
-	// var port string = viper.GetString("connectionDetail.port")
-	// var user string = viper.GetString("connectionDetail.user")
-	// var password string = viper.GetString("connectionDetail.password")
-	// var dbname string = viper.GetString("connectionDetail.dbname")
-	// var goChiPort string = viper.GetString("connectionDetail.goChiPort")
+// var host string = viper.GetString("connectionDetail.host")
+// var port string = viper.GetString("connectionDetail.port")
+// var user string = viper.GetString("connectionDetail.user")
+// var password string = viper.GetString("connectionDetail.password")
+// var dbname string = viper.GetString("connectionDetail.dbname")
+// var goChiPort string = viper.GetString("connectionDetail.goChiPort")
 
-	// psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
-	// 	"password=%s dbname=%s sslmode=disable",
-	// 	host, port, user, password, dbname)
+// psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
+// 	"password=%s dbname=%s sslmode=disable",
+// 	host, port, user, password, dbname)
 
-	// operator, err := resource.NewDBOperator(psqlInfo)
-	// util.CheckErr(err)
+// operator, err := resource.NewDBOperator(psqlInfo)
+// util.CheckErr(err)
 
-	// srv := handler.NewDefaultServer(
-	// 	generated.NewExecutableSchema(
-	// 		generated.Config{
-	// 			Resolvers: &graph.Resolver{
-	// 				DB: operator,
-	// 			},
-	// 		},
-	// 	),
-	// )
+// srv := handler.NewDefaultServer(
+// 	generated.NewExecutableSchema(
+// 		generated.Config{
+// 			Resolvers: &graph.Resolver{
+// 				DB: operator,
+// 			},
+// 		},
+// 	),
+// )
 
-	// r.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	// r.Handle("/query", srv)
+// r.Handle("/", playground.Handler("GraphQL playground", "/query"))
+// r.Handle("/query", srv)
 
-	// log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
-	// log.Fatal(http.ListenAndServe(":"+goChiPort, r))
+// log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
+// log.Fatal(http.ListenAndServe(":"+goChiPort, r))
 
-	lambda.Start(Handler)
-}
+// 	lambda.Start(Handler)
+// }

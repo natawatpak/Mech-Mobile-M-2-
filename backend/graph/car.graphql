@@ -1,0 +1,13 @@
+mutation carCreate($tagInput: carCreateInput!) {
+  carCreate(input: $tagInput) {
+    ID
+    ownerID
+    plateNum
+    plateType
+    issuedAt
+    color
+    type
+    brand
+    build
+  }
+}
