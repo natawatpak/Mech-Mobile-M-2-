@@ -7,10 +7,9 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/awslabs/aws-lambda-go-api-proxy/core"
 	"github.com/awslabs/aws-lambda-go-api-proxy/gorillamux"
-	"github.com/awslabs/aws-lambda-go-api-proxy/handlerfunc"
 	"github.com/gorilla/mux"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
@@ -19,7 +18,8 @@ import (
 )
 
 var muxAdapter *gorillamux.GorillaMuxAdapter
-var apiGatewayAdapter *handlerfunc.HandlerFuncAdapter
+
+// var apiGatewayAdapter *handlerfunc.HandlerFuncAdapter
 
 func init() {
 	// start the mux router
@@ -53,16 +53,15 @@ func init() {
 	r.Handle("/query", server)
 	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
 
-	muxAdapter = gorillamux.New(r)
 }
 
 // Handler is a wrapper around lambda and mux so that we can continue to use mux via lambda
-func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	res, err := apiGatewayAdapter.ProxyWithContext(ctx, req)
+func Handler(ctx context.Context, req core.SwitchableAPIGatewayRequest) (*core.SwitchableAPIGatewayResponse, error) {
+	rsp, err := muxAdapter.Proxy(req)
 	if err != nil {
 		log.Println(err)
 	}
-	return res, err
+	return rsp, err
 }
 
 func main() {
