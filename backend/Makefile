@@ -14,6 +14,9 @@ gen:
 server:
 	go run server.go
 
+serverLocal:
+	go run serverLocal.go
+
 backup:
 	cd graph/model && ls && cp models_gen.go backup
 
