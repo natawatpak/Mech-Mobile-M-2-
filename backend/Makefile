@@ -12,6 +12,9 @@ gen:
 	go run github.com/99designs/gqlgen generate
 
 server:
+	go run server.go
+
+serverLocal:
 	go run serverLocal.go
 
 backup:
