@@ -27,10 +27,3 @@ dockerUp:
 dockerClear:
 	docker kill $$(docker ps -q)
 	docker rm $$(docker ps -a -q)
-
-deploy:
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o main
-	zip deployment.zip main
-
-client:
-	genqlient graph/genqlient.yaml

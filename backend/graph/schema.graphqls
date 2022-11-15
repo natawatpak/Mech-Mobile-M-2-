@@ -1,0 +1,287 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Query {
+  customerByID(input: ID!): customer!
+  customers: [customer!]!
+
+  carByID(input: ID!): car!
+  carByOwner(input: ID!): [car!]!
+  cars: [car!]!
+
+  ticketByID(input: ID!): ticket!
+  ticketByCustomer(input: ticketByCustomerInput!): [ticket!]!
+  ticketByShop(input: ticketByShopInput!): [ticket!]!
+  tickets: [ticket!]!
+
+  shopByID(input: ID!): shop!
+  shops: [shop!]!
+
+  serviceByID(input: ID!): service!
+  services: [service!]!
+
+  shopServiceByID(input: shopServiceCreateInput!): shopService
+  shopServices: [shopService!]!
+
+  activeTicketByID(input: ID!): activeTicket!
+  activeTicketByCustomer(input: ID!): [activeTicket!]!
+  activeTicketByShop(input: ID!): [activeTicket!]!
+  activeTicketByStats(input: status!):[activeTicket!]
+  activeTickets: [activeTicket!]!
+
+  ticketServiceByID(input: ticketServiceCreateInput!): ticketService
+  ticketServices: [ticketService!]!
+}
+
+type Mutation {
+  dropTable: Boolean!
+  createTable: Boolean!
+
+  customerCreate(input: customerCreateInput!): customer!
+  customerUpdateMulti(input: customerUpdateInput!): customer!
+  customerDelete(input: DeleteIDInput!): customer!
+  customerDeleteAll: [customer!]
+
+  carCreate(input: carCreateInput!): car!
+  carUpdateMulti(input: carUpdateInput!): car!
+  carDelete(input: DeleteIDInput!): car!
+  carDeleteAll: [car!]
+
+  ticketCreate(input: ticketCreateInput!): ticket!
+  ticketUpdateMulti(input: ticketUpdateInput!): ticket!
+  ticketDelete(input: DeleteIDInput!): ticket!
+  ticketDeleteAll: [ticket!]
+
+  activeTicketCreate(input: activeTicketCreateInput!): activeTicket!
+  activeTicketUpdateMulti(input: activeTicketUpdateInput!): activeTicket!
+  activeTicketDelete(input: DeleteIDInput!): activeTicket!
+  activeTicketDeleteStatus(input: status!):[activeTicket!]
+  activeTicketDeleteAll: [activeTicket!]
+
+
+  shopCreate(input: shopCreateInput!): shop!
+  shopUpdateMulti(input: shopUpdateInput!): shop!
+  shopDelete(input: DeleteIDInput!): shop!
+  shopDeleteAll: [shop!]
+
+  serviceCreate(input: serviceCreateInput!): service!
+  serviceUpdateMulti(input: serviceUpdateInput!): service!
+  serviceDelete(input: DeleteIDInput!): service!
+  serviceDeleteAll: [service!]
+
+  shopServiceCreate(input: shopServiceCreateInput!): shopService!
+  shopServiceDelete(input: shopServiceDeleteInput!): shopService!
+  shopServiceDeleteAll: [shopService!]
+
+  ticketServiceCreate(input: ticketServiceCreateInput!): ticketService!
+  ticketServiceDelete(input: ticketServiceCreateInput!): ticketService!
+  ticketServiceDeleteAll: [ticketService!]
+}
+
+enum status {
+	active
+  finish
+}
+
+input DeleteIDInput {
+  ID: ID!
+}
+
+type customer {
+  ID: ID! 
+  fName: String!
+  lName: String!
+  tel: String!
+  email: String!
+}
+
+input customerCreateInput {
+  ID: ID
+  fName: String!
+  lName: String!
+  tel: String!
+  email: String!
+}
+
+input customerUpdateInput {
+  ID: ID!
+  fName: String!
+  lName: String!
+  tel: String!
+  email: String!
+}
+
+type car {
+  ID: ID!
+  ownerID: ID!
+  plateNum: String!
+  plateType: String!
+  issuedAt: String!
+  color: String!
+  type: String!
+  brand: String!
+  build: String
+}
+
+input carCreateInput {
+  ID: ID
+  ownerID: ID!
+  plateNum: String!
+  plateType: String!
+  issuedAt: String!
+  color: String!
+  type: String!
+  brand: String!
+  build: String
+}
+
+input carUpdateInput {
+  ID: ID!
+  ownerID: ID!
+  plateNum: String!
+  plateType: String!
+  issuedAt: String!
+  color: String!
+  type: String!
+  brand: String!
+  build: String
+}
+
+type ticket {
+  ID: ID!
+  customerID: ID!
+  carID: ID!
+  problem: String!
+  createTime: String!
+  shopID: ID!
+  acceptedTime: String!
+  status: String!
+}
+
+input ticketCreateInput {
+  ID: ID
+  customerID: ID!
+  carID: ID!
+  problem: String!
+  createTime: String!
+  shopID: ID!
+  acceptedTime: String!
+  status: String!
+}
+
+input ticketUpdateInput {
+  ID: ID!
+  customerID: ID!
+  carID: ID!
+  problem: String!
+  createTime: String!
+  shopID: ID!
+  acceptedTime: String!
+  status: String!
+}
+
+input ticketByCustomerInput {
+  customerID: ID!
+  fromTime: String!
+  toTime: String!
+  status: String!
+}
+
+input ticketByShopInput {
+  shopID: ID!
+  fromTime: String!
+  toTime: String!
+  status: String!
+}
+
+type shop {
+  ID: ID!
+  name: String!
+  tel: String!
+  email: String!
+  address: String!
+}
+
+input shopCreateInput {
+  ID: ID
+  name: String!
+  tel: String!
+  email: String!
+  address: String!
+}
+
+input shopUpdateInput {
+  ID: ID!
+  name: String!
+  tel: String!
+  email: String!
+  address: String!
+}
+
+type service {
+  ID: ID!
+  name: String!
+}
+
+input serviceCreateInput {
+  ID: ID
+  name: String!
+}
+
+input serviceUpdateInput {
+  ID: ID!
+  name: String!
+}
+
+type shopService {
+  shopID: ID!
+  serviceID: ID!
+}
+
+input shopServiceCreateInput {
+  shopID: ID!
+  serviceID: ID!
+}
+
+input shopServiceDeleteInput {
+  shopID: ID!
+  serviceID: ID!
+}
+
+type activeTicket {
+  ID: ID!
+  carID: ID!
+  customerID: ID!
+  problem: String!
+  shopID: ID!
+  status: String!
+}
+
+input activeTicketCreateInput {
+  ID: ID
+  carID: ID!
+  customerID: ID!
+  problem: String!
+  shopID: ID!
+  status: String!
+}
+
+input activeTicketUpdateInput {
+  ID: ID!
+  carID: ID!
+  customerID: ID!
+  problem: String!
+  shopID: ID!
+  status: String!
+}
+
+type ticketService {
+  ticketID: ID!
+  serviceID: ID!
+}
+
+input ticketServiceCreateInput {
+  ticketID: ID!
+  serviceID: ID!
+}
