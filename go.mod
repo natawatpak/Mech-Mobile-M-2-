@@ -5,10 +5,10 @@ go 1.18
 require (
 	github.com/99designs/gqlgen v0.17.20
 	github.com/aws/aws-lambda-go v1.34.1
-	github.com/awslabs/aws-lambda-go-api-proxy v0.13.3
 	github.com/go-chi/chi v1.5.4
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/mux v1.8.0
+	github.com/graph-gophers/graphql-go v1.4.0
 	github.com/lib/pq v1.10.7
 	github.com/spf13/viper v1.14.0
 	github.com/stretchr/testify v1.8.1
@@ -34,6 +34,7 @@ require (
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
@@ -44,6 +45,7 @@ require (
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	golang.org/x/sys v0.0.0-20220908164124-27713097b956 // indirect
 	golang.org/x/text v0.4.0 // indirect
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
