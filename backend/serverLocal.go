@@ -1,44 +1,61 @@
 package main
 
-// func main() {
-// 	r := chi.NewRouter()
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"os"
 
-// 	viper.SetConfigName("postgresConfig")
-// 	viper.SetConfigType("json")
-// 	viper.AddConfigPath(".")
-// 	err := viper.ReadInConfig()
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		os.Exit(1)
-// 	}
+	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
 
-// 	var host string = viper.GetString("connectionDetail.host")
-// 	var port string = viper.GetString("connectionDetail.port")
-// 	var user string = viper.GetString("connectionDetail.user")
-// 	var password string = viper.GetString("connectionDetail.password")
-// 	var dbname string = viper.GetString("connectionDetail.dbname")
-// 	var goChiPort string = viper.GetString("connectionDetail.goChiPort")
+	"github.com/go-chi/chi"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/resource"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
+	"github.com/spf13/viper"
+)
 
-// 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
-// 		"password=%s dbname=%s sslmode=disable",
-// 		host, port, user, password, dbname)
+func main() {
+	r := chi.NewRouter()
 
-// 	operator, err := resource.NewDBOperator(psqlInfo)
-// 	util.CheckErr(err)
+	viper.SetConfigName("postgresConfig")
+	viper.SetConfigType("json")
+	viper.AddConfigPath(".")
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
-// 	srv := handler.NewDefaultServer(
-// 		generated.NewExecutableSchema(
-// 			generated.Config{
-// 				Resolvers: &graph.Resolver{
-// 					DB: operator,
-// 				},
-// 			},
-// 		),
-// 	)
+	var host string = viper.GetString("connectionDetail.host")
+	var port string = viper.GetString("connectionDetail.port")
+	var user string = viper.GetString("connectionDetail.user")
+	var password string = viper.GetString("connectionDetail.password")
+	var dbname string = viper.GetString("connectionDetail.dbname")
+	var goChiPort string = viper.GetString("connectionDetail.goChiPort")
 
-// 	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
-// 	r.Handle("/query", srv)
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
 
-// 	log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
-// 	log.Fatal(http.ListenAndServe(":"+goChiPort, r))
-// }
+	operator, err := resource.NewDBOperator(psqlInfo)
+	util.CheckErr(err)
+
+	srv := handler.NewDefaultServer(
+		generated.NewExecutableSchema(
+			generated.Config{
+				Resolvers: &graph.Resolver{
+					DB: operator,
+				},
+			},
+		),
+	)
+
+	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	r.Handle("/query", srv)
+
+	log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
+	log.Fatal(http.ListenAndServe(":"+goChiPort, r))
+}
