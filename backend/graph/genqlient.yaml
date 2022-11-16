@@ -4,6 +4,12 @@ schema: schema.graphql
 operations:
 - customer.graphql
 - car.graphql
+- activeTicket.graphql
+- service.graphql
+- shop.graphql
+- shopService.graphql
+- ticket.graphql
+- ticketService.graphql
 
 generated: client_gen.go
 

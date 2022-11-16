@@ -1,0 +1,68 @@
+mutation ActiveTicketCreate($activeTicketInput: activeTicketCreateInput!) {
+  activeTicketCreate(input: $activeTicketInput) {
+    ...activeTicketFragment
+  }
+}
+
+mutation ActiveTicketUpdateMulti($activeTicketInput: activeTicketUpdateInput!) {
+  activeTicketUpdateMulti(input: $activeTicketInput) {
+    ...activeTicketFragment
+  }
+}
+
+mutation ActiveTicketDelete($activeTicketInput: DeleteIDInput!) {
+  activeTicketDelete(input: $activeTicketInput) {
+    ...activeTicketFragment
+  }
+}
+
+mutation ActiveTicketDeleteStatus($activeTicketInput: status!) {
+  activeTicketDeleteStatus(input: $activeTicketInput) {
+    ...activeTicketFragment
+  }
+}
+
+mutation ActiveTicketDeleteAll() {
+  activeTicketDeleteAll() {
+    ...activeTicketFragment
+  }
+}
+
+query ActiveTicketByID($activeTicketInput: ID!) {
+  activeTicketByID(input: $activeTicketInput) {
+    ...activeTicketFragment
+  }
+}
+
+query ActiveTicketByCustomer($activeTicketInput: ID!) {
+  activeTicketByID(input: $activeTicketInput) {
+    ...activeTicketFragment
+  }
+}
+
+query ActiveTicketByShop($activeTicketInput: ID!) {
+  activeTicketByShop(input: $activeTicketInput) {
+    ...activeTicketFragment
+  }
+}
+
+query ActiveTicketByStats($activeTicketInput: status!) {
+  activeTicketByStats(input: $activeTicketInput) {
+    ...activeTicketFragment
+  }
+}
+
+query ActiveTickets() {
+  activeTickets() {
+    ...activeTicketFragment
+  }
+}
+
+fragment activeTicketFragment on activeTicket {
+  ID
+  carID
+  customerID
+  problem
+  shopID
+  status
+}

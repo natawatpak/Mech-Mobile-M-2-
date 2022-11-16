@@ -1,13 +1,53 @@
-mutation carCreate($tagInput: carCreateInput!) {
-  carCreate(input: $tagInput) {
-    ID
-    ownerID
-    plateNum
-    plateType
-    issuedAt
-    color
-    type
-    brand
-    build
+mutation CarCreate($carInput: carCreateInput!) {
+  carCreate(input: $carInput) {
+    ...carFragment
   }
+}
+
+mutation CarUpdateMulti($carInput: carUpdateInput!) {
+  carUpdateMulti(input: $carInput) {
+    ...carFragment
+  }
+}
+
+mutation CarDelete($carInput: DeleteIDInput!) {
+  carDelete(input: $carInput) {
+    ...carFragment
+  }
+}
+
+mutation CarDeleteAll() {
+  carDeleteAll() {
+    ...carFragment
+  }
+}
+
+query CarByID($carInput: ID!) {
+  carByID(input: $carInput) {
+    ...carFragment
+  }
+}
+
+query CarByOwner($carInput: ID!) {
+  carByOwner(input: $carInput) {
+    ...carFragment
+  }
+}
+
+query Cars() {
+  cars() {
+    ...carFragment
+  }
+}
+
+fragment carFragment on car {
+  ID
+  ownerID
+  plateNum
+  plateType
+  issuedAt
+  color
+  type
+  brand
+  build
 }
