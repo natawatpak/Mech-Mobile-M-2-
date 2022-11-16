@@ -32,7 +32,18 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	log.Println(req.Path)
 	switchAble, err := gorillaLambda.ProxyWithContext(ctx, *core.NewSwitchableAPIGatewayRequestV1(&req))
 	resp := switchAble.Version1()
-	return *resp, err
+
+	//create apigate way response and add cors headers
+	return events.APIGatewayProxyResponse{
+		Body:       resp.Body,
+		StatusCode: resp.StatusCode,
+		Headers: map[string]string{
+			"Access-Control-Allow-Origin":  "*",
+			"Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+			"Access-Control-Allow-Headers": "Content-Type",
+			"Content-Type":                 "application/json",
+		},
+	}, err
 }
 
 func main() {
@@ -65,9 +76,9 @@ func main() {
 			},
 		),
 	)
-
+	r.Handle("/default/carservice", srv)
 	r.Handle("/playground", playground.Handler("GraphQL playground", "/"))
-	r.Handle("/", srv)
+	
 
 	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {
 		gorillaLambda = gorillamux.New(r)
