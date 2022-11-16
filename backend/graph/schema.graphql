@@ -53,17 +53,16 @@ type Mutation {
   ticketDelete(input: DeleteIDInput!): ticket!
   ticketDeleteAll: [ticket!]
 
+  shopCreate(input: shopCreateInput!): shop!
+  shopUpdateMulti(input: shopUpdateInput!): shop!
+  shopDelete(input: DeleteIDInput!): shop!
+  shopDeleteAll: [shop!]
+
   activeTicketCreate(input: activeTicketCreateInput!): activeTicket!
   activeTicketUpdateMulti(input: activeTicketUpdateInput!): activeTicket!
   activeTicketDelete(input: DeleteIDInput!): activeTicket!
   activeTicketDeleteStatus(input: status!):[activeTicket!]
   activeTicketDeleteAll: [activeTicket!]
-
-
-  shopCreate(input: shopCreateInput!): shop!
-  shopUpdateMulti(input: shopUpdateInput!): shop!
-  shopDelete(input: DeleteIDInput!): shop!
-  shopDeleteAll: [shop!]
 
   serviceCreate(input: serviceCreateInput!): service!
   serviceUpdateMulti(input: serviceUpdateInput!): service!

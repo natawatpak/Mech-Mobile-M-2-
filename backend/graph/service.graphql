@@ -1,0 +1,40 @@
+mutation ServiceCreate($serviceInput: serviceCreateInput!) {
+  serviceCreate(input: $serviceInput) {
+    ...serviceFragment
+  }
+}
+
+mutation ServiceUpdateMulti($serviceInput: serviceUpdateInput!) {
+  serviceUpdateMulti(input: $serviceInput) {
+    ...serviceFragment
+  }
+}
+
+mutation ServiceDelete($serviceInput: DeleteIDInput!) {
+  serviceDelete(input: $serviceInput) {
+    ...serviceFragment
+  }
+}
+
+mutation ServiceDeleteAll() {
+  serviceDeleteAll() {
+    ...serviceFragment
+  }
+}
+
+query ServiceByID($serviceInput: ID!) {
+  serviceByID(input: $serviceInput) {
+    ...serviceFragment
+  }
+}
+
+query Services() {
+  services() {
+    ...serviceFragment
+  }
+}
+
+fragment serviceFragment on service {
+  ID
+  name
+}

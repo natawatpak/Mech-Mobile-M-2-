@@ -1,0 +1,34 @@
+mutation ShopServiceCreate($shopServiceInput: shopServiceCreateInput!) {
+  shopServiceCreate(input: $shopServiceInput) {
+    ...shopServiceFragment
+  }
+}
+
+mutation ShopServiceDelete($shopServiceInput: shopServiceDeleteInput!) {
+  shopServiceDelete(input: $shopServiceInput) {
+    ...shopServiceFragment
+  }
+}
+
+mutation ShopServiceDeleteAll() {
+  shopServiceDeleteAll() {
+    ...shopServiceFragment
+  }
+}
+
+query ShopServiceByID($shopServiceInput: shopServiceCreateInput!) {
+  shopServiceByID(input: $shopServiceInput) {
+    ...shopServiceFragment
+  }
+}
+
+query ShopServices() {
+  shopServices() {
+    ...shopServiceFragment
+  }
+}
+
+fragment shopServiceFragment on shopService {
+  shopID
+  serviceID
+}

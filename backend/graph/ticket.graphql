@@ -1,0 +1,58 @@
+mutation TicketCreate($ticketInput: ticketCreateInput!) {
+  ticketCreate(input: $ticketInput) {
+    ...ticketFragment
+  }
+}
+
+mutation TicketUpdateMulti($ticketInput: ticketUpdateInput!) {
+  ticketUpdateMulti(input: $ticketInput) {
+    ...ticketFragment
+  }
+}
+
+mutation TicketDelete($ticketInput: DeleteIDInput!) {
+  ticketDelete(input: $ticketInput) {
+    ...ticketFragment
+  }
+}
+
+mutation TicketDeleteAll() {
+  ticketDeleteAll() {
+    ...ticketFragment
+  }
+}
+
+query TicketByID($ticketInput: ID!) {
+  ticketByID(input: $ticketInput) {
+    ...ticketFragment
+  }
+}
+
+query TicketByCustomer($ticketInput: ticketByCustomerInput!) {
+  ticketByCustomer(input: $ticketInput) {
+    ...ticketFragment
+  }
+}
+
+query TicketByShop($ticketInput: ticketByShopInput!) {
+  ticketByShop(input: $ticketInput) {
+    ...ticketFragment
+  }
+}
+
+query Tickets() {
+  tickets() {
+    ...ticketFragment
+  }
+}
+
+fragment ticketFragment on ticket {
+  ID
+  customerID
+  carID
+  problem
+  createTime
+  shopID
+  acceptedTime
+  status
+}
