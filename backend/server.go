@@ -76,9 +76,8 @@ func main() {
 			},
 		),
 	)
-	r.Handle("/default/carservice", srv)
+	r.Handle("/carservice", srv)
 	r.Handle("/playground", playground.Handler("GraphQL playground", "/"))
-	
 
 	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {
 		gorillaLambda = gorillamux.New(r)
