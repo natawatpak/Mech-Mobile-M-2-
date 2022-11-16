@@ -1,0 +1,34 @@
+mutation TicketServiceCreate($ticketServiceInput: ticketServiceCreateInput!) {
+  ticketServiceCreate(input: $ticketServiceInput) {
+    ...ticketServiceFragment
+  }
+}
+
+mutation TicketServiceDelete($ticketServiceInput: ticketServiceCreateInput!) {
+  ticketServiceDelete(input: $ticketServiceInput) {
+    ...ticketServiceFragment
+  }
+}
+
+mutation TicketServiceDeleteAll() {
+  ticketServiceDeleteAll() {
+    ...ticketServiceFragment
+  }
+}
+
+query TicketServiceByID($ticketServiceInput: ticketServiceCreateInput!) {
+  ticketServiceByID(input: $ticketServiceInput) {
+    ...ticketServiceFragment
+  }
+}
+
+query TicketServices() {
+  ticketServices() {
+    ...ticketServiceFragment
+  }
+}
+
+fragment ticketServiceFragment on ticketService {
+  ticketID
+  serviceID
+}

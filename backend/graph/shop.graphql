@@ -1,0 +1,43 @@
+mutation ShopCreate($shopInput: shopCreateInput!) {
+  shopCreate(input: $shopInput) {
+    ...shopFragment
+  }
+}
+
+mutation ShopUpdateMulti($shopInput: shopUpdateInput!) {
+  shopUpdateMulti(input: $shopInput) {
+    ...shopFragment
+  }
+}
+
+mutation ShopDelete($shopInput: DeleteIDInput!) {
+  shopDelete(input: $shopInput) {
+    ...shopFragment
+  }
+}
+
+mutation ShopDeleteAll() {
+  shopDeleteAll() {
+    ...shopFragment
+  }
+}
+
+query ShopByID($shopInput: ID!) {
+  shopByID(input: $shopInput) {
+    ...shopFragment
+  }
+}
+
+query Shops() {
+  shops() {
+    ...shopFragment
+  }
+}
+
+fragment shopFragment on shop {
+  ID
+  name
+  tel
+  email
+  address
+}

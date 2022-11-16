@@ -9,6 +9,1414 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
+// ActiveTicketByCustomerActiveTicketByIDActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketByCustomerActiveTicketByIDActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetID() string {
+	return v.activeTicketFragment.ID
+}
+
+// GetCarID returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketByCustomerActiveTicketByIDActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketByCustomerActiveTicketByIDActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketByCustomerActiveTicketByIDActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) __premarshalJSON() (*__premarshalActiveTicketByCustomerActiveTicketByIDActiveTicket, error) {
+	var retval __premarshalActiveTicketByCustomerActiveTicketByIDActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+// ActiveTicketByCustomerResponse is returned by ActiveTicketByCustomer on success.
+type ActiveTicketByCustomerResponse struct {
+	ActiveTicketByID *ActiveTicketByCustomerActiveTicketByIDActiveTicket `json:"activeTicketByID"`
+}
+
+// GetActiveTicketByID returns ActiveTicketByCustomerResponse.ActiveTicketByID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerResponse) GetActiveTicketByID() *ActiveTicketByCustomerActiveTicketByIDActiveTicket {
+	return v.ActiveTicketByID
+}
+
+// ActiveTicketByIDActiveTicketByIDActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketByIDActiveTicketByIDActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketByIDActiveTicketByIDActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetID() string {
+	return v.activeTicketFragment.ID
+}
+
+// GetCarID returns ActiveTicketByIDActiveTicketByIDActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketByIDActiveTicketByIDActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketByIDActiveTicketByIDActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketByIDActiveTicketByIDActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketByIDActiveTicketByIDActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketByIDActiveTicketByIDActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketByIDActiveTicketByIDActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketByIDActiveTicketByIDActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) __premarshalJSON() (*__premarshalActiveTicketByIDActiveTicketByIDActiveTicket, error) {
+	var retval __premarshalActiveTicketByIDActiveTicketByIDActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+// ActiveTicketByIDResponse is returned by ActiveTicketByID on success.
+type ActiveTicketByIDResponse struct {
+	ActiveTicketByID *ActiveTicketByIDActiveTicketByIDActiveTicket `json:"activeTicketByID"`
+}
+
+// GetActiveTicketByID returns ActiveTicketByIDResponse.ActiveTicketByID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDResponse) GetActiveTicketByID() *ActiveTicketByIDActiveTicketByIDActiveTicket {
+	return v.ActiveTicketByID
+}
+
+// ActiveTicketByShopActiveTicketByShopActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketByShopActiveTicketByShopActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketByShopActiveTicketByShopActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetID() string {
+	return v.activeTicketFragment.ID
+}
+
+// GetCarID returns ActiveTicketByShopActiveTicketByShopActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketByShopActiveTicketByShopActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketByShopActiveTicketByShopActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketByShopActiveTicketByShopActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketByShopActiveTicketByShopActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketByShopActiveTicketByShopActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketByShopActiveTicketByShopActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketByShopActiveTicketByShopActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) __premarshalJSON() (*__premarshalActiveTicketByShopActiveTicketByShopActiveTicket, error) {
+	var retval __premarshalActiveTicketByShopActiveTicketByShopActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+// ActiveTicketByShopResponse is returned by ActiveTicketByShop on success.
+type ActiveTicketByShopResponse struct {
+	ActiveTicketByShop []*ActiveTicketByShopActiveTicketByShopActiveTicket `json:"activeTicketByShop"`
+}
+
+// GetActiveTicketByShop returns ActiveTicketByShopResponse.ActiveTicketByShop, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopResponse) GetActiveTicketByShop() []*ActiveTicketByShopActiveTicketByShopActiveTicket {
+	return v.ActiveTicketByShop
+}
+
+// ActiveTicketByStatsActiveTicketByStatsActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketByStatsActiveTicketByStatsActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetID() string {
+	return v.activeTicketFragment.ID
+}
+
+// GetCarID returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketByStatsActiveTicketByStatsActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketByStatsActiveTicketByStatsActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketByStatsActiveTicketByStatsActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) __premarshalJSON() (*__premarshalActiveTicketByStatsActiveTicketByStatsActiveTicket, error) {
+	var retval __premarshalActiveTicketByStatsActiveTicketByStatsActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+// ActiveTicketByStatsResponse is returned by ActiveTicketByStats on success.
+type ActiveTicketByStatsResponse struct {
+	ActiveTicketByStats []*ActiveTicketByStatsActiveTicketByStatsActiveTicket `json:"activeTicketByStats"`
+}
+
+// GetActiveTicketByStats returns ActiveTicketByStatsResponse.ActiveTicketByStats, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsResponse) GetActiveTicketByStats() []*ActiveTicketByStatsActiveTicketByStatsActiveTicket {
+	return v.ActiveTicketByStats
+}
+
+// ActiveTicketCreateActiveTicketCreateActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketCreateActiveTicketCreateActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketCreateActiveTicketCreateActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetID() string {
+	return v.activeTicketFragment.ID
+}
+
+// GetCarID returns ActiveTicketCreateActiveTicketCreateActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketCreateActiveTicketCreateActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketCreateActiveTicketCreateActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketCreateActiveTicketCreateActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketCreateActiveTicketCreateActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketCreateActiveTicketCreateActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketCreateActiveTicketCreateActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketCreateActiveTicketCreateActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) __premarshalJSON() (*__premarshalActiveTicketCreateActiveTicketCreateActiveTicket, error) {
+	var retval __premarshalActiveTicketCreateActiveTicketCreateActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+type ActiveTicketCreateInput struct {
+	ID         *string `json:"ID"`
+	CarID      string  `json:"carID"`
+	CustomerID string  `json:"customerID"`
+	Problem    string  `json:"problem"`
+	ShopID     string  `json:"shopID"`
+	Status     string  `json:"status"`
+}
+
+// GetID returns ActiveTicketCreateInput.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateInput) GetID() *string { return v.ID }
+
+// GetCarID returns ActiveTicketCreateInput.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateInput) GetCarID() string { return v.CarID }
+
+// GetCustomerID returns ActiveTicketCreateInput.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateInput) GetCustomerID() string { return v.CustomerID }
+
+// GetProblem returns ActiveTicketCreateInput.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateInput) GetProblem() string { return v.Problem }
+
+// GetShopID returns ActiveTicketCreateInput.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateInput) GetShopID() string { return v.ShopID }
+
+// GetStatus returns ActiveTicketCreateInput.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateInput) GetStatus() string { return v.Status }
+
+// ActiveTicketCreateResponse is returned by ActiveTicketCreate on success.
+type ActiveTicketCreateResponse struct {
+	ActiveTicketCreate *ActiveTicketCreateActiveTicketCreateActiveTicket `json:"activeTicketCreate"`
+}
+
+// GetActiveTicketCreate returns ActiveTicketCreateResponse.ActiveTicketCreate, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateResponse) GetActiveTicketCreate() *ActiveTicketCreateActiveTicketCreateActiveTicket {
+	return v.ActiveTicketCreate
+}
+
+// ActiveTicketDeleteActiveTicketDeleteActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketDeleteActiveTicketDeleteActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetID() string {
+	return v.activeTicketFragment.ID
+}
+
+// GetCarID returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketDeleteActiveTicketDeleteActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketDeleteActiveTicketDeleteActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketDeleteActiveTicketDeleteActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) __premarshalJSON() (*__premarshalActiveTicketDeleteActiveTicketDeleteActiveTicket, error) {
+	var retval __premarshalActiveTicketDeleteActiveTicketDeleteActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+// ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetID() string {
+	return v.activeTicketFragment.ID
+}
+
+// GetCarID returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) __premarshalJSON() (*__premarshalActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket, error) {
+	var retval __premarshalActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+// ActiveTicketDeleteAllResponse is returned by ActiveTicketDeleteAll on success.
+type ActiveTicketDeleteAllResponse struct {
+	ActiveTicketDeleteAll []*ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket `json:"activeTicketDeleteAll"`
+}
+
+// GetActiveTicketDeleteAll returns ActiveTicketDeleteAllResponse.ActiveTicketDeleteAll, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllResponse) GetActiveTicketDeleteAll() []*ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket {
+	return v.ActiveTicketDeleteAll
+}
+
+// ActiveTicketDeleteResponse is returned by ActiveTicketDelete on success.
+type ActiveTicketDeleteResponse struct {
+	ActiveTicketDelete *ActiveTicketDeleteActiveTicketDeleteActiveTicket `json:"activeTicketDelete"`
+}
+
+// GetActiveTicketDelete returns ActiveTicketDeleteResponse.ActiveTicketDelete, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteResponse) GetActiveTicketDelete() *ActiveTicketDeleteActiveTicketDeleteActiveTicket {
+	return v.ActiveTicketDelete
+}
+
+// ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetID() string {
+	return v.activeTicketFragment.ID
+}
+
+// GetCarID returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) __premarshalJSON() (*__premarshalActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket, error) {
+	var retval __premarshalActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+// ActiveTicketDeleteStatusResponse is returned by ActiveTicketDeleteStatus on success.
+type ActiveTicketDeleteStatusResponse struct {
+	ActiveTicketDeleteStatus []*ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket `json:"activeTicketDeleteStatus"`
+}
+
+// GetActiveTicketDeleteStatus returns ActiveTicketDeleteStatusResponse.ActiveTicketDeleteStatus, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusResponse) GetActiveTicketDeleteStatus() []*ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket {
+	return v.ActiveTicketDeleteStatus
+}
+
+type ActiveTicketUpdateInput struct {
+	ID         string `json:"ID"`
+	CarID      string `json:"carID"`
+	CustomerID string `json:"customerID"`
+	Problem    string `json:"problem"`
+	ShopID     string `json:"shopID"`
+	Status     string `json:"status"`
+}
+
+// GetID returns ActiveTicketUpdateInput.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateInput) GetID() string { return v.ID }
+
+// GetCarID returns ActiveTicketUpdateInput.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateInput) GetCarID() string { return v.CarID }
+
+// GetCustomerID returns ActiveTicketUpdateInput.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateInput) GetCustomerID() string { return v.CustomerID }
+
+// GetProblem returns ActiveTicketUpdateInput.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateInput) GetProblem() string { return v.Problem }
+
+// GetShopID returns ActiveTicketUpdateInput.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateInput) GetShopID() string { return v.ShopID }
+
+// GetStatus returns ActiveTicketUpdateInput.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateInput) GetStatus() string { return v.Status }
+
+// ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetID() string {
+	return v.activeTicketFragment.ID
+}
+
+// GetCarID returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) __premarshalJSON() (*__premarshalActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket, error) {
+	var retval __premarshalActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+// ActiveTicketUpdateMultiResponse is returned by ActiveTicketUpdateMulti on success.
+type ActiveTicketUpdateMultiResponse struct {
+	ActiveTicketUpdateMulti *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket `json:"activeTicketUpdateMulti"`
+}
+
+// GetActiveTicketUpdateMulti returns ActiveTicketUpdateMultiResponse.ActiveTicketUpdateMulti, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiResponse) GetActiveTicketUpdateMulti() *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket {
+	return v.ActiveTicketUpdateMulti
+}
+
+// ActiveTicketsActiveTicketsActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketsActiveTicketsActiveTicket struct {
+	activeTicketFragment `json:"-"`
+}
+
+// GetID returns ActiveTicketsActiveTicketsActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetID() string { return v.activeTicketFragment.ID }
+
+// GetCarID returns ActiveTicketsActiveTicketsActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetCarID() string {
+	return v.activeTicketFragment.CarID
+}
+
+// GetCustomerID returns ActiveTicketsActiveTicketsActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetCustomerID() string {
+	return v.activeTicketFragment.CustomerID
+}
+
+// GetProblem returns ActiveTicketsActiveTicketsActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetProblem() string {
+	return v.activeTicketFragment.Problem
+}
+
+// GetShopID returns ActiveTicketsActiveTicketsActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetShopID() string {
+	return v.activeTicketFragment.ShopID
+}
+
+// GetStatus returns ActiveTicketsActiveTicketsActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetStatus() string {
+	return v.activeTicketFragment.Status
+}
+
+func (v *ActiveTicketsActiveTicketsActiveTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ActiveTicketsActiveTicketsActiveTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ActiveTicketsActiveTicketsActiveTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.activeTicketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalActiveTicketsActiveTicketsActiveTicket struct {
+	ID string `json:"ID"`
+
+	CarID string `json:"carID"`
+
+	CustomerID string `json:"customerID"`
+
+	Problem string `json:"problem"`
+
+	ShopID string `json:"shopID"`
+
+	Status string `json:"status"`
+}
+
+func (v *ActiveTicketsActiveTicketsActiveTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ActiveTicketsActiveTicketsActiveTicket) __premarshalJSON() (*__premarshalActiveTicketsActiveTicketsActiveTicket, error) {
+	var retval __premarshalActiveTicketsActiveTicketsActiveTicket
+
+	retval.ID = v.activeTicketFragment.ID
+	retval.CarID = v.activeTicketFragment.CarID
+	retval.CustomerID = v.activeTicketFragment.CustomerID
+	retval.Problem = v.activeTicketFragment.Problem
+	retval.ShopID = v.activeTicketFragment.ShopID
+	retval.Status = v.activeTicketFragment.Status
+	return &retval, nil
+}
+
+// ActiveTicketsResponse is returned by ActiveTickets on success.
+type ActiveTicketsResponse struct {
+	ActiveTickets []*ActiveTicketsActiveTicketsActiveTicket `json:"activeTickets"`
+}
+
+// GetActiveTickets returns ActiveTicketsResponse.ActiveTickets, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsResponse) GetActiveTickets() []*ActiveTicketsActiveTicketsActiveTicket {
+	return v.ActiveTickets
+}
+
+// CarByIDCarByIDCar includes the requested fields of the GraphQL type car.
+type CarByIDCarByIDCar struct {
+	carFragment `json:"-"`
+}
+
+// GetID returns CarByIDCarByIDCar.ID, and is useful for accessing the field via an interface.
+func (v *CarByIDCarByIDCar) GetID() string { return v.carFragment.ID }
+
+// GetOwnerID returns CarByIDCarByIDCar.OwnerID, and is useful for accessing the field via an interface.
+func (v *CarByIDCarByIDCar) GetOwnerID() string { return v.carFragment.OwnerID }
+
+// GetPlateNum returns CarByIDCarByIDCar.PlateNum, and is useful for accessing the field via an interface.
+func (v *CarByIDCarByIDCar) GetPlateNum() string { return v.carFragment.PlateNum }
+
+// GetPlateType returns CarByIDCarByIDCar.PlateType, and is useful for accessing the field via an interface.
+func (v *CarByIDCarByIDCar) GetPlateType() string { return v.carFragment.PlateType }
+
+// GetIssuedAt returns CarByIDCarByIDCar.IssuedAt, and is useful for accessing the field via an interface.
+func (v *CarByIDCarByIDCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+
+// GetColor returns CarByIDCarByIDCar.Color, and is useful for accessing the field via an interface.
+func (v *CarByIDCarByIDCar) GetColor() string { return v.carFragment.Color }
+
+// GetType returns CarByIDCarByIDCar.Type, and is useful for accessing the field via an interface.
+func (v *CarByIDCarByIDCar) GetType() string { return v.carFragment.Type }
+
+// GetBrand returns CarByIDCarByIDCar.Brand, and is useful for accessing the field via an interface.
+func (v *CarByIDCarByIDCar) GetBrand() string { return v.carFragment.Brand }
+
+// GetBuild returns CarByIDCarByIDCar.Build, and is useful for accessing the field via an interface.
+func (v *CarByIDCarByIDCar) GetBuild() *string { return v.carFragment.Build }
+
+func (v *CarByIDCarByIDCar) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CarByIDCarByIDCar
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CarByIDCarByIDCar = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.carFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCarByIDCarByIDCar struct {
+	ID string `json:"ID"`
+
+	OwnerID string `json:"ownerID"`
+
+	PlateNum string `json:"plateNum"`
+
+	PlateType string `json:"plateType"`
+
+	IssuedAt string `json:"issuedAt"`
+
+	Color string `json:"color"`
+
+	Type string `json:"type"`
+
+	Brand string `json:"brand"`
+
+	Build *string `json:"build"`
+}
+
+func (v *CarByIDCarByIDCar) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CarByIDCarByIDCar) __premarshalJSON() (*__premarshalCarByIDCarByIDCar, error) {
+	var retval __premarshalCarByIDCarByIDCar
+
+	retval.ID = v.carFragment.ID
+	retval.OwnerID = v.carFragment.OwnerID
+	retval.PlateNum = v.carFragment.PlateNum
+	retval.PlateType = v.carFragment.PlateType
+	retval.IssuedAt = v.carFragment.IssuedAt
+	retval.Color = v.carFragment.Color
+	retval.Type = v.carFragment.Type
+	retval.Brand = v.carFragment.Brand
+	retval.Build = v.carFragment.Build
+	return &retval, nil
+}
+
+// CarByIDResponse is returned by CarByID on success.
+type CarByIDResponse struct {
+	CarByID *CarByIDCarByIDCar `json:"carByID"`
+}
+
+// GetCarByID returns CarByIDResponse.CarByID, and is useful for accessing the field via an interface.
+func (v *CarByIDResponse) GetCarByID() *CarByIDCarByIDCar { return v.CarByID }
+
+// CarByOwnerCarByOwnerCar includes the requested fields of the GraphQL type car.
+type CarByOwnerCarByOwnerCar struct {
+	carFragment `json:"-"`
+}
+
+// GetID returns CarByOwnerCarByOwnerCar.ID, and is useful for accessing the field via an interface.
+func (v *CarByOwnerCarByOwnerCar) GetID() string { return v.carFragment.ID }
+
+// GetOwnerID returns CarByOwnerCarByOwnerCar.OwnerID, and is useful for accessing the field via an interface.
+func (v *CarByOwnerCarByOwnerCar) GetOwnerID() string { return v.carFragment.OwnerID }
+
+// GetPlateNum returns CarByOwnerCarByOwnerCar.PlateNum, and is useful for accessing the field via an interface.
+func (v *CarByOwnerCarByOwnerCar) GetPlateNum() string { return v.carFragment.PlateNum }
+
+// GetPlateType returns CarByOwnerCarByOwnerCar.PlateType, and is useful for accessing the field via an interface.
+func (v *CarByOwnerCarByOwnerCar) GetPlateType() string { return v.carFragment.PlateType }
+
+// GetIssuedAt returns CarByOwnerCarByOwnerCar.IssuedAt, and is useful for accessing the field via an interface.
+func (v *CarByOwnerCarByOwnerCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+
+// GetColor returns CarByOwnerCarByOwnerCar.Color, and is useful for accessing the field via an interface.
+func (v *CarByOwnerCarByOwnerCar) GetColor() string { return v.carFragment.Color }
+
+// GetType returns CarByOwnerCarByOwnerCar.Type, and is useful for accessing the field via an interface.
+func (v *CarByOwnerCarByOwnerCar) GetType() string { return v.carFragment.Type }
+
+// GetBrand returns CarByOwnerCarByOwnerCar.Brand, and is useful for accessing the field via an interface.
+func (v *CarByOwnerCarByOwnerCar) GetBrand() string { return v.carFragment.Brand }
+
+// GetBuild returns CarByOwnerCarByOwnerCar.Build, and is useful for accessing the field via an interface.
+func (v *CarByOwnerCarByOwnerCar) GetBuild() *string { return v.carFragment.Build }
+
+func (v *CarByOwnerCarByOwnerCar) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CarByOwnerCarByOwnerCar
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CarByOwnerCarByOwnerCar = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.carFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCarByOwnerCarByOwnerCar struct {
+	ID string `json:"ID"`
+
+	OwnerID string `json:"ownerID"`
+
+	PlateNum string `json:"plateNum"`
+
+	PlateType string `json:"plateType"`
+
+	IssuedAt string `json:"issuedAt"`
+
+	Color string `json:"color"`
+
+	Type string `json:"type"`
+
+	Brand string `json:"brand"`
+
+	Build *string `json:"build"`
+}
+
+func (v *CarByOwnerCarByOwnerCar) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CarByOwnerCarByOwnerCar) __premarshalJSON() (*__premarshalCarByOwnerCarByOwnerCar, error) {
+	var retval __premarshalCarByOwnerCarByOwnerCar
+
+	retval.ID = v.carFragment.ID
+	retval.OwnerID = v.carFragment.OwnerID
+	retval.PlateNum = v.carFragment.PlateNum
+	retval.PlateType = v.carFragment.PlateType
+	retval.IssuedAt = v.carFragment.IssuedAt
+	retval.Color = v.carFragment.Color
+	retval.Type = v.carFragment.Type
+	retval.Brand = v.carFragment.Brand
+	retval.Build = v.carFragment.Build
+	return &retval, nil
+}
+
+// CarByOwnerResponse is returned by CarByOwner on success.
+type CarByOwnerResponse struct {
+	CarByOwner []*CarByOwnerCarByOwnerCar `json:"carByOwner"`
+}
+
+// GetCarByOwner returns CarByOwnerResponse.CarByOwner, and is useful for accessing the field via an interface.
+func (v *CarByOwnerResponse) GetCarByOwner() []*CarByOwnerCarByOwnerCar { return v.CarByOwner }
+
+// CarCreateCarCreateCar includes the requested fields of the GraphQL type car.
+type CarCreateCarCreateCar struct {
+	carFragment `json:"-"`
+}
+
+// GetID returns CarCreateCarCreateCar.ID, and is useful for accessing the field via an interface.
+func (v *CarCreateCarCreateCar) GetID() string { return v.carFragment.ID }
+
+// GetOwnerID returns CarCreateCarCreateCar.OwnerID, and is useful for accessing the field via an interface.
+func (v *CarCreateCarCreateCar) GetOwnerID() string { return v.carFragment.OwnerID }
+
+// GetPlateNum returns CarCreateCarCreateCar.PlateNum, and is useful for accessing the field via an interface.
+func (v *CarCreateCarCreateCar) GetPlateNum() string { return v.carFragment.PlateNum }
+
+// GetPlateType returns CarCreateCarCreateCar.PlateType, and is useful for accessing the field via an interface.
+func (v *CarCreateCarCreateCar) GetPlateType() string { return v.carFragment.PlateType }
+
+// GetIssuedAt returns CarCreateCarCreateCar.IssuedAt, and is useful for accessing the field via an interface.
+func (v *CarCreateCarCreateCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+
+// GetColor returns CarCreateCarCreateCar.Color, and is useful for accessing the field via an interface.
+func (v *CarCreateCarCreateCar) GetColor() string { return v.carFragment.Color }
+
+// GetType returns CarCreateCarCreateCar.Type, and is useful for accessing the field via an interface.
+func (v *CarCreateCarCreateCar) GetType() string { return v.carFragment.Type }
+
+// GetBrand returns CarCreateCarCreateCar.Brand, and is useful for accessing the field via an interface.
+func (v *CarCreateCarCreateCar) GetBrand() string { return v.carFragment.Brand }
+
+// GetBuild returns CarCreateCarCreateCar.Build, and is useful for accessing the field via an interface.
+func (v *CarCreateCarCreateCar) GetBuild() *string { return v.carFragment.Build }
+
+func (v *CarCreateCarCreateCar) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CarCreateCarCreateCar
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CarCreateCarCreateCar = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.carFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCarCreateCarCreateCar struct {
+	ID string `json:"ID"`
+
+	OwnerID string `json:"ownerID"`
+
+	PlateNum string `json:"plateNum"`
+
+	PlateType string `json:"plateType"`
+
+	IssuedAt string `json:"issuedAt"`
+
+	Color string `json:"color"`
+
+	Type string `json:"type"`
+
+	Brand string `json:"brand"`
+
+	Build *string `json:"build"`
+}
+
+func (v *CarCreateCarCreateCar) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CarCreateCarCreateCar) __premarshalJSON() (*__premarshalCarCreateCarCreateCar, error) {
+	var retval __premarshalCarCreateCarCreateCar
+
+	retval.ID = v.carFragment.ID
+	retval.OwnerID = v.carFragment.OwnerID
+	retval.PlateNum = v.carFragment.PlateNum
+	retval.PlateType = v.carFragment.PlateType
+	retval.IssuedAt = v.carFragment.IssuedAt
+	retval.Color = v.carFragment.Color
+	retval.Type = v.carFragment.Type
+	retval.Brand = v.carFragment.Brand
+	retval.Build = v.carFragment.Build
+	return &retval, nil
+}
+
 type CarCreateInput struct {
 	ID        *string `json:"ID"`
 	OwnerID   string  `json:"ownerID"`
@@ -47,6 +1455,489 @@ func (v *CarCreateInput) GetBrand() string { return v.Brand }
 
 // GetBuild returns CarCreateInput.Build, and is useful for accessing the field via an interface.
 func (v *CarCreateInput) GetBuild() *string { return v.Build }
+
+// CarCreateResponse is returned by CarCreate on success.
+type CarCreateResponse struct {
+	CarCreate *CarCreateCarCreateCar `json:"carCreate"`
+}
+
+// GetCarCreate returns CarCreateResponse.CarCreate, and is useful for accessing the field via an interface.
+func (v *CarCreateResponse) GetCarCreate() *CarCreateCarCreateCar { return v.CarCreate }
+
+// CarDeleteAllCarDeleteAllCar includes the requested fields of the GraphQL type car.
+type CarDeleteAllCarDeleteAllCar struct {
+	carFragment `json:"-"`
+}
+
+// GetID returns CarDeleteAllCarDeleteAllCar.ID, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllCarDeleteAllCar) GetID() string { return v.carFragment.ID }
+
+// GetOwnerID returns CarDeleteAllCarDeleteAllCar.OwnerID, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllCarDeleteAllCar) GetOwnerID() string { return v.carFragment.OwnerID }
+
+// GetPlateNum returns CarDeleteAllCarDeleteAllCar.PlateNum, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllCarDeleteAllCar) GetPlateNum() string { return v.carFragment.PlateNum }
+
+// GetPlateType returns CarDeleteAllCarDeleteAllCar.PlateType, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllCarDeleteAllCar) GetPlateType() string { return v.carFragment.PlateType }
+
+// GetIssuedAt returns CarDeleteAllCarDeleteAllCar.IssuedAt, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllCarDeleteAllCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+
+// GetColor returns CarDeleteAllCarDeleteAllCar.Color, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllCarDeleteAllCar) GetColor() string { return v.carFragment.Color }
+
+// GetType returns CarDeleteAllCarDeleteAllCar.Type, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllCarDeleteAllCar) GetType() string { return v.carFragment.Type }
+
+// GetBrand returns CarDeleteAllCarDeleteAllCar.Brand, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllCarDeleteAllCar) GetBrand() string { return v.carFragment.Brand }
+
+// GetBuild returns CarDeleteAllCarDeleteAllCar.Build, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllCarDeleteAllCar) GetBuild() *string { return v.carFragment.Build }
+
+func (v *CarDeleteAllCarDeleteAllCar) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CarDeleteAllCarDeleteAllCar
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CarDeleteAllCarDeleteAllCar = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.carFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCarDeleteAllCarDeleteAllCar struct {
+	ID string `json:"ID"`
+
+	OwnerID string `json:"ownerID"`
+
+	PlateNum string `json:"plateNum"`
+
+	PlateType string `json:"plateType"`
+
+	IssuedAt string `json:"issuedAt"`
+
+	Color string `json:"color"`
+
+	Type string `json:"type"`
+
+	Brand string `json:"brand"`
+
+	Build *string `json:"build"`
+}
+
+func (v *CarDeleteAllCarDeleteAllCar) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CarDeleteAllCarDeleteAllCar) __premarshalJSON() (*__premarshalCarDeleteAllCarDeleteAllCar, error) {
+	var retval __premarshalCarDeleteAllCarDeleteAllCar
+
+	retval.ID = v.carFragment.ID
+	retval.OwnerID = v.carFragment.OwnerID
+	retval.PlateNum = v.carFragment.PlateNum
+	retval.PlateType = v.carFragment.PlateType
+	retval.IssuedAt = v.carFragment.IssuedAt
+	retval.Color = v.carFragment.Color
+	retval.Type = v.carFragment.Type
+	retval.Brand = v.carFragment.Brand
+	retval.Build = v.carFragment.Build
+	return &retval, nil
+}
+
+// CarDeleteAllResponse is returned by CarDeleteAll on success.
+type CarDeleteAllResponse struct {
+	CarDeleteAll []*CarDeleteAllCarDeleteAllCar `json:"carDeleteAll"`
+}
+
+// GetCarDeleteAll returns CarDeleteAllResponse.CarDeleteAll, and is useful for accessing the field via an interface.
+func (v *CarDeleteAllResponse) GetCarDeleteAll() []*CarDeleteAllCarDeleteAllCar {
+	return v.CarDeleteAll
+}
+
+// CarDeleteCarDeleteCar includes the requested fields of the GraphQL type car.
+type CarDeleteCarDeleteCar struct {
+	carFragment `json:"-"`
+}
+
+// GetID returns CarDeleteCarDeleteCar.ID, and is useful for accessing the field via an interface.
+func (v *CarDeleteCarDeleteCar) GetID() string { return v.carFragment.ID }
+
+// GetOwnerID returns CarDeleteCarDeleteCar.OwnerID, and is useful for accessing the field via an interface.
+func (v *CarDeleteCarDeleteCar) GetOwnerID() string { return v.carFragment.OwnerID }
+
+// GetPlateNum returns CarDeleteCarDeleteCar.PlateNum, and is useful for accessing the field via an interface.
+func (v *CarDeleteCarDeleteCar) GetPlateNum() string { return v.carFragment.PlateNum }
+
+// GetPlateType returns CarDeleteCarDeleteCar.PlateType, and is useful for accessing the field via an interface.
+func (v *CarDeleteCarDeleteCar) GetPlateType() string { return v.carFragment.PlateType }
+
+// GetIssuedAt returns CarDeleteCarDeleteCar.IssuedAt, and is useful for accessing the field via an interface.
+func (v *CarDeleteCarDeleteCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+
+// GetColor returns CarDeleteCarDeleteCar.Color, and is useful for accessing the field via an interface.
+func (v *CarDeleteCarDeleteCar) GetColor() string { return v.carFragment.Color }
+
+// GetType returns CarDeleteCarDeleteCar.Type, and is useful for accessing the field via an interface.
+func (v *CarDeleteCarDeleteCar) GetType() string { return v.carFragment.Type }
+
+// GetBrand returns CarDeleteCarDeleteCar.Brand, and is useful for accessing the field via an interface.
+func (v *CarDeleteCarDeleteCar) GetBrand() string { return v.carFragment.Brand }
+
+// GetBuild returns CarDeleteCarDeleteCar.Build, and is useful for accessing the field via an interface.
+func (v *CarDeleteCarDeleteCar) GetBuild() *string { return v.carFragment.Build }
+
+func (v *CarDeleteCarDeleteCar) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CarDeleteCarDeleteCar
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CarDeleteCarDeleteCar = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.carFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCarDeleteCarDeleteCar struct {
+	ID string `json:"ID"`
+
+	OwnerID string `json:"ownerID"`
+
+	PlateNum string `json:"plateNum"`
+
+	PlateType string `json:"plateType"`
+
+	IssuedAt string `json:"issuedAt"`
+
+	Color string `json:"color"`
+
+	Type string `json:"type"`
+
+	Brand string `json:"brand"`
+
+	Build *string `json:"build"`
+}
+
+func (v *CarDeleteCarDeleteCar) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CarDeleteCarDeleteCar) __premarshalJSON() (*__premarshalCarDeleteCarDeleteCar, error) {
+	var retval __premarshalCarDeleteCarDeleteCar
+
+	retval.ID = v.carFragment.ID
+	retval.OwnerID = v.carFragment.OwnerID
+	retval.PlateNum = v.carFragment.PlateNum
+	retval.PlateType = v.carFragment.PlateType
+	retval.IssuedAt = v.carFragment.IssuedAt
+	retval.Color = v.carFragment.Color
+	retval.Type = v.carFragment.Type
+	retval.Brand = v.carFragment.Brand
+	retval.Build = v.carFragment.Build
+	return &retval, nil
+}
+
+// CarDeleteResponse is returned by CarDelete on success.
+type CarDeleteResponse struct {
+	CarDelete *CarDeleteCarDeleteCar `json:"carDelete"`
+}
+
+// GetCarDelete returns CarDeleteResponse.CarDelete, and is useful for accessing the field via an interface.
+func (v *CarDeleteResponse) GetCarDelete() *CarDeleteCarDeleteCar { return v.CarDelete }
+
+type CarUpdateInput struct {
+	ID        string  `json:"ID"`
+	OwnerID   string  `json:"ownerID"`
+	PlateNum  string  `json:"plateNum"`
+	PlateType string  `json:"plateType"`
+	IssuedAt  string  `json:"issuedAt"`
+	Color     string  `json:"color"`
+	Type      string  `json:"type"`
+	Brand     string  `json:"brand"`
+	Build     *string `json:"build"`
+}
+
+// GetID returns CarUpdateInput.ID, and is useful for accessing the field via an interface.
+func (v *CarUpdateInput) GetID() string { return v.ID }
+
+// GetOwnerID returns CarUpdateInput.OwnerID, and is useful for accessing the field via an interface.
+func (v *CarUpdateInput) GetOwnerID() string { return v.OwnerID }
+
+// GetPlateNum returns CarUpdateInput.PlateNum, and is useful for accessing the field via an interface.
+func (v *CarUpdateInput) GetPlateNum() string { return v.PlateNum }
+
+// GetPlateType returns CarUpdateInput.PlateType, and is useful for accessing the field via an interface.
+func (v *CarUpdateInput) GetPlateType() string { return v.PlateType }
+
+// GetIssuedAt returns CarUpdateInput.IssuedAt, and is useful for accessing the field via an interface.
+func (v *CarUpdateInput) GetIssuedAt() string { return v.IssuedAt }
+
+// GetColor returns CarUpdateInput.Color, and is useful for accessing the field via an interface.
+func (v *CarUpdateInput) GetColor() string { return v.Color }
+
+// GetType returns CarUpdateInput.Type, and is useful for accessing the field via an interface.
+func (v *CarUpdateInput) GetType() string { return v.Type }
+
+// GetBrand returns CarUpdateInput.Brand, and is useful for accessing the field via an interface.
+func (v *CarUpdateInput) GetBrand() string { return v.Brand }
+
+// GetBuild returns CarUpdateInput.Build, and is useful for accessing the field via an interface.
+func (v *CarUpdateInput) GetBuild() *string { return v.Build }
+
+// CarUpdateMultiCarUpdateMultiCar includes the requested fields of the GraphQL type car.
+type CarUpdateMultiCarUpdateMultiCar struct {
+	carFragment `json:"-"`
+}
+
+// GetID returns CarUpdateMultiCarUpdateMultiCar.ID, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiCarUpdateMultiCar) GetID() string { return v.carFragment.ID }
+
+// GetOwnerID returns CarUpdateMultiCarUpdateMultiCar.OwnerID, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiCarUpdateMultiCar) GetOwnerID() string { return v.carFragment.OwnerID }
+
+// GetPlateNum returns CarUpdateMultiCarUpdateMultiCar.PlateNum, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiCarUpdateMultiCar) GetPlateNum() string { return v.carFragment.PlateNum }
+
+// GetPlateType returns CarUpdateMultiCarUpdateMultiCar.PlateType, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiCarUpdateMultiCar) GetPlateType() string { return v.carFragment.PlateType }
+
+// GetIssuedAt returns CarUpdateMultiCarUpdateMultiCar.IssuedAt, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiCarUpdateMultiCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+
+// GetColor returns CarUpdateMultiCarUpdateMultiCar.Color, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiCarUpdateMultiCar) GetColor() string { return v.carFragment.Color }
+
+// GetType returns CarUpdateMultiCarUpdateMultiCar.Type, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiCarUpdateMultiCar) GetType() string { return v.carFragment.Type }
+
+// GetBrand returns CarUpdateMultiCarUpdateMultiCar.Brand, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiCarUpdateMultiCar) GetBrand() string { return v.carFragment.Brand }
+
+// GetBuild returns CarUpdateMultiCarUpdateMultiCar.Build, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiCarUpdateMultiCar) GetBuild() *string { return v.carFragment.Build }
+
+func (v *CarUpdateMultiCarUpdateMultiCar) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CarUpdateMultiCarUpdateMultiCar
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CarUpdateMultiCarUpdateMultiCar = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.carFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCarUpdateMultiCarUpdateMultiCar struct {
+	ID string `json:"ID"`
+
+	OwnerID string `json:"ownerID"`
+
+	PlateNum string `json:"plateNum"`
+
+	PlateType string `json:"plateType"`
+
+	IssuedAt string `json:"issuedAt"`
+
+	Color string `json:"color"`
+
+	Type string `json:"type"`
+
+	Brand string `json:"brand"`
+
+	Build *string `json:"build"`
+}
+
+func (v *CarUpdateMultiCarUpdateMultiCar) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CarUpdateMultiCarUpdateMultiCar) __premarshalJSON() (*__premarshalCarUpdateMultiCarUpdateMultiCar, error) {
+	var retval __premarshalCarUpdateMultiCarUpdateMultiCar
+
+	retval.ID = v.carFragment.ID
+	retval.OwnerID = v.carFragment.OwnerID
+	retval.PlateNum = v.carFragment.PlateNum
+	retval.PlateType = v.carFragment.PlateType
+	retval.IssuedAt = v.carFragment.IssuedAt
+	retval.Color = v.carFragment.Color
+	retval.Type = v.carFragment.Type
+	retval.Brand = v.carFragment.Brand
+	retval.Build = v.carFragment.Build
+	return &retval, nil
+}
+
+// CarUpdateMultiResponse is returned by CarUpdateMulti on success.
+type CarUpdateMultiResponse struct {
+	CarUpdateMulti *CarUpdateMultiCarUpdateMultiCar `json:"carUpdateMulti"`
+}
+
+// GetCarUpdateMulti returns CarUpdateMultiResponse.CarUpdateMulti, and is useful for accessing the field via an interface.
+func (v *CarUpdateMultiResponse) GetCarUpdateMulti() *CarUpdateMultiCarUpdateMultiCar {
+	return v.CarUpdateMulti
+}
+
+// CarsCarsCar includes the requested fields of the GraphQL type car.
+type CarsCarsCar struct {
+	carFragment `json:"-"`
+}
+
+// GetID returns CarsCarsCar.ID, and is useful for accessing the field via an interface.
+func (v *CarsCarsCar) GetID() string { return v.carFragment.ID }
+
+// GetOwnerID returns CarsCarsCar.OwnerID, and is useful for accessing the field via an interface.
+func (v *CarsCarsCar) GetOwnerID() string { return v.carFragment.OwnerID }
+
+// GetPlateNum returns CarsCarsCar.PlateNum, and is useful for accessing the field via an interface.
+func (v *CarsCarsCar) GetPlateNum() string { return v.carFragment.PlateNum }
+
+// GetPlateType returns CarsCarsCar.PlateType, and is useful for accessing the field via an interface.
+func (v *CarsCarsCar) GetPlateType() string { return v.carFragment.PlateType }
+
+// GetIssuedAt returns CarsCarsCar.IssuedAt, and is useful for accessing the field via an interface.
+func (v *CarsCarsCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+
+// GetColor returns CarsCarsCar.Color, and is useful for accessing the field via an interface.
+func (v *CarsCarsCar) GetColor() string { return v.carFragment.Color }
+
+// GetType returns CarsCarsCar.Type, and is useful for accessing the field via an interface.
+func (v *CarsCarsCar) GetType() string { return v.carFragment.Type }
+
+// GetBrand returns CarsCarsCar.Brand, and is useful for accessing the field via an interface.
+func (v *CarsCarsCar) GetBrand() string { return v.carFragment.Brand }
+
+// GetBuild returns CarsCarsCar.Build, and is useful for accessing the field via an interface.
+func (v *CarsCarsCar) GetBuild() *string { return v.carFragment.Build }
+
+func (v *CarsCarsCar) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CarsCarsCar
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CarsCarsCar = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.carFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCarsCarsCar struct {
+	ID string `json:"ID"`
+
+	OwnerID string `json:"ownerID"`
+
+	PlateNum string `json:"plateNum"`
+
+	PlateType string `json:"plateType"`
+
+	IssuedAt string `json:"issuedAt"`
+
+	Color string `json:"color"`
+
+	Type string `json:"type"`
+
+	Brand string `json:"brand"`
+
+	Build *string `json:"build"`
+}
+
+func (v *CarsCarsCar) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CarsCarsCar) __premarshalJSON() (*__premarshalCarsCarsCar, error) {
+	var retval __premarshalCarsCarsCar
+
+	retval.ID = v.carFragment.ID
+	retval.OwnerID = v.carFragment.OwnerID
+	retval.PlateNum = v.carFragment.PlateNum
+	retval.PlateType = v.carFragment.PlateType
+	retval.IssuedAt = v.carFragment.IssuedAt
+	retval.Color = v.carFragment.Color
+	retval.Type = v.carFragment.Type
+	retval.Brand = v.carFragment.Brand
+	retval.Build = v.carFragment.Build
+	return &retval, nil
+}
+
+// CarsResponse is returned by Cars on success.
+type CarsResponse struct {
+	Cars []*CarsCarsCar `json:"cars"`
+}
+
+// GetCars returns CarsResponse.Cars, and is useful for accessing the field via an interface.
+func (v *CarsResponse) GetCars() []*CarsCarsCar { return v.Cars }
 
 // CustomerByIDCustomerByIDCustomer includes the requested fields of the GraphQL type customer.
 type CustomerByIDCustomerByIDCustomer struct {
@@ -621,6 +2512,2814 @@ type DeleteIDInput struct {
 // GetID returns DeleteIDInput.ID, and is useful for accessing the field via an interface.
 func (v *DeleteIDInput) GetID() string { return v.ID }
 
+// ServiceByIDResponse is returned by ServiceByID on success.
+type ServiceByIDResponse struct {
+	ServiceByID *ServiceByIDServiceByIDService `json:"serviceByID"`
+}
+
+// GetServiceByID returns ServiceByIDResponse.ServiceByID, and is useful for accessing the field via an interface.
+func (v *ServiceByIDResponse) GetServiceByID() *ServiceByIDServiceByIDService { return v.ServiceByID }
+
+// ServiceByIDServiceByIDService includes the requested fields of the GraphQL type service.
+type ServiceByIDServiceByIDService struct {
+	serviceFragment `json:"-"`
+}
+
+// GetID returns ServiceByIDServiceByIDService.ID, and is useful for accessing the field via an interface.
+func (v *ServiceByIDServiceByIDService) GetID() string { return v.serviceFragment.ID }
+
+// GetName returns ServiceByIDServiceByIDService.Name, and is useful for accessing the field via an interface.
+func (v *ServiceByIDServiceByIDService) GetName() string { return v.serviceFragment.Name }
+
+func (v *ServiceByIDServiceByIDService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ServiceByIDServiceByIDService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ServiceByIDServiceByIDService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.serviceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalServiceByIDServiceByIDService struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+}
+
+func (v *ServiceByIDServiceByIDService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ServiceByIDServiceByIDService) __premarshalJSON() (*__premarshalServiceByIDServiceByIDService, error) {
+	var retval __premarshalServiceByIDServiceByIDService
+
+	retval.ID = v.serviceFragment.ID
+	retval.Name = v.serviceFragment.Name
+	return &retval, nil
+}
+
+type ServiceCreateInput struct {
+	ID   *string `json:"ID"`
+	Name string  `json:"name"`
+}
+
+// GetID returns ServiceCreateInput.ID, and is useful for accessing the field via an interface.
+func (v *ServiceCreateInput) GetID() *string { return v.ID }
+
+// GetName returns ServiceCreateInput.Name, and is useful for accessing the field via an interface.
+func (v *ServiceCreateInput) GetName() string { return v.Name }
+
+// ServiceCreateResponse is returned by ServiceCreate on success.
+type ServiceCreateResponse struct {
+	ServiceCreate *ServiceCreateServiceCreateService `json:"serviceCreate"`
+}
+
+// GetServiceCreate returns ServiceCreateResponse.ServiceCreate, and is useful for accessing the field via an interface.
+func (v *ServiceCreateResponse) GetServiceCreate() *ServiceCreateServiceCreateService {
+	return v.ServiceCreate
+}
+
+// ServiceCreateServiceCreateService includes the requested fields of the GraphQL type service.
+type ServiceCreateServiceCreateService struct {
+	serviceFragment `json:"-"`
+}
+
+// GetID returns ServiceCreateServiceCreateService.ID, and is useful for accessing the field via an interface.
+func (v *ServiceCreateServiceCreateService) GetID() string { return v.serviceFragment.ID }
+
+// GetName returns ServiceCreateServiceCreateService.Name, and is useful for accessing the field via an interface.
+func (v *ServiceCreateServiceCreateService) GetName() string { return v.serviceFragment.Name }
+
+func (v *ServiceCreateServiceCreateService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ServiceCreateServiceCreateService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ServiceCreateServiceCreateService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.serviceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalServiceCreateServiceCreateService struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+}
+
+func (v *ServiceCreateServiceCreateService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ServiceCreateServiceCreateService) __premarshalJSON() (*__premarshalServiceCreateServiceCreateService, error) {
+	var retval __premarshalServiceCreateServiceCreateService
+
+	retval.ID = v.serviceFragment.ID
+	retval.Name = v.serviceFragment.Name
+	return &retval, nil
+}
+
+// ServiceDeleteAllResponse is returned by ServiceDeleteAll on success.
+type ServiceDeleteAllResponse struct {
+	ServiceDeleteAll []*ServiceDeleteAllServiceDeleteAllService `json:"serviceDeleteAll"`
+}
+
+// GetServiceDeleteAll returns ServiceDeleteAllResponse.ServiceDeleteAll, and is useful for accessing the field via an interface.
+func (v *ServiceDeleteAllResponse) GetServiceDeleteAll() []*ServiceDeleteAllServiceDeleteAllService {
+	return v.ServiceDeleteAll
+}
+
+// ServiceDeleteAllServiceDeleteAllService includes the requested fields of the GraphQL type service.
+type ServiceDeleteAllServiceDeleteAllService struct {
+	serviceFragment `json:"-"`
+}
+
+// GetID returns ServiceDeleteAllServiceDeleteAllService.ID, and is useful for accessing the field via an interface.
+func (v *ServiceDeleteAllServiceDeleteAllService) GetID() string { return v.serviceFragment.ID }
+
+// GetName returns ServiceDeleteAllServiceDeleteAllService.Name, and is useful for accessing the field via an interface.
+func (v *ServiceDeleteAllServiceDeleteAllService) GetName() string { return v.serviceFragment.Name }
+
+func (v *ServiceDeleteAllServiceDeleteAllService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ServiceDeleteAllServiceDeleteAllService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ServiceDeleteAllServiceDeleteAllService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.serviceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalServiceDeleteAllServiceDeleteAllService struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+}
+
+func (v *ServiceDeleteAllServiceDeleteAllService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ServiceDeleteAllServiceDeleteAllService) __premarshalJSON() (*__premarshalServiceDeleteAllServiceDeleteAllService, error) {
+	var retval __premarshalServiceDeleteAllServiceDeleteAllService
+
+	retval.ID = v.serviceFragment.ID
+	retval.Name = v.serviceFragment.Name
+	return &retval, nil
+}
+
+// ServiceDeleteResponse is returned by ServiceDelete on success.
+type ServiceDeleteResponse struct {
+	ServiceDelete *ServiceDeleteServiceDeleteService `json:"serviceDelete"`
+}
+
+// GetServiceDelete returns ServiceDeleteResponse.ServiceDelete, and is useful for accessing the field via an interface.
+func (v *ServiceDeleteResponse) GetServiceDelete() *ServiceDeleteServiceDeleteService {
+	return v.ServiceDelete
+}
+
+// ServiceDeleteServiceDeleteService includes the requested fields of the GraphQL type service.
+type ServiceDeleteServiceDeleteService struct {
+	serviceFragment `json:"-"`
+}
+
+// GetID returns ServiceDeleteServiceDeleteService.ID, and is useful for accessing the field via an interface.
+func (v *ServiceDeleteServiceDeleteService) GetID() string { return v.serviceFragment.ID }
+
+// GetName returns ServiceDeleteServiceDeleteService.Name, and is useful for accessing the field via an interface.
+func (v *ServiceDeleteServiceDeleteService) GetName() string { return v.serviceFragment.Name }
+
+func (v *ServiceDeleteServiceDeleteService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ServiceDeleteServiceDeleteService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ServiceDeleteServiceDeleteService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.serviceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalServiceDeleteServiceDeleteService struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+}
+
+func (v *ServiceDeleteServiceDeleteService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ServiceDeleteServiceDeleteService) __premarshalJSON() (*__premarshalServiceDeleteServiceDeleteService, error) {
+	var retval __premarshalServiceDeleteServiceDeleteService
+
+	retval.ID = v.serviceFragment.ID
+	retval.Name = v.serviceFragment.Name
+	return &retval, nil
+}
+
+type ServiceUpdateInput struct {
+	ID   string `json:"ID"`
+	Name string `json:"name"`
+}
+
+// GetID returns ServiceUpdateInput.ID, and is useful for accessing the field via an interface.
+func (v *ServiceUpdateInput) GetID() string { return v.ID }
+
+// GetName returns ServiceUpdateInput.Name, and is useful for accessing the field via an interface.
+func (v *ServiceUpdateInput) GetName() string { return v.Name }
+
+// ServiceUpdateMultiResponse is returned by ServiceUpdateMulti on success.
+type ServiceUpdateMultiResponse struct {
+	ServiceUpdateMulti *ServiceUpdateMultiServiceUpdateMultiService `json:"serviceUpdateMulti"`
+}
+
+// GetServiceUpdateMulti returns ServiceUpdateMultiResponse.ServiceUpdateMulti, and is useful for accessing the field via an interface.
+func (v *ServiceUpdateMultiResponse) GetServiceUpdateMulti() *ServiceUpdateMultiServiceUpdateMultiService {
+	return v.ServiceUpdateMulti
+}
+
+// ServiceUpdateMultiServiceUpdateMultiService includes the requested fields of the GraphQL type service.
+type ServiceUpdateMultiServiceUpdateMultiService struct {
+	serviceFragment `json:"-"`
+}
+
+// GetID returns ServiceUpdateMultiServiceUpdateMultiService.ID, and is useful for accessing the field via an interface.
+func (v *ServiceUpdateMultiServiceUpdateMultiService) GetID() string { return v.serviceFragment.ID }
+
+// GetName returns ServiceUpdateMultiServiceUpdateMultiService.Name, and is useful for accessing the field via an interface.
+func (v *ServiceUpdateMultiServiceUpdateMultiService) GetName() string { return v.serviceFragment.Name }
+
+func (v *ServiceUpdateMultiServiceUpdateMultiService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ServiceUpdateMultiServiceUpdateMultiService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ServiceUpdateMultiServiceUpdateMultiService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.serviceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalServiceUpdateMultiServiceUpdateMultiService struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+}
+
+func (v *ServiceUpdateMultiServiceUpdateMultiService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ServiceUpdateMultiServiceUpdateMultiService) __premarshalJSON() (*__premarshalServiceUpdateMultiServiceUpdateMultiService, error) {
+	var retval __premarshalServiceUpdateMultiServiceUpdateMultiService
+
+	retval.ID = v.serviceFragment.ID
+	retval.Name = v.serviceFragment.Name
+	return &retval, nil
+}
+
+// ServicesResponse is returned by Services on success.
+type ServicesResponse struct {
+	Services []*ServicesServicesService `json:"services"`
+}
+
+// GetServices returns ServicesResponse.Services, and is useful for accessing the field via an interface.
+func (v *ServicesResponse) GetServices() []*ServicesServicesService { return v.Services }
+
+// ServicesServicesService includes the requested fields of the GraphQL type service.
+type ServicesServicesService struct {
+	serviceFragment `json:"-"`
+}
+
+// GetID returns ServicesServicesService.ID, and is useful for accessing the field via an interface.
+func (v *ServicesServicesService) GetID() string { return v.serviceFragment.ID }
+
+// GetName returns ServicesServicesService.Name, and is useful for accessing the field via an interface.
+func (v *ServicesServicesService) GetName() string { return v.serviceFragment.Name }
+
+func (v *ServicesServicesService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ServicesServicesService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ServicesServicesService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.serviceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalServicesServicesService struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+}
+
+func (v *ServicesServicesService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ServicesServicesService) __premarshalJSON() (*__premarshalServicesServicesService, error) {
+	var retval __premarshalServicesServicesService
+
+	retval.ID = v.serviceFragment.ID
+	retval.Name = v.serviceFragment.Name
+	return &retval, nil
+}
+
+// ShopByIDResponse is returned by ShopByID on success.
+type ShopByIDResponse struct {
+	ShopByID *ShopByIDShopByIDShop `json:"shopByID"`
+}
+
+// GetShopByID returns ShopByIDResponse.ShopByID, and is useful for accessing the field via an interface.
+func (v *ShopByIDResponse) GetShopByID() *ShopByIDShopByIDShop { return v.ShopByID }
+
+// ShopByIDShopByIDShop includes the requested fields of the GraphQL type shop.
+type ShopByIDShopByIDShop struct {
+	shopFragment `json:"-"`
+}
+
+// GetID returns ShopByIDShopByIDShop.ID, and is useful for accessing the field via an interface.
+func (v *ShopByIDShopByIDShop) GetID() string { return v.shopFragment.ID }
+
+// GetName returns ShopByIDShopByIDShop.Name, and is useful for accessing the field via an interface.
+func (v *ShopByIDShopByIDShop) GetName() string { return v.shopFragment.Name }
+
+// GetTel returns ShopByIDShopByIDShop.Tel, and is useful for accessing the field via an interface.
+func (v *ShopByIDShopByIDShop) GetTel() string { return v.shopFragment.Tel }
+
+// GetEmail returns ShopByIDShopByIDShop.Email, and is useful for accessing the field via an interface.
+func (v *ShopByIDShopByIDShop) GetEmail() string { return v.shopFragment.Email }
+
+// GetAddress returns ShopByIDShopByIDShop.Address, and is useful for accessing the field via an interface.
+func (v *ShopByIDShopByIDShop) GetAddress() string { return v.shopFragment.Address }
+
+func (v *ShopByIDShopByIDShop) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopByIDShopByIDShop
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopByIDShopByIDShop = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopByIDShopByIDShop struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+
+	Address string `json:"address"`
+}
+
+func (v *ShopByIDShopByIDShop) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopByIDShopByIDShop) __premarshalJSON() (*__premarshalShopByIDShopByIDShop, error) {
+	var retval __premarshalShopByIDShopByIDShop
+
+	retval.ID = v.shopFragment.ID
+	retval.Name = v.shopFragment.Name
+	retval.Tel = v.shopFragment.Tel
+	retval.Email = v.shopFragment.Email
+	retval.Address = v.shopFragment.Address
+	return &retval, nil
+}
+
+type ShopCreateInput struct {
+	ID      *string `json:"ID"`
+	Name    string  `json:"name"`
+	Tel     string  `json:"tel"`
+	Email   string  `json:"email"`
+	Address string  `json:"address"`
+}
+
+// GetID returns ShopCreateInput.ID, and is useful for accessing the field via an interface.
+func (v *ShopCreateInput) GetID() *string { return v.ID }
+
+// GetName returns ShopCreateInput.Name, and is useful for accessing the field via an interface.
+func (v *ShopCreateInput) GetName() string { return v.Name }
+
+// GetTel returns ShopCreateInput.Tel, and is useful for accessing the field via an interface.
+func (v *ShopCreateInput) GetTel() string { return v.Tel }
+
+// GetEmail returns ShopCreateInput.Email, and is useful for accessing the field via an interface.
+func (v *ShopCreateInput) GetEmail() string { return v.Email }
+
+// GetAddress returns ShopCreateInput.Address, and is useful for accessing the field via an interface.
+func (v *ShopCreateInput) GetAddress() string { return v.Address }
+
+// ShopCreateResponse is returned by ShopCreate on success.
+type ShopCreateResponse struct {
+	ShopCreate *ShopCreateShopCreateShop `json:"shopCreate"`
+}
+
+// GetShopCreate returns ShopCreateResponse.ShopCreate, and is useful for accessing the field via an interface.
+func (v *ShopCreateResponse) GetShopCreate() *ShopCreateShopCreateShop { return v.ShopCreate }
+
+// ShopCreateShopCreateShop includes the requested fields of the GraphQL type shop.
+type ShopCreateShopCreateShop struct {
+	shopFragment `json:"-"`
+}
+
+// GetID returns ShopCreateShopCreateShop.ID, and is useful for accessing the field via an interface.
+func (v *ShopCreateShopCreateShop) GetID() string { return v.shopFragment.ID }
+
+// GetName returns ShopCreateShopCreateShop.Name, and is useful for accessing the field via an interface.
+func (v *ShopCreateShopCreateShop) GetName() string { return v.shopFragment.Name }
+
+// GetTel returns ShopCreateShopCreateShop.Tel, and is useful for accessing the field via an interface.
+func (v *ShopCreateShopCreateShop) GetTel() string { return v.shopFragment.Tel }
+
+// GetEmail returns ShopCreateShopCreateShop.Email, and is useful for accessing the field via an interface.
+func (v *ShopCreateShopCreateShop) GetEmail() string { return v.shopFragment.Email }
+
+// GetAddress returns ShopCreateShopCreateShop.Address, and is useful for accessing the field via an interface.
+func (v *ShopCreateShopCreateShop) GetAddress() string { return v.shopFragment.Address }
+
+func (v *ShopCreateShopCreateShop) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopCreateShopCreateShop
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopCreateShopCreateShop = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopCreateShopCreateShop struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+
+	Address string `json:"address"`
+}
+
+func (v *ShopCreateShopCreateShop) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopCreateShopCreateShop) __premarshalJSON() (*__premarshalShopCreateShopCreateShop, error) {
+	var retval __premarshalShopCreateShopCreateShop
+
+	retval.ID = v.shopFragment.ID
+	retval.Name = v.shopFragment.Name
+	retval.Tel = v.shopFragment.Tel
+	retval.Email = v.shopFragment.Email
+	retval.Address = v.shopFragment.Address
+	return &retval, nil
+}
+
+// ShopDeleteAllResponse is returned by ShopDeleteAll on success.
+type ShopDeleteAllResponse struct {
+	ShopDeleteAll []*ShopDeleteAllShopDeleteAllShop `json:"shopDeleteAll"`
+}
+
+// GetShopDeleteAll returns ShopDeleteAllResponse.ShopDeleteAll, and is useful for accessing the field via an interface.
+func (v *ShopDeleteAllResponse) GetShopDeleteAll() []*ShopDeleteAllShopDeleteAllShop {
+	return v.ShopDeleteAll
+}
+
+// ShopDeleteAllShopDeleteAllShop includes the requested fields of the GraphQL type shop.
+type ShopDeleteAllShopDeleteAllShop struct {
+	shopFragment `json:"-"`
+}
+
+// GetID returns ShopDeleteAllShopDeleteAllShop.ID, and is useful for accessing the field via an interface.
+func (v *ShopDeleteAllShopDeleteAllShop) GetID() string { return v.shopFragment.ID }
+
+// GetName returns ShopDeleteAllShopDeleteAllShop.Name, and is useful for accessing the field via an interface.
+func (v *ShopDeleteAllShopDeleteAllShop) GetName() string { return v.shopFragment.Name }
+
+// GetTel returns ShopDeleteAllShopDeleteAllShop.Tel, and is useful for accessing the field via an interface.
+func (v *ShopDeleteAllShopDeleteAllShop) GetTel() string { return v.shopFragment.Tel }
+
+// GetEmail returns ShopDeleteAllShopDeleteAllShop.Email, and is useful for accessing the field via an interface.
+func (v *ShopDeleteAllShopDeleteAllShop) GetEmail() string { return v.shopFragment.Email }
+
+// GetAddress returns ShopDeleteAllShopDeleteAllShop.Address, and is useful for accessing the field via an interface.
+func (v *ShopDeleteAllShopDeleteAllShop) GetAddress() string { return v.shopFragment.Address }
+
+func (v *ShopDeleteAllShopDeleteAllShop) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopDeleteAllShopDeleteAllShop
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopDeleteAllShopDeleteAllShop = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopDeleteAllShopDeleteAllShop struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+
+	Address string `json:"address"`
+}
+
+func (v *ShopDeleteAllShopDeleteAllShop) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopDeleteAllShopDeleteAllShop) __premarshalJSON() (*__premarshalShopDeleteAllShopDeleteAllShop, error) {
+	var retval __premarshalShopDeleteAllShopDeleteAllShop
+
+	retval.ID = v.shopFragment.ID
+	retval.Name = v.shopFragment.Name
+	retval.Tel = v.shopFragment.Tel
+	retval.Email = v.shopFragment.Email
+	retval.Address = v.shopFragment.Address
+	return &retval, nil
+}
+
+// ShopDeleteResponse is returned by ShopDelete on success.
+type ShopDeleteResponse struct {
+	ShopDelete *ShopDeleteShopDeleteShop `json:"shopDelete"`
+}
+
+// GetShopDelete returns ShopDeleteResponse.ShopDelete, and is useful for accessing the field via an interface.
+func (v *ShopDeleteResponse) GetShopDelete() *ShopDeleteShopDeleteShop { return v.ShopDelete }
+
+// ShopDeleteShopDeleteShop includes the requested fields of the GraphQL type shop.
+type ShopDeleteShopDeleteShop struct {
+	shopFragment `json:"-"`
+}
+
+// GetID returns ShopDeleteShopDeleteShop.ID, and is useful for accessing the field via an interface.
+func (v *ShopDeleteShopDeleteShop) GetID() string { return v.shopFragment.ID }
+
+// GetName returns ShopDeleteShopDeleteShop.Name, and is useful for accessing the field via an interface.
+func (v *ShopDeleteShopDeleteShop) GetName() string { return v.shopFragment.Name }
+
+// GetTel returns ShopDeleteShopDeleteShop.Tel, and is useful for accessing the field via an interface.
+func (v *ShopDeleteShopDeleteShop) GetTel() string { return v.shopFragment.Tel }
+
+// GetEmail returns ShopDeleteShopDeleteShop.Email, and is useful for accessing the field via an interface.
+func (v *ShopDeleteShopDeleteShop) GetEmail() string { return v.shopFragment.Email }
+
+// GetAddress returns ShopDeleteShopDeleteShop.Address, and is useful for accessing the field via an interface.
+func (v *ShopDeleteShopDeleteShop) GetAddress() string { return v.shopFragment.Address }
+
+func (v *ShopDeleteShopDeleteShop) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopDeleteShopDeleteShop
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopDeleteShopDeleteShop = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopDeleteShopDeleteShop struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+
+	Address string `json:"address"`
+}
+
+func (v *ShopDeleteShopDeleteShop) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopDeleteShopDeleteShop) __premarshalJSON() (*__premarshalShopDeleteShopDeleteShop, error) {
+	var retval __premarshalShopDeleteShopDeleteShop
+
+	retval.ID = v.shopFragment.ID
+	retval.Name = v.shopFragment.Name
+	retval.Tel = v.shopFragment.Tel
+	retval.Email = v.shopFragment.Email
+	retval.Address = v.shopFragment.Address
+	return &retval, nil
+}
+
+// ShopServiceByIDResponse is returned by ShopServiceByID on success.
+type ShopServiceByIDResponse struct {
+	ShopServiceByID *ShopServiceByIDShopServiceByIDShopService `json:"shopServiceByID"`
+}
+
+// GetShopServiceByID returns ShopServiceByIDResponse.ShopServiceByID, and is useful for accessing the field via an interface.
+func (v *ShopServiceByIDResponse) GetShopServiceByID() *ShopServiceByIDShopServiceByIDShopService {
+	return v.ShopServiceByID
+}
+
+// ShopServiceByIDShopServiceByIDShopService includes the requested fields of the GraphQL type shopService.
+type ShopServiceByIDShopServiceByIDShopService struct {
+	shopServiceFragment `json:"-"`
+}
+
+// GetShopID returns ShopServiceByIDShopServiceByIDShopService.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopServiceByIDShopServiceByIDShopService) GetShopID() string {
+	return v.shopServiceFragment.ShopID
+}
+
+// GetServiceID returns ShopServiceByIDShopServiceByIDShopService.ServiceID, and is useful for accessing the field via an interface.
+func (v *ShopServiceByIDShopServiceByIDShopService) GetServiceID() string {
+	return v.shopServiceFragment.ServiceID
+}
+
+func (v *ShopServiceByIDShopServiceByIDShopService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopServiceByIDShopServiceByIDShopService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopServiceByIDShopServiceByIDShopService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopServiceByIDShopServiceByIDShopService struct {
+	ShopID string `json:"shopID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *ShopServiceByIDShopServiceByIDShopService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopServiceByIDShopServiceByIDShopService) __premarshalJSON() (*__premarshalShopServiceByIDShopServiceByIDShopService, error) {
+	var retval __premarshalShopServiceByIDShopServiceByIDShopService
+
+	retval.ShopID = v.shopServiceFragment.ShopID
+	retval.ServiceID = v.shopServiceFragment.ServiceID
+	return &retval, nil
+}
+
+type ShopServiceCreateInput struct {
+	ShopID    string `json:"shopID"`
+	ServiceID string `json:"serviceID"`
+}
+
+// GetShopID returns ShopServiceCreateInput.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopServiceCreateInput) GetShopID() string { return v.ShopID }
+
+// GetServiceID returns ShopServiceCreateInput.ServiceID, and is useful for accessing the field via an interface.
+func (v *ShopServiceCreateInput) GetServiceID() string { return v.ServiceID }
+
+// ShopServiceCreateResponse is returned by ShopServiceCreate on success.
+type ShopServiceCreateResponse struct {
+	ShopServiceCreate *ShopServiceCreateShopServiceCreateShopService `json:"shopServiceCreate"`
+}
+
+// GetShopServiceCreate returns ShopServiceCreateResponse.ShopServiceCreate, and is useful for accessing the field via an interface.
+func (v *ShopServiceCreateResponse) GetShopServiceCreate() *ShopServiceCreateShopServiceCreateShopService {
+	return v.ShopServiceCreate
+}
+
+// ShopServiceCreateShopServiceCreateShopService includes the requested fields of the GraphQL type shopService.
+type ShopServiceCreateShopServiceCreateShopService struct {
+	shopServiceFragment `json:"-"`
+}
+
+// GetShopID returns ShopServiceCreateShopServiceCreateShopService.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopServiceCreateShopServiceCreateShopService) GetShopID() string {
+	return v.shopServiceFragment.ShopID
+}
+
+// GetServiceID returns ShopServiceCreateShopServiceCreateShopService.ServiceID, and is useful for accessing the field via an interface.
+func (v *ShopServiceCreateShopServiceCreateShopService) GetServiceID() string {
+	return v.shopServiceFragment.ServiceID
+}
+
+func (v *ShopServiceCreateShopServiceCreateShopService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopServiceCreateShopServiceCreateShopService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopServiceCreateShopServiceCreateShopService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopServiceCreateShopServiceCreateShopService struct {
+	ShopID string `json:"shopID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *ShopServiceCreateShopServiceCreateShopService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopServiceCreateShopServiceCreateShopService) __premarshalJSON() (*__premarshalShopServiceCreateShopServiceCreateShopService, error) {
+	var retval __premarshalShopServiceCreateShopServiceCreateShopService
+
+	retval.ShopID = v.shopServiceFragment.ShopID
+	retval.ServiceID = v.shopServiceFragment.ServiceID
+	return &retval, nil
+}
+
+// ShopServiceDeleteAllResponse is returned by ShopServiceDeleteAll on success.
+type ShopServiceDeleteAllResponse struct {
+	ShopServiceDeleteAll []*ShopServiceDeleteAllShopServiceDeleteAllShopService `json:"shopServiceDeleteAll"`
+}
+
+// GetShopServiceDeleteAll returns ShopServiceDeleteAllResponse.ShopServiceDeleteAll, and is useful for accessing the field via an interface.
+func (v *ShopServiceDeleteAllResponse) GetShopServiceDeleteAll() []*ShopServiceDeleteAllShopServiceDeleteAllShopService {
+	return v.ShopServiceDeleteAll
+}
+
+// ShopServiceDeleteAllShopServiceDeleteAllShopService includes the requested fields of the GraphQL type shopService.
+type ShopServiceDeleteAllShopServiceDeleteAllShopService struct {
+	shopServiceFragment `json:"-"`
+}
+
+// GetShopID returns ShopServiceDeleteAllShopServiceDeleteAllShopService.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopServiceDeleteAllShopServiceDeleteAllShopService) GetShopID() string {
+	return v.shopServiceFragment.ShopID
+}
+
+// GetServiceID returns ShopServiceDeleteAllShopServiceDeleteAllShopService.ServiceID, and is useful for accessing the field via an interface.
+func (v *ShopServiceDeleteAllShopServiceDeleteAllShopService) GetServiceID() string {
+	return v.shopServiceFragment.ServiceID
+}
+
+func (v *ShopServiceDeleteAllShopServiceDeleteAllShopService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopServiceDeleteAllShopServiceDeleteAllShopService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopServiceDeleteAllShopServiceDeleteAllShopService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopServiceDeleteAllShopServiceDeleteAllShopService struct {
+	ShopID string `json:"shopID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *ShopServiceDeleteAllShopServiceDeleteAllShopService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopServiceDeleteAllShopServiceDeleteAllShopService) __premarshalJSON() (*__premarshalShopServiceDeleteAllShopServiceDeleteAllShopService, error) {
+	var retval __premarshalShopServiceDeleteAllShopServiceDeleteAllShopService
+
+	retval.ShopID = v.shopServiceFragment.ShopID
+	retval.ServiceID = v.shopServiceFragment.ServiceID
+	return &retval, nil
+}
+
+type ShopServiceDeleteInput struct {
+	ShopID    string `json:"shopID"`
+	ServiceID string `json:"serviceID"`
+}
+
+// GetShopID returns ShopServiceDeleteInput.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopServiceDeleteInput) GetShopID() string { return v.ShopID }
+
+// GetServiceID returns ShopServiceDeleteInput.ServiceID, and is useful for accessing the field via an interface.
+func (v *ShopServiceDeleteInput) GetServiceID() string { return v.ServiceID }
+
+// ShopServiceDeleteResponse is returned by ShopServiceDelete on success.
+type ShopServiceDeleteResponse struct {
+	ShopServiceDelete *ShopServiceDeleteShopServiceDeleteShopService `json:"shopServiceDelete"`
+}
+
+// GetShopServiceDelete returns ShopServiceDeleteResponse.ShopServiceDelete, and is useful for accessing the field via an interface.
+func (v *ShopServiceDeleteResponse) GetShopServiceDelete() *ShopServiceDeleteShopServiceDeleteShopService {
+	return v.ShopServiceDelete
+}
+
+// ShopServiceDeleteShopServiceDeleteShopService includes the requested fields of the GraphQL type shopService.
+type ShopServiceDeleteShopServiceDeleteShopService struct {
+	shopServiceFragment `json:"-"`
+}
+
+// GetShopID returns ShopServiceDeleteShopServiceDeleteShopService.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopServiceDeleteShopServiceDeleteShopService) GetShopID() string {
+	return v.shopServiceFragment.ShopID
+}
+
+// GetServiceID returns ShopServiceDeleteShopServiceDeleteShopService.ServiceID, and is useful for accessing the field via an interface.
+func (v *ShopServiceDeleteShopServiceDeleteShopService) GetServiceID() string {
+	return v.shopServiceFragment.ServiceID
+}
+
+func (v *ShopServiceDeleteShopServiceDeleteShopService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopServiceDeleteShopServiceDeleteShopService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopServiceDeleteShopServiceDeleteShopService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopServiceDeleteShopServiceDeleteShopService struct {
+	ShopID string `json:"shopID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *ShopServiceDeleteShopServiceDeleteShopService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopServiceDeleteShopServiceDeleteShopService) __premarshalJSON() (*__premarshalShopServiceDeleteShopServiceDeleteShopService, error) {
+	var retval __premarshalShopServiceDeleteShopServiceDeleteShopService
+
+	retval.ShopID = v.shopServiceFragment.ShopID
+	retval.ServiceID = v.shopServiceFragment.ServiceID
+	return &retval, nil
+}
+
+// ShopServicesResponse is returned by ShopServices on success.
+type ShopServicesResponse struct {
+	ShopServices []*ShopServicesShopServicesShopService `json:"shopServices"`
+}
+
+// GetShopServices returns ShopServicesResponse.ShopServices, and is useful for accessing the field via an interface.
+func (v *ShopServicesResponse) GetShopServices() []*ShopServicesShopServicesShopService {
+	return v.ShopServices
+}
+
+// ShopServicesShopServicesShopService includes the requested fields of the GraphQL type shopService.
+type ShopServicesShopServicesShopService struct {
+	shopServiceFragment `json:"-"`
+}
+
+// GetShopID returns ShopServicesShopServicesShopService.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopServicesShopServicesShopService) GetShopID() string { return v.shopServiceFragment.ShopID }
+
+// GetServiceID returns ShopServicesShopServicesShopService.ServiceID, and is useful for accessing the field via an interface.
+func (v *ShopServicesShopServicesShopService) GetServiceID() string {
+	return v.shopServiceFragment.ServiceID
+}
+
+func (v *ShopServicesShopServicesShopService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopServicesShopServicesShopService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopServicesShopServicesShopService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopServicesShopServicesShopService struct {
+	ShopID string `json:"shopID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *ShopServicesShopServicesShopService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopServicesShopServicesShopService) __premarshalJSON() (*__premarshalShopServicesShopServicesShopService, error) {
+	var retval __premarshalShopServicesShopServicesShopService
+
+	retval.ShopID = v.shopServiceFragment.ShopID
+	retval.ServiceID = v.shopServiceFragment.ServiceID
+	return &retval, nil
+}
+
+type ShopUpdateInput struct {
+	ID      string `json:"ID"`
+	Name    string `json:"name"`
+	Tel     string `json:"tel"`
+	Email   string `json:"email"`
+	Address string `json:"address"`
+}
+
+// GetID returns ShopUpdateInput.ID, and is useful for accessing the field via an interface.
+func (v *ShopUpdateInput) GetID() string { return v.ID }
+
+// GetName returns ShopUpdateInput.Name, and is useful for accessing the field via an interface.
+func (v *ShopUpdateInput) GetName() string { return v.Name }
+
+// GetTel returns ShopUpdateInput.Tel, and is useful for accessing the field via an interface.
+func (v *ShopUpdateInput) GetTel() string { return v.Tel }
+
+// GetEmail returns ShopUpdateInput.Email, and is useful for accessing the field via an interface.
+func (v *ShopUpdateInput) GetEmail() string { return v.Email }
+
+// GetAddress returns ShopUpdateInput.Address, and is useful for accessing the field via an interface.
+func (v *ShopUpdateInput) GetAddress() string { return v.Address }
+
+// ShopUpdateMultiResponse is returned by ShopUpdateMulti on success.
+type ShopUpdateMultiResponse struct {
+	ShopUpdateMulti *ShopUpdateMultiShopUpdateMultiShop `json:"shopUpdateMulti"`
+}
+
+// GetShopUpdateMulti returns ShopUpdateMultiResponse.ShopUpdateMulti, and is useful for accessing the field via an interface.
+func (v *ShopUpdateMultiResponse) GetShopUpdateMulti() *ShopUpdateMultiShopUpdateMultiShop {
+	return v.ShopUpdateMulti
+}
+
+// ShopUpdateMultiShopUpdateMultiShop includes the requested fields of the GraphQL type shop.
+type ShopUpdateMultiShopUpdateMultiShop struct {
+	shopFragment `json:"-"`
+}
+
+// GetID returns ShopUpdateMultiShopUpdateMultiShop.ID, and is useful for accessing the field via an interface.
+func (v *ShopUpdateMultiShopUpdateMultiShop) GetID() string { return v.shopFragment.ID }
+
+// GetName returns ShopUpdateMultiShopUpdateMultiShop.Name, and is useful for accessing the field via an interface.
+func (v *ShopUpdateMultiShopUpdateMultiShop) GetName() string { return v.shopFragment.Name }
+
+// GetTel returns ShopUpdateMultiShopUpdateMultiShop.Tel, and is useful for accessing the field via an interface.
+func (v *ShopUpdateMultiShopUpdateMultiShop) GetTel() string { return v.shopFragment.Tel }
+
+// GetEmail returns ShopUpdateMultiShopUpdateMultiShop.Email, and is useful for accessing the field via an interface.
+func (v *ShopUpdateMultiShopUpdateMultiShop) GetEmail() string { return v.shopFragment.Email }
+
+// GetAddress returns ShopUpdateMultiShopUpdateMultiShop.Address, and is useful for accessing the field via an interface.
+func (v *ShopUpdateMultiShopUpdateMultiShop) GetAddress() string { return v.shopFragment.Address }
+
+func (v *ShopUpdateMultiShopUpdateMultiShop) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopUpdateMultiShopUpdateMultiShop
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopUpdateMultiShopUpdateMultiShop = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopUpdateMultiShopUpdateMultiShop struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+
+	Address string `json:"address"`
+}
+
+func (v *ShopUpdateMultiShopUpdateMultiShop) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopUpdateMultiShopUpdateMultiShop) __premarshalJSON() (*__premarshalShopUpdateMultiShopUpdateMultiShop, error) {
+	var retval __premarshalShopUpdateMultiShopUpdateMultiShop
+
+	retval.ID = v.shopFragment.ID
+	retval.Name = v.shopFragment.Name
+	retval.Tel = v.shopFragment.Tel
+	retval.Email = v.shopFragment.Email
+	retval.Address = v.shopFragment.Address
+	return &retval, nil
+}
+
+// ShopsResponse is returned by Shops on success.
+type ShopsResponse struct {
+	Shops []*ShopsShopsShop `json:"shops"`
+}
+
+// GetShops returns ShopsResponse.Shops, and is useful for accessing the field via an interface.
+func (v *ShopsResponse) GetShops() []*ShopsShopsShop { return v.Shops }
+
+// ShopsShopsShop includes the requested fields of the GraphQL type shop.
+type ShopsShopsShop struct {
+	shopFragment `json:"-"`
+}
+
+// GetID returns ShopsShopsShop.ID, and is useful for accessing the field via an interface.
+func (v *ShopsShopsShop) GetID() string { return v.shopFragment.ID }
+
+// GetName returns ShopsShopsShop.Name, and is useful for accessing the field via an interface.
+func (v *ShopsShopsShop) GetName() string { return v.shopFragment.Name }
+
+// GetTel returns ShopsShopsShop.Tel, and is useful for accessing the field via an interface.
+func (v *ShopsShopsShop) GetTel() string { return v.shopFragment.Tel }
+
+// GetEmail returns ShopsShopsShop.Email, and is useful for accessing the field via an interface.
+func (v *ShopsShopsShop) GetEmail() string { return v.shopFragment.Email }
+
+// GetAddress returns ShopsShopsShop.Address, and is useful for accessing the field via an interface.
+func (v *ShopsShopsShop) GetAddress() string { return v.shopFragment.Address }
+
+func (v *ShopsShopsShop) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopsShopsShop
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopsShopsShop = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopsShopsShop struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+
+	Address string `json:"address"`
+}
+
+func (v *ShopsShopsShop) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopsShopsShop) __premarshalJSON() (*__premarshalShopsShopsShop, error) {
+	var retval __premarshalShopsShopsShop
+
+	retval.ID = v.shopFragment.ID
+	retval.Name = v.shopFragment.Name
+	retval.Tel = v.shopFragment.Tel
+	retval.Email = v.shopFragment.Email
+	retval.Address = v.shopFragment.Address
+	return &retval, nil
+}
+
+type Status string
+
+const (
+	StatusActive Status = "active"
+	StatusFinish Status = "finish"
+)
+
+type TicketByCustomerInput struct {
+	CustomerID string `json:"customerID"`
+	FromTime   string `json:"fromTime"`
+	ToTime     string `json:"toTime"`
+	Status     string `json:"status"`
+}
+
+// GetCustomerID returns TicketByCustomerInput.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerInput) GetCustomerID() string { return v.CustomerID }
+
+// GetFromTime returns TicketByCustomerInput.FromTime, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerInput) GetFromTime() string { return v.FromTime }
+
+// GetToTime returns TicketByCustomerInput.ToTime, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerInput) GetToTime() string { return v.ToTime }
+
+// GetStatus returns TicketByCustomerInput.Status, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerInput) GetStatus() string { return v.Status }
+
+// TicketByCustomerResponse is returned by TicketByCustomer on success.
+type TicketByCustomerResponse struct {
+	TicketByCustomer []*TicketByCustomerTicketByCustomerTicket `json:"ticketByCustomer"`
+}
+
+// GetTicketByCustomer returns TicketByCustomerResponse.TicketByCustomer, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerResponse) GetTicketByCustomer() []*TicketByCustomerTicketByCustomerTicket {
+	return v.TicketByCustomer
+}
+
+// TicketByCustomerTicketByCustomerTicket includes the requested fields of the GraphQL type ticket.
+type TicketByCustomerTicketByCustomerTicket struct {
+	ticketFragment `json:"-"`
+}
+
+// GetID returns TicketByCustomerTicketByCustomerTicket.ID, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerTicketByCustomerTicket) GetID() string { return v.ticketFragment.ID }
+
+// GetCustomerID returns TicketByCustomerTicketByCustomerTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerTicketByCustomerTicket) GetCustomerID() string {
+	return v.ticketFragment.CustomerID
+}
+
+// GetCarID returns TicketByCustomerTicketByCustomerTicket.CarID, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerTicketByCustomerTicket) GetCarID() string { return v.ticketFragment.CarID }
+
+// GetProblem returns TicketByCustomerTicketByCustomerTicket.Problem, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerTicketByCustomerTicket) GetProblem() string { return v.ticketFragment.Problem }
+
+// GetCreateTime returns TicketByCustomerTicketByCustomerTicket.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerTicketByCustomerTicket) GetCreateTime() string {
+	return v.ticketFragment.CreateTime
+}
+
+// GetShopID returns TicketByCustomerTicketByCustomerTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerTicketByCustomerTicket) GetShopID() string { return v.ticketFragment.ShopID }
+
+// GetAcceptedTime returns TicketByCustomerTicketByCustomerTicket.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerTicketByCustomerTicket) GetAcceptedTime() string {
+	return v.ticketFragment.AcceptedTime
+}
+
+// GetStatus returns TicketByCustomerTicketByCustomerTicket.Status, and is useful for accessing the field via an interface.
+func (v *TicketByCustomerTicketByCustomerTicket) GetStatus() string { return v.ticketFragment.Status }
+
+func (v *TicketByCustomerTicketByCustomerTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketByCustomerTicketByCustomerTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketByCustomerTicketByCustomerTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketByCustomerTicketByCustomerTicket struct {
+	ID string `json:"ID"`
+
+	CustomerID string `json:"customerID"`
+
+	CarID string `json:"carID"`
+
+	Problem string `json:"problem"`
+
+	CreateTime string `json:"createTime"`
+
+	ShopID string `json:"shopID"`
+
+	AcceptedTime string `json:"acceptedTime"`
+
+	Status string `json:"status"`
+}
+
+func (v *TicketByCustomerTicketByCustomerTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketByCustomerTicketByCustomerTicket) __premarshalJSON() (*__premarshalTicketByCustomerTicketByCustomerTicket, error) {
+	var retval __premarshalTicketByCustomerTicketByCustomerTicket
+
+	retval.ID = v.ticketFragment.ID
+	retval.CustomerID = v.ticketFragment.CustomerID
+	retval.CarID = v.ticketFragment.CarID
+	retval.Problem = v.ticketFragment.Problem
+	retval.CreateTime = v.ticketFragment.CreateTime
+	retval.ShopID = v.ticketFragment.ShopID
+	retval.AcceptedTime = v.ticketFragment.AcceptedTime
+	retval.Status = v.ticketFragment.Status
+	return &retval, nil
+}
+
+// TicketByIDResponse is returned by TicketByID on success.
+type TicketByIDResponse struct {
+	TicketByID *TicketByIDTicketByIDTicket `json:"ticketByID"`
+}
+
+// GetTicketByID returns TicketByIDResponse.TicketByID, and is useful for accessing the field via an interface.
+func (v *TicketByIDResponse) GetTicketByID() *TicketByIDTicketByIDTicket { return v.TicketByID }
+
+// TicketByIDTicketByIDTicket includes the requested fields of the GraphQL type ticket.
+type TicketByIDTicketByIDTicket struct {
+	ticketFragment `json:"-"`
+}
+
+// GetID returns TicketByIDTicketByIDTicket.ID, and is useful for accessing the field via an interface.
+func (v *TicketByIDTicketByIDTicket) GetID() string { return v.ticketFragment.ID }
+
+// GetCustomerID returns TicketByIDTicketByIDTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketByIDTicketByIDTicket) GetCustomerID() string { return v.ticketFragment.CustomerID }
+
+// GetCarID returns TicketByIDTicketByIDTicket.CarID, and is useful for accessing the field via an interface.
+func (v *TicketByIDTicketByIDTicket) GetCarID() string { return v.ticketFragment.CarID }
+
+// GetProblem returns TicketByIDTicketByIDTicket.Problem, and is useful for accessing the field via an interface.
+func (v *TicketByIDTicketByIDTicket) GetProblem() string { return v.ticketFragment.Problem }
+
+// GetCreateTime returns TicketByIDTicketByIDTicket.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketByIDTicketByIDTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+
+// GetShopID returns TicketByIDTicketByIDTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketByIDTicketByIDTicket) GetShopID() string { return v.ticketFragment.ShopID }
+
+// GetAcceptedTime returns TicketByIDTicketByIDTicket.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketByIDTicketByIDTicket) GetAcceptedTime() string { return v.ticketFragment.AcceptedTime }
+
+// GetStatus returns TicketByIDTicketByIDTicket.Status, and is useful for accessing the field via an interface.
+func (v *TicketByIDTicketByIDTicket) GetStatus() string { return v.ticketFragment.Status }
+
+func (v *TicketByIDTicketByIDTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketByIDTicketByIDTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketByIDTicketByIDTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketByIDTicketByIDTicket struct {
+	ID string `json:"ID"`
+
+	CustomerID string `json:"customerID"`
+
+	CarID string `json:"carID"`
+
+	Problem string `json:"problem"`
+
+	CreateTime string `json:"createTime"`
+
+	ShopID string `json:"shopID"`
+
+	AcceptedTime string `json:"acceptedTime"`
+
+	Status string `json:"status"`
+}
+
+func (v *TicketByIDTicketByIDTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketByIDTicketByIDTicket) __premarshalJSON() (*__premarshalTicketByIDTicketByIDTicket, error) {
+	var retval __premarshalTicketByIDTicketByIDTicket
+
+	retval.ID = v.ticketFragment.ID
+	retval.CustomerID = v.ticketFragment.CustomerID
+	retval.CarID = v.ticketFragment.CarID
+	retval.Problem = v.ticketFragment.Problem
+	retval.CreateTime = v.ticketFragment.CreateTime
+	retval.ShopID = v.ticketFragment.ShopID
+	retval.AcceptedTime = v.ticketFragment.AcceptedTime
+	retval.Status = v.ticketFragment.Status
+	return &retval, nil
+}
+
+type TicketByShopInput struct {
+	ShopID   string `json:"shopID"`
+	FromTime string `json:"fromTime"`
+	ToTime   string `json:"toTime"`
+	Status   string `json:"status"`
+}
+
+// GetShopID returns TicketByShopInput.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketByShopInput) GetShopID() string { return v.ShopID }
+
+// GetFromTime returns TicketByShopInput.FromTime, and is useful for accessing the field via an interface.
+func (v *TicketByShopInput) GetFromTime() string { return v.FromTime }
+
+// GetToTime returns TicketByShopInput.ToTime, and is useful for accessing the field via an interface.
+func (v *TicketByShopInput) GetToTime() string { return v.ToTime }
+
+// GetStatus returns TicketByShopInput.Status, and is useful for accessing the field via an interface.
+func (v *TicketByShopInput) GetStatus() string { return v.Status }
+
+// TicketByShopResponse is returned by TicketByShop on success.
+type TicketByShopResponse struct {
+	TicketByShop []*TicketByShopTicketByShopTicket `json:"ticketByShop"`
+}
+
+// GetTicketByShop returns TicketByShopResponse.TicketByShop, and is useful for accessing the field via an interface.
+func (v *TicketByShopResponse) GetTicketByShop() []*TicketByShopTicketByShopTicket {
+	return v.TicketByShop
+}
+
+// TicketByShopTicketByShopTicket includes the requested fields of the GraphQL type ticket.
+type TicketByShopTicketByShopTicket struct {
+	ticketFragment `json:"-"`
+}
+
+// GetID returns TicketByShopTicketByShopTicket.ID, and is useful for accessing the field via an interface.
+func (v *TicketByShopTicketByShopTicket) GetID() string { return v.ticketFragment.ID }
+
+// GetCustomerID returns TicketByShopTicketByShopTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketByShopTicketByShopTicket) GetCustomerID() string { return v.ticketFragment.CustomerID }
+
+// GetCarID returns TicketByShopTicketByShopTicket.CarID, and is useful for accessing the field via an interface.
+func (v *TicketByShopTicketByShopTicket) GetCarID() string { return v.ticketFragment.CarID }
+
+// GetProblem returns TicketByShopTicketByShopTicket.Problem, and is useful for accessing the field via an interface.
+func (v *TicketByShopTicketByShopTicket) GetProblem() string { return v.ticketFragment.Problem }
+
+// GetCreateTime returns TicketByShopTicketByShopTicket.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketByShopTicketByShopTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+
+// GetShopID returns TicketByShopTicketByShopTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketByShopTicketByShopTicket) GetShopID() string { return v.ticketFragment.ShopID }
+
+// GetAcceptedTime returns TicketByShopTicketByShopTicket.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketByShopTicketByShopTicket) GetAcceptedTime() string {
+	return v.ticketFragment.AcceptedTime
+}
+
+// GetStatus returns TicketByShopTicketByShopTicket.Status, and is useful for accessing the field via an interface.
+func (v *TicketByShopTicketByShopTicket) GetStatus() string { return v.ticketFragment.Status }
+
+func (v *TicketByShopTicketByShopTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketByShopTicketByShopTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketByShopTicketByShopTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketByShopTicketByShopTicket struct {
+	ID string `json:"ID"`
+
+	CustomerID string `json:"customerID"`
+
+	CarID string `json:"carID"`
+
+	Problem string `json:"problem"`
+
+	CreateTime string `json:"createTime"`
+
+	ShopID string `json:"shopID"`
+
+	AcceptedTime string `json:"acceptedTime"`
+
+	Status string `json:"status"`
+}
+
+func (v *TicketByShopTicketByShopTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketByShopTicketByShopTicket) __premarshalJSON() (*__premarshalTicketByShopTicketByShopTicket, error) {
+	var retval __premarshalTicketByShopTicketByShopTicket
+
+	retval.ID = v.ticketFragment.ID
+	retval.CustomerID = v.ticketFragment.CustomerID
+	retval.CarID = v.ticketFragment.CarID
+	retval.Problem = v.ticketFragment.Problem
+	retval.CreateTime = v.ticketFragment.CreateTime
+	retval.ShopID = v.ticketFragment.ShopID
+	retval.AcceptedTime = v.ticketFragment.AcceptedTime
+	retval.Status = v.ticketFragment.Status
+	return &retval, nil
+}
+
+type TicketCreateInput struct {
+	ID           *string `json:"ID"`
+	CustomerID   string  `json:"customerID"`
+	CarID        string  `json:"carID"`
+	Problem      string  `json:"problem"`
+	CreateTime   string  `json:"createTime"`
+	ShopID       string  `json:"shopID"`
+	AcceptedTime string  `json:"acceptedTime"`
+	Status       string  `json:"status"`
+}
+
+// GetID returns TicketCreateInput.ID, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetID() *string { return v.ID }
+
+// GetCustomerID returns TicketCreateInput.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetCustomerID() string { return v.CustomerID }
+
+// GetCarID returns TicketCreateInput.CarID, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetCarID() string { return v.CarID }
+
+// GetProblem returns TicketCreateInput.Problem, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetProblem() string { return v.Problem }
+
+// GetCreateTime returns TicketCreateInput.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetCreateTime() string { return v.CreateTime }
+
+// GetShopID returns TicketCreateInput.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetShopID() string { return v.ShopID }
+
+// GetAcceptedTime returns TicketCreateInput.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetAcceptedTime() string { return v.AcceptedTime }
+
+// GetStatus returns TicketCreateInput.Status, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetStatus() string { return v.Status }
+
+// TicketCreateResponse is returned by TicketCreate on success.
+type TicketCreateResponse struct {
+	TicketCreate *TicketCreateTicketCreateTicket `json:"ticketCreate"`
+}
+
+// GetTicketCreate returns TicketCreateResponse.TicketCreate, and is useful for accessing the field via an interface.
+func (v *TicketCreateResponse) GetTicketCreate() *TicketCreateTicketCreateTicket {
+	return v.TicketCreate
+}
+
+// TicketCreateTicketCreateTicket includes the requested fields of the GraphQL type ticket.
+type TicketCreateTicketCreateTicket struct {
+	ticketFragment `json:"-"`
+}
+
+// GetID returns TicketCreateTicketCreateTicket.ID, and is useful for accessing the field via an interface.
+func (v *TicketCreateTicketCreateTicket) GetID() string { return v.ticketFragment.ID }
+
+// GetCustomerID returns TicketCreateTicketCreateTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketCreateTicketCreateTicket) GetCustomerID() string { return v.ticketFragment.CustomerID }
+
+// GetCarID returns TicketCreateTicketCreateTicket.CarID, and is useful for accessing the field via an interface.
+func (v *TicketCreateTicketCreateTicket) GetCarID() string { return v.ticketFragment.CarID }
+
+// GetProblem returns TicketCreateTicketCreateTicket.Problem, and is useful for accessing the field via an interface.
+func (v *TicketCreateTicketCreateTicket) GetProblem() string { return v.ticketFragment.Problem }
+
+// GetCreateTime returns TicketCreateTicketCreateTicket.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketCreateTicketCreateTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+
+// GetShopID returns TicketCreateTicketCreateTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketCreateTicketCreateTicket) GetShopID() string { return v.ticketFragment.ShopID }
+
+// GetAcceptedTime returns TicketCreateTicketCreateTicket.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketCreateTicketCreateTicket) GetAcceptedTime() string {
+	return v.ticketFragment.AcceptedTime
+}
+
+// GetStatus returns TicketCreateTicketCreateTicket.Status, and is useful for accessing the field via an interface.
+func (v *TicketCreateTicketCreateTicket) GetStatus() string { return v.ticketFragment.Status }
+
+func (v *TicketCreateTicketCreateTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketCreateTicketCreateTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketCreateTicketCreateTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketCreateTicketCreateTicket struct {
+	ID string `json:"ID"`
+
+	CustomerID string `json:"customerID"`
+
+	CarID string `json:"carID"`
+
+	Problem string `json:"problem"`
+
+	CreateTime string `json:"createTime"`
+
+	ShopID string `json:"shopID"`
+
+	AcceptedTime string `json:"acceptedTime"`
+
+	Status string `json:"status"`
+}
+
+func (v *TicketCreateTicketCreateTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketCreateTicketCreateTicket) __premarshalJSON() (*__premarshalTicketCreateTicketCreateTicket, error) {
+	var retval __premarshalTicketCreateTicketCreateTicket
+
+	retval.ID = v.ticketFragment.ID
+	retval.CustomerID = v.ticketFragment.CustomerID
+	retval.CarID = v.ticketFragment.CarID
+	retval.Problem = v.ticketFragment.Problem
+	retval.CreateTime = v.ticketFragment.CreateTime
+	retval.ShopID = v.ticketFragment.ShopID
+	retval.AcceptedTime = v.ticketFragment.AcceptedTime
+	retval.Status = v.ticketFragment.Status
+	return &retval, nil
+}
+
+// TicketDeleteAllResponse is returned by TicketDeleteAll on success.
+type TicketDeleteAllResponse struct {
+	TicketDeleteAll []*TicketDeleteAllTicketDeleteAllTicket `json:"ticketDeleteAll"`
+}
+
+// GetTicketDeleteAll returns TicketDeleteAllResponse.TicketDeleteAll, and is useful for accessing the field via an interface.
+func (v *TicketDeleteAllResponse) GetTicketDeleteAll() []*TicketDeleteAllTicketDeleteAllTicket {
+	return v.TicketDeleteAll
+}
+
+// TicketDeleteAllTicketDeleteAllTicket includes the requested fields of the GraphQL type ticket.
+type TicketDeleteAllTicketDeleteAllTicket struct {
+	ticketFragment `json:"-"`
+}
+
+// GetID returns TicketDeleteAllTicketDeleteAllTicket.ID, and is useful for accessing the field via an interface.
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetID() string { return v.ticketFragment.ID }
+
+// GetCustomerID returns TicketDeleteAllTicketDeleteAllTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetCustomerID() string {
+	return v.ticketFragment.CustomerID
+}
+
+// GetCarID returns TicketDeleteAllTicketDeleteAllTicket.CarID, and is useful for accessing the field via an interface.
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetCarID() string { return v.ticketFragment.CarID }
+
+// GetProblem returns TicketDeleteAllTicketDeleteAllTicket.Problem, and is useful for accessing the field via an interface.
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetProblem() string { return v.ticketFragment.Problem }
+
+// GetCreateTime returns TicketDeleteAllTicketDeleteAllTicket.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetCreateTime() string {
+	return v.ticketFragment.CreateTime
+}
+
+// GetShopID returns TicketDeleteAllTicketDeleteAllTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetShopID() string { return v.ticketFragment.ShopID }
+
+// GetAcceptedTime returns TicketDeleteAllTicketDeleteAllTicket.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetAcceptedTime() string {
+	return v.ticketFragment.AcceptedTime
+}
+
+// GetStatus returns TicketDeleteAllTicketDeleteAllTicket.Status, and is useful for accessing the field via an interface.
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetStatus() string { return v.ticketFragment.Status }
+
+func (v *TicketDeleteAllTicketDeleteAllTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketDeleteAllTicketDeleteAllTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketDeleteAllTicketDeleteAllTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketDeleteAllTicketDeleteAllTicket struct {
+	ID string `json:"ID"`
+
+	CustomerID string `json:"customerID"`
+
+	CarID string `json:"carID"`
+
+	Problem string `json:"problem"`
+
+	CreateTime string `json:"createTime"`
+
+	ShopID string `json:"shopID"`
+
+	AcceptedTime string `json:"acceptedTime"`
+
+	Status string `json:"status"`
+}
+
+func (v *TicketDeleteAllTicketDeleteAllTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketDeleteAllTicketDeleteAllTicket) __premarshalJSON() (*__premarshalTicketDeleteAllTicketDeleteAllTicket, error) {
+	var retval __premarshalTicketDeleteAllTicketDeleteAllTicket
+
+	retval.ID = v.ticketFragment.ID
+	retval.CustomerID = v.ticketFragment.CustomerID
+	retval.CarID = v.ticketFragment.CarID
+	retval.Problem = v.ticketFragment.Problem
+	retval.CreateTime = v.ticketFragment.CreateTime
+	retval.ShopID = v.ticketFragment.ShopID
+	retval.AcceptedTime = v.ticketFragment.AcceptedTime
+	retval.Status = v.ticketFragment.Status
+	return &retval, nil
+}
+
+// TicketDeleteResponse is returned by TicketDelete on success.
+type TicketDeleteResponse struct {
+	TicketDelete *TicketDeleteTicketDeleteTicket `json:"ticketDelete"`
+}
+
+// GetTicketDelete returns TicketDeleteResponse.TicketDelete, and is useful for accessing the field via an interface.
+func (v *TicketDeleteResponse) GetTicketDelete() *TicketDeleteTicketDeleteTicket {
+	return v.TicketDelete
+}
+
+// TicketDeleteTicketDeleteTicket includes the requested fields of the GraphQL type ticket.
+type TicketDeleteTicketDeleteTicket struct {
+	ticketFragment `json:"-"`
+}
+
+// GetID returns TicketDeleteTicketDeleteTicket.ID, and is useful for accessing the field via an interface.
+func (v *TicketDeleteTicketDeleteTicket) GetID() string { return v.ticketFragment.ID }
+
+// GetCustomerID returns TicketDeleteTicketDeleteTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketDeleteTicketDeleteTicket) GetCustomerID() string { return v.ticketFragment.CustomerID }
+
+// GetCarID returns TicketDeleteTicketDeleteTicket.CarID, and is useful for accessing the field via an interface.
+func (v *TicketDeleteTicketDeleteTicket) GetCarID() string { return v.ticketFragment.CarID }
+
+// GetProblem returns TicketDeleteTicketDeleteTicket.Problem, and is useful for accessing the field via an interface.
+func (v *TicketDeleteTicketDeleteTicket) GetProblem() string { return v.ticketFragment.Problem }
+
+// GetCreateTime returns TicketDeleteTicketDeleteTicket.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketDeleteTicketDeleteTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+
+// GetShopID returns TicketDeleteTicketDeleteTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketDeleteTicketDeleteTicket) GetShopID() string { return v.ticketFragment.ShopID }
+
+// GetAcceptedTime returns TicketDeleteTicketDeleteTicket.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketDeleteTicketDeleteTicket) GetAcceptedTime() string {
+	return v.ticketFragment.AcceptedTime
+}
+
+// GetStatus returns TicketDeleteTicketDeleteTicket.Status, and is useful for accessing the field via an interface.
+func (v *TicketDeleteTicketDeleteTicket) GetStatus() string { return v.ticketFragment.Status }
+
+func (v *TicketDeleteTicketDeleteTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketDeleteTicketDeleteTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketDeleteTicketDeleteTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketDeleteTicketDeleteTicket struct {
+	ID string `json:"ID"`
+
+	CustomerID string `json:"customerID"`
+
+	CarID string `json:"carID"`
+
+	Problem string `json:"problem"`
+
+	CreateTime string `json:"createTime"`
+
+	ShopID string `json:"shopID"`
+
+	AcceptedTime string `json:"acceptedTime"`
+
+	Status string `json:"status"`
+}
+
+func (v *TicketDeleteTicketDeleteTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketDeleteTicketDeleteTicket) __premarshalJSON() (*__premarshalTicketDeleteTicketDeleteTicket, error) {
+	var retval __premarshalTicketDeleteTicketDeleteTicket
+
+	retval.ID = v.ticketFragment.ID
+	retval.CustomerID = v.ticketFragment.CustomerID
+	retval.CarID = v.ticketFragment.CarID
+	retval.Problem = v.ticketFragment.Problem
+	retval.CreateTime = v.ticketFragment.CreateTime
+	retval.ShopID = v.ticketFragment.ShopID
+	retval.AcceptedTime = v.ticketFragment.AcceptedTime
+	retval.Status = v.ticketFragment.Status
+	return &retval, nil
+}
+
+// TicketServiceByIDResponse is returned by TicketServiceByID on success.
+type TicketServiceByIDResponse struct {
+	TicketServiceByID *TicketServiceByIDTicketServiceByIDTicketService `json:"ticketServiceByID"`
+}
+
+// GetTicketServiceByID returns TicketServiceByIDResponse.TicketServiceByID, and is useful for accessing the field via an interface.
+func (v *TicketServiceByIDResponse) GetTicketServiceByID() *TicketServiceByIDTicketServiceByIDTicketService {
+	return v.TicketServiceByID
+}
+
+// TicketServiceByIDTicketServiceByIDTicketService includes the requested fields of the GraphQL type ticketService.
+type TicketServiceByIDTicketServiceByIDTicketService struct {
+	ticketServiceFragment `json:"-"`
+}
+
+// GetTicketID returns TicketServiceByIDTicketServiceByIDTicketService.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketServiceByIDTicketServiceByIDTicketService) GetTicketID() string {
+	return v.ticketServiceFragment.TicketID
+}
+
+// GetServiceID returns TicketServiceByIDTicketServiceByIDTicketService.ServiceID, and is useful for accessing the field via an interface.
+func (v *TicketServiceByIDTicketServiceByIDTicketService) GetServiceID() string {
+	return v.ticketServiceFragment.ServiceID
+}
+
+func (v *TicketServiceByIDTicketServiceByIDTicketService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketServiceByIDTicketServiceByIDTicketService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketServiceByIDTicketServiceByIDTicketService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketServiceByIDTicketServiceByIDTicketService struct {
+	TicketID string `json:"ticketID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *TicketServiceByIDTicketServiceByIDTicketService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketServiceByIDTicketServiceByIDTicketService) __premarshalJSON() (*__premarshalTicketServiceByIDTicketServiceByIDTicketService, error) {
+	var retval __premarshalTicketServiceByIDTicketServiceByIDTicketService
+
+	retval.TicketID = v.ticketServiceFragment.TicketID
+	retval.ServiceID = v.ticketServiceFragment.ServiceID
+	return &retval, nil
+}
+
+type TicketServiceCreateInput struct {
+	TicketID  string `json:"ticketID"`
+	ServiceID string `json:"serviceID"`
+}
+
+// GetTicketID returns TicketServiceCreateInput.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketServiceCreateInput) GetTicketID() string { return v.TicketID }
+
+// GetServiceID returns TicketServiceCreateInput.ServiceID, and is useful for accessing the field via an interface.
+func (v *TicketServiceCreateInput) GetServiceID() string { return v.ServiceID }
+
+// TicketServiceCreateResponse is returned by TicketServiceCreate on success.
+type TicketServiceCreateResponse struct {
+	TicketServiceCreate *TicketServiceCreateTicketServiceCreateTicketService `json:"ticketServiceCreate"`
+}
+
+// GetTicketServiceCreate returns TicketServiceCreateResponse.TicketServiceCreate, and is useful for accessing the field via an interface.
+func (v *TicketServiceCreateResponse) GetTicketServiceCreate() *TicketServiceCreateTicketServiceCreateTicketService {
+	return v.TicketServiceCreate
+}
+
+// TicketServiceCreateTicketServiceCreateTicketService includes the requested fields of the GraphQL type ticketService.
+type TicketServiceCreateTicketServiceCreateTicketService struct {
+	ticketServiceFragment `json:"-"`
+}
+
+// GetTicketID returns TicketServiceCreateTicketServiceCreateTicketService.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketServiceCreateTicketServiceCreateTicketService) GetTicketID() string {
+	return v.ticketServiceFragment.TicketID
+}
+
+// GetServiceID returns TicketServiceCreateTicketServiceCreateTicketService.ServiceID, and is useful for accessing the field via an interface.
+func (v *TicketServiceCreateTicketServiceCreateTicketService) GetServiceID() string {
+	return v.ticketServiceFragment.ServiceID
+}
+
+func (v *TicketServiceCreateTicketServiceCreateTicketService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketServiceCreateTicketServiceCreateTicketService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketServiceCreateTicketServiceCreateTicketService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketServiceCreateTicketServiceCreateTicketService struct {
+	TicketID string `json:"ticketID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *TicketServiceCreateTicketServiceCreateTicketService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketServiceCreateTicketServiceCreateTicketService) __premarshalJSON() (*__premarshalTicketServiceCreateTicketServiceCreateTicketService, error) {
+	var retval __premarshalTicketServiceCreateTicketServiceCreateTicketService
+
+	retval.TicketID = v.ticketServiceFragment.TicketID
+	retval.ServiceID = v.ticketServiceFragment.ServiceID
+	return &retval, nil
+}
+
+// TicketServiceDeleteAllResponse is returned by TicketServiceDeleteAll on success.
+type TicketServiceDeleteAllResponse struct {
+	TicketServiceDeleteAll []*TicketServiceDeleteAllTicketServiceDeleteAllTicketService `json:"ticketServiceDeleteAll"`
+}
+
+// GetTicketServiceDeleteAll returns TicketServiceDeleteAllResponse.TicketServiceDeleteAll, and is useful for accessing the field via an interface.
+func (v *TicketServiceDeleteAllResponse) GetTicketServiceDeleteAll() []*TicketServiceDeleteAllTicketServiceDeleteAllTicketService {
+	return v.TicketServiceDeleteAll
+}
+
+// TicketServiceDeleteAllTicketServiceDeleteAllTicketService includes the requested fields of the GraphQL type ticketService.
+type TicketServiceDeleteAllTicketServiceDeleteAllTicketService struct {
+	ticketServiceFragment `json:"-"`
+}
+
+// GetTicketID returns TicketServiceDeleteAllTicketServiceDeleteAllTicketService.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketServiceDeleteAllTicketServiceDeleteAllTicketService) GetTicketID() string {
+	return v.ticketServiceFragment.TicketID
+}
+
+// GetServiceID returns TicketServiceDeleteAllTicketServiceDeleteAllTicketService.ServiceID, and is useful for accessing the field via an interface.
+func (v *TicketServiceDeleteAllTicketServiceDeleteAllTicketService) GetServiceID() string {
+	return v.ticketServiceFragment.ServiceID
+}
+
+func (v *TicketServiceDeleteAllTicketServiceDeleteAllTicketService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketServiceDeleteAllTicketServiceDeleteAllTicketService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketServiceDeleteAllTicketServiceDeleteAllTicketService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketServiceDeleteAllTicketServiceDeleteAllTicketService struct {
+	TicketID string `json:"ticketID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *TicketServiceDeleteAllTicketServiceDeleteAllTicketService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketServiceDeleteAllTicketServiceDeleteAllTicketService) __premarshalJSON() (*__premarshalTicketServiceDeleteAllTicketServiceDeleteAllTicketService, error) {
+	var retval __premarshalTicketServiceDeleteAllTicketServiceDeleteAllTicketService
+
+	retval.TicketID = v.ticketServiceFragment.TicketID
+	retval.ServiceID = v.ticketServiceFragment.ServiceID
+	return &retval, nil
+}
+
+// TicketServiceDeleteResponse is returned by TicketServiceDelete on success.
+type TicketServiceDeleteResponse struct {
+	TicketServiceDelete *TicketServiceDeleteTicketServiceDeleteTicketService `json:"ticketServiceDelete"`
+}
+
+// GetTicketServiceDelete returns TicketServiceDeleteResponse.TicketServiceDelete, and is useful for accessing the field via an interface.
+func (v *TicketServiceDeleteResponse) GetTicketServiceDelete() *TicketServiceDeleteTicketServiceDeleteTicketService {
+	return v.TicketServiceDelete
+}
+
+// TicketServiceDeleteTicketServiceDeleteTicketService includes the requested fields of the GraphQL type ticketService.
+type TicketServiceDeleteTicketServiceDeleteTicketService struct {
+	ticketServiceFragment `json:"-"`
+}
+
+// GetTicketID returns TicketServiceDeleteTicketServiceDeleteTicketService.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketServiceDeleteTicketServiceDeleteTicketService) GetTicketID() string {
+	return v.ticketServiceFragment.TicketID
+}
+
+// GetServiceID returns TicketServiceDeleteTicketServiceDeleteTicketService.ServiceID, and is useful for accessing the field via an interface.
+func (v *TicketServiceDeleteTicketServiceDeleteTicketService) GetServiceID() string {
+	return v.ticketServiceFragment.ServiceID
+}
+
+func (v *TicketServiceDeleteTicketServiceDeleteTicketService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketServiceDeleteTicketServiceDeleteTicketService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketServiceDeleteTicketServiceDeleteTicketService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketServiceDeleteTicketServiceDeleteTicketService struct {
+	TicketID string `json:"ticketID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *TicketServiceDeleteTicketServiceDeleteTicketService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketServiceDeleteTicketServiceDeleteTicketService) __premarshalJSON() (*__premarshalTicketServiceDeleteTicketServiceDeleteTicketService, error) {
+	var retval __premarshalTicketServiceDeleteTicketServiceDeleteTicketService
+
+	retval.TicketID = v.ticketServiceFragment.TicketID
+	retval.ServiceID = v.ticketServiceFragment.ServiceID
+	return &retval, nil
+}
+
+// TicketServicesResponse is returned by TicketServices on success.
+type TicketServicesResponse struct {
+	TicketServices []*TicketServicesTicketServicesTicketService `json:"ticketServices"`
+}
+
+// GetTicketServices returns TicketServicesResponse.TicketServices, and is useful for accessing the field via an interface.
+func (v *TicketServicesResponse) GetTicketServices() []*TicketServicesTicketServicesTicketService {
+	return v.TicketServices
+}
+
+// TicketServicesTicketServicesTicketService includes the requested fields of the GraphQL type ticketService.
+type TicketServicesTicketServicesTicketService struct {
+	ticketServiceFragment `json:"-"`
+}
+
+// GetTicketID returns TicketServicesTicketServicesTicketService.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketServicesTicketServicesTicketService) GetTicketID() string {
+	return v.ticketServiceFragment.TicketID
+}
+
+// GetServiceID returns TicketServicesTicketServicesTicketService.ServiceID, and is useful for accessing the field via an interface.
+func (v *TicketServicesTicketServicesTicketService) GetServiceID() string {
+	return v.ticketServiceFragment.ServiceID
+}
+
+func (v *TicketServicesTicketServicesTicketService) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketServicesTicketServicesTicketService
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketServicesTicketServicesTicketService = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketServiceFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketServicesTicketServicesTicketService struct {
+	TicketID string `json:"ticketID"`
+
+	ServiceID string `json:"serviceID"`
+}
+
+func (v *TicketServicesTicketServicesTicketService) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketServicesTicketServicesTicketService) __premarshalJSON() (*__premarshalTicketServicesTicketServicesTicketService, error) {
+	var retval __premarshalTicketServicesTicketServicesTicketService
+
+	retval.TicketID = v.ticketServiceFragment.TicketID
+	retval.ServiceID = v.ticketServiceFragment.ServiceID
+	return &retval, nil
+}
+
+type TicketUpdateInput struct {
+	ID           string `json:"ID"`
+	CustomerID   string `json:"customerID"`
+	CarID        string `json:"carID"`
+	Problem      string `json:"problem"`
+	CreateTime   string `json:"createTime"`
+	ShopID       string `json:"shopID"`
+	AcceptedTime string `json:"acceptedTime"`
+	Status       string `json:"status"`
+}
+
+// GetID returns TicketUpdateInput.ID, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetID() string { return v.ID }
+
+// GetCustomerID returns TicketUpdateInput.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetCustomerID() string { return v.CustomerID }
+
+// GetCarID returns TicketUpdateInput.CarID, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetCarID() string { return v.CarID }
+
+// GetProblem returns TicketUpdateInput.Problem, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetProblem() string { return v.Problem }
+
+// GetCreateTime returns TicketUpdateInput.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetCreateTime() string { return v.CreateTime }
+
+// GetShopID returns TicketUpdateInput.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetShopID() string { return v.ShopID }
+
+// GetAcceptedTime returns TicketUpdateInput.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetAcceptedTime() string { return v.AcceptedTime }
+
+// GetStatus returns TicketUpdateInput.Status, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetStatus() string { return v.Status }
+
+// TicketUpdateMultiResponse is returned by TicketUpdateMulti on success.
+type TicketUpdateMultiResponse struct {
+	TicketUpdateMulti *TicketUpdateMultiTicketUpdateMultiTicket `json:"ticketUpdateMulti"`
+}
+
+// GetTicketUpdateMulti returns TicketUpdateMultiResponse.TicketUpdateMulti, and is useful for accessing the field via an interface.
+func (v *TicketUpdateMultiResponse) GetTicketUpdateMulti() *TicketUpdateMultiTicketUpdateMultiTicket {
+	return v.TicketUpdateMulti
+}
+
+// TicketUpdateMultiTicketUpdateMultiTicket includes the requested fields of the GraphQL type ticket.
+type TicketUpdateMultiTicketUpdateMultiTicket struct {
+	ticketFragment `json:"-"`
+}
+
+// GetID returns TicketUpdateMultiTicketUpdateMultiTicket.ID, and is useful for accessing the field via an interface.
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetID() string { return v.ticketFragment.ID }
+
+// GetCustomerID returns TicketUpdateMultiTicketUpdateMultiTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetCustomerID() string {
+	return v.ticketFragment.CustomerID
+}
+
+// GetCarID returns TicketUpdateMultiTicketUpdateMultiTicket.CarID, and is useful for accessing the field via an interface.
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetCarID() string { return v.ticketFragment.CarID }
+
+// GetProblem returns TicketUpdateMultiTicketUpdateMultiTicket.Problem, and is useful for accessing the field via an interface.
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetProblem() string {
+	return v.ticketFragment.Problem
+}
+
+// GetCreateTime returns TicketUpdateMultiTicketUpdateMultiTicket.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetCreateTime() string {
+	return v.ticketFragment.CreateTime
+}
+
+// GetShopID returns TicketUpdateMultiTicketUpdateMultiTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetShopID() string { return v.ticketFragment.ShopID }
+
+// GetAcceptedTime returns TicketUpdateMultiTicketUpdateMultiTicket.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetAcceptedTime() string {
+	return v.ticketFragment.AcceptedTime
+}
+
+// GetStatus returns TicketUpdateMultiTicketUpdateMultiTicket.Status, and is useful for accessing the field via an interface.
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetStatus() string { return v.ticketFragment.Status }
+
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketUpdateMultiTicketUpdateMultiTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketUpdateMultiTicketUpdateMultiTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketUpdateMultiTicketUpdateMultiTicket struct {
+	ID string `json:"ID"`
+
+	CustomerID string `json:"customerID"`
+
+	CarID string `json:"carID"`
+
+	Problem string `json:"problem"`
+
+	CreateTime string `json:"createTime"`
+
+	ShopID string `json:"shopID"`
+
+	AcceptedTime string `json:"acceptedTime"`
+
+	Status string `json:"status"`
+}
+
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) __premarshalJSON() (*__premarshalTicketUpdateMultiTicketUpdateMultiTicket, error) {
+	var retval __premarshalTicketUpdateMultiTicketUpdateMultiTicket
+
+	retval.ID = v.ticketFragment.ID
+	retval.CustomerID = v.ticketFragment.CustomerID
+	retval.CarID = v.ticketFragment.CarID
+	retval.Problem = v.ticketFragment.Problem
+	retval.CreateTime = v.ticketFragment.CreateTime
+	retval.ShopID = v.ticketFragment.ShopID
+	retval.AcceptedTime = v.ticketFragment.AcceptedTime
+	retval.Status = v.ticketFragment.Status
+	return &retval, nil
+}
+
+// TicketsResponse is returned by Tickets on success.
+type TicketsResponse struct {
+	Tickets []*TicketsTicketsTicket `json:"tickets"`
+}
+
+// GetTickets returns TicketsResponse.Tickets, and is useful for accessing the field via an interface.
+func (v *TicketsResponse) GetTickets() []*TicketsTicketsTicket { return v.Tickets }
+
+// TicketsTicketsTicket includes the requested fields of the GraphQL type ticket.
+type TicketsTicketsTicket struct {
+	ticketFragment `json:"-"`
+}
+
+// GetID returns TicketsTicketsTicket.ID, and is useful for accessing the field via an interface.
+func (v *TicketsTicketsTicket) GetID() string { return v.ticketFragment.ID }
+
+// GetCustomerID returns TicketsTicketsTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *TicketsTicketsTicket) GetCustomerID() string { return v.ticketFragment.CustomerID }
+
+// GetCarID returns TicketsTicketsTicket.CarID, and is useful for accessing the field via an interface.
+func (v *TicketsTicketsTicket) GetCarID() string { return v.ticketFragment.CarID }
+
+// GetProblem returns TicketsTicketsTicket.Problem, and is useful for accessing the field via an interface.
+func (v *TicketsTicketsTicket) GetProblem() string { return v.ticketFragment.Problem }
+
+// GetCreateTime returns TicketsTicketsTicket.CreateTime, and is useful for accessing the field via an interface.
+func (v *TicketsTicketsTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+
+// GetShopID returns TicketsTicketsTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *TicketsTicketsTicket) GetShopID() string { return v.ticketFragment.ShopID }
+
+// GetAcceptedTime returns TicketsTicketsTicket.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *TicketsTicketsTicket) GetAcceptedTime() string { return v.ticketFragment.AcceptedTime }
+
+// GetStatus returns TicketsTicketsTicket.Status, and is useful for accessing the field via an interface.
+func (v *TicketsTicketsTicket) GetStatus() string { return v.ticketFragment.Status }
+
+func (v *TicketsTicketsTicket) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketsTicketsTicket
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketsTicketsTicket = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketsTicketsTicket struct {
+	ID string `json:"ID"`
+
+	CustomerID string `json:"customerID"`
+
+	CarID string `json:"carID"`
+
+	Problem string `json:"problem"`
+
+	CreateTime string `json:"createTime"`
+
+	ShopID string `json:"shopID"`
+
+	AcceptedTime string `json:"acceptedTime"`
+
+	Status string `json:"status"`
+}
+
+func (v *TicketsTicketsTicket) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketsTicketsTicket) __premarshalJSON() (*__premarshalTicketsTicketsTicket, error) {
+	var retval __premarshalTicketsTicketsTicket
+
+	retval.ID = v.ticketFragment.ID
+	retval.CustomerID = v.ticketFragment.CustomerID
+	retval.CarID = v.ticketFragment.CarID
+	retval.Problem = v.ticketFragment.Problem
+	retval.CreateTime = v.ticketFragment.CreateTime
+	retval.ShopID = v.ticketFragment.ShopID
+	retval.AcceptedTime = v.ticketFragment.AcceptedTime
+	retval.Status = v.ticketFragment.Status
+	return &retval, nil
+}
+
+// __ActiveTicketByCustomerInput is used internally by genqlient
+type __ActiveTicketByCustomerInput struct {
+	ActiveTicketInput string `json:"activeTicketInput"`
+}
+
+// GetActiveTicketInput returns __ActiveTicketByCustomerInput.ActiveTicketInput, and is useful for accessing the field via an interface.
+func (v *__ActiveTicketByCustomerInput) GetActiveTicketInput() string { return v.ActiveTicketInput }
+
+// __ActiveTicketByIDInput is used internally by genqlient
+type __ActiveTicketByIDInput struct {
+	ActiveTicketInput string `json:"activeTicketInput"`
+}
+
+// GetActiveTicketInput returns __ActiveTicketByIDInput.ActiveTicketInput, and is useful for accessing the field via an interface.
+func (v *__ActiveTicketByIDInput) GetActiveTicketInput() string { return v.ActiveTicketInput }
+
+// __ActiveTicketByShopInput is used internally by genqlient
+type __ActiveTicketByShopInput struct {
+	ActiveTicketInput string `json:"activeTicketInput"`
+}
+
+// GetActiveTicketInput returns __ActiveTicketByShopInput.ActiveTicketInput, and is useful for accessing the field via an interface.
+func (v *__ActiveTicketByShopInput) GetActiveTicketInput() string { return v.ActiveTicketInput }
+
+// __ActiveTicketByStatsInput is used internally by genqlient
+type __ActiveTicketByStatsInput struct {
+	ActiveTicketInput Status `json:"activeTicketInput"`
+}
+
+// GetActiveTicketInput returns __ActiveTicketByStatsInput.ActiveTicketInput, and is useful for accessing the field via an interface.
+func (v *__ActiveTicketByStatsInput) GetActiveTicketInput() Status { return v.ActiveTicketInput }
+
+// __ActiveTicketCreateInput is used internally by genqlient
+type __ActiveTicketCreateInput struct {
+	ActiveTicketInput *ActiveTicketCreateInput `json:"activeTicketInput,omitempty"`
+}
+
+// GetActiveTicketInput returns __ActiveTicketCreateInput.ActiveTicketInput, and is useful for accessing the field via an interface.
+func (v *__ActiveTicketCreateInput) GetActiveTicketInput() *ActiveTicketCreateInput {
+	return v.ActiveTicketInput
+}
+
+// __ActiveTicketDeleteInput is used internally by genqlient
+type __ActiveTicketDeleteInput struct {
+	ActiveTicketInput *DeleteIDInput `json:"activeTicketInput,omitempty"`
+}
+
+// GetActiveTicketInput returns __ActiveTicketDeleteInput.ActiveTicketInput, and is useful for accessing the field via an interface.
+func (v *__ActiveTicketDeleteInput) GetActiveTicketInput() *DeleteIDInput { return v.ActiveTicketInput }
+
+// __ActiveTicketDeleteStatusInput is used internally by genqlient
+type __ActiveTicketDeleteStatusInput struct {
+	ActiveTicketInput Status `json:"activeTicketInput"`
+}
+
+// GetActiveTicketInput returns __ActiveTicketDeleteStatusInput.ActiveTicketInput, and is useful for accessing the field via an interface.
+func (v *__ActiveTicketDeleteStatusInput) GetActiveTicketInput() Status { return v.ActiveTicketInput }
+
+// __ActiveTicketUpdateMultiInput is used internally by genqlient
+type __ActiveTicketUpdateMultiInput struct {
+	ActiveTicketInput *ActiveTicketUpdateInput `json:"activeTicketInput,omitempty"`
+}
+
+// GetActiveTicketInput returns __ActiveTicketUpdateMultiInput.ActiveTicketInput, and is useful for accessing the field via an interface.
+func (v *__ActiveTicketUpdateMultiInput) GetActiveTicketInput() *ActiveTicketUpdateInput {
+	return v.ActiveTicketInput
+}
+
+// __CarByIDInput is used internally by genqlient
+type __CarByIDInput struct {
+	CarInput string `json:"carInput"`
+}
+
+// GetCarInput returns __CarByIDInput.CarInput, and is useful for accessing the field via an interface.
+func (v *__CarByIDInput) GetCarInput() string { return v.CarInput }
+
+// __CarByOwnerInput is used internally by genqlient
+type __CarByOwnerInput struct {
+	CarInput string `json:"carInput"`
+}
+
+// GetCarInput returns __CarByOwnerInput.CarInput, and is useful for accessing the field via an interface.
+func (v *__CarByOwnerInput) GetCarInput() string { return v.CarInput }
+
+// __CarCreateInput is used internally by genqlient
+type __CarCreateInput struct {
+	CarInput *CarCreateInput `json:"carInput,omitempty"`
+}
+
+// GetCarInput returns __CarCreateInput.CarInput, and is useful for accessing the field via an interface.
+func (v *__CarCreateInput) GetCarInput() *CarCreateInput { return v.CarInput }
+
+// __CarDeleteInput is used internally by genqlient
+type __CarDeleteInput struct {
+	CarInput *DeleteIDInput `json:"carInput,omitempty"`
+}
+
+// GetCarInput returns __CarDeleteInput.CarInput, and is useful for accessing the field via an interface.
+func (v *__CarDeleteInput) GetCarInput() *DeleteIDInput { return v.CarInput }
+
+// __CarUpdateMultiInput is used internally by genqlient
+type __CarUpdateMultiInput struct {
+	CarInput *CarUpdateInput `json:"carInput,omitempty"`
+}
+
+// GetCarInput returns __CarUpdateMultiInput.CarInput, and is useful for accessing the field via an interface.
+func (v *__CarUpdateMultiInput) GetCarInput() *CarUpdateInput { return v.CarInput }
+
 // __CustomerByIDInput is used internally by genqlient
 type __CustomerByIDInput struct {
 	CusInput string `json:"cusInput"`
@@ -653,16 +5352,208 @@ type __CustomerUpdateMultiInput struct {
 // GetCusInput returns __CustomerUpdateMultiInput.CusInput, and is useful for accessing the field via an interface.
 func (v *__CustomerUpdateMultiInput) GetCusInput() *CustomerUpdateInput { return v.CusInput }
 
-// __carCreateInput is used internally by genqlient
-type __carCreateInput struct {
-	TagInput *CarCreateInput `json:"tagInput,omitempty"`
+// __ServiceByIDInput is used internally by genqlient
+type __ServiceByIDInput struct {
+	ServiceInput string `json:"serviceInput"`
 }
 
-// GetTagInput returns __carCreateInput.TagInput, and is useful for accessing the field via an interface.
-func (v *__carCreateInput) GetTagInput() *CarCreateInput { return v.TagInput }
+// GetServiceInput returns __ServiceByIDInput.ServiceInput, and is useful for accessing the field via an interface.
+func (v *__ServiceByIDInput) GetServiceInput() string { return v.ServiceInput }
 
-// carCreateCarCreateCar includes the requested fields of the GraphQL type car.
-type carCreateCarCreateCar struct {
+// __ServiceCreateInput is used internally by genqlient
+type __ServiceCreateInput struct {
+	ServiceInput *ServiceCreateInput `json:"serviceInput,omitempty"`
+}
+
+// GetServiceInput returns __ServiceCreateInput.ServiceInput, and is useful for accessing the field via an interface.
+func (v *__ServiceCreateInput) GetServiceInput() *ServiceCreateInput { return v.ServiceInput }
+
+// __ServiceDeleteInput is used internally by genqlient
+type __ServiceDeleteInput struct {
+	ServiceInput *DeleteIDInput `json:"serviceInput,omitempty"`
+}
+
+// GetServiceInput returns __ServiceDeleteInput.ServiceInput, and is useful for accessing the field via an interface.
+func (v *__ServiceDeleteInput) GetServiceInput() *DeleteIDInput { return v.ServiceInput }
+
+// __ServiceUpdateMultiInput is used internally by genqlient
+type __ServiceUpdateMultiInput struct {
+	ServiceInput *ServiceUpdateInput `json:"serviceInput,omitempty"`
+}
+
+// GetServiceInput returns __ServiceUpdateMultiInput.ServiceInput, and is useful for accessing the field via an interface.
+func (v *__ServiceUpdateMultiInput) GetServiceInput() *ServiceUpdateInput { return v.ServiceInput }
+
+// __ShopByIDInput is used internally by genqlient
+type __ShopByIDInput struct {
+	ShopInput string `json:"shopInput"`
+}
+
+// GetShopInput returns __ShopByIDInput.ShopInput, and is useful for accessing the field via an interface.
+func (v *__ShopByIDInput) GetShopInput() string { return v.ShopInput }
+
+// __ShopCreateInput is used internally by genqlient
+type __ShopCreateInput struct {
+	ShopInput *ShopCreateInput `json:"shopInput,omitempty"`
+}
+
+// GetShopInput returns __ShopCreateInput.ShopInput, and is useful for accessing the field via an interface.
+func (v *__ShopCreateInput) GetShopInput() *ShopCreateInput { return v.ShopInput }
+
+// __ShopDeleteInput is used internally by genqlient
+type __ShopDeleteInput struct {
+	ShopInput *DeleteIDInput `json:"shopInput,omitempty"`
+}
+
+// GetShopInput returns __ShopDeleteInput.ShopInput, and is useful for accessing the field via an interface.
+func (v *__ShopDeleteInput) GetShopInput() *DeleteIDInput { return v.ShopInput }
+
+// __ShopServiceByIDInput is used internally by genqlient
+type __ShopServiceByIDInput struct {
+	ShopServiceInput *ShopServiceCreateInput `json:"shopServiceInput,omitempty"`
+}
+
+// GetShopServiceInput returns __ShopServiceByIDInput.ShopServiceInput, and is useful for accessing the field via an interface.
+func (v *__ShopServiceByIDInput) GetShopServiceInput() *ShopServiceCreateInput {
+	return v.ShopServiceInput
+}
+
+// __ShopServiceCreateInput is used internally by genqlient
+type __ShopServiceCreateInput struct {
+	ShopServiceInput *ShopServiceCreateInput `json:"shopServiceInput,omitempty"`
+}
+
+// GetShopServiceInput returns __ShopServiceCreateInput.ShopServiceInput, and is useful for accessing the field via an interface.
+func (v *__ShopServiceCreateInput) GetShopServiceInput() *ShopServiceCreateInput {
+	return v.ShopServiceInput
+}
+
+// __ShopServiceDeleteInput is used internally by genqlient
+type __ShopServiceDeleteInput struct {
+	ShopServiceInput *ShopServiceDeleteInput `json:"shopServiceInput,omitempty"`
+}
+
+// GetShopServiceInput returns __ShopServiceDeleteInput.ShopServiceInput, and is useful for accessing the field via an interface.
+func (v *__ShopServiceDeleteInput) GetShopServiceInput() *ShopServiceDeleteInput {
+	return v.ShopServiceInput
+}
+
+// __ShopUpdateMultiInput is used internally by genqlient
+type __ShopUpdateMultiInput struct {
+	ShopInput *ShopUpdateInput `json:"shopInput,omitempty"`
+}
+
+// GetShopInput returns __ShopUpdateMultiInput.ShopInput, and is useful for accessing the field via an interface.
+func (v *__ShopUpdateMultiInput) GetShopInput() *ShopUpdateInput { return v.ShopInput }
+
+// __TicketByCustomerInput is used internally by genqlient
+type __TicketByCustomerInput struct {
+	TicketInput *TicketByCustomerInput `json:"ticketInput,omitempty"`
+}
+
+// GetTicketInput returns __TicketByCustomerInput.TicketInput, and is useful for accessing the field via an interface.
+func (v *__TicketByCustomerInput) GetTicketInput() *TicketByCustomerInput { return v.TicketInput }
+
+// __TicketByIDInput is used internally by genqlient
+type __TicketByIDInput struct {
+	TicketInput string `json:"ticketInput"`
+}
+
+// GetTicketInput returns __TicketByIDInput.TicketInput, and is useful for accessing the field via an interface.
+func (v *__TicketByIDInput) GetTicketInput() string { return v.TicketInput }
+
+// __TicketByShopInput is used internally by genqlient
+type __TicketByShopInput struct {
+	TicketInput *TicketByShopInput `json:"ticketInput,omitempty"`
+}
+
+// GetTicketInput returns __TicketByShopInput.TicketInput, and is useful for accessing the field via an interface.
+func (v *__TicketByShopInput) GetTicketInput() *TicketByShopInput { return v.TicketInput }
+
+// __TicketCreateInput is used internally by genqlient
+type __TicketCreateInput struct {
+	TicketInput *TicketCreateInput `json:"ticketInput,omitempty"`
+}
+
+// GetTicketInput returns __TicketCreateInput.TicketInput, and is useful for accessing the field via an interface.
+func (v *__TicketCreateInput) GetTicketInput() *TicketCreateInput { return v.TicketInput }
+
+// __TicketDeleteInput is used internally by genqlient
+type __TicketDeleteInput struct {
+	TicketInput *DeleteIDInput `json:"ticketInput,omitempty"`
+}
+
+// GetTicketInput returns __TicketDeleteInput.TicketInput, and is useful for accessing the field via an interface.
+func (v *__TicketDeleteInput) GetTicketInput() *DeleteIDInput { return v.TicketInput }
+
+// __TicketServiceByIDInput is used internally by genqlient
+type __TicketServiceByIDInput struct {
+	TicketServiceInput *TicketServiceCreateInput `json:"ticketServiceInput,omitempty"`
+}
+
+// GetTicketServiceInput returns __TicketServiceByIDInput.TicketServiceInput, and is useful for accessing the field via an interface.
+func (v *__TicketServiceByIDInput) GetTicketServiceInput() *TicketServiceCreateInput {
+	return v.TicketServiceInput
+}
+
+// __TicketServiceCreateInput is used internally by genqlient
+type __TicketServiceCreateInput struct {
+	TicketServiceInput *TicketServiceCreateInput `json:"ticketServiceInput,omitempty"`
+}
+
+// GetTicketServiceInput returns __TicketServiceCreateInput.TicketServiceInput, and is useful for accessing the field via an interface.
+func (v *__TicketServiceCreateInput) GetTicketServiceInput() *TicketServiceCreateInput {
+	return v.TicketServiceInput
+}
+
+// __TicketServiceDeleteInput is used internally by genqlient
+type __TicketServiceDeleteInput struct {
+	TicketServiceInput *TicketServiceCreateInput `json:"ticketServiceInput,omitempty"`
+}
+
+// GetTicketServiceInput returns __TicketServiceDeleteInput.TicketServiceInput, and is useful for accessing the field via an interface.
+func (v *__TicketServiceDeleteInput) GetTicketServiceInput() *TicketServiceCreateInput {
+	return v.TicketServiceInput
+}
+
+// __TicketUpdateMultiInput is used internally by genqlient
+type __TicketUpdateMultiInput struct {
+	TicketInput *TicketUpdateInput `json:"ticketInput,omitempty"`
+}
+
+// GetTicketInput returns __TicketUpdateMultiInput.TicketInput, and is useful for accessing the field via an interface.
+func (v *__TicketUpdateMultiInput) GetTicketInput() *TicketUpdateInput { return v.TicketInput }
+
+// activeTicketFragment includes the GraphQL fields of activeTicket requested by the fragment activeTicketFragment.
+type activeTicketFragment struct {
+	ID         string `json:"ID"`
+	CarID      string `json:"carID"`
+	CustomerID string `json:"customerID"`
+	Problem    string `json:"problem"`
+	ShopID     string `json:"shopID"`
+	Status     string `json:"status"`
+}
+
+// GetID returns activeTicketFragment.ID, and is useful for accessing the field via an interface.
+func (v *activeTicketFragment) GetID() string { return v.ID }
+
+// GetCarID returns activeTicketFragment.CarID, and is useful for accessing the field via an interface.
+func (v *activeTicketFragment) GetCarID() string { return v.CarID }
+
+// GetCustomerID returns activeTicketFragment.CustomerID, and is useful for accessing the field via an interface.
+func (v *activeTicketFragment) GetCustomerID() string { return v.CustomerID }
+
+// GetProblem returns activeTicketFragment.Problem, and is useful for accessing the field via an interface.
+func (v *activeTicketFragment) GetProblem() string { return v.Problem }
+
+// GetShopID returns activeTicketFragment.ShopID, and is useful for accessing the field via an interface.
+func (v *activeTicketFragment) GetShopID() string { return v.ShopID }
+
+// GetStatus returns activeTicketFragment.Status, and is useful for accessing the field via an interface.
+func (v *activeTicketFragment) GetStatus() string { return v.Status }
+
+// carFragment includes the GraphQL fields of car requested by the fragment carFragment.
+type carFragment struct {
 	ID        string  `json:"ID"`
 	OwnerID   string  `json:"ownerID"`
 	PlateNum  string  `json:"plateNum"`
@@ -674,40 +5565,32 @@ type carCreateCarCreateCar struct {
 	Build     *string `json:"build"`
 }
 
-// GetID returns carCreateCarCreateCar.ID, and is useful for accessing the field via an interface.
-func (v *carCreateCarCreateCar) GetID() string { return v.ID }
+// GetID returns carFragment.ID, and is useful for accessing the field via an interface.
+func (v *carFragment) GetID() string { return v.ID }
 
-// GetOwnerID returns carCreateCarCreateCar.OwnerID, and is useful for accessing the field via an interface.
-func (v *carCreateCarCreateCar) GetOwnerID() string { return v.OwnerID }
+// GetOwnerID returns carFragment.OwnerID, and is useful for accessing the field via an interface.
+func (v *carFragment) GetOwnerID() string { return v.OwnerID }
 
-// GetPlateNum returns carCreateCarCreateCar.PlateNum, and is useful for accessing the field via an interface.
-func (v *carCreateCarCreateCar) GetPlateNum() string { return v.PlateNum }
+// GetPlateNum returns carFragment.PlateNum, and is useful for accessing the field via an interface.
+func (v *carFragment) GetPlateNum() string { return v.PlateNum }
 
-// GetPlateType returns carCreateCarCreateCar.PlateType, and is useful for accessing the field via an interface.
-func (v *carCreateCarCreateCar) GetPlateType() string { return v.PlateType }
+// GetPlateType returns carFragment.PlateType, and is useful for accessing the field via an interface.
+func (v *carFragment) GetPlateType() string { return v.PlateType }
 
-// GetIssuedAt returns carCreateCarCreateCar.IssuedAt, and is useful for accessing the field via an interface.
-func (v *carCreateCarCreateCar) GetIssuedAt() string { return v.IssuedAt }
+// GetIssuedAt returns carFragment.IssuedAt, and is useful for accessing the field via an interface.
+func (v *carFragment) GetIssuedAt() string { return v.IssuedAt }
 
-// GetColor returns carCreateCarCreateCar.Color, and is useful for accessing the field via an interface.
-func (v *carCreateCarCreateCar) GetColor() string { return v.Color }
+// GetColor returns carFragment.Color, and is useful for accessing the field via an interface.
+func (v *carFragment) GetColor() string { return v.Color }
 
-// GetType returns carCreateCarCreateCar.Type, and is useful for accessing the field via an interface.
-func (v *carCreateCarCreateCar) GetType() string { return v.Type }
+// GetType returns carFragment.Type, and is useful for accessing the field via an interface.
+func (v *carFragment) GetType() string { return v.Type }
 
-// GetBrand returns carCreateCarCreateCar.Brand, and is useful for accessing the field via an interface.
-func (v *carCreateCarCreateCar) GetBrand() string { return v.Brand }
+// GetBrand returns carFragment.Brand, and is useful for accessing the field via an interface.
+func (v *carFragment) GetBrand() string { return v.Brand }
 
-// GetBuild returns carCreateCarCreateCar.Build, and is useful for accessing the field via an interface.
-func (v *carCreateCarCreateCar) GetBuild() *string { return v.Build }
-
-// carCreateResponse is returned by carCreate on success.
-type carCreateResponse struct {
-	CarCreate *carCreateCarCreateCar `json:"carCreate"`
-}
-
-// GetCarCreate returns carCreateResponse.CarCreate, and is useful for accessing the field via an interface.
-func (v *carCreateResponse) GetCarCreate() *carCreateCarCreateCar { return v.CarCreate }
+// GetBuild returns carFragment.Build, and is useful for accessing the field via an interface.
+func (v *carFragment) GetBuild() *string { return v.Build }
 
 // cusFragment includes the GraphQL fields of customer requested by the fragment cusFragment.
 type cusFragment struct {
@@ -732,6 +5615,787 @@ func (v *cusFragment) GetTel() string { return v.Tel }
 
 // GetEmail returns cusFragment.Email, and is useful for accessing the field via an interface.
 func (v *cusFragment) GetEmail() string { return v.Email }
+
+// serviceFragment includes the GraphQL fields of service requested by the fragment serviceFragment.
+type serviceFragment struct {
+	ID   string `json:"ID"`
+	Name string `json:"name"`
+}
+
+// GetID returns serviceFragment.ID, and is useful for accessing the field via an interface.
+func (v *serviceFragment) GetID() string { return v.ID }
+
+// GetName returns serviceFragment.Name, and is useful for accessing the field via an interface.
+func (v *serviceFragment) GetName() string { return v.Name }
+
+// shopFragment includes the GraphQL fields of shop requested by the fragment shopFragment.
+type shopFragment struct {
+	ID      string `json:"ID"`
+	Name    string `json:"name"`
+	Tel     string `json:"tel"`
+	Email   string `json:"email"`
+	Address string `json:"address"`
+}
+
+// GetID returns shopFragment.ID, and is useful for accessing the field via an interface.
+func (v *shopFragment) GetID() string { return v.ID }
+
+// GetName returns shopFragment.Name, and is useful for accessing the field via an interface.
+func (v *shopFragment) GetName() string { return v.Name }
+
+// GetTel returns shopFragment.Tel, and is useful for accessing the field via an interface.
+func (v *shopFragment) GetTel() string { return v.Tel }
+
+// GetEmail returns shopFragment.Email, and is useful for accessing the field via an interface.
+func (v *shopFragment) GetEmail() string { return v.Email }
+
+// GetAddress returns shopFragment.Address, and is useful for accessing the field via an interface.
+func (v *shopFragment) GetAddress() string { return v.Address }
+
+// shopServiceFragment includes the GraphQL fields of shopService requested by the fragment shopServiceFragment.
+type shopServiceFragment struct {
+	ShopID    string `json:"shopID"`
+	ServiceID string `json:"serviceID"`
+}
+
+// GetShopID returns shopServiceFragment.ShopID, and is useful for accessing the field via an interface.
+func (v *shopServiceFragment) GetShopID() string { return v.ShopID }
+
+// GetServiceID returns shopServiceFragment.ServiceID, and is useful for accessing the field via an interface.
+func (v *shopServiceFragment) GetServiceID() string { return v.ServiceID }
+
+// ticketFragment includes the GraphQL fields of ticket requested by the fragment ticketFragment.
+type ticketFragment struct {
+	ID           string `json:"ID"`
+	CustomerID   string `json:"customerID"`
+	CarID        string `json:"carID"`
+	Problem      string `json:"problem"`
+	CreateTime   string `json:"createTime"`
+	ShopID       string `json:"shopID"`
+	AcceptedTime string `json:"acceptedTime"`
+	Status       string `json:"status"`
+}
+
+// GetID returns ticketFragment.ID, and is useful for accessing the field via an interface.
+func (v *ticketFragment) GetID() string { return v.ID }
+
+// GetCustomerID returns ticketFragment.CustomerID, and is useful for accessing the field via an interface.
+func (v *ticketFragment) GetCustomerID() string { return v.CustomerID }
+
+// GetCarID returns ticketFragment.CarID, and is useful for accessing the field via an interface.
+func (v *ticketFragment) GetCarID() string { return v.CarID }
+
+// GetProblem returns ticketFragment.Problem, and is useful for accessing the field via an interface.
+func (v *ticketFragment) GetProblem() string { return v.Problem }
+
+// GetCreateTime returns ticketFragment.CreateTime, and is useful for accessing the field via an interface.
+func (v *ticketFragment) GetCreateTime() string { return v.CreateTime }
+
+// GetShopID returns ticketFragment.ShopID, and is useful for accessing the field via an interface.
+func (v *ticketFragment) GetShopID() string { return v.ShopID }
+
+// GetAcceptedTime returns ticketFragment.AcceptedTime, and is useful for accessing the field via an interface.
+func (v *ticketFragment) GetAcceptedTime() string { return v.AcceptedTime }
+
+// GetStatus returns ticketFragment.Status, and is useful for accessing the field via an interface.
+func (v *ticketFragment) GetStatus() string { return v.Status }
+
+// ticketServiceFragment includes the GraphQL fields of ticketService requested by the fragment ticketServiceFragment.
+type ticketServiceFragment struct {
+	TicketID  string `json:"ticketID"`
+	ServiceID string `json:"serviceID"`
+}
+
+// GetTicketID returns ticketServiceFragment.TicketID, and is useful for accessing the field via an interface.
+func (v *ticketServiceFragment) GetTicketID() string { return v.TicketID }
+
+// GetServiceID returns ticketServiceFragment.ServiceID, and is useful for accessing the field via an interface.
+func (v *ticketServiceFragment) GetServiceID() string { return v.ServiceID }
+
+func ActiveTicketByCustomer(
+	ctx context.Context,
+	client graphql.Client,
+	activeTicketInput string,
+) (*ActiveTicketByCustomerResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTicketByCustomer",
+		Query: `
+query ActiveTicketByCustomer ($activeTicketInput: ID!) {
+	activeTicketByID(input: $activeTicketInput) {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+		Variables: &__ActiveTicketByCustomerInput{
+			ActiveTicketInput: activeTicketInput,
+		},
+	}
+	var err error
+
+	var data ActiveTicketByCustomerResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ActiveTicketByID(
+	ctx context.Context,
+	client graphql.Client,
+	activeTicketInput string,
+) (*ActiveTicketByIDResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTicketByID",
+		Query: `
+query ActiveTicketByID ($activeTicketInput: ID!) {
+	activeTicketByID(input: $activeTicketInput) {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+		Variables: &__ActiveTicketByIDInput{
+			ActiveTicketInput: activeTicketInput,
+		},
+	}
+	var err error
+
+	var data ActiveTicketByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ActiveTicketByShop(
+	ctx context.Context,
+	client graphql.Client,
+	activeTicketInput string,
+) (*ActiveTicketByShopResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTicketByShop",
+		Query: `
+query ActiveTicketByShop ($activeTicketInput: ID!) {
+	activeTicketByShop(input: $activeTicketInput) {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+		Variables: &__ActiveTicketByShopInput{
+			ActiveTicketInput: activeTicketInput,
+		},
+	}
+	var err error
+
+	var data ActiveTicketByShopResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ActiveTicketByStats(
+	ctx context.Context,
+	client graphql.Client,
+	activeTicketInput Status,
+) (*ActiveTicketByStatsResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTicketByStats",
+		Query: `
+query ActiveTicketByStats ($activeTicketInput: status!) {
+	activeTicketByStats(input: $activeTicketInput) {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+		Variables: &__ActiveTicketByStatsInput{
+			ActiveTicketInput: activeTicketInput,
+		},
+	}
+	var err error
+
+	var data ActiveTicketByStatsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ActiveTicketCreate(
+	ctx context.Context,
+	client graphql.Client,
+	activeTicketInput *ActiveTicketCreateInput,
+) (*ActiveTicketCreateResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTicketCreate",
+		Query: `
+mutation ActiveTicketCreate ($activeTicketInput: activeTicketCreateInput!) {
+	activeTicketCreate(input: $activeTicketInput) {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+		Variables: &__ActiveTicketCreateInput{
+			ActiveTicketInput: activeTicketInput,
+		},
+	}
+	var err error
+
+	var data ActiveTicketCreateResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ActiveTicketDelete(
+	ctx context.Context,
+	client graphql.Client,
+	activeTicketInput *DeleteIDInput,
+) (*ActiveTicketDeleteResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTicketDelete",
+		Query: `
+mutation ActiveTicketDelete ($activeTicketInput: DeleteIDInput!) {
+	activeTicketDelete(input: $activeTicketInput) {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+		Variables: &__ActiveTicketDeleteInput{
+			ActiveTicketInput: activeTicketInput,
+		},
+	}
+	var err error
+
+	var data ActiveTicketDeleteResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ActiveTicketDeleteAll(
+	ctx context.Context,
+	client graphql.Client,
+) (*ActiveTicketDeleteAllResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTicketDeleteAll",
+		Query: `
+mutation ActiveTicketDeleteAll {
+	activeTicketDeleteAll {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+	}
+	var err error
+
+	var data ActiveTicketDeleteAllResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ActiveTicketDeleteStatus(
+	ctx context.Context,
+	client graphql.Client,
+	activeTicketInput Status,
+) (*ActiveTicketDeleteStatusResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTicketDeleteStatus",
+		Query: `
+mutation ActiveTicketDeleteStatus ($activeTicketInput: status!) {
+	activeTicketDeleteStatus(input: $activeTicketInput) {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+		Variables: &__ActiveTicketDeleteStatusInput{
+			ActiveTicketInput: activeTicketInput,
+		},
+	}
+	var err error
+
+	var data ActiveTicketDeleteStatusResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ActiveTicketUpdateMulti(
+	ctx context.Context,
+	client graphql.Client,
+	activeTicketInput *ActiveTicketUpdateInput,
+) (*ActiveTicketUpdateMultiResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTicketUpdateMulti",
+		Query: `
+mutation ActiveTicketUpdateMulti ($activeTicketInput: activeTicketUpdateInput!) {
+	activeTicketUpdateMulti(input: $activeTicketInput) {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+		Variables: &__ActiveTicketUpdateMultiInput{
+			ActiveTicketInput: activeTicketInput,
+		},
+	}
+	var err error
+
+	var data ActiveTicketUpdateMultiResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ActiveTickets(
+	ctx context.Context,
+	client graphql.Client,
+) (*ActiveTicketsResponse, error) {
+	req := &graphql.Request{
+		OpName: "ActiveTickets",
+		Query: `
+query ActiveTickets {
+	activeTickets {
+		... activeTicketFragment
+	}
+}
+fragment activeTicketFragment on activeTicket {
+	ID
+	carID
+	customerID
+	problem
+	shopID
+	status
+}
+`,
+	}
+	var err error
+
+	var data ActiveTicketsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CarByID(
+	ctx context.Context,
+	client graphql.Client,
+	carInput string,
+) (*CarByIDResponse, error) {
+	req := &graphql.Request{
+		OpName: "CarByID",
+		Query: `
+query CarByID ($carInput: ID!) {
+	carByID(input: $carInput) {
+		... carFragment
+	}
+}
+fragment carFragment on car {
+	ID
+	ownerID
+	plateNum
+	plateType
+	issuedAt
+	color
+	type
+	brand
+	build
+}
+`,
+		Variables: &__CarByIDInput{
+			CarInput: carInput,
+		},
+	}
+	var err error
+
+	var data CarByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CarByOwner(
+	ctx context.Context,
+	client graphql.Client,
+	carInput string,
+) (*CarByOwnerResponse, error) {
+	req := &graphql.Request{
+		OpName: "CarByOwner",
+		Query: `
+query CarByOwner ($carInput: ID!) {
+	carByOwner(input: $carInput) {
+		... carFragment
+	}
+}
+fragment carFragment on car {
+	ID
+	ownerID
+	plateNum
+	plateType
+	issuedAt
+	color
+	type
+	brand
+	build
+}
+`,
+		Variables: &__CarByOwnerInput{
+			CarInput: carInput,
+		},
+	}
+	var err error
+
+	var data CarByOwnerResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CarCreate(
+	ctx context.Context,
+	client graphql.Client,
+	carInput *CarCreateInput,
+) (*CarCreateResponse, error) {
+	req := &graphql.Request{
+		OpName: "CarCreate",
+		Query: `
+mutation CarCreate ($carInput: carCreateInput!) {
+	carCreate(input: $carInput) {
+		... carFragment
+	}
+}
+fragment carFragment on car {
+	ID
+	ownerID
+	plateNum
+	plateType
+	issuedAt
+	color
+	type
+	brand
+	build
+}
+`,
+		Variables: &__CarCreateInput{
+			CarInput: carInput,
+		},
+	}
+	var err error
+
+	var data CarCreateResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CarDelete(
+	ctx context.Context,
+	client graphql.Client,
+	carInput *DeleteIDInput,
+) (*CarDeleteResponse, error) {
+	req := &graphql.Request{
+		OpName: "CarDelete",
+		Query: `
+mutation CarDelete ($carInput: DeleteIDInput!) {
+	carDelete(input: $carInput) {
+		... carFragment
+	}
+}
+fragment carFragment on car {
+	ID
+	ownerID
+	plateNum
+	plateType
+	issuedAt
+	color
+	type
+	brand
+	build
+}
+`,
+		Variables: &__CarDeleteInput{
+			CarInput: carInput,
+		},
+	}
+	var err error
+
+	var data CarDeleteResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CarDeleteAll(
+	ctx context.Context,
+	client graphql.Client,
+) (*CarDeleteAllResponse, error) {
+	req := &graphql.Request{
+		OpName: "CarDeleteAll",
+		Query: `
+mutation CarDeleteAll {
+	carDeleteAll {
+		... carFragment
+	}
+}
+fragment carFragment on car {
+	ID
+	ownerID
+	plateNum
+	plateType
+	issuedAt
+	color
+	type
+	brand
+	build
+}
+`,
+	}
+	var err error
+
+	var data CarDeleteAllResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CarUpdateMulti(
+	ctx context.Context,
+	client graphql.Client,
+	carInput *CarUpdateInput,
+) (*CarUpdateMultiResponse, error) {
+	req := &graphql.Request{
+		OpName: "CarUpdateMulti",
+		Query: `
+mutation CarUpdateMulti ($carInput: carUpdateInput!) {
+	carUpdateMulti(input: $carInput) {
+		... carFragment
+	}
+}
+fragment carFragment on car {
+	ID
+	ownerID
+	plateNum
+	plateType
+	issuedAt
+	color
+	type
+	brand
+	build
+}
+`,
+		Variables: &__CarUpdateMultiInput{
+			CarInput: carInput,
+		},
+	}
+	var err error
+
+	var data CarUpdateMultiResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func Cars(
+	ctx context.Context,
+	client graphql.Client,
+) (*CarsResponse, error) {
+	req := &graphql.Request{
+		OpName: "Cars",
+		Query: `
+query Cars {
+	cars {
+		... carFragment
+	}
+}
+fragment carFragment on car {
+	ID
+	ownerID
+	plateNum
+	plateType
+	issuedAt
+	color
+	type
+	brand
+	build
+}
+`,
+	}
+	var err error
+
+	var data CarsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
 
 func CustomerByID(
 	ctx context.Context,
@@ -959,35 +6623,1101 @@ fragment cusFragment on customer {
 	return &data, err
 }
 
-func carCreate(
+func ServiceByID(
 	ctx context.Context,
 	client graphql.Client,
-	tagInput *CarCreateInput,
-) (*carCreateResponse, error) {
+	serviceInput string,
+) (*ServiceByIDResponse, error) {
 	req := &graphql.Request{
-		OpName: "carCreate",
+		OpName: "ServiceByID",
 		Query: `
-mutation carCreate ($tagInput: carCreateInput!) {
-	carCreate(input: $tagInput) {
-		ID
-		ownerID
-		plateNum
-		plateType
-		issuedAt
-		color
-		type
-		brand
-		build
+query ServiceByID ($serviceInput: ID!) {
+	serviceByID(input: $serviceInput) {
+		... serviceFragment
 	}
 }
+fragment serviceFragment on service {
+	ID
+	name
+}
 `,
-		Variables: &__carCreateInput{
-			TagInput: tagInput,
+		Variables: &__ServiceByIDInput{
+			ServiceInput: serviceInput,
 		},
 	}
 	var err error
 
-	var data carCreateResponse
+	var data ServiceByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ServiceCreate(
+	ctx context.Context,
+	client graphql.Client,
+	serviceInput *ServiceCreateInput,
+) (*ServiceCreateResponse, error) {
+	req := &graphql.Request{
+		OpName: "ServiceCreate",
+		Query: `
+mutation ServiceCreate ($serviceInput: serviceCreateInput!) {
+	serviceCreate(input: $serviceInput) {
+		... serviceFragment
+	}
+}
+fragment serviceFragment on service {
+	ID
+	name
+}
+`,
+		Variables: &__ServiceCreateInput{
+			ServiceInput: serviceInput,
+		},
+	}
+	var err error
+
+	var data ServiceCreateResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ServiceDelete(
+	ctx context.Context,
+	client graphql.Client,
+	serviceInput *DeleteIDInput,
+) (*ServiceDeleteResponse, error) {
+	req := &graphql.Request{
+		OpName: "ServiceDelete",
+		Query: `
+mutation ServiceDelete ($serviceInput: DeleteIDInput!) {
+	serviceDelete(input: $serviceInput) {
+		... serviceFragment
+	}
+}
+fragment serviceFragment on service {
+	ID
+	name
+}
+`,
+		Variables: &__ServiceDeleteInput{
+			ServiceInput: serviceInput,
+		},
+	}
+	var err error
+
+	var data ServiceDeleteResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ServiceDeleteAll(
+	ctx context.Context,
+	client graphql.Client,
+) (*ServiceDeleteAllResponse, error) {
+	req := &graphql.Request{
+		OpName: "ServiceDeleteAll",
+		Query: `
+mutation ServiceDeleteAll {
+	serviceDeleteAll {
+		... serviceFragment
+	}
+}
+fragment serviceFragment on service {
+	ID
+	name
+}
+`,
+	}
+	var err error
+
+	var data ServiceDeleteAllResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ServiceUpdateMulti(
+	ctx context.Context,
+	client graphql.Client,
+	serviceInput *ServiceUpdateInput,
+) (*ServiceUpdateMultiResponse, error) {
+	req := &graphql.Request{
+		OpName: "ServiceUpdateMulti",
+		Query: `
+mutation ServiceUpdateMulti ($serviceInput: serviceUpdateInput!) {
+	serviceUpdateMulti(input: $serviceInput) {
+		... serviceFragment
+	}
+}
+fragment serviceFragment on service {
+	ID
+	name
+}
+`,
+		Variables: &__ServiceUpdateMultiInput{
+			ServiceInput: serviceInput,
+		},
+	}
+	var err error
+
+	var data ServiceUpdateMultiResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func Services(
+	ctx context.Context,
+	client graphql.Client,
+) (*ServicesResponse, error) {
+	req := &graphql.Request{
+		OpName: "Services",
+		Query: `
+query Services {
+	services {
+		... serviceFragment
+	}
+}
+fragment serviceFragment on service {
+	ID
+	name
+}
+`,
+	}
+	var err error
+
+	var data ServicesResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopByID(
+	ctx context.Context,
+	client graphql.Client,
+	shopInput string,
+) (*ShopByIDResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopByID",
+		Query: `
+query ShopByID ($shopInput: ID!) {
+	shopByID(input: $shopInput) {
+		... shopFragment
+	}
+}
+fragment shopFragment on shop {
+	ID
+	name
+	tel
+	email
+	address
+}
+`,
+		Variables: &__ShopByIDInput{
+			ShopInput: shopInput,
+		},
+	}
+	var err error
+
+	var data ShopByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopCreate(
+	ctx context.Context,
+	client graphql.Client,
+	shopInput *ShopCreateInput,
+) (*ShopCreateResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopCreate",
+		Query: `
+mutation ShopCreate ($shopInput: shopCreateInput!) {
+	shopCreate(input: $shopInput) {
+		... shopFragment
+	}
+}
+fragment shopFragment on shop {
+	ID
+	name
+	tel
+	email
+	address
+}
+`,
+		Variables: &__ShopCreateInput{
+			ShopInput: shopInput,
+		},
+	}
+	var err error
+
+	var data ShopCreateResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopDelete(
+	ctx context.Context,
+	client graphql.Client,
+	shopInput *DeleteIDInput,
+) (*ShopDeleteResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopDelete",
+		Query: `
+mutation ShopDelete ($shopInput: DeleteIDInput!) {
+	shopDelete(input: $shopInput) {
+		... shopFragment
+	}
+}
+fragment shopFragment on shop {
+	ID
+	name
+	tel
+	email
+	address
+}
+`,
+		Variables: &__ShopDeleteInput{
+			ShopInput: shopInput,
+		},
+	}
+	var err error
+
+	var data ShopDeleteResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopDeleteAll(
+	ctx context.Context,
+	client graphql.Client,
+) (*ShopDeleteAllResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopDeleteAll",
+		Query: `
+mutation ShopDeleteAll {
+	shopDeleteAll {
+		... shopFragment
+	}
+}
+fragment shopFragment on shop {
+	ID
+	name
+	tel
+	email
+	address
+}
+`,
+	}
+	var err error
+
+	var data ShopDeleteAllResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopServiceByID(
+	ctx context.Context,
+	client graphql.Client,
+	shopServiceInput *ShopServiceCreateInput,
+) (*ShopServiceByIDResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopServiceByID",
+		Query: `
+query ShopServiceByID ($shopServiceInput: shopServiceCreateInput!) {
+	shopServiceByID(input: $shopServiceInput) {
+		... shopServiceFragment
+	}
+}
+fragment shopServiceFragment on shopService {
+	shopID
+	serviceID
+}
+`,
+		Variables: &__ShopServiceByIDInput{
+			ShopServiceInput: shopServiceInput,
+		},
+	}
+	var err error
+
+	var data ShopServiceByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopServiceCreate(
+	ctx context.Context,
+	client graphql.Client,
+	shopServiceInput *ShopServiceCreateInput,
+) (*ShopServiceCreateResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopServiceCreate",
+		Query: `
+mutation ShopServiceCreate ($shopServiceInput: shopServiceCreateInput!) {
+	shopServiceCreate(input: $shopServiceInput) {
+		... shopServiceFragment
+	}
+}
+fragment shopServiceFragment on shopService {
+	shopID
+	serviceID
+}
+`,
+		Variables: &__ShopServiceCreateInput{
+			ShopServiceInput: shopServiceInput,
+		},
+	}
+	var err error
+
+	var data ShopServiceCreateResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopServiceDelete(
+	ctx context.Context,
+	client graphql.Client,
+	shopServiceInput *ShopServiceDeleteInput,
+) (*ShopServiceDeleteResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopServiceDelete",
+		Query: `
+mutation ShopServiceDelete ($shopServiceInput: shopServiceDeleteInput!) {
+	shopServiceDelete(input: $shopServiceInput) {
+		... shopServiceFragment
+	}
+}
+fragment shopServiceFragment on shopService {
+	shopID
+	serviceID
+}
+`,
+		Variables: &__ShopServiceDeleteInput{
+			ShopServiceInput: shopServiceInput,
+		},
+	}
+	var err error
+
+	var data ShopServiceDeleteResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopServiceDeleteAll(
+	ctx context.Context,
+	client graphql.Client,
+) (*ShopServiceDeleteAllResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopServiceDeleteAll",
+		Query: `
+mutation ShopServiceDeleteAll {
+	shopServiceDeleteAll {
+		... shopServiceFragment
+	}
+}
+fragment shopServiceFragment on shopService {
+	shopID
+	serviceID
+}
+`,
+	}
+	var err error
+
+	var data ShopServiceDeleteAllResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopServices(
+	ctx context.Context,
+	client graphql.Client,
+) (*ShopServicesResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopServices",
+		Query: `
+query ShopServices {
+	shopServices {
+		... shopServiceFragment
+	}
+}
+fragment shopServiceFragment on shopService {
+	shopID
+	serviceID
+}
+`,
+	}
+	var err error
+
+	var data ShopServicesResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopUpdateMulti(
+	ctx context.Context,
+	client graphql.Client,
+	shopInput *ShopUpdateInput,
+) (*ShopUpdateMultiResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopUpdateMulti",
+		Query: `
+mutation ShopUpdateMulti ($shopInput: shopUpdateInput!) {
+	shopUpdateMulti(input: $shopInput) {
+		... shopFragment
+	}
+}
+fragment shopFragment on shop {
+	ID
+	name
+	tel
+	email
+	address
+}
+`,
+		Variables: &__ShopUpdateMultiInput{
+			ShopInput: shopInput,
+		},
+	}
+	var err error
+
+	var data ShopUpdateMultiResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func Shops(
+	ctx context.Context,
+	client graphql.Client,
+) (*ShopsResponse, error) {
+	req := &graphql.Request{
+		OpName: "Shops",
+		Query: `
+query Shops {
+	shops {
+		... shopFragment
+	}
+}
+fragment shopFragment on shop {
+	ID
+	name
+	tel
+	email
+	address
+}
+`,
+	}
+	var err error
+
+	var data ShopsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketByCustomer(
+	ctx context.Context,
+	client graphql.Client,
+	ticketInput *TicketByCustomerInput,
+) (*TicketByCustomerResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketByCustomer",
+		Query: `
+query TicketByCustomer ($ticketInput: ticketByCustomerInput!) {
+	ticketByCustomer(input: $ticketInput) {
+		... ticketFragment
+	}
+}
+fragment ticketFragment on ticket {
+	ID
+	customerID
+	carID
+	problem
+	createTime
+	shopID
+	acceptedTime
+	status
+}
+`,
+		Variables: &__TicketByCustomerInput{
+			TicketInput: ticketInput,
+		},
+	}
+	var err error
+
+	var data TicketByCustomerResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketByID(
+	ctx context.Context,
+	client graphql.Client,
+	ticketInput string,
+) (*TicketByIDResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketByID",
+		Query: `
+query TicketByID ($ticketInput: ID!) {
+	ticketByID(input: $ticketInput) {
+		... ticketFragment
+	}
+}
+fragment ticketFragment on ticket {
+	ID
+	customerID
+	carID
+	problem
+	createTime
+	shopID
+	acceptedTime
+	status
+}
+`,
+		Variables: &__TicketByIDInput{
+			TicketInput: ticketInput,
+		},
+	}
+	var err error
+
+	var data TicketByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketByShop(
+	ctx context.Context,
+	client graphql.Client,
+	ticketInput *TicketByShopInput,
+) (*TicketByShopResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketByShop",
+		Query: `
+query TicketByShop ($ticketInput: ticketByShopInput!) {
+	ticketByShop(input: $ticketInput) {
+		... ticketFragment
+	}
+}
+fragment ticketFragment on ticket {
+	ID
+	customerID
+	carID
+	problem
+	createTime
+	shopID
+	acceptedTime
+	status
+}
+`,
+		Variables: &__TicketByShopInput{
+			TicketInput: ticketInput,
+		},
+	}
+	var err error
+
+	var data TicketByShopResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketCreate(
+	ctx context.Context,
+	client graphql.Client,
+	ticketInput *TicketCreateInput,
+) (*TicketCreateResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketCreate",
+		Query: `
+mutation TicketCreate ($ticketInput: ticketCreateInput!) {
+	ticketCreate(input: $ticketInput) {
+		... ticketFragment
+	}
+}
+fragment ticketFragment on ticket {
+	ID
+	customerID
+	carID
+	problem
+	createTime
+	shopID
+	acceptedTime
+	status
+}
+`,
+		Variables: &__TicketCreateInput{
+			TicketInput: ticketInput,
+		},
+	}
+	var err error
+
+	var data TicketCreateResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketDelete(
+	ctx context.Context,
+	client graphql.Client,
+	ticketInput *DeleteIDInput,
+) (*TicketDeleteResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketDelete",
+		Query: `
+mutation TicketDelete ($ticketInput: DeleteIDInput!) {
+	ticketDelete(input: $ticketInput) {
+		... ticketFragment
+	}
+}
+fragment ticketFragment on ticket {
+	ID
+	customerID
+	carID
+	problem
+	createTime
+	shopID
+	acceptedTime
+	status
+}
+`,
+		Variables: &__TicketDeleteInput{
+			TicketInput: ticketInput,
+		},
+	}
+	var err error
+
+	var data TicketDeleteResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketDeleteAll(
+	ctx context.Context,
+	client graphql.Client,
+) (*TicketDeleteAllResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketDeleteAll",
+		Query: `
+mutation TicketDeleteAll {
+	ticketDeleteAll {
+		... ticketFragment
+	}
+}
+fragment ticketFragment on ticket {
+	ID
+	customerID
+	carID
+	problem
+	createTime
+	shopID
+	acceptedTime
+	status
+}
+`,
+	}
+	var err error
+
+	var data TicketDeleteAllResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketServiceByID(
+	ctx context.Context,
+	client graphql.Client,
+	ticketServiceInput *TicketServiceCreateInput,
+) (*TicketServiceByIDResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketServiceByID",
+		Query: `
+query TicketServiceByID ($ticketServiceInput: ticketServiceCreateInput!) {
+	ticketServiceByID(input: $ticketServiceInput) {
+		... ticketServiceFragment
+	}
+}
+fragment ticketServiceFragment on ticketService {
+	ticketID
+	serviceID
+}
+`,
+		Variables: &__TicketServiceByIDInput{
+			TicketServiceInput: ticketServiceInput,
+		},
+	}
+	var err error
+
+	var data TicketServiceByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketServiceCreate(
+	ctx context.Context,
+	client graphql.Client,
+	ticketServiceInput *TicketServiceCreateInput,
+) (*TicketServiceCreateResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketServiceCreate",
+		Query: `
+mutation TicketServiceCreate ($ticketServiceInput: ticketServiceCreateInput!) {
+	ticketServiceCreate(input: $ticketServiceInput) {
+		... ticketServiceFragment
+	}
+}
+fragment ticketServiceFragment on ticketService {
+	ticketID
+	serviceID
+}
+`,
+		Variables: &__TicketServiceCreateInput{
+			TicketServiceInput: ticketServiceInput,
+		},
+	}
+	var err error
+
+	var data TicketServiceCreateResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketServiceDelete(
+	ctx context.Context,
+	client graphql.Client,
+	ticketServiceInput *TicketServiceCreateInput,
+) (*TicketServiceDeleteResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketServiceDelete",
+		Query: `
+mutation TicketServiceDelete ($ticketServiceInput: ticketServiceCreateInput!) {
+	ticketServiceDelete(input: $ticketServiceInput) {
+		... ticketServiceFragment
+	}
+}
+fragment ticketServiceFragment on ticketService {
+	ticketID
+	serviceID
+}
+`,
+		Variables: &__TicketServiceDeleteInput{
+			TicketServiceInput: ticketServiceInput,
+		},
+	}
+	var err error
+
+	var data TicketServiceDeleteResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketServiceDeleteAll(
+	ctx context.Context,
+	client graphql.Client,
+) (*TicketServiceDeleteAllResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketServiceDeleteAll",
+		Query: `
+mutation TicketServiceDeleteAll {
+	ticketServiceDeleteAll {
+		... ticketServiceFragment
+	}
+}
+fragment ticketServiceFragment on ticketService {
+	ticketID
+	serviceID
+}
+`,
+	}
+	var err error
+
+	var data TicketServiceDeleteAllResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketServices(
+	ctx context.Context,
+	client graphql.Client,
+) (*TicketServicesResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketServices",
+		Query: `
+query TicketServices {
+	ticketServices {
+		... ticketServiceFragment
+	}
+}
+fragment ticketServiceFragment on ticketService {
+	ticketID
+	serviceID
+}
+`,
+	}
+	var err error
+
+	var data TicketServicesResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketUpdateMulti(
+	ctx context.Context,
+	client graphql.Client,
+	ticketInput *TicketUpdateInput,
+) (*TicketUpdateMultiResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketUpdateMulti",
+		Query: `
+mutation TicketUpdateMulti ($ticketInput: ticketUpdateInput!) {
+	ticketUpdateMulti(input: $ticketInput) {
+		... ticketFragment
+	}
+}
+fragment ticketFragment on ticket {
+	ID
+	customerID
+	carID
+	problem
+	createTime
+	shopID
+	acceptedTime
+	status
+}
+`,
+		Variables: &__TicketUpdateMultiInput{
+			TicketInput: ticketInput,
+		},
+	}
+	var err error
+
+	var data TicketUpdateMultiResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func Tickets(
+	ctx context.Context,
+	client graphql.Client,
+) (*TicketsResponse, error) {
+	req := &graphql.Request{
+		OpName: "Tickets",
+		Query: `
+query Tickets {
+	tickets {
+		... ticketFragment
+	}
+}
+fragment ticketFragment on ticket {
+	ID
+	customerID
+	carID
+	problem
+	createTime
+	shopID
+	acceptedTime
+	status
+}
+`,
+	}
+	var err error
+
+	var data TicketsResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
