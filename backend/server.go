@@ -49,11 +49,12 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 func main() {
 	r := mux.NewRouter()
 
-	var host string = "localhost"
-	var port string = "5432"
-	var user string = "postgres"
-	var password string = "Eauu0244"
-	var dbname string = "postgres"
+	// config
+	var host string = "localhost"    //IP
+	var port string = "5432"         //port
+	var user string = "postgres"     //root user
+	var password string = "Eauu0244" //root pass
+	var dbname string = "postgres"   //dbname
 	var goChiPort string = "8081"
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
@@ -78,7 +79,6 @@ func main() {
 	)
 	r.Handle("/default/carservice", srv)
 	r.Handle("/playground", playground.Handler("GraphQL playground", "/"))
-	
 
 	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {
 		gorillaLambda = gorillamux.New(r)
