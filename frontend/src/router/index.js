@@ -30,6 +30,11 @@ const routes = [
     path: '/progress',
     name: 'progress',
     component: () => import('../views/ProgressView.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/RegisterView.vue')
   }
 ]
 
