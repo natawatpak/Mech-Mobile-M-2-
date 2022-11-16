@@ -32,5 +32,10 @@ deploy:
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o main
 	zip deployment.zip main
 
+deploywindows:
+	GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -o main.exe
+	gzip main -k -f -9
+	mv main.gz main.zip
+
 client:
 	genqlient graph/genqlient.yaml
