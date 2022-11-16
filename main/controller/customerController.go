@@ -12,7 +12,12 @@ import (
 )
 
 func CreateCustomerProfile(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
+	if err := r.ParseForm(); err != nil {
+		fmt.Fprintf(w, "ParseForm() err: %v", err)
+		return
+	}
+	fmt.Fprintf(w, "POST request successful\n")
+	// fName := r.FormValue("fName")
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
@@ -53,4 +58,12 @@ func UpdateCustomerProfile(w http.ResponseWriter, r *http.Request){
 		log.Fatal(err)
 	}
 	fmt.Println(resp.CustomerUpdateMulti.FName)
+	println(resp.CustomerUpdateMulti.ID)
+
+	respquery, err := graph.Customers(ctx, graphqlClient)
+	if err != nil {
+		log.Fatal(err)
+	}
+	println(*respquery)
+
 }

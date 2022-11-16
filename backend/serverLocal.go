@@ -8,7 +8,6 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-
 	"github.com/go-chi/chi"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/generated"

@@ -5,11 +5,10 @@ go 1.18
 require (
 	github.com/99designs/gqlgen v0.17.20
 	github.com/Khan/genqlient v0.5.0
-	github.com/aws/aws-lambda-go v1.34.1
+	github.com/aws/aws-lambda-go v1.19.1
 	github.com/awslabs/aws-lambda-go-api-proxy v0.13.3
-	github.com/go-chi/chi v1.5.4
 	github.com/google/uuid v1.3.0
-	github.com/gorilla/mux v1.8.0
+	github.com/gorilla/mux v1.7.4
 	github.com/lib/pq v1.10.7
 	github.com/spf13/viper v1.14.0
 	github.com/stretchr/testify v1.8.1
@@ -24,6 +23,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
+	github.com/go-chi/chi v1.5.4 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
