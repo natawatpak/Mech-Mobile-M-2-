@@ -77,13 +77,14 @@ func main() {
 			},
 		),
 	)
-	r.Handle("/carservice", srv)
-	r.Handle("/playground", playground.Handler("GraphQL playground", "/"))
 
 	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {
+		r.Handle("/carservice", srv)
 		gorillaLambda = gorillamux.New(r)
 		lambda.Start(Handler)
 	} else {
+		r.Handle("/playground", playground.Handler("GraphQL playground", "/"))
+		r.Handle("/", srv)
 
 		log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
 		log.Fatal(http.ListenAndServe(":"+goChiPort, r))
