@@ -2,6 +2,8 @@
 #
 # https://gqlgen.com/getting-started/
 
+scalar Time
+
 type Query {
   customerByID(input: ID!): customer!
   customers: [customer!]!
@@ -27,7 +29,7 @@ type Query {
   activeTicketByID(input: ID!): activeTicket!
   activeTicketByCustomer(input: ID!): [activeTicket!]!
   activeTicketByShop(input: ID!): [activeTicket!]!
-  activeTicketByStats(input: status!):[activeTicket!]
+  activeTicketByStats(input: String!):[activeTicket!]
   activeTickets: [activeTicket!]!
 
   ticketServiceByID(input: ticketServiceCreateInput!): ticketService
@@ -61,7 +63,7 @@ type Mutation {
   activeTicketCreate(input: activeTicketCreateInput!): activeTicket!
   activeTicketUpdateMulti(input: activeTicketUpdateInput!): activeTicket!
   activeTicketDelete(input: DeleteIDInput!): activeTicket!
-  activeTicketDeleteStatus(input: status!):[activeTicket!]
+  activeTicketDeleteStatus(input: String!):[activeTicket!]
   activeTicketDeleteAll: [activeTicket!]
 
   serviceCreate(input: serviceCreateInput!): service!
@@ -76,11 +78,6 @@ type Mutation {
   ticketServiceCreate(input: ticketServiceCreateInput!): ticketService!
   ticketServiceDelete(input: ticketServiceCreateInput!): ticketService!
   ticketServiceDeleteAll: [ticketService!]
-}
-
-enum status {
-	active
-  finish
 }
 
 input DeleteIDInput {
@@ -115,10 +112,10 @@ type car {
   ID: ID!
   ownerID: ID!
   plateNum: String!
-  plateType: String!
-  issuedAt: String!
-  color: String!
-  type: String!
+  plateType: String
+  issuedAt: String
+  color: String
+  type: String
   brand: String!
   build: String
 }
@@ -127,10 +124,10 @@ input carCreateInput {
   ID: ID
   ownerID: ID!
   plateNum: String!
-  plateType: String!
-  issuedAt: String!
-  color: String!
-  type: String!
+  plateType: String
+  issuedAt: String
+  color: String
+  type: String
   brand: String!
   build: String
 }
@@ -139,10 +136,10 @@ input carUpdateInput {
   ID: ID!
   ownerID: ID!
   plateNum: String!
-  plateType: String!
-  issuedAt: String!
-  color: String!
-  type: String!
+  plateType: String
+  issuedAt: String
+  color: String
+  type: String
   brand: String!
   build: String
 }
@@ -152,10 +149,10 @@ type ticket {
   customerID: ID!
   carID: ID!
   problem: String!
-  createTime: String!
+  createTime: Time!
   shopID: ID!
-  acceptedTime: String!
-  status: String!
+  acceptedTime: Time
+  status: String
 }
 
 input ticketCreateInput {
@@ -163,10 +160,10 @@ input ticketCreateInput {
   customerID: ID!
   carID: ID!
   problem: String!
-  createTime: String!
+  createTime: Time!
   shopID: ID!
-  acceptedTime: String!
-  status: String!
+  acceptedTime: Time
+  status: String
 }
 
 input ticketUpdateInput {
@@ -174,24 +171,24 @@ input ticketUpdateInput {
   customerID: ID!
   carID: ID!
   problem: String!
-  createTime: String!
+  createTime: Time!
   shopID: ID!
-  acceptedTime: String!
-  status: String!
+  acceptedTime: Time
+  status: String
 }
 
 input ticketByCustomerInput {
   customerID: ID!
-  fromTime: String!
-  toTime: String!
-  status: String!
+  fromTime: Time!
+  toTime: Time!
+  status: String
 }
 
 input ticketByShopInput {
   shopID: ID!
-  fromTime: String!
-  toTime: String!
-  status: String!
+  fromTime: Time!
+  toTime: Time!
+  status: String
 }
 
 type shop {
@@ -253,8 +250,8 @@ type activeTicket {
   carID: ID!
   customerID: ID!
   problem: String!
-  shopID: ID!
-  status: String!
+  shopID: ID
+  status: String
 }
 
 input activeTicketCreateInput {
@@ -262,8 +259,8 @@ input activeTicketCreateInput {
   carID: ID!
   customerID: ID!
   problem: String!
-  shopID: ID!
-  status: String!
+  shopID: ID
+  status: String
 }
 
 input activeTicketUpdateInput {
@@ -271,8 +268,8 @@ input activeTicketUpdateInput {
   carID: ID!
   customerID: ID!
   problem: String!
-  shopID: ID!
-  status: String!
+  shopID: ID
+  status: String
 }
 
 type ticketService {
