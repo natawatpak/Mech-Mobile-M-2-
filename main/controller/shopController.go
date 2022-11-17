@@ -83,6 +83,79 @@ func ShopGetActiveTicket(w http.ResponseWriter, r *http.Request) []byte {
 	return jsonData
 }
 
+func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) []byte {
+	r.ParseForm()
+
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+
+	resp, err := graph.ActiveTicketUpdateMulti(ctx, graphqlClient, &graph.ActiveTicketUpdateInput{
+		ID:         r.FormValue("ticketID"),
+		CarID:      r.FormValue("carID"),
+		CustomerID: r.FormValue("cusID"),
+		Problem:    r.FormValue("problem"),
+		ShopID:     r.FormValue("shopID"),
+		Status:     "Accepted",
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
+
+	data := map[string]string{
+		"ticketID": resp.ActiveTicketUpdateMulti.ID,
+		"cusID":    resp.ActiveTicketUpdateMulti.CustomerID,
+		"carID":    resp.ActiveTicketUpdateMulti.CarID,
+		"problem":  resp.ActiveTicketUpdateMulti.Problem,
+		"shopID":   resp.ActiveTicketUpdateMulti.ShopID,
+		"status":   resp.ActiveTicketUpdateMulti.Status,
+	}
+
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return jsonData
+}
+
+func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) []byte {
+	r.ParseForm()
+
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+
+	resp, err := graph.ActiveTicketUpdateMulti(ctx, graphqlClient, &graph.ActiveTicketUpdateInput{
+		ID:         r.FormValue("ticketID"),
+		CarID:      r.FormValue("carID"),
+		CustomerID: r.FormValue("cusID"),
+		Problem:    r.FormValue("problem"),
+		ShopID:     r.FormValue("shopID"),
+		Status:     "Completed",
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
+
+	data := map[string]string{
+		"ticketID": resp.ActiveTicketUpdateMulti.ID,
+		"cusID":    resp.ActiveTicketUpdateMulti.CustomerID,
+		"carID":    resp.ActiveTicketUpdateMulti.CarID,
+		"problem":  resp.ActiveTicketUpdateMulti.Problem,
+		"shopID":   resp.ActiveTicketUpdateMulti.ShopID,
+		"status":   resp.ActiveTicketUpdateMulti.Status,
+	}
+
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return jsonData
+}
+
+// need improvise
 func ShopCancelTicket(w http.ResponseWriter, r *http.Request) []byte {
 	r.ParseForm()
 
