@@ -21,7 +21,7 @@ func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	// fName := r.FormValue("fName")
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.CustomerCreate(ctx, graphqlClient, &graph.CustomerCreateInput{
 		FName: r.FormValue("fName"),
@@ -51,11 +51,11 @@ func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonData)
 }
 
-func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request){
+func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.CustomerUpdateMulti(ctx, graphqlClient, &graph.CustomerUpdateInput{
 		ID:    r.FormValue("ID"),
@@ -85,11 +85,11 @@ func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request){
 	w.Write(jsonData)
 }
 
-func CustomerAddCar(w http.ResponseWriter, r *http.Request){
+func CustomerAddCar(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.CarCreate(ctx, graphqlClient, &graph.CarCreateInput{
 		OwnerID:  r.FormValue("cusID"),
@@ -122,7 +122,7 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.CarByOwner(ctx, graphqlClient, r.FormValue("cusID"))
 
@@ -158,7 +158,7 @@ func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.CarDelete(ctx, graphqlClient, &graph.DeleteIDInput{
 		ID: r.FormValue("carID"),
@@ -189,7 +189,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.TicketCreate(ctx, graphqlClient, &graph.TicketCreateInput{
 		CustomerID:   r.FormValue("cusID"),
@@ -224,7 +224,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 // 	r.ParseForm()
 
 // 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-// 	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+// 	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 // 	resp, err := graph.ActiveTicketByCustomer(ctx, graphqlClient, r.FormValue("cusID"))
 
@@ -246,7 +246,7 @@ func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ActiveTicketDelete(ctx, graphqlClient, &graph.DeleteIDInput{
 		ID: r.FormValue("ticketID"),
@@ -278,7 +278,7 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.TicketByCustomer(ctx, graphqlClient, &graph.TicketByCustomerInput{
 		CustomerID: r.FormValue("cusID"),
@@ -321,7 +321,7 @@ func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ShopByID(ctx, graphqlClient, r.FormValue("shopID"))
 

@@ -17,7 +17,7 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ActiveTicketByStats(ctx, graphqlClient, graph.Status(model.StatusActive))
 
@@ -57,7 +57,7 @@ func ShopGetActiveTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ActiveTicketByShop(ctx, graphqlClient, r.FormValue("shopID"))
 
@@ -93,7 +93,7 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ActiveTicketUpdateMulti(ctx, graphqlClient, &graph.ActiveTicketUpdateInput{
 		ID:         r.FormValue("ticketID"),
@@ -132,7 +132,7 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ActiveTicketUpdateMulti(ctx, graphqlClient, &graph.ActiveTicketUpdateInput{
 		ID:         r.FormValue("ticketID"),
@@ -172,7 +172,7 @@ func ShopCancelTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ActiveTicketDelete(ctx, graphqlClient, &graph.DeleteIDInput{
 		ID: r.FormValue("ticketID"),
@@ -201,7 +201,7 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.TicketByShop(ctx, graphqlClient, &graph.TicketByShopInput{
 		ShopID:   r.FormValue("shopID"),
@@ -244,7 +244,7 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.TicketByShop(ctx, graphqlClient, &graph.TicketByShopInput{
 		ShopID:   r.FormValue("shopID"),
@@ -290,7 +290,7 @@ func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ShopCreate(ctx, graphqlClient, &graph.ShopCreateInput{
 		Name:    r.FormValue("shopName"),
@@ -325,7 +325,7 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ShopUpdateMulti(ctx, graphqlClient, &graph.ShopUpdateInput{
 		ID:      r.FormValue("shopID"),
