@@ -12,14 +12,14 @@ import (
 func (op *SQLop) TicketCreate(ctx context.Context, ticketInput *model.TicketCreateInput) (*model.Ticket, error) {
 	newID := uuid.New().String()
 	ticketToBeAdd := model.Ticket{
-		ID:           newID,
-		CustomerID:   ticketInput.CustomerID,
-		CarID:        ticketInput.CarID,
-		Problem:      ticketInput.Problem,
-		CreateTime:   ticketInput.CreateTime,
-		ShopID:       ticketInput.ShopID,
-		AcceptedTime: ticketInput.AcceptedTime,
-		Status:       ticketInput.Status,
+		ID:         newID,
+		CustomerID: ticketInput.CustomerID,
+		CarID:      ticketInput.CarID,
+		Problem:    ticketInput.Problem,
+		// CreateTime:   ticketInput.CreateTime,
+		ShopID: ticketInput.ShopID,
+		// AcceptedTime: ticketInput.AcceptedTime,
+		Status: ticketInput.Status,
 	}
 	_, err := op.db.NewInsert().Model(&ticketToBeAdd).Exec(ctx)
 	return &ticketToBeAdd, err

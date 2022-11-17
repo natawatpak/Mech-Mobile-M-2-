@@ -54,7 +54,7 @@ type DatabaseOp interface {
 	ActiveTicketDeleteActive(ctx context.Context) ([]*model.ActiveTicket, error)
 	ActiveTicketDeleteAll(ctx context.Context) ([]*model.ActiveTicket, error)
 	ActiveTicketFindByID(ctx context.Context, ID string) (*model.ActiveTicket, error)
-	ActiveTicketFindByStatus(ctx context.Context, input model.Status) ([]*model.ActiveTicket, error)
+	ActiveTicketFindByStatus(ctx context.Context, input string) ([]*model.ActiveTicket, error)
 	ActiveTicketFindByCustomer(ctx context.Context, ID string) ([]*model.ActiveTicket, error)
 	ActiveTicketFindByShop(ctx context.Context, ID string) ([]*model.ActiveTicket, error)
 	ActiveTicketList(ctx context.Context) ([]*model.ActiveTicket, error)

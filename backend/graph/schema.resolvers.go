@@ -111,39 +111,6 @@ func (r *mutationResolver) TicketDeleteAll(ctx context.Context) ([]*model.Ticket
 	return result, err
 }
 
-// ActiveTicketCreate is the resolver for the activeTicketCreate field.
-func (r *mutationResolver) ActiveTicketCreate(ctx context.Context, input model.ActiveTicketCreateInput) (*model.ActiveTicket, error) {
-	if input.ID != nil {
-		return nil, errors.New("id must be null")
-	}
-	returnCustomer, err := r.DB.ActiveTicketCreate(ctx, &input)
-	return returnCustomer, err
-}
-
-// ActiveTicketUpdateMulti is the resolver for the activeTicketUpdateMulti field.
-func (r *mutationResolver) ActiveTicketUpdateMulti(ctx context.Context, input model.ActiveTicketUpdateInput) (*model.ActiveTicket, error) {
-	result, err := r.DB.ActiveTicketUpdateMulti(ctx, model.ActiveTicket(input))
-	return result, err
-}
-
-// ActiveTicketDelete is the resolver for the activeTicketDelete field.
-func (r *mutationResolver) ActiveTicketDelete(ctx context.Context, input model.DeleteIDInput) (*model.ActiveTicket, error) {
-	result, err := r.DB.ActiveTicketDelete(ctx, input.ID)
-	return result, err
-}
-
-// ActiveTicketDeleteStatus is the resolver for the activeTicketDeleteStatus field.
-func (r *mutationResolver) ActiveTicketDeleteStatus(ctx context.Context, input model.Status) ([]*model.ActiveTicket, error) {
-	result, err := r.DB.ActiveTicketFindByStatus(ctx, input)
-	return result, err
-}
-
-// ActiveTicketDeleteAll is the resolver for the activeTicketDeleteAll field.
-func (r *mutationResolver) ActiveTicketDeleteAll(ctx context.Context) ([]*model.ActiveTicket, error) {
-	result, err := r.DB.ActiveTicketDeleteAll(ctx)
-	return result, err
-}
-
 // ShopCreate is the resolver for the shopCreate field.
 func (r *mutationResolver) ShopCreate(ctx context.Context, input model.ShopCreateInput) (*model.Shop, error) {
 	if input.ID != nil {
@@ -168,6 +135,39 @@ func (r *mutationResolver) ShopDelete(ctx context.Context, input model.DeleteIDI
 // ShopDeleteAll is the resolver for the shopDeleteAll field.
 func (r *mutationResolver) ShopDeleteAll(ctx context.Context) ([]*model.Shop, error) {
 	result, err := r.DB.ShopDeleteAll(ctx)
+	return result, err
+}
+
+// ActiveTicketCreate is the resolver for the activeTicketCreate field.
+func (r *mutationResolver) ActiveTicketCreate(ctx context.Context, input model.ActiveTicketCreateInput) (*model.ActiveTicket, error) {
+	if input.ID != nil {
+		return nil, errors.New("id must be null")
+	}
+	returnCustomer, err := r.DB.ActiveTicketCreate(ctx, &input)
+	return returnCustomer, err
+}
+
+// ActiveTicketUpdateMulti is the resolver for the activeTicketUpdateMulti field.
+func (r *mutationResolver) ActiveTicketUpdateMulti(ctx context.Context, input model.ActiveTicketUpdateInput) (*model.ActiveTicket, error) {
+	result, err := r.DB.ActiveTicketUpdateMulti(ctx, model.ActiveTicket(input))
+	return result, err
+}
+
+// ActiveTicketDelete is the resolver for the activeTicketDelete field.
+func (r *mutationResolver) ActiveTicketDelete(ctx context.Context, input model.DeleteIDInput) (*model.ActiveTicket, error) {
+	result, err := r.DB.ActiveTicketDelete(ctx, input.ID)
+	return result, err
+}
+
+// ActiveTicketDeleteStatus is the resolver for the activeTicketDeleteStatus field.
+func (r *mutationResolver) ActiveTicketDeleteStatus(ctx context.Context, input string) ([]*model.ActiveTicket, error) {
+	result, err := r.DB.ActiveTicketFindByStatus(ctx, input)
+	return result, err
+}
+
+// ActiveTicketDeleteAll is the resolver for the activeTicketDeleteAll field.
+func (r *mutationResolver) ActiveTicketDeleteAll(ctx context.Context) ([]*model.ActiveTicket, error) {
+	result, err := r.DB.ActiveTicketDeleteAll(ctx)
 	return result, err
 }
 
@@ -343,7 +343,7 @@ func (r *queryResolver) ActiveTicketByShop(ctx context.Context, input string) ([
 }
 
 // ActiveTicketByStats is the resolver for the activeTicketByStats field.
-func (r *queryResolver) ActiveTicketByStats(ctx context.Context, input model.Status) ([]*model.ActiveTicket, error) {
+func (r *queryResolver) ActiveTicketByStats(ctx context.Context, input string) ([]*model.ActiveTicket, error) {
 	result, err := r.DB.ActiveTicketFindByStatus(ctx, input)
 	return result, err
 }
