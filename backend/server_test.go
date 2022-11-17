@@ -37,7 +37,7 @@ var inputCustomer = model.CustomerCreateInput{
 	Email: currentExpectCustomer.Email,
 }
 
-func testSetup() (context.Context, *resource.SQLop) {
+func testSetup1() (context.Context, *resource.SQLop) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	if cancel != nil {
 		fmt.Printf("Context cancel msg : %v\n\n", cancel)
@@ -69,7 +69,7 @@ func testSetup() (context.Context, *resource.SQLop) {
 	return ctx, operator
 }
 
-func TestTestSetup(t *testing.T) {
+func testSetup2() {
 	r := chi.NewRouter()
 
 	viper.SetConfigName("postgresConfig")
@@ -86,7 +86,6 @@ func TestTestSetup(t *testing.T) {
 	var user string = viper.GetString("connectionDetail.user")
 	var password string = viper.GetString("connectionDetail.password")
 	var dbname string = viper.GetString("connectionDetail.dbname")
-	var goChiPort string = viper.GetString("connectionDetail.goChiPort")
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
 		"password=%s dbname=%s sslmode=disable",
@@ -106,23 +105,20 @@ func TestTestSetup(t *testing.T) {
 		),
 	)
 
-	r.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	r.Handle("/query", srv)
-
-	log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
-	log.Fatal(http.ListenAndServe(":"+goChiPort, r))
+	r.Handle("/playground", playground.Handler("GraphQL playground", "/"))
+	r.Handle("/", srv)
 
 }
 
 func TestTableDropFunc(t *testing.T) {
-	ctx, operator := testSetup()
+	ctx, operator := testSetup1()
 
 	dropResult, err := operator.DropTable(ctx)
 	assert.Equal(t, true, dropResult)
 	assert.Equal(t, nil, err)
 }
 func TestTableCreateFunc(t *testing.T) {
-	ctx, operator := testSetup()
+	ctx, operator := testSetup1()
 
 	createResult, err := operator.CreateTables(ctx)
 	assert.Equal(t, true, createResult)
@@ -130,7 +126,7 @@ func TestTableCreateFunc(t *testing.T) {
 }
 
 func TestOpCreateFunc(t *testing.T) {
-	ctx, operator := testSetup()
+	ctx, operator := testSetup1()
 
 	returnCustomer, err := operator.CustomerCreate(ctx, &inputCustomer)
 	currentExpectCustomer.ID = returnCustomer.ID
@@ -139,20 +135,45 @@ func TestOpCreateFunc(t *testing.T) {
 
 }
 
-func TestExample(t *testing.T) {
-	ctx, _ := testSetup()
+func TestTicketCreate(t *testing.T) {
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 
-	graphqlClient := graphql.NewClient("http://localhost:8081/query", http.DefaultClient)
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	curentTime := time.Now()
+	log.Println(curentTime)
 
-	resp, err := graph.CustomerCreate(ctx, graphqlClient, &graph.CustomerCreateInput{
-		FName: "hello",
-		LName: "world",
-		Tel:   "098123456789",
-		Email: "hello@gmail.com",
+	resp, err := graph.TicketCreate(ctx, graphqlClient, &graph.TicketCreateInput{
+		CustomerID:   "f4209ba4-9e88-4b9b-a43b-7f71c96c43a8",
+		CarID:        "dd13c45c-1e15-4d7d-a96a-94b161086b4b",
+		Problem:      "bad battery",
+		CreateTime:   curentTime,
+		ShopID:       "d9ef6fb7-837c-4433-be81-f24f5943b3d0",
+		AcceptedTime: &curentTime,
+		Status:       util.Ptr("active"),
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	createdCus := resp.CustomerCreate
-	assert.Equal(t, "hello", createdCus.FName)
+	ticketCreate := resp.TicketCreate
+	assert.Equal(t, "bad battery", ticketCreate.Problem)
+	log.Println(ticketCreate.ID)
+}
+
+func TestTicketByCustomer(t *testing.T) {
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	curentTime := time.Now()
+	log.Println(curentTime)
+
+	resp, err := graph.TicketByCustomer(ctx, graphqlClient, &graph.TicketByCustomerInput{
+		CustomerID: "f4209ba4-9e88-4b9b-a43b-7f71c96c43a8",
+		FromTime:   time.Now().AddDate(0, 0, -1),
+		ToTime:     time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	ticket := resp.TicketByCustomer[0].ID
+	log.Println(ticket)
 }
