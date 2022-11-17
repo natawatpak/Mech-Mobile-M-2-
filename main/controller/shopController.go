@@ -11,6 +11,7 @@ import (
 	"github.com/Khan/genqlient/graphql"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
+	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
 func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
@@ -35,8 +36,8 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 			"cusID":    t.CustomerID,
 			"carID":    t.CarID,
 			"problem":  t.Problem,
-			"shopID":   t.ShopID,
-			"status":   t.Status,
+			"shopID":   *t.ShopID,
+			"status":   *t.Status,
 		}
 		data[i] = tData
 	}
@@ -73,8 +74,8 @@ func ShopGetOngoingTicketList(w http.ResponseWriter, r *http.Request) {
 			"cusID":    t.CustomerID,
 			"carID":    t.CarID,
 			"problem":  t.Problem,
-			"shopID":   t.ShopID,
-			"status":   t.Status,
+			"shopID":   *t.ShopID,
+			"status":   *t.Status,
 		}
 		data[i] = tData
 	}
@@ -100,8 +101,8 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 		CarID:      r.FormValue("carID"),
 		CustomerID: r.FormValue("cusID"),
 		Problem:    r.FormValue("problem"),
-		ShopID:     r.FormValue("shopID"),
-		Status:     "Accepted",
+		ShopID:     util.Ptr(r.FormValue("shopID")),
+		Status:     util.Ptr("Accepted"),
 	})
 
 	if err != nil {
@@ -116,8 +117,8 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 		"cusID":    resp.ActiveTicketUpdateMulti.CustomerID,
 		"carID":    resp.ActiveTicketUpdateMulti.CarID,
 		"problem":  resp.ActiveTicketUpdateMulti.Problem,
-		"shopID":   resp.ActiveTicketUpdateMulti.ShopID,
-		"status":   resp.ActiveTicketUpdateMulti.Status,
+		"shopID":   *resp.ActiveTicketUpdateMulti.ShopID,
+		"status":   *resp.ActiveTicketUpdateMulti.Status,
 	}
 
 	jsonData, err := json.Marshal(data)
@@ -141,8 +142,8 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 		CarID:      r.FormValue("carID"),
 		CustomerID: r.FormValue("cusID"),
 		Problem:    r.FormValue("problem"),
-		ShopID:     r.FormValue("shopID"),
-		Status:     "Completed",
+		ShopID:     util.Ptr(r.FormValue("shopID")),
+		Status:     util.Ptr("Completed"),
 	})
 
 	if err != nil {
@@ -157,8 +158,8 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 		"cusID":    resp.ActiveTicketUpdateMulti.CustomerID,
 		"carID":    resp.ActiveTicketUpdateMulti.CarID,
 		"problem":  resp.ActiveTicketUpdateMulti.Problem,
-		"shopID":   resp.ActiveTicketUpdateMulti.ShopID,
-		"status":   resp.ActiveTicketUpdateMulti.Status,
+		"shopID":   *resp.ActiveTicketUpdateMulti.ShopID,
+		"status":   *resp.ActiveTicketUpdateMulti.Status,
 	}
 
 	jsonData, err := json.Marshal(data)
@@ -211,9 +212,9 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := graph.TicketByShop(ctx, graphqlClient, &graph.TicketByShopInput{
 		ShopID:   r.FormValue("shopID"),
-		FromTime: time.Now().AddDate(0, -1, 0).String(),
-		ToTime:   time.Now().String(),
-		Status:   r.FormValue("status"),
+		FromTime: time.Now().AddDate(0, -1, 0),
+		ToTime:   time.Now(),
+		Status:   util.Ptr(r.FormValue("status")),
 	})
 
 	if err != nil {
@@ -230,10 +231,10 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 			"cusID":        t.CustomerID,
 			"carID":        t.CarID,
 			"problem":      t.Problem,
-			"createTime":   t.CreateTime,
+			"createTime":   t.CreateTime.String(),
 			"shopID":       t.ShopID,
-			"acceptedTime": t.AcceptedTime,
-			"status":       t.Status,
+			"acceptedTime": t.AcceptedTime.String(),
+			"status":       *t.Status,
 		}
 		data[i] = tData
 	}
@@ -256,9 +257,9 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := graph.TicketByShop(ctx, graphqlClient, &graph.TicketByShopInput{
 		ShopID:   r.FormValue("shopID"),
-		FromTime: time.Now().Truncate(24 * time.Hour).String(),
-		ToTime:   time.Now().Truncate(24 * time.Hour).Add(time.Hour*24 - time.Second*1).String(),
-		Status:   "Finish",
+		FromTime: time.Now().Truncate(24 * time.Hour),
+		ToTime:   time.Now().Truncate(24 * time.Hour).Add(time.Hour*24 - time.Second*1),
+		Status:   util.Ptr("Finish"),
 	})
 
 	if err != nil {
@@ -275,10 +276,10 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 			"cusID":        t.CustomerID,
 			"carID":        t.CarID,
 			"problem":      t.Problem,
-			"createTime":   t.CreateTime,
+			"createTime":   t.CreateTime.String(),
 			"shopID":       t.ShopID,
-			"acceptedTime": t.AcceptedTime,
-			"status":       t.Status,
+			"acceptedTime": t.AcceptedTime.String(),
+			"status":       *t.Status,
 		}
 		data[i] = tData
 	}
