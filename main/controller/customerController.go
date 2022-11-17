@@ -13,6 +13,8 @@ import (
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
+const GRAPHQL_CLIENT_URL = "http://localhost:8081/"
+
 func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Fatal(err)
@@ -21,7 +23,7 @@ func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	// fName := r.FormValue("fName")
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.CustomerCreate(ctx, graphqlClient, &graph.CustomerCreateInput{
 		FName: r.FormValue("fName"),
@@ -30,7 +32,9 @@ func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 		Email: r.FormValue("email"),
 	})
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.CustomerCreate.FName)
 
@@ -45,6 +49,7 @@ func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -55,7 +60,7 @@ func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.CustomerUpdateMulti(ctx, graphqlClient, &graph.CustomerUpdateInput{
 		ID:    r.FormValue("ID"),
@@ -65,7 +70,9 @@ func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) {
 		Email: r.FormValue("email"),
 	})
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 
 	data := map[string]string{
@@ -79,6 +86,7 @@ func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -89,7 +97,7 @@ func CustomerAddCar(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.CarCreate(ctx, graphqlClient, &graph.CarCreateInput{
 		OwnerID:  r.FormValue("cusID"),
@@ -101,7 +109,9 @@ func CustomerAddCar(w http.ResponseWriter, r *http.Request) {
 		Build:    util.Ptr(r.FormValue("build")),
 	})
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.CarCreate.ID)
 
@@ -112,6 +122,7 @@ func CustomerAddCar(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -122,12 +133,14 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.CarByOwner(ctx, graphqlClient, r.FormValue("cusID"))
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.CarByOwner)
 	data := make(map[int]map[string]string)
@@ -148,6 +161,7 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -158,14 +172,16 @@ func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.CarDelete(ctx, graphqlClient, &graph.DeleteIDInput{
 		ID: r.FormValue("carID"),
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 
 	fmt.Println(resp.CarDelete.ID)
@@ -174,11 +190,14 @@ func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
 	}
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -189,7 +208,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.TicketCreate(ctx, graphqlClient, &graph.TicketCreateInput{
 		CustomerID:   r.FormValue("cusID"),
@@ -202,7 +221,9 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.TicketCreate.ID)
 
@@ -214,6 +235,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -224,7 +246,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 // 	r.ParseForm()
 
 // 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-// 	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+// 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 // 	resp, err := graph.ActiveTicketByCustomer(ctx, graphqlClient, r.FormValue("cusID"))
 
@@ -246,14 +268,16 @@ func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ActiveTicketDelete(ctx, graphqlClient, &graph.DeleteIDInput{
 		ID: r.FormValue("ticketID"),
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.ActiveTicketDelete.ID)
 
@@ -263,11 +287,14 @@ func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -278,7 +305,7 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.TicketByCustomer(ctx, graphqlClient, &graph.TicketByCustomerInput{
 		CustomerID: r.FormValue("cusID"),
@@ -288,7 +315,9 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.TicketByCustomer)
 
@@ -311,6 +340,7 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -321,12 +351,14 @@ func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ShopByID(ctx, graphqlClient, r.FormValue("shopID"))
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 
 	data := map[string]string{
@@ -341,6 +373,7 @@ func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")

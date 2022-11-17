@@ -17,12 +17,14 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ActiveTicketByStats(ctx, graphqlClient, graph.Status(model.StatusActive))
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.ActiveTicketByStats)
 
@@ -43,26 +45,25 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonData)
 }
 
-// func GetOngoingTicketList(w http.ResponseWriter, r *http.Request) []byte {
-
-// }
-
-func ShopGetActiveTicket(w http.ResponseWriter, r *http.Request) {
+func ShopGetOngoingTicketList(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ActiveTicketByShop(ctx, graphqlClient, r.FormValue("shopID"))
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.ActiveTicketByShop)
 
@@ -83,6 +84,7 @@ func ShopGetActiveTicket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -93,7 +95,7 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ActiveTicketUpdateMulti(ctx, graphqlClient, &graph.ActiveTicketUpdateInput{
 		ID:         r.FormValue("ticketID"),
@@ -105,7 +107,9 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
 
@@ -122,6 +126,7 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -132,7 +137,7 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ActiveTicketUpdateMulti(ctx, graphqlClient, &graph.ActiveTicketUpdateInput{
 		ID:         r.FormValue("ticketID"),
@@ -144,7 +149,9 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
 
@@ -161,6 +168,7 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -172,14 +180,16 @@ func ShopCancelTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ActiveTicketDelete(ctx, graphqlClient, &graph.DeleteIDInput{
 		ID: r.FormValue("ticketID"),
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.ActiveTicketDelete.ID)
 
@@ -191,6 +201,7 @@ func ShopCancelTicket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -201,7 +212,7 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.TicketByShop(ctx, graphqlClient, &graph.TicketByShopInput{
 		ShopID:   r.FormValue("shopID"),
@@ -211,7 +222,9 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.TicketByShop)
 
@@ -234,6 +247,7 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -244,7 +258,7 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.TicketByShop(ctx, graphqlClient, &graph.TicketByShopInput{
 		ShopID:   r.FormValue("shopID"),
@@ -254,7 +268,9 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 	fmt.Println(resp.TicketByShop)
 
@@ -277,6 +293,7 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -290,7 +307,7 @@ func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ShopCreate(ctx, graphqlClient, &graph.ShopCreateInput{
 		Name:    r.FormValue("shopName"),
@@ -299,7 +316,9 @@ func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
 		Address: r.FormValue("shopAddress"),
 	})
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 
 	data := map[string]string{
@@ -312,6 +331,7 @@ func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -325,7 +345,7 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ShopUpdateMulti(ctx, graphqlClient, &graph.ShopUpdateInput{
 		ID:      r.FormValue("shopID"),
@@ -335,7 +355,9 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 		Address: r.FormValue("shopAddress"),
 	})
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
 	}
 
 	data := map[string]string{
@@ -349,9 +371,43 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonData)
+}
 
+func ShopGetCustomerProfile(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		fmt.Fprintf(w, "ParseForm() err: %v", err)
+		log.Fatal(err)
+	}
+
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	resp, err := graph.CustomerByID(ctx, graphqlClient, r.FormValue("cusID"))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	data := map[string]string{
+		"cusID": resp.CustomerByID.ID,
+		"fName": resp.CustomerByID.FName,
+		"lName": resp.CustomerByID.LName,
+		"tel":   resp.CustomerByID.Tel,
+		"email": resp.CustomerByID.Email,
+	}
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
