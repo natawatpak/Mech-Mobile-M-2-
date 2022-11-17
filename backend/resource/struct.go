@@ -40,7 +40,7 @@ type DatabaseOp interface {
 	CarList(ctx context.Context) ([]*model.Car, error)
 
 	TicketCreate(ctx context.Context, ticketInput *model.TicketCreateInput) (*model.Ticket, error)
-	TicketUpdateMulti(ctx context.Context, updateInput model.Ticket) (*model.Ticket, error)
+	TicketUpdateMulti(ctx context.Context, updateInput model.TicketUpdateInput) (*model.Ticket, error)
 	TicketDelete(ctx context.Context, ID string) (*model.Ticket, error)
 	TicketDeleteAll(ctx context.Context) ([]*model.Ticket, error)
 	TicketFindByID(ctx context.Context, ID string) (*model.Ticket, error)

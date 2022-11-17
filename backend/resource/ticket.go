@@ -12,20 +12,20 @@ import (
 func (op *SQLop) TicketCreate(ctx context.Context, ticketInput *model.TicketCreateInput) (*model.Ticket, error) {
 	newID := uuid.New().String()
 	ticketToBeAdd := model.Ticket{
-		ID:         newID,
-		CustomerID: ticketInput.CustomerID,
-		CarID:      ticketInput.CarID,
-		Problem:    ticketInput.Problem,
-		// CreateTime:   ticketInput.CreateTime,
-		ShopID: ticketInput.ShopID,
-		// AcceptedTime: ticketInput.AcceptedTime,
-		Status: ticketInput.Status,
+		ID:           newID,
+		CustomerID:   ticketInput.CustomerID,
+		CarID:        ticketInput.CarID,
+		Problem:      ticketInput.Problem,
+		CreateTime:   ticketInput.CreateTime,
+		ShopID:       ticketInput.ShopID,
+		AcceptedTime: ticketInput.AcceptedTime,
+		Status:       ticketInput.Status,
 	}
 	_, err := op.db.NewInsert().Model(&ticketToBeAdd).Exec(ctx)
 	return &ticketToBeAdd, err
 }
 
-func (op *SQLop) TicketUpdateMulti(ctx context.Context, updateInput model.Ticket) (*model.Ticket, error) {
+func (op *SQLop) TicketUpdateMulti(ctx context.Context, updateInput model.TicketUpdateInput) (*model.Ticket, error) {
 	_, err := op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
 	if util.CheckErr(err) {
 		return nil, err
@@ -62,14 +62,14 @@ func (op *SQLop) TicketFindByID(ctx context.Context, ID string) (*model.Ticket, 
 func (op *SQLop) TicketFindByCustomer(ctx context.Context, input model.TicketByCustomerInput) ([]*model.Ticket, error) {
 	Ticket := new([]*model.Ticket)
 	err := op.db.NewSelect().Model(op.ticketModel).
-		Where("customer_id = ?", input.CustomerID).Scan(ctx, Ticket)
+		Where("customer_id = ? AND create_time >= ? AND create_time <= ?", input.CustomerID, input.FromTime, input.ToTime).Scan(ctx, Ticket)
 	return *Ticket, err
 }
 
 func (op *SQLop) TicketFindByShop(ctx context.Context, input model.TicketByShopInput) ([]*model.Ticket, error) {
 	Ticket := new([]*model.Ticket)
 	err := op.db.NewSelect().Model(op.ticketModel).
-		Where("shop_id = ?", input.ShopID).Scan(ctx, Ticket)
+		Where("shop_id = ? AND create_time >= ? AND create_time <= ?", input.ShopID, input.FromTime, input.ToTime).Scan(ctx, Ticket)
 	return *Ticket, err
 }
 

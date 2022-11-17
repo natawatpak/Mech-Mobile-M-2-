@@ -95,7 +95,7 @@ func (r *mutationResolver) TicketCreate(ctx context.Context, input model.TicketC
 
 // TicketUpdateMulti is the resolver for the ticketUpdateMulti field.
 func (r *mutationResolver) TicketUpdateMulti(ctx context.Context, input model.TicketUpdateInput) (*model.Ticket, error) {
-	result, err := r.DB.TicketUpdateMulti(ctx, model.Ticket(input))
+	result, err := r.DB.TicketUpdateMulti(ctx, input)
 	return result, err
 }
 
