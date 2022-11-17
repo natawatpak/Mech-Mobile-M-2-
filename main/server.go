@@ -11,8 +11,8 @@ import (
 func main() {
 	fs := http.FileServer(http.Dir("./frontend/dist"))
 	http.Handle("/", fs)
-	http.HandleFunc("/create-user", controller.CreateCustomerProfile)
-	http.HandleFunc("/update-user", controller.UpdateCustomerProfile)
+	http.HandleFunc("/create-user", controller.CustomerCreateProfile)
+	http.HandleFunc("/update-user", controller.CustomerUpdateProfile)
 
 	fmt.Println("Server listening on port 3000")
 	log.Panic(
