@@ -32,17 +32,29 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	log.Println(req.Path)
 	switchAble, err := gorillaLambda.ProxyWithContext(ctx, *core.NewSwitchableAPIGatewayRequestV1(&req))
 	resp := switchAble.Version1()
-	return *resp, err
+
+	//create apigate way response and add cors headers
+	return events.APIGatewayProxyResponse{
+		Body:       resp.Body,
+		StatusCode: resp.StatusCode,
+		Headers: map[string]string{
+			"Access-Control-Allow-Origin":  "*",
+			"Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+			"Access-Control-Allow-Headers": "Content-Type",
+			"Content-Type":                 "application/json",
+		},
+	}, err
 }
 
 func main() {
 	r := mux.NewRouter()
 
-	var host string = "localhost"
-	var port string = "5432"
-	var user string = "postgres"
-	var password string = "Eauu0244"
-	var dbname string = "postgres"
+	// config
+	var host string = "localhost"    //IP
+	var port string = "5432"         //port
+	var user string = "postgres"     //root user
+	var password string = "Eauu0244" //root pass
+	var dbname string = "postgres"   //dbname
 	var goChiPort string = "8081"
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
@@ -66,13 +78,13 @@ func main() {
 		),
 	)
 
-	r.Handle("/playground", playground.Handler("GraphQL playground", "/"))
-	r.Handle("/", srv)
-
 	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {
+		r.Handle("/carservice", srv)
 		gorillaLambda = gorillamux.New(r)
 		lambda.Start(Handler)
 	} else {
+		r.Handle("/playground", playground.Handler("GraphQL playground", "/"))
+		r.Handle("/", srv)
 
 		log.Printf("connect to http://%s:%s/ for GraphQL playground", host, goChiPort)
 		log.Fatal(http.ListenAndServe(":"+goChiPort, r))
