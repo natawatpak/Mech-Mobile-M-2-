@@ -13,7 +13,7 @@ import (
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 )
 
-func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) []byte {
+func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -41,16 +41,19 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
 // func GetOngoingTicketList(w http.ResponseWriter, r *http.Request) []byte {
 
 // }
 
-func ShopGetActiveTicket(w http.ResponseWriter, r *http.Request) []byte {
+func ShopGetActiveTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -78,12 +81,15 @@ func ShopGetActiveTicket(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) []byte {
+func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -114,12 +120,15 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) []byte {
+func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -150,13 +159,16 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
 // need improvise
-func ShopCancelTicket(w http.ResponseWriter, r *http.Request) []byte {
+func ShopCancelTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -177,12 +189,15 @@ func ShopCancelTicket(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func ShopGetHistory(w http.ResponseWriter, r *http.Request) []byte {
+func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -217,12 +232,15 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) []byte {
+func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -257,12 +275,15 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) []byte 
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func ShopCreateProfile(w http.ResponseWriter, r *http.Request) []byte {
+func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		log.Fatal(err)
@@ -289,12 +310,15 @@ func ShopCreateProfile(w http.ResponseWriter, r *http.Request) []byte {
 	}
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) []byte {
+func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		log.Fatal(err)
@@ -323,8 +347,11 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) []byte {
 	}
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 
 }

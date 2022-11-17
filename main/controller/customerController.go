@@ -13,7 +13,7 @@ import (
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
-func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) []byte {
+func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Fatal(err)
 	}
@@ -43,13 +43,15 @@ func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) []byte {
 	}
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
 
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) []byte {
+func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request){
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -75,12 +77,15 @@ func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) []byte {
 	}
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func CustomerAddCar(w http.ResponseWriter, r *http.Request) []byte {
+func CustomerAddCar(w http.ResponseWriter, r *http.Request){
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -105,12 +110,15 @@ func CustomerAddCar(w http.ResponseWriter, r *http.Request) []byte {
 	}
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func CustomerGetCarList(w http.ResponseWriter, r *http.Request) []byte {
+func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -138,12 +146,15 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) []byte {
+func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -165,10 +176,16 @@ func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) []byte {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return jsonData
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func CustomerAddTicket(w http.ResponseWriter, r *http.Request) []byte {
+func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -195,9 +212,12 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
 // func CustomerGetActiveTicket(w http.ResponseWriter, r *http.Request) []byte {
@@ -222,7 +242,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) []byte {
 // }
 
 // need improvise
-func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) []byte {
+func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -245,10 +265,16 @@ func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) []byte {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return jsonData
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func CustomerGetHistory(w http.ResponseWriter, r *http.Request) []byte {
+func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -283,12 +309,15 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
-func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) []byte {
+func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -310,8 +339,11 @@ func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) []byte {
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 	}
-	return jsonData
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 
 }
