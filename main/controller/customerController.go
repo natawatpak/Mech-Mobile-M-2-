@@ -15,11 +15,18 @@ import (
 
 const GRAPHQL_CLIENT_URL = "http://localhost:8081/"
 
+func AddHeader(w http.ResponseWriter) http.ResponseWriter{
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Header().Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
+	return w
+}
+
 func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Fprintf(w, "POST request successful\n")
 	// fName := r.FormValue("fName")
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -52,8 +59,7 @@ func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) {
@@ -89,8 +95,7 @@ func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerAddCar(w http.ResponseWriter, r *http.Request) {
@@ -125,8 +130,7 @@ func CustomerAddCar(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
@@ -164,8 +168,7 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
@@ -200,8 +203,7 @@ func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
@@ -238,8 +240,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 // func CustomerGetActiveTicket(w http.ResponseWriter, r *http.Request) []byte {
@@ -297,8 +298,7 @@ func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
@@ -343,8 +343,7 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
@@ -376,7 +375,6 @@ func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 
 }

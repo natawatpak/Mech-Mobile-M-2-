@@ -48,8 +48,7 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func ShopGetOngoingTicketList(w http.ResponseWriter, r *http.Request) {
@@ -87,8 +86,7 @@ func ShopGetOngoingTicketList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
@@ -129,8 +127,7 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
@@ -171,8 +168,7 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 // need improvise
@@ -204,8 +200,7 @@ func ShopCancelTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
@@ -250,8 +245,7 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
@@ -296,8 +290,7 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
@@ -334,8 +327,7 @@ func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
@@ -374,8 +366,7 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func ShopGetCustomerProfile(w http.ResponseWriter, r *http.Request) {
@@ -408,6 +399,5 @@ func ShopGetCustomerProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
