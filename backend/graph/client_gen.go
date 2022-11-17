@@ -5,6 +5,7 @@ package graph
 import (
 	"context"
 	"encoding/json"
+	"time"
 
 	"github.com/Khan/genqlient/graphql"
 )
@@ -35,12 +36,12 @@ func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetProblem() string
 }
 
 // GetShopID returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetShopID() string {
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetStatus() string {
+func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -78,9 +79,9 @@ type __premarshalActiveTicketByCustomerActiveTicketByIDActiveTicket struct {
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) MarshalJSON() ([]byte, error) {
@@ -139,12 +140,12 @@ func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetProblem() string {
 }
 
 // GetShopID returns ActiveTicketByIDActiveTicketByIDActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetShopID() string {
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketByIDActiveTicketByIDActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetStatus() string {
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -182,9 +183,9 @@ type __premarshalActiveTicketByIDActiveTicketByIDActiveTicket struct {
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) MarshalJSON() ([]byte, error) {
@@ -243,12 +244,12 @@ func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetProblem() string {
 }
 
 // GetShopID returns ActiveTicketByShopActiveTicketByShopActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetShopID() string {
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketByShopActiveTicketByShopActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetStatus() string {
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -286,9 +287,9 @@ type __premarshalActiveTicketByShopActiveTicketByShopActiveTicket struct {
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) MarshalJSON() ([]byte, error) {
@@ -347,12 +348,12 @@ func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetProblem() string
 }
 
 // GetShopID returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetShopID() string {
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetStatus() string {
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -390,9 +391,9 @@ type __premarshalActiveTicketByStatsActiveTicketByStatsActiveTicket struct {
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) MarshalJSON() ([]byte, error) {
@@ -451,12 +452,12 @@ func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetProblem() string {
 }
 
 // GetShopID returns ActiveTicketCreateActiveTicketCreateActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetShopID() string {
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketCreateActiveTicketCreateActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetStatus() string {
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -494,9 +495,9 @@ type __premarshalActiveTicketCreateActiveTicketCreateActiveTicket struct {
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) MarshalJSON() ([]byte, error) {
@@ -524,8 +525,8 @@ type ActiveTicketCreateInput struct {
 	CarID      string  `json:"carID"`
 	CustomerID string  `json:"customerID"`
 	Problem    string  `json:"problem"`
-	ShopID     string  `json:"shopID"`
-	Status     string  `json:"status"`
+	ShopID     *string `json:"shopID"`
+	Status     *string `json:"status"`
 }
 
 // GetID returns ActiveTicketCreateInput.ID, and is useful for accessing the field via an interface.
@@ -541,10 +542,10 @@ func (v *ActiveTicketCreateInput) GetCustomerID() string { return v.CustomerID }
 func (v *ActiveTicketCreateInput) GetProblem() string { return v.Problem }
 
 // GetShopID returns ActiveTicketCreateInput.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketCreateInput) GetShopID() string { return v.ShopID }
+func (v *ActiveTicketCreateInput) GetShopID() *string { return v.ShopID }
 
 // GetStatus returns ActiveTicketCreateInput.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketCreateInput) GetStatus() string { return v.Status }
+func (v *ActiveTicketCreateInput) GetStatus() *string { return v.Status }
 
 // ActiveTicketCreateResponse is returned by ActiveTicketCreate on success.
 type ActiveTicketCreateResponse struct {
@@ -582,12 +583,12 @@ func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetProblem() string {
 }
 
 // GetShopID returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetShopID() string {
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetStatus() string {
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -625,9 +626,9 @@ type __premarshalActiveTicketDeleteActiveTicketDeleteActiveTicket struct {
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) MarshalJSON() ([]byte, error) {
@@ -676,12 +677,12 @@ func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetProblem() st
 }
 
 // GetShopID returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetShopID() string {
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetStatus() string {
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -719,9 +720,9 @@ type __premarshalActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket struct {
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) MarshalJSON() ([]byte, error) {
@@ -790,12 +791,12 @@ func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetProble
 }
 
 // GetShopID returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetShopID() string {
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetStatus() string {
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -833,9 +834,9 @@ type __premarshalActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket st
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) MarshalJSON() ([]byte, error) {
@@ -869,12 +870,12 @@ func (v *ActiveTicketDeleteStatusResponse) GetActiveTicketDeleteStatus() []*Acti
 }
 
 type ActiveTicketUpdateInput struct {
-	ID         string `json:"ID"`
-	CarID      string `json:"carID"`
-	CustomerID string `json:"customerID"`
-	Problem    string `json:"problem"`
-	ShopID     string `json:"shopID"`
-	Status     string `json:"status"`
+	ID         string  `json:"ID"`
+	CarID      string  `json:"carID"`
+	CustomerID string  `json:"customerID"`
+	Problem    string  `json:"problem"`
+	ShopID     *string `json:"shopID"`
+	Status     *string `json:"status"`
 }
 
 // GetID returns ActiveTicketUpdateInput.ID, and is useful for accessing the field via an interface.
@@ -890,10 +891,10 @@ func (v *ActiveTicketUpdateInput) GetCustomerID() string { return v.CustomerID }
 func (v *ActiveTicketUpdateInput) GetProblem() string { return v.Problem }
 
 // GetShopID returns ActiveTicketUpdateInput.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketUpdateInput) GetShopID() string { return v.ShopID }
+func (v *ActiveTicketUpdateInput) GetShopID() *string { return v.ShopID }
 
 // GetStatus returns ActiveTicketUpdateInput.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketUpdateInput) GetStatus() string { return v.Status }
+func (v *ActiveTicketUpdateInput) GetStatus() *string { return v.Status }
 
 // ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket includes the requested fields of the GraphQL type activeTicket.
 type ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket struct {
@@ -921,12 +922,12 @@ func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetProblem(
 }
 
 // GetShopID returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetShopID() string {
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetStatus() string {
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -964,9 +965,9 @@ type __premarshalActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket stru
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) MarshalJSON() ([]byte, error) {
@@ -1023,12 +1024,12 @@ func (v *ActiveTicketsActiveTicketsActiveTicket) GetProblem() string {
 }
 
 // GetShopID returns ActiveTicketsActiveTicketsActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketsActiveTicketsActiveTicket) GetShopID() string {
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
 // GetStatus returns ActiveTicketsActiveTicketsActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketsActiveTicketsActiveTicket) GetStatus() string {
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
@@ -1066,9 +1067,9 @@ type __premarshalActiveTicketsActiveTicketsActiveTicket struct {
 
 	Problem string `json:"problem"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *ActiveTicketsActiveTicketsActiveTicket) MarshalJSON() ([]byte, error) {
@@ -1116,16 +1117,16 @@ func (v *CarByIDCarByIDCar) GetOwnerID() string { return v.carFragment.OwnerID }
 func (v *CarByIDCarByIDCar) GetPlateNum() string { return v.carFragment.PlateNum }
 
 // GetPlateType returns CarByIDCarByIDCar.PlateType, and is useful for accessing the field via an interface.
-func (v *CarByIDCarByIDCar) GetPlateType() string { return v.carFragment.PlateType }
+func (v *CarByIDCarByIDCar) GetPlateType() *string { return v.carFragment.PlateType }
 
 // GetIssuedAt returns CarByIDCarByIDCar.IssuedAt, and is useful for accessing the field via an interface.
-func (v *CarByIDCarByIDCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+func (v *CarByIDCarByIDCar) GetIssuedAt() *string { return v.carFragment.IssuedAt }
 
 // GetColor returns CarByIDCarByIDCar.Color, and is useful for accessing the field via an interface.
-func (v *CarByIDCarByIDCar) GetColor() string { return v.carFragment.Color }
+func (v *CarByIDCarByIDCar) GetColor() *string { return v.carFragment.Color }
 
 // GetType returns CarByIDCarByIDCar.Type, and is useful for accessing the field via an interface.
-func (v *CarByIDCarByIDCar) GetType() string { return v.carFragment.Type }
+func (v *CarByIDCarByIDCar) GetType() *string { return v.carFragment.Type }
 
 // GetBrand returns CarByIDCarByIDCar.Brand, and is useful for accessing the field via an interface.
 func (v *CarByIDCarByIDCar) GetBrand() string { return v.carFragment.Brand }
@@ -1165,13 +1166,13 @@ type __premarshalCarByIDCarByIDCar struct {
 
 	PlateNum string `json:"plateNum"`
 
-	PlateType string `json:"plateType"`
+	PlateType *string `json:"plateType"`
 
-	IssuedAt string `json:"issuedAt"`
+	IssuedAt *string `json:"issuedAt"`
 
-	Color string `json:"color"`
+	Color *string `json:"color"`
 
-	Type string `json:"type"`
+	Type *string `json:"type"`
 
 	Brand string `json:"brand"`
 
@@ -1224,16 +1225,16 @@ func (v *CarByOwnerCarByOwnerCar) GetOwnerID() string { return v.carFragment.Own
 func (v *CarByOwnerCarByOwnerCar) GetPlateNum() string { return v.carFragment.PlateNum }
 
 // GetPlateType returns CarByOwnerCarByOwnerCar.PlateType, and is useful for accessing the field via an interface.
-func (v *CarByOwnerCarByOwnerCar) GetPlateType() string { return v.carFragment.PlateType }
+func (v *CarByOwnerCarByOwnerCar) GetPlateType() *string { return v.carFragment.PlateType }
 
 // GetIssuedAt returns CarByOwnerCarByOwnerCar.IssuedAt, and is useful for accessing the field via an interface.
-func (v *CarByOwnerCarByOwnerCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+func (v *CarByOwnerCarByOwnerCar) GetIssuedAt() *string { return v.carFragment.IssuedAt }
 
 // GetColor returns CarByOwnerCarByOwnerCar.Color, and is useful for accessing the field via an interface.
-func (v *CarByOwnerCarByOwnerCar) GetColor() string { return v.carFragment.Color }
+func (v *CarByOwnerCarByOwnerCar) GetColor() *string { return v.carFragment.Color }
 
 // GetType returns CarByOwnerCarByOwnerCar.Type, and is useful for accessing the field via an interface.
-func (v *CarByOwnerCarByOwnerCar) GetType() string { return v.carFragment.Type }
+func (v *CarByOwnerCarByOwnerCar) GetType() *string { return v.carFragment.Type }
 
 // GetBrand returns CarByOwnerCarByOwnerCar.Brand, and is useful for accessing the field via an interface.
 func (v *CarByOwnerCarByOwnerCar) GetBrand() string { return v.carFragment.Brand }
@@ -1273,13 +1274,13 @@ type __premarshalCarByOwnerCarByOwnerCar struct {
 
 	PlateNum string `json:"plateNum"`
 
-	PlateType string `json:"plateType"`
+	PlateType *string `json:"plateType"`
 
-	IssuedAt string `json:"issuedAt"`
+	IssuedAt *string `json:"issuedAt"`
 
-	Color string `json:"color"`
+	Color *string `json:"color"`
 
-	Type string `json:"type"`
+	Type *string `json:"type"`
 
 	Brand string `json:"brand"`
 
@@ -1332,16 +1333,16 @@ func (v *CarCreateCarCreateCar) GetOwnerID() string { return v.carFragment.Owner
 func (v *CarCreateCarCreateCar) GetPlateNum() string { return v.carFragment.PlateNum }
 
 // GetPlateType returns CarCreateCarCreateCar.PlateType, and is useful for accessing the field via an interface.
-func (v *CarCreateCarCreateCar) GetPlateType() string { return v.carFragment.PlateType }
+func (v *CarCreateCarCreateCar) GetPlateType() *string { return v.carFragment.PlateType }
 
 // GetIssuedAt returns CarCreateCarCreateCar.IssuedAt, and is useful for accessing the field via an interface.
-func (v *CarCreateCarCreateCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+func (v *CarCreateCarCreateCar) GetIssuedAt() *string { return v.carFragment.IssuedAt }
 
 // GetColor returns CarCreateCarCreateCar.Color, and is useful for accessing the field via an interface.
-func (v *CarCreateCarCreateCar) GetColor() string { return v.carFragment.Color }
+func (v *CarCreateCarCreateCar) GetColor() *string { return v.carFragment.Color }
 
 // GetType returns CarCreateCarCreateCar.Type, and is useful for accessing the field via an interface.
-func (v *CarCreateCarCreateCar) GetType() string { return v.carFragment.Type }
+func (v *CarCreateCarCreateCar) GetType() *string { return v.carFragment.Type }
 
 // GetBrand returns CarCreateCarCreateCar.Brand, and is useful for accessing the field via an interface.
 func (v *CarCreateCarCreateCar) GetBrand() string { return v.carFragment.Brand }
@@ -1381,13 +1382,13 @@ type __premarshalCarCreateCarCreateCar struct {
 
 	PlateNum string `json:"plateNum"`
 
-	PlateType string `json:"plateType"`
+	PlateType *string `json:"plateType"`
 
-	IssuedAt string `json:"issuedAt"`
+	IssuedAt *string `json:"issuedAt"`
 
-	Color string `json:"color"`
+	Color *string `json:"color"`
 
-	Type string `json:"type"`
+	Type *string `json:"type"`
 
 	Brand string `json:"brand"`
 
@@ -1421,10 +1422,10 @@ type CarCreateInput struct {
 	ID        *string `json:"ID"`
 	OwnerID   string  `json:"ownerID"`
 	PlateNum  string  `json:"plateNum"`
-	PlateType string  `json:"plateType"`
-	IssuedAt  string  `json:"issuedAt"`
-	Color     string  `json:"color"`
-	Type      string  `json:"type"`
+	PlateType *string `json:"plateType"`
+	IssuedAt  *string `json:"issuedAt"`
+	Color     *string `json:"color"`
+	Type      *string `json:"type"`
 	Brand     string  `json:"brand"`
 	Build     *string `json:"build"`
 }
@@ -1439,16 +1440,16 @@ func (v *CarCreateInput) GetOwnerID() string { return v.OwnerID }
 func (v *CarCreateInput) GetPlateNum() string { return v.PlateNum }
 
 // GetPlateType returns CarCreateInput.PlateType, and is useful for accessing the field via an interface.
-func (v *CarCreateInput) GetPlateType() string { return v.PlateType }
+func (v *CarCreateInput) GetPlateType() *string { return v.PlateType }
 
 // GetIssuedAt returns CarCreateInput.IssuedAt, and is useful for accessing the field via an interface.
-func (v *CarCreateInput) GetIssuedAt() string { return v.IssuedAt }
+func (v *CarCreateInput) GetIssuedAt() *string { return v.IssuedAt }
 
 // GetColor returns CarCreateInput.Color, and is useful for accessing the field via an interface.
-func (v *CarCreateInput) GetColor() string { return v.Color }
+func (v *CarCreateInput) GetColor() *string { return v.Color }
 
 // GetType returns CarCreateInput.Type, and is useful for accessing the field via an interface.
-func (v *CarCreateInput) GetType() string { return v.Type }
+func (v *CarCreateInput) GetType() *string { return v.Type }
 
 // GetBrand returns CarCreateInput.Brand, and is useful for accessing the field via an interface.
 func (v *CarCreateInput) GetBrand() string { return v.Brand }
@@ -1479,16 +1480,16 @@ func (v *CarDeleteAllCarDeleteAllCar) GetOwnerID() string { return v.carFragment
 func (v *CarDeleteAllCarDeleteAllCar) GetPlateNum() string { return v.carFragment.PlateNum }
 
 // GetPlateType returns CarDeleteAllCarDeleteAllCar.PlateType, and is useful for accessing the field via an interface.
-func (v *CarDeleteAllCarDeleteAllCar) GetPlateType() string { return v.carFragment.PlateType }
+func (v *CarDeleteAllCarDeleteAllCar) GetPlateType() *string { return v.carFragment.PlateType }
 
 // GetIssuedAt returns CarDeleteAllCarDeleteAllCar.IssuedAt, and is useful for accessing the field via an interface.
-func (v *CarDeleteAllCarDeleteAllCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+func (v *CarDeleteAllCarDeleteAllCar) GetIssuedAt() *string { return v.carFragment.IssuedAt }
 
 // GetColor returns CarDeleteAllCarDeleteAllCar.Color, and is useful for accessing the field via an interface.
-func (v *CarDeleteAllCarDeleteAllCar) GetColor() string { return v.carFragment.Color }
+func (v *CarDeleteAllCarDeleteAllCar) GetColor() *string { return v.carFragment.Color }
 
 // GetType returns CarDeleteAllCarDeleteAllCar.Type, and is useful for accessing the field via an interface.
-func (v *CarDeleteAllCarDeleteAllCar) GetType() string { return v.carFragment.Type }
+func (v *CarDeleteAllCarDeleteAllCar) GetType() *string { return v.carFragment.Type }
 
 // GetBrand returns CarDeleteAllCarDeleteAllCar.Brand, and is useful for accessing the field via an interface.
 func (v *CarDeleteAllCarDeleteAllCar) GetBrand() string { return v.carFragment.Brand }
@@ -1528,13 +1529,13 @@ type __premarshalCarDeleteAllCarDeleteAllCar struct {
 
 	PlateNum string `json:"plateNum"`
 
-	PlateType string `json:"plateType"`
+	PlateType *string `json:"plateType"`
 
-	IssuedAt string `json:"issuedAt"`
+	IssuedAt *string `json:"issuedAt"`
 
-	Color string `json:"color"`
+	Color *string `json:"color"`
 
-	Type string `json:"type"`
+	Type *string `json:"type"`
 
 	Brand string `json:"brand"`
 
@@ -1589,16 +1590,16 @@ func (v *CarDeleteCarDeleteCar) GetOwnerID() string { return v.carFragment.Owner
 func (v *CarDeleteCarDeleteCar) GetPlateNum() string { return v.carFragment.PlateNum }
 
 // GetPlateType returns CarDeleteCarDeleteCar.PlateType, and is useful for accessing the field via an interface.
-func (v *CarDeleteCarDeleteCar) GetPlateType() string { return v.carFragment.PlateType }
+func (v *CarDeleteCarDeleteCar) GetPlateType() *string { return v.carFragment.PlateType }
 
 // GetIssuedAt returns CarDeleteCarDeleteCar.IssuedAt, and is useful for accessing the field via an interface.
-func (v *CarDeleteCarDeleteCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+func (v *CarDeleteCarDeleteCar) GetIssuedAt() *string { return v.carFragment.IssuedAt }
 
 // GetColor returns CarDeleteCarDeleteCar.Color, and is useful for accessing the field via an interface.
-func (v *CarDeleteCarDeleteCar) GetColor() string { return v.carFragment.Color }
+func (v *CarDeleteCarDeleteCar) GetColor() *string { return v.carFragment.Color }
 
 // GetType returns CarDeleteCarDeleteCar.Type, and is useful for accessing the field via an interface.
-func (v *CarDeleteCarDeleteCar) GetType() string { return v.carFragment.Type }
+func (v *CarDeleteCarDeleteCar) GetType() *string { return v.carFragment.Type }
 
 // GetBrand returns CarDeleteCarDeleteCar.Brand, and is useful for accessing the field via an interface.
 func (v *CarDeleteCarDeleteCar) GetBrand() string { return v.carFragment.Brand }
@@ -1638,13 +1639,13 @@ type __premarshalCarDeleteCarDeleteCar struct {
 
 	PlateNum string `json:"plateNum"`
 
-	PlateType string `json:"plateType"`
+	PlateType *string `json:"plateType"`
 
-	IssuedAt string `json:"issuedAt"`
+	IssuedAt *string `json:"issuedAt"`
 
-	Color string `json:"color"`
+	Color *string `json:"color"`
 
-	Type string `json:"type"`
+	Type *string `json:"type"`
 
 	Brand string `json:"brand"`
 
@@ -1686,10 +1687,10 @@ type CarUpdateInput struct {
 	ID        string  `json:"ID"`
 	OwnerID   string  `json:"ownerID"`
 	PlateNum  string  `json:"plateNum"`
-	PlateType string  `json:"plateType"`
-	IssuedAt  string  `json:"issuedAt"`
-	Color     string  `json:"color"`
-	Type      string  `json:"type"`
+	PlateType *string `json:"plateType"`
+	IssuedAt  *string `json:"issuedAt"`
+	Color     *string `json:"color"`
+	Type      *string `json:"type"`
 	Brand     string  `json:"brand"`
 	Build     *string `json:"build"`
 }
@@ -1704,16 +1705,16 @@ func (v *CarUpdateInput) GetOwnerID() string { return v.OwnerID }
 func (v *CarUpdateInput) GetPlateNum() string { return v.PlateNum }
 
 // GetPlateType returns CarUpdateInput.PlateType, and is useful for accessing the field via an interface.
-func (v *CarUpdateInput) GetPlateType() string { return v.PlateType }
+func (v *CarUpdateInput) GetPlateType() *string { return v.PlateType }
 
 // GetIssuedAt returns CarUpdateInput.IssuedAt, and is useful for accessing the field via an interface.
-func (v *CarUpdateInput) GetIssuedAt() string { return v.IssuedAt }
+func (v *CarUpdateInput) GetIssuedAt() *string { return v.IssuedAt }
 
 // GetColor returns CarUpdateInput.Color, and is useful for accessing the field via an interface.
-func (v *CarUpdateInput) GetColor() string { return v.Color }
+func (v *CarUpdateInput) GetColor() *string { return v.Color }
 
 // GetType returns CarUpdateInput.Type, and is useful for accessing the field via an interface.
-func (v *CarUpdateInput) GetType() string { return v.Type }
+func (v *CarUpdateInput) GetType() *string { return v.Type }
 
 // GetBrand returns CarUpdateInput.Brand, and is useful for accessing the field via an interface.
 func (v *CarUpdateInput) GetBrand() string { return v.Brand }
@@ -1736,16 +1737,16 @@ func (v *CarUpdateMultiCarUpdateMultiCar) GetOwnerID() string { return v.carFrag
 func (v *CarUpdateMultiCarUpdateMultiCar) GetPlateNum() string { return v.carFragment.PlateNum }
 
 // GetPlateType returns CarUpdateMultiCarUpdateMultiCar.PlateType, and is useful for accessing the field via an interface.
-func (v *CarUpdateMultiCarUpdateMultiCar) GetPlateType() string { return v.carFragment.PlateType }
+func (v *CarUpdateMultiCarUpdateMultiCar) GetPlateType() *string { return v.carFragment.PlateType }
 
 // GetIssuedAt returns CarUpdateMultiCarUpdateMultiCar.IssuedAt, and is useful for accessing the field via an interface.
-func (v *CarUpdateMultiCarUpdateMultiCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+func (v *CarUpdateMultiCarUpdateMultiCar) GetIssuedAt() *string { return v.carFragment.IssuedAt }
 
 // GetColor returns CarUpdateMultiCarUpdateMultiCar.Color, and is useful for accessing the field via an interface.
-func (v *CarUpdateMultiCarUpdateMultiCar) GetColor() string { return v.carFragment.Color }
+func (v *CarUpdateMultiCarUpdateMultiCar) GetColor() *string { return v.carFragment.Color }
 
 // GetType returns CarUpdateMultiCarUpdateMultiCar.Type, and is useful for accessing the field via an interface.
-func (v *CarUpdateMultiCarUpdateMultiCar) GetType() string { return v.carFragment.Type }
+func (v *CarUpdateMultiCarUpdateMultiCar) GetType() *string { return v.carFragment.Type }
 
 // GetBrand returns CarUpdateMultiCarUpdateMultiCar.Brand, and is useful for accessing the field via an interface.
 func (v *CarUpdateMultiCarUpdateMultiCar) GetBrand() string { return v.carFragment.Brand }
@@ -1785,13 +1786,13 @@ type __premarshalCarUpdateMultiCarUpdateMultiCar struct {
 
 	PlateNum string `json:"plateNum"`
 
-	PlateType string `json:"plateType"`
+	PlateType *string `json:"plateType"`
 
-	IssuedAt string `json:"issuedAt"`
+	IssuedAt *string `json:"issuedAt"`
 
-	Color string `json:"color"`
+	Color *string `json:"color"`
 
-	Type string `json:"type"`
+	Type *string `json:"type"`
 
 	Brand string `json:"brand"`
 
@@ -1846,16 +1847,16 @@ func (v *CarsCarsCar) GetOwnerID() string { return v.carFragment.OwnerID }
 func (v *CarsCarsCar) GetPlateNum() string { return v.carFragment.PlateNum }
 
 // GetPlateType returns CarsCarsCar.PlateType, and is useful for accessing the field via an interface.
-func (v *CarsCarsCar) GetPlateType() string { return v.carFragment.PlateType }
+func (v *CarsCarsCar) GetPlateType() *string { return v.carFragment.PlateType }
 
 // GetIssuedAt returns CarsCarsCar.IssuedAt, and is useful for accessing the field via an interface.
-func (v *CarsCarsCar) GetIssuedAt() string { return v.carFragment.IssuedAt }
+func (v *CarsCarsCar) GetIssuedAt() *string { return v.carFragment.IssuedAt }
 
 // GetColor returns CarsCarsCar.Color, and is useful for accessing the field via an interface.
-func (v *CarsCarsCar) GetColor() string { return v.carFragment.Color }
+func (v *CarsCarsCar) GetColor() *string { return v.carFragment.Color }
 
 // GetType returns CarsCarsCar.Type, and is useful for accessing the field via an interface.
-func (v *CarsCarsCar) GetType() string { return v.carFragment.Type }
+func (v *CarsCarsCar) GetType() *string { return v.carFragment.Type }
 
 // GetBrand returns CarsCarsCar.Brand, and is useful for accessing the field via an interface.
 func (v *CarsCarsCar) GetBrand() string { return v.carFragment.Brand }
@@ -1895,13 +1896,13 @@ type __premarshalCarsCarsCar struct {
 
 	PlateNum string `json:"plateNum"`
 
-	PlateType string `json:"plateType"`
+	PlateType *string `json:"plateType"`
 
-	IssuedAt string `json:"issuedAt"`
+	IssuedAt *string `json:"issuedAt"`
 
-	Color string `json:"color"`
+	Color *string `json:"color"`
 
-	Type string `json:"type"`
+	Type *string `json:"type"`
 
 	Brand string `json:"brand"`
 
@@ -3872,31 +3873,24 @@ func (v *ShopsShopsShop) __premarshalJSON() (*__premarshalShopsShopsShop, error)
 	return &retval, nil
 }
 
-type Status string
-
-const (
-	StatusActive Status = "active"
-	StatusFinish Status = "finish"
-)
-
 type TicketByCustomerInput struct {
-	CustomerID string `json:"customerID"`
-	FromTime   string `json:"fromTime"`
-	ToTime     string `json:"toTime"`
-	Status     string `json:"status"`
+	CustomerID string    `json:"customerID"`
+	FromTime   time.Time `json:"fromTime"`
+	ToTime     time.Time `json:"toTime"`
+	Status     *string   `json:"status"`
 }
 
 // GetCustomerID returns TicketByCustomerInput.CustomerID, and is useful for accessing the field via an interface.
 func (v *TicketByCustomerInput) GetCustomerID() string { return v.CustomerID }
 
 // GetFromTime returns TicketByCustomerInput.FromTime, and is useful for accessing the field via an interface.
-func (v *TicketByCustomerInput) GetFromTime() string { return v.FromTime }
+func (v *TicketByCustomerInput) GetFromTime() time.Time { return v.FromTime }
 
 // GetToTime returns TicketByCustomerInput.ToTime, and is useful for accessing the field via an interface.
-func (v *TicketByCustomerInput) GetToTime() string { return v.ToTime }
+func (v *TicketByCustomerInput) GetToTime() time.Time { return v.ToTime }
 
 // GetStatus returns TicketByCustomerInput.Status, and is useful for accessing the field via an interface.
-func (v *TicketByCustomerInput) GetStatus() string { return v.Status }
+func (v *TicketByCustomerInput) GetStatus() *string { return v.Status }
 
 // TicketByCustomerResponse is returned by TicketByCustomer on success.
 type TicketByCustomerResponse struct {
@@ -3928,7 +3922,7 @@ func (v *TicketByCustomerTicketByCustomerTicket) GetCarID() string { return v.ti
 func (v *TicketByCustomerTicketByCustomerTicket) GetProblem() string { return v.ticketFragment.Problem }
 
 // GetCreateTime returns TicketByCustomerTicketByCustomerTicket.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketByCustomerTicketByCustomerTicket) GetCreateTime() string {
+func (v *TicketByCustomerTicketByCustomerTicket) GetCreateTime() time.Time {
 	return v.ticketFragment.CreateTime
 }
 
@@ -3936,12 +3930,12 @@ func (v *TicketByCustomerTicketByCustomerTicket) GetCreateTime() string {
 func (v *TicketByCustomerTicketByCustomerTicket) GetShopID() string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketByCustomerTicketByCustomerTicket.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketByCustomerTicketByCustomerTicket) GetAcceptedTime() string {
+func (v *TicketByCustomerTicketByCustomerTicket) GetAcceptedTime() *time.Time {
 	return v.ticketFragment.AcceptedTime
 }
 
 // GetStatus returns TicketByCustomerTicketByCustomerTicket.Status, and is useful for accessing the field via an interface.
-func (v *TicketByCustomerTicketByCustomerTicket) GetStatus() string { return v.ticketFragment.Status }
+func (v *TicketByCustomerTicketByCustomerTicket) GetStatus() *string { return v.ticketFragment.Status }
 
 func (v *TicketByCustomerTicketByCustomerTicket) UnmarshalJSON(b []byte) error {
 
@@ -3977,13 +3971,13 @@ type __premarshalTicketByCustomerTicketByCustomerTicket struct {
 
 	Problem string `json:"problem"`
 
-	CreateTime string `json:"createTime"`
+	CreateTime time.Time `json:"createTime"`
 
 	ShopID string `json:"shopID"`
 
-	AcceptedTime string `json:"acceptedTime"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *TicketByCustomerTicketByCustomerTicket) MarshalJSON() ([]byte, error) {
@@ -4034,16 +4028,18 @@ func (v *TicketByIDTicketByIDTicket) GetCarID() string { return v.ticketFragment
 func (v *TicketByIDTicketByIDTicket) GetProblem() string { return v.ticketFragment.Problem }
 
 // GetCreateTime returns TicketByIDTicketByIDTicket.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketByIDTicketByIDTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+func (v *TicketByIDTicketByIDTicket) GetCreateTime() time.Time { return v.ticketFragment.CreateTime }
 
 // GetShopID returns TicketByIDTicketByIDTicket.ShopID, and is useful for accessing the field via an interface.
 func (v *TicketByIDTicketByIDTicket) GetShopID() string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketByIDTicketByIDTicket.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketByIDTicketByIDTicket) GetAcceptedTime() string { return v.ticketFragment.AcceptedTime }
+func (v *TicketByIDTicketByIDTicket) GetAcceptedTime() *time.Time {
+	return v.ticketFragment.AcceptedTime
+}
 
 // GetStatus returns TicketByIDTicketByIDTicket.Status, and is useful for accessing the field via an interface.
-func (v *TicketByIDTicketByIDTicket) GetStatus() string { return v.ticketFragment.Status }
+func (v *TicketByIDTicketByIDTicket) GetStatus() *string { return v.ticketFragment.Status }
 
 func (v *TicketByIDTicketByIDTicket) UnmarshalJSON(b []byte) error {
 
@@ -4079,13 +4075,13 @@ type __premarshalTicketByIDTicketByIDTicket struct {
 
 	Problem string `json:"problem"`
 
-	CreateTime string `json:"createTime"`
+	CreateTime time.Time `json:"createTime"`
 
 	ShopID string `json:"shopID"`
 
-	AcceptedTime string `json:"acceptedTime"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *TicketByIDTicketByIDTicket) MarshalJSON() ([]byte, error) {
@@ -4111,23 +4107,23 @@ func (v *TicketByIDTicketByIDTicket) __premarshalJSON() (*__premarshalTicketByID
 }
 
 type TicketByShopInput struct {
-	ShopID   string `json:"shopID"`
-	FromTime string `json:"fromTime"`
-	ToTime   string `json:"toTime"`
-	Status   string `json:"status"`
+	ShopID   string    `json:"shopID"`
+	FromTime time.Time `json:"fromTime"`
+	ToTime   time.Time `json:"toTime"`
+	Status   *string   `json:"status"`
 }
 
 // GetShopID returns TicketByShopInput.ShopID, and is useful for accessing the field via an interface.
 func (v *TicketByShopInput) GetShopID() string { return v.ShopID }
 
 // GetFromTime returns TicketByShopInput.FromTime, and is useful for accessing the field via an interface.
-func (v *TicketByShopInput) GetFromTime() string { return v.FromTime }
+func (v *TicketByShopInput) GetFromTime() time.Time { return v.FromTime }
 
 // GetToTime returns TicketByShopInput.ToTime, and is useful for accessing the field via an interface.
-func (v *TicketByShopInput) GetToTime() string { return v.ToTime }
+func (v *TicketByShopInput) GetToTime() time.Time { return v.ToTime }
 
 // GetStatus returns TicketByShopInput.Status, and is useful for accessing the field via an interface.
-func (v *TicketByShopInput) GetStatus() string { return v.Status }
+func (v *TicketByShopInput) GetStatus() *string { return v.Status }
 
 // TicketByShopResponse is returned by TicketByShop on success.
 type TicketByShopResponse struct {
@@ -4157,18 +4153,20 @@ func (v *TicketByShopTicketByShopTicket) GetCarID() string { return v.ticketFrag
 func (v *TicketByShopTicketByShopTicket) GetProblem() string { return v.ticketFragment.Problem }
 
 // GetCreateTime returns TicketByShopTicketByShopTicket.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketByShopTicketByShopTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+func (v *TicketByShopTicketByShopTicket) GetCreateTime() time.Time {
+	return v.ticketFragment.CreateTime
+}
 
 // GetShopID returns TicketByShopTicketByShopTicket.ShopID, and is useful for accessing the field via an interface.
 func (v *TicketByShopTicketByShopTicket) GetShopID() string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketByShopTicketByShopTicket.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketByShopTicketByShopTicket) GetAcceptedTime() string {
+func (v *TicketByShopTicketByShopTicket) GetAcceptedTime() *time.Time {
 	return v.ticketFragment.AcceptedTime
 }
 
 // GetStatus returns TicketByShopTicketByShopTicket.Status, and is useful for accessing the field via an interface.
-func (v *TicketByShopTicketByShopTicket) GetStatus() string { return v.ticketFragment.Status }
+func (v *TicketByShopTicketByShopTicket) GetStatus() *string { return v.ticketFragment.Status }
 
 func (v *TicketByShopTicketByShopTicket) UnmarshalJSON(b []byte) error {
 
@@ -4204,13 +4202,13 @@ type __premarshalTicketByShopTicketByShopTicket struct {
 
 	Problem string `json:"problem"`
 
-	CreateTime string `json:"createTime"`
+	CreateTime time.Time `json:"createTime"`
 
 	ShopID string `json:"shopID"`
 
-	AcceptedTime string `json:"acceptedTime"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *TicketByShopTicketByShopTicket) MarshalJSON() ([]byte, error) {
@@ -4236,14 +4234,14 @@ func (v *TicketByShopTicketByShopTicket) __premarshalJSON() (*__premarshalTicket
 }
 
 type TicketCreateInput struct {
-	ID           *string `json:"ID"`
-	CustomerID   string  `json:"customerID"`
-	CarID        string  `json:"carID"`
-	Problem      string  `json:"problem"`
-	CreateTime   string  `json:"createTime"`
-	ShopID       string  `json:"shopID"`
-	AcceptedTime string  `json:"acceptedTime"`
-	Status       string  `json:"status"`
+	ID           *string    `json:"ID"`
+	CustomerID   string     `json:"customerID"`
+	CarID        string     `json:"carID"`
+	Problem      string     `json:"problem"`
+	CreateTime   time.Time  `json:"createTime"`
+	ShopID       string     `json:"shopID"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
+	Status       *string    `json:"status"`
 }
 
 // GetID returns TicketCreateInput.ID, and is useful for accessing the field via an interface.
@@ -4259,16 +4257,16 @@ func (v *TicketCreateInput) GetCarID() string { return v.CarID }
 func (v *TicketCreateInput) GetProblem() string { return v.Problem }
 
 // GetCreateTime returns TicketCreateInput.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketCreateInput) GetCreateTime() string { return v.CreateTime }
+func (v *TicketCreateInput) GetCreateTime() time.Time { return v.CreateTime }
 
 // GetShopID returns TicketCreateInput.ShopID, and is useful for accessing the field via an interface.
 func (v *TicketCreateInput) GetShopID() string { return v.ShopID }
 
 // GetAcceptedTime returns TicketCreateInput.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketCreateInput) GetAcceptedTime() string { return v.AcceptedTime }
+func (v *TicketCreateInput) GetAcceptedTime() *time.Time { return v.AcceptedTime }
 
 // GetStatus returns TicketCreateInput.Status, and is useful for accessing the field via an interface.
-func (v *TicketCreateInput) GetStatus() string { return v.Status }
+func (v *TicketCreateInput) GetStatus() *string { return v.Status }
 
 // TicketCreateResponse is returned by TicketCreate on success.
 type TicketCreateResponse struct {
@@ -4298,18 +4296,20 @@ func (v *TicketCreateTicketCreateTicket) GetCarID() string { return v.ticketFrag
 func (v *TicketCreateTicketCreateTicket) GetProblem() string { return v.ticketFragment.Problem }
 
 // GetCreateTime returns TicketCreateTicketCreateTicket.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketCreateTicketCreateTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+func (v *TicketCreateTicketCreateTicket) GetCreateTime() time.Time {
+	return v.ticketFragment.CreateTime
+}
 
 // GetShopID returns TicketCreateTicketCreateTicket.ShopID, and is useful for accessing the field via an interface.
 func (v *TicketCreateTicketCreateTicket) GetShopID() string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketCreateTicketCreateTicket.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketCreateTicketCreateTicket) GetAcceptedTime() string {
+func (v *TicketCreateTicketCreateTicket) GetAcceptedTime() *time.Time {
 	return v.ticketFragment.AcceptedTime
 }
 
 // GetStatus returns TicketCreateTicketCreateTicket.Status, and is useful for accessing the field via an interface.
-func (v *TicketCreateTicketCreateTicket) GetStatus() string { return v.ticketFragment.Status }
+func (v *TicketCreateTicketCreateTicket) GetStatus() *string { return v.ticketFragment.Status }
 
 func (v *TicketCreateTicketCreateTicket) UnmarshalJSON(b []byte) error {
 
@@ -4345,13 +4345,13 @@ type __premarshalTicketCreateTicketCreateTicket struct {
 
 	Problem string `json:"problem"`
 
-	CreateTime string `json:"createTime"`
+	CreateTime time.Time `json:"createTime"`
 
 	ShopID string `json:"shopID"`
 
-	AcceptedTime string `json:"acceptedTime"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *TicketCreateTicketCreateTicket) MarshalJSON() ([]byte, error) {
@@ -4406,7 +4406,7 @@ func (v *TicketDeleteAllTicketDeleteAllTicket) GetCarID() string { return v.tick
 func (v *TicketDeleteAllTicketDeleteAllTicket) GetProblem() string { return v.ticketFragment.Problem }
 
 // GetCreateTime returns TicketDeleteAllTicketDeleteAllTicket.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketDeleteAllTicketDeleteAllTicket) GetCreateTime() string {
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetCreateTime() time.Time {
 	return v.ticketFragment.CreateTime
 }
 
@@ -4414,12 +4414,12 @@ func (v *TicketDeleteAllTicketDeleteAllTicket) GetCreateTime() string {
 func (v *TicketDeleteAllTicketDeleteAllTicket) GetShopID() string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketDeleteAllTicketDeleteAllTicket.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketDeleteAllTicketDeleteAllTicket) GetAcceptedTime() string {
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetAcceptedTime() *time.Time {
 	return v.ticketFragment.AcceptedTime
 }
 
 // GetStatus returns TicketDeleteAllTicketDeleteAllTicket.Status, and is useful for accessing the field via an interface.
-func (v *TicketDeleteAllTicketDeleteAllTicket) GetStatus() string { return v.ticketFragment.Status }
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetStatus() *string { return v.ticketFragment.Status }
 
 func (v *TicketDeleteAllTicketDeleteAllTicket) UnmarshalJSON(b []byte) error {
 
@@ -4455,13 +4455,13 @@ type __premarshalTicketDeleteAllTicketDeleteAllTicket struct {
 
 	Problem string `json:"problem"`
 
-	CreateTime string `json:"createTime"`
+	CreateTime time.Time `json:"createTime"`
 
 	ShopID string `json:"shopID"`
 
-	AcceptedTime string `json:"acceptedTime"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *TicketDeleteAllTicketDeleteAllTicket) MarshalJSON() ([]byte, error) {
@@ -4514,18 +4514,20 @@ func (v *TicketDeleteTicketDeleteTicket) GetCarID() string { return v.ticketFrag
 func (v *TicketDeleteTicketDeleteTicket) GetProblem() string { return v.ticketFragment.Problem }
 
 // GetCreateTime returns TicketDeleteTicketDeleteTicket.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketDeleteTicketDeleteTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+func (v *TicketDeleteTicketDeleteTicket) GetCreateTime() time.Time {
+	return v.ticketFragment.CreateTime
+}
 
 // GetShopID returns TicketDeleteTicketDeleteTicket.ShopID, and is useful for accessing the field via an interface.
 func (v *TicketDeleteTicketDeleteTicket) GetShopID() string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketDeleteTicketDeleteTicket.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketDeleteTicketDeleteTicket) GetAcceptedTime() string {
+func (v *TicketDeleteTicketDeleteTicket) GetAcceptedTime() *time.Time {
 	return v.ticketFragment.AcceptedTime
 }
 
 // GetStatus returns TicketDeleteTicketDeleteTicket.Status, and is useful for accessing the field via an interface.
-func (v *TicketDeleteTicketDeleteTicket) GetStatus() string { return v.ticketFragment.Status }
+func (v *TicketDeleteTicketDeleteTicket) GetStatus() *string { return v.ticketFragment.Status }
 
 func (v *TicketDeleteTicketDeleteTicket) UnmarshalJSON(b []byte) error {
 
@@ -4561,13 +4563,13 @@ type __premarshalTicketDeleteTicketDeleteTicket struct {
 
 	Problem string `json:"problem"`
 
-	CreateTime string `json:"createTime"`
+	CreateTime time.Time `json:"createTime"`
 
 	ShopID string `json:"shopID"`
 
-	AcceptedTime string `json:"acceptedTime"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *TicketDeleteTicketDeleteTicket) MarshalJSON() ([]byte, error) {
@@ -4964,14 +4966,14 @@ func (v *TicketServicesTicketServicesTicketService) __premarshalJSON() (*__prema
 }
 
 type TicketUpdateInput struct {
-	ID           string `json:"ID"`
-	CustomerID   string `json:"customerID"`
-	CarID        string `json:"carID"`
-	Problem      string `json:"problem"`
-	CreateTime   string `json:"createTime"`
-	ShopID       string `json:"shopID"`
-	AcceptedTime string `json:"acceptedTime"`
-	Status       string `json:"status"`
+	ID           string     `json:"ID"`
+	CustomerID   string     `json:"customerID"`
+	CarID        string     `json:"carID"`
+	Problem      string     `json:"problem"`
+	CreateTime   time.Time  `json:"createTime"`
+	ShopID       string     `json:"shopID"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
+	Status       *string    `json:"status"`
 }
 
 // GetID returns TicketUpdateInput.ID, and is useful for accessing the field via an interface.
@@ -4987,16 +4989,16 @@ func (v *TicketUpdateInput) GetCarID() string { return v.CarID }
 func (v *TicketUpdateInput) GetProblem() string { return v.Problem }
 
 // GetCreateTime returns TicketUpdateInput.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketUpdateInput) GetCreateTime() string { return v.CreateTime }
+func (v *TicketUpdateInput) GetCreateTime() time.Time { return v.CreateTime }
 
 // GetShopID returns TicketUpdateInput.ShopID, and is useful for accessing the field via an interface.
 func (v *TicketUpdateInput) GetShopID() string { return v.ShopID }
 
 // GetAcceptedTime returns TicketUpdateInput.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketUpdateInput) GetAcceptedTime() string { return v.AcceptedTime }
+func (v *TicketUpdateInput) GetAcceptedTime() *time.Time { return v.AcceptedTime }
 
 // GetStatus returns TicketUpdateInput.Status, and is useful for accessing the field via an interface.
-func (v *TicketUpdateInput) GetStatus() string { return v.Status }
+func (v *TicketUpdateInput) GetStatus() *string { return v.Status }
 
 // TicketUpdateMultiResponse is returned by TicketUpdateMulti on success.
 type TicketUpdateMultiResponse struct {
@@ -5030,7 +5032,7 @@ func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetProblem() string {
 }
 
 // GetCreateTime returns TicketUpdateMultiTicketUpdateMultiTicket.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetCreateTime() string {
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetCreateTime() time.Time {
 	return v.ticketFragment.CreateTime
 }
 
@@ -5038,12 +5040,14 @@ func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetCreateTime() string {
 func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetShopID() string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketUpdateMultiTicketUpdateMultiTicket.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetAcceptedTime() string {
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetAcceptedTime() *time.Time {
 	return v.ticketFragment.AcceptedTime
 }
 
 // GetStatus returns TicketUpdateMultiTicketUpdateMultiTicket.Status, and is useful for accessing the field via an interface.
-func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetStatus() string { return v.ticketFragment.Status }
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetStatus() *string {
+	return v.ticketFragment.Status
+}
 
 func (v *TicketUpdateMultiTicketUpdateMultiTicket) UnmarshalJSON(b []byte) error {
 
@@ -5079,13 +5083,13 @@ type __premarshalTicketUpdateMultiTicketUpdateMultiTicket struct {
 
 	Problem string `json:"problem"`
 
-	CreateTime string `json:"createTime"`
+	CreateTime time.Time `json:"createTime"`
 
 	ShopID string `json:"shopID"`
 
-	AcceptedTime string `json:"acceptedTime"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *TicketUpdateMultiTicketUpdateMultiTicket) MarshalJSON() ([]byte, error) {
@@ -5136,16 +5140,16 @@ func (v *TicketsTicketsTicket) GetCarID() string { return v.ticketFragment.CarID
 func (v *TicketsTicketsTicket) GetProblem() string { return v.ticketFragment.Problem }
 
 // GetCreateTime returns TicketsTicketsTicket.CreateTime, and is useful for accessing the field via an interface.
-func (v *TicketsTicketsTicket) GetCreateTime() string { return v.ticketFragment.CreateTime }
+func (v *TicketsTicketsTicket) GetCreateTime() time.Time { return v.ticketFragment.CreateTime }
 
 // GetShopID returns TicketsTicketsTicket.ShopID, and is useful for accessing the field via an interface.
 func (v *TicketsTicketsTicket) GetShopID() string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketsTicketsTicket.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *TicketsTicketsTicket) GetAcceptedTime() string { return v.ticketFragment.AcceptedTime }
+func (v *TicketsTicketsTicket) GetAcceptedTime() *time.Time { return v.ticketFragment.AcceptedTime }
 
 // GetStatus returns TicketsTicketsTicket.Status, and is useful for accessing the field via an interface.
-func (v *TicketsTicketsTicket) GetStatus() string { return v.ticketFragment.Status }
+func (v *TicketsTicketsTicket) GetStatus() *string { return v.ticketFragment.Status }
 
 func (v *TicketsTicketsTicket) UnmarshalJSON(b []byte) error {
 
@@ -5181,13 +5185,13 @@ type __premarshalTicketsTicketsTicket struct {
 
 	Problem string `json:"problem"`
 
-	CreateTime string `json:"createTime"`
+	CreateTime time.Time `json:"createTime"`
 
 	ShopID string `json:"shopID"`
 
-	AcceptedTime string `json:"acceptedTime"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
 
-	Status string `json:"status"`
+	Status *string `json:"status"`
 }
 
 func (v *TicketsTicketsTicket) MarshalJSON() ([]byte, error) {
@@ -5238,11 +5242,11 @@ func (v *__ActiveTicketByShopInput) GetActiveTicketInput() string { return v.Act
 
 // __ActiveTicketByStatsInput is used internally by genqlient
 type __ActiveTicketByStatsInput struct {
-	ActiveTicketInput Status `json:"activeTicketInput"`
+	ActiveTicketInput string `json:"activeTicketInput"`
 }
 
 // GetActiveTicketInput returns __ActiveTicketByStatsInput.ActiveTicketInput, and is useful for accessing the field via an interface.
-func (v *__ActiveTicketByStatsInput) GetActiveTicketInput() Status { return v.ActiveTicketInput }
+func (v *__ActiveTicketByStatsInput) GetActiveTicketInput() string { return v.ActiveTicketInput }
 
 // __ActiveTicketCreateInput is used internally by genqlient
 type __ActiveTicketCreateInput struct {
@@ -5264,11 +5268,11 @@ func (v *__ActiveTicketDeleteInput) GetActiveTicketInput() *DeleteIDInput { retu
 
 // __ActiveTicketDeleteStatusInput is used internally by genqlient
 type __ActiveTicketDeleteStatusInput struct {
-	ActiveTicketInput Status `json:"activeTicketInput"`
+	ActiveTicketInput string `json:"activeTicketInput"`
 }
 
 // GetActiveTicketInput returns __ActiveTicketDeleteStatusInput.ActiveTicketInput, and is useful for accessing the field via an interface.
-func (v *__ActiveTicketDeleteStatusInput) GetActiveTicketInput() Status { return v.ActiveTicketInput }
+func (v *__ActiveTicketDeleteStatusInput) GetActiveTicketInput() string { return v.ActiveTicketInput }
 
 // __ActiveTicketUpdateMultiInput is used internally by genqlient
 type __ActiveTicketUpdateMultiInput struct {
@@ -5526,12 +5530,12 @@ func (v *__TicketUpdateMultiInput) GetTicketInput() *TicketUpdateInput { return 
 
 // activeTicketFragment includes the GraphQL fields of activeTicket requested by the fragment activeTicketFragment.
 type activeTicketFragment struct {
-	ID         string `json:"ID"`
-	CarID      string `json:"carID"`
-	CustomerID string `json:"customerID"`
-	Problem    string `json:"problem"`
-	ShopID     string `json:"shopID"`
-	Status     string `json:"status"`
+	ID         string  `json:"ID"`
+	CarID      string  `json:"carID"`
+	CustomerID string  `json:"customerID"`
+	Problem    string  `json:"problem"`
+	ShopID     *string `json:"shopID"`
+	Status     *string `json:"status"`
 }
 
 // GetID returns activeTicketFragment.ID, and is useful for accessing the field via an interface.
@@ -5547,20 +5551,20 @@ func (v *activeTicketFragment) GetCustomerID() string { return v.CustomerID }
 func (v *activeTicketFragment) GetProblem() string { return v.Problem }
 
 // GetShopID returns activeTicketFragment.ShopID, and is useful for accessing the field via an interface.
-func (v *activeTicketFragment) GetShopID() string { return v.ShopID }
+func (v *activeTicketFragment) GetShopID() *string { return v.ShopID }
 
 // GetStatus returns activeTicketFragment.Status, and is useful for accessing the field via an interface.
-func (v *activeTicketFragment) GetStatus() string { return v.Status }
+func (v *activeTicketFragment) GetStatus() *string { return v.Status }
 
 // carFragment includes the GraphQL fields of car requested by the fragment carFragment.
 type carFragment struct {
 	ID        string  `json:"ID"`
 	OwnerID   string  `json:"ownerID"`
 	PlateNum  string  `json:"plateNum"`
-	PlateType string  `json:"plateType"`
-	IssuedAt  string  `json:"issuedAt"`
-	Color     string  `json:"color"`
-	Type      string  `json:"type"`
+	PlateType *string `json:"plateType"`
+	IssuedAt  *string `json:"issuedAt"`
+	Color     *string `json:"color"`
+	Type      *string `json:"type"`
 	Brand     string  `json:"brand"`
 	Build     *string `json:"build"`
 }
@@ -5575,16 +5579,16 @@ func (v *carFragment) GetOwnerID() string { return v.OwnerID }
 func (v *carFragment) GetPlateNum() string { return v.PlateNum }
 
 // GetPlateType returns carFragment.PlateType, and is useful for accessing the field via an interface.
-func (v *carFragment) GetPlateType() string { return v.PlateType }
+func (v *carFragment) GetPlateType() *string { return v.PlateType }
 
 // GetIssuedAt returns carFragment.IssuedAt, and is useful for accessing the field via an interface.
-func (v *carFragment) GetIssuedAt() string { return v.IssuedAt }
+func (v *carFragment) GetIssuedAt() *string { return v.IssuedAt }
 
 // GetColor returns carFragment.Color, and is useful for accessing the field via an interface.
-func (v *carFragment) GetColor() string { return v.Color }
+func (v *carFragment) GetColor() *string { return v.Color }
 
 // GetType returns carFragment.Type, and is useful for accessing the field via an interface.
-func (v *carFragment) GetType() string { return v.Type }
+func (v *carFragment) GetType() *string { return v.Type }
 
 // GetBrand returns carFragment.Brand, and is useful for accessing the field via an interface.
 func (v *carFragment) GetBrand() string { return v.Brand }
@@ -5666,14 +5670,14 @@ func (v *shopServiceFragment) GetServiceID() string { return v.ServiceID }
 
 // ticketFragment includes the GraphQL fields of ticket requested by the fragment ticketFragment.
 type ticketFragment struct {
-	ID           string `json:"ID"`
-	CustomerID   string `json:"customerID"`
-	CarID        string `json:"carID"`
-	Problem      string `json:"problem"`
-	CreateTime   string `json:"createTime"`
-	ShopID       string `json:"shopID"`
-	AcceptedTime string `json:"acceptedTime"`
-	Status       string `json:"status"`
+	ID           string     `json:"ID"`
+	CustomerID   string     `json:"customerID"`
+	CarID        string     `json:"carID"`
+	Problem      string     `json:"problem"`
+	CreateTime   time.Time  `json:"createTime"`
+	ShopID       string     `json:"shopID"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
+	Status       *string    `json:"status"`
 }
 
 // GetID returns ticketFragment.ID, and is useful for accessing the field via an interface.
@@ -5689,16 +5693,16 @@ func (v *ticketFragment) GetCarID() string { return v.CarID }
 func (v *ticketFragment) GetProblem() string { return v.Problem }
 
 // GetCreateTime returns ticketFragment.CreateTime, and is useful for accessing the field via an interface.
-func (v *ticketFragment) GetCreateTime() string { return v.CreateTime }
+func (v *ticketFragment) GetCreateTime() time.Time { return v.CreateTime }
 
 // GetShopID returns ticketFragment.ShopID, and is useful for accessing the field via an interface.
 func (v *ticketFragment) GetShopID() string { return v.ShopID }
 
 // GetAcceptedTime returns ticketFragment.AcceptedTime, and is useful for accessing the field via an interface.
-func (v *ticketFragment) GetAcceptedTime() string { return v.AcceptedTime }
+func (v *ticketFragment) GetAcceptedTime() *time.Time { return v.AcceptedTime }
 
 // GetStatus returns ticketFragment.Status, and is useful for accessing the field via an interface.
-func (v *ticketFragment) GetStatus() string { return v.Status }
+func (v *ticketFragment) GetStatus() *string { return v.Status }
 
 // ticketServiceFragment includes the GraphQL fields of ticketService requested by the fragment ticketServiceFragment.
 type ticketServiceFragment struct {
@@ -5835,12 +5839,12 @@ fragment activeTicketFragment on activeTicket {
 func ActiveTicketByStats(
 	ctx context.Context,
 	client graphql.Client,
-	activeTicketInput Status,
+	activeTicketInput string,
 ) (*ActiveTicketByStatsResponse, error) {
 	req := &graphql.Request{
 		OpName: "ActiveTicketByStats",
 		Query: `
-query ActiveTicketByStats ($activeTicketInput: status!) {
+query ActiveTicketByStats ($activeTicketInput: String!) {
 	activeTicketByStats(input: $activeTicketInput) {
 		... activeTicketFragment
 	}
@@ -5991,12 +5995,12 @@ fragment activeTicketFragment on activeTicket {
 func ActiveTicketDeleteStatus(
 	ctx context.Context,
 	client graphql.Client,
-	activeTicketInput Status,
+	activeTicketInput string,
 ) (*ActiveTicketDeleteStatusResponse, error) {
 	req := &graphql.Request{
 		OpName: "ActiveTicketDeleteStatus",
 		Query: `
-mutation ActiveTicketDeleteStatus ($activeTicketInput: status!) {
+mutation ActiveTicketDeleteStatus ($activeTicketInput: String!) {
 	activeTicketDeleteStatus(input: $activeTicketInput) {
 		... activeTicketFragment
 	}

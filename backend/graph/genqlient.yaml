@@ -16,3 +16,7 @@ generated: client_gen.go
 use_struct_references: true
 
 optional: pointer
+
+bindings:
+  Time:
+    type: time.Time
