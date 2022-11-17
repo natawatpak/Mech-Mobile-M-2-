@@ -15,11 +15,18 @@ import (
 
 const GRAPHQL_CLIENT_URL = "http://localhost:8081/"
 
+func AddHeader(w http.ResponseWriter) http.ResponseWriter {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Header().Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
+	return w
+}
+
 func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Fprintf(w, "POST request successful\n")
 	// fName := r.FormValue("fName")
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -52,8 +59,7 @@ func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) {
@@ -89,8 +95,7 @@ func CustomerUpdateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerAddCar(w http.ResponseWriter, r *http.Request) {
@@ -102,9 +107,9 @@ func CustomerAddCar(w http.ResponseWriter, r *http.Request) {
 	resp, err := graph.CarCreate(ctx, graphqlClient, &graph.CarCreateInput{
 		OwnerID:  r.FormValue("cusID"),
 		PlateNum: r.FormValue("plateNum"),
-		IssuedAt: r.FormValue("issuedAt"),
-		Color:    r.FormValue("color"),
-		Type:     r.FormValue("type"),
+		IssuedAt: util.Ptr(r.FormValue("issuedAt")),
+		Color:    util.Ptr(r.FormValue("color")),
+		Type:     util.Ptr(r.FormValue("type")),
 		Brand:    r.FormValue("brand"),
 		Build:    util.Ptr(r.FormValue("build")),
 	})
@@ -125,8 +130,7 @@ func CustomerAddCar(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
@@ -148,9 +152,9 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 		carData := map[string]string{
 			"id":       car.ID,
 			"plate":    car.PlateNum,
-			"issuedAt": car.IssuedAt,
-			"color":    car.Color,
-			"type":     car.Type,
+			"issuedAt": *car.IssuedAt,
+			"color":    *car.Color,
+			"type":     *car.Type,
 			"brand":    car.Brand,
 			"build":    *car.Build,
 		}
@@ -164,8 +168,7 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
@@ -200,8 +203,7 @@ func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
@@ -214,10 +216,10 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		CustomerID:   r.FormValue("cusID"),
 		CarID:        r.FormValue("carID"),
 		Problem:      r.FormValue("problem"),
-		CreateTime:   time.Now().String(),
+		CreateTime:   time.Now(),
 		ShopID:       "no shopID", // need to be optional
-		AcceptedTime: time.Now().String(),
-		Status:       r.FormValue("status"),
+		AcceptedTime: nil,
+		Status:       util.Ptr(r.FormValue("status")),
 	})
 
 	if err != nil {
@@ -238,8 +240,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 // func CustomerGetActiveTicket(w http.ResponseWriter, r *http.Request) []byte {
@@ -297,8 +298,7 @@ func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
@@ -309,9 +309,9 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := graph.TicketByCustomer(ctx, graphqlClient, &graph.TicketByCustomerInput{
 		CustomerID: r.FormValue("cusID"),
-		FromTime:   time.Now().AddDate(0, -1, 0).String(),
-		ToTime:     time.Now().String(),
-		Status:     r.FormValue("status"),
+		FromTime:   time.Now().AddDate(0, -1, 0),
+		ToTime:     time.Now(),
+		Status:     util.Ptr(r.FormValue("status")),
 	})
 
 	if err != nil {
@@ -328,10 +328,10 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 			"cusID":        t.CustomerID,
 			"carID":        t.CarID,
 			"problem":      t.Problem,
-			"createTime":   t.CreateTime,
+			"createTime":   t.CreateTime.String(),
 			"shopID":       t.ShopID,
-			"acceptedTime": t.AcceptedTime,
-			"status":       t.Status,
+			"acceptedTime": t.AcceptedTime.String(),
+			"status":       *t.Status,
 		}
 		data[i] = tData
 	}
@@ -343,8 +343,7 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 }
 
 func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
@@ -376,7 +375,6 @@ func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	AddHeader(w).Write(jsonData)
 
 }

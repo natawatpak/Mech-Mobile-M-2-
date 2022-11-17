@@ -1,35 +1,51 @@
 <template>
   <div>
+    Register
     <v-form>
-      <InputField
-        value="fName"
-        placeholder="please input your firstname"
-        label=""
-        icon=""
-        hint=""
-        color="#2196F3"
+      <v-text-field
+        v-model="fName"
+        placeholder="please input your first name"
       />
-      <InputField
-        value="lName"
-        placeholder="please input your firstname"
-        label=""
-        icon=""
-        hint=""
-        color="#2196F3"
+      <v-text-field
+        v-model="lName"
+        placeholder="please input your first name"
+      />
+      <v-text-field
+        v-model="tel"
+        placeholder="please input your first name"
+      />
+      <v-text-field
+        v-model="email"
+        placeholder="please input your first name"
       />
 
-      <v-btn type="submit">submit</v-btn>
+      <v-btn @click="submitForm()" >submit</v-btn>
     </v-form>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import InputField from "@/components/InputField.vue";
-
 export default {
-  components: {
-    InputField,
+  data(){
+    return{
+      fName: "",
+      lName: "",
+      tel: "",
+      email: ""
+    }
   },
+  methods:{
+    submitForm(){
+      const data = new URLSearchParams({
+        fName: this.fName,
+        lName: this.lName,
+        tel: this.tel,
+        email: this.email,
+      })
+      this.axios.post("http://localhost:3000/customer/create-profile",data).then((response)=>{
+        console.log(response.data)
+      })
+    }
+  }
 };
 </script>
