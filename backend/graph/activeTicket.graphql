@@ -16,7 +16,7 @@ mutation ActiveTicketDelete($activeTicketInput: DeleteIDInput!) {
   }
 }
 
-mutation ActiveTicketDeleteStatus($activeTicketInput: status!) {
+mutation ActiveTicketDeleteStatus($activeTicketInput: String!) {
   activeTicketDeleteStatus(input: $activeTicketInput) {
     ...activeTicketFragment
   }
@@ -46,7 +46,7 @@ query ActiveTicketByShop($activeTicketInput: ID!) {
   }
 }
 
-query ActiveTicketByStats($activeTicketInput: status!) {
+query ActiveTicketByStats($activeTicketInput: String!) {
   activeTicketByStats(input: $activeTicketInput) {
     ...activeTicketFragment
   }
