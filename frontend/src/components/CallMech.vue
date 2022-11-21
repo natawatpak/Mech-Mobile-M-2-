@@ -80,7 +80,7 @@
     </v-card>
     <v-spacer class="my-5"></v-spacer>
     <section class="text-center">
-      <router-link to="/loading"><v-btn>Find Service</v-btn></router-link>
+      <router-link to="/loading" class="text-decoration-none"><v-btn variant="tonal" color="green">Find Service</v-btn></router-link>
     </section>
   </div>
 </template>

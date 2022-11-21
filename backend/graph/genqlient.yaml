@@ -1,0 +1,22 @@
+# Default genqlient config; for full documentation see:
+# https://github.com/Khan/genqlient/blob/main/docs/genqlient.yaml
+schema: schema.graphqls
+operations:
+- customer.graphql
+- car.graphql
+- activeTicket.graphql
+- service.graphql
+- shop.graphql
+- shopService.graphql
+- ticket.graphql
+- ticketService.graphql
+
+generated: client_gen.go
+
+use_struct_references: true
+
+optional: pointer
+
+bindings:
+  Time:
+    type: time.Time

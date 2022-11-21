@@ -2,58 +2,208 @@
 
 package model
 
-type Country struct {
-	Code      int    `json:"code"`
-	Name      string `json:"name"`
-	Continent string `json:"continent"`
+import (
+	"time"
+)
+
+type DeleteIDInput struct {
+	ID string `json:"ID"`
 }
 
-type CountryCreateInput struct {
-	Code      int    `json:"code"`
-	Name      string `json:"name"`
-	Continent string `json:"continent"`
+type ActiveTicket struct {
+	ID         string  `json:"ID" bun:"id,pk"`
+	CarID      string  `json:"carID" bun:",unique"`
+	CustomerID string  `json:"customerID" bun:",notnull"`
+	Problem    string  `json:"problem" bun:",notnull"`
+	ShopID     *string `json:"shopID"`
+	Status     *string `json:"status"`
 }
 
-type Merchant struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	AdminID     string `json:"adminID"`
-	CountryCode int    `json:"countryCode"`
-	CreateTime  string `json:"createTime"`
+type ActiveTicketCreateInput struct {
+	ID         *string `json:"ID"`
+	CarID      string  `json:"carID"`
+	CustomerID string  `json:"customerID"`
+	Problem    string  `json:"problem"`
+	ShopID     *string `json:"shopID"`
+	Status     *string `json:"status"`
 }
 
-type Order struct {
-	ID         string `json:"id"`
-	UserID     string `json:"userID"`
-	Status     string `json:"status"`
-	CreateTime string `json:"createTime"`
+type ActiveTicketUpdateInput struct {
+	ID         string  `json:"ID"`
+	CarID      string  `json:"carID"`
+	CustomerID string  `json:"customerID"`
+	Problem    string  `json:"problem"`
+	ShopID     *string `json:"shopID"`
+	Status     *string `json:"status"`
 }
 
-type Product struct {
-	ID         string `json:"id"`
-	MerchantID string `json:"merchantID"`
-	Name       string `json:"name"`
-	Price      int    `json:"price"`
-	Status     string `json:"status"`
-	CreateTime string `json:"createTime"`
+type Car struct {
+	ID        string  `json:"ID" bun:"id,pk"`
+	OwnerID   string  `json:"ownerID" bun:",notnull"`
+	PlateNum  string  `json:"plateNum" bun:",notnull"`
+	PlateType *string `json:"plateType"`
+	IssuedAt  *string `json:"issuedAt"`
+	Color     *string `json:"color"`
+	Type      *string `json:"type"`
+	Brand     string  `json:"brand" bun:",notnull"`
+	Build     *string `json:"build"`
 }
 
-type User struct {
-	ID          string `json:"id"`
-	FName       string `json:"FName"`
-	Email       string `json:"email"`
-	Gender      string `json:"gender"`
-	DoB         string `json:"DoB"`
-	CountryCode int    `json:"countryCode"`
-	CreateTime  string `json:"createTime"`
+type CarCreateInput struct {
+	ID        *string `json:"ID"`
+	OwnerID   string  `json:"ownerID"`
+	PlateNum  string  `json:"plateNum"`
+	PlateType *string `json:"plateType"`
+	IssuedAt  *string `json:"issuedAt"`
+	Color     *string `json:"color"`
+	Type      *string `json:"type"`
+	Brand     string  `json:"brand"`
+	Build     *string `json:"build"`
 }
 
-type UserCreateInput struct {
-	ID          *string `json:"id"`
-	FName       string  `json:"FName"`
-	Email       string  `json:"email"`
-	Gender      string  `json:"gender"`
-	DoB         string  `json:"DoB"`
-	CountryCode int     `json:"countryCode"`
-	CreateTime  string  `json:"createTime"`
+type CarUpdateInput struct {
+	ID        string  `json:"ID"`
+	OwnerID   string  `json:"ownerID"`
+	PlateNum  string  `json:"plateNum"`
+	PlateType *string `json:"plateType"`
+	IssuedAt  *string `json:"issuedAt"`
+	Color     *string `json:"color"`
+	Type      *string `json:"type"`
+	Brand     string  `json:"brand"`
+	Build     *string `json:"build"`
+}
+
+type Customer struct {
+	ID    string `json:"ID" bun:"id,pk"`
+	FName string `json:"fName" bun:",notnull"`
+	LName string `json:"lName" bun:",notnull"`
+	Tel   string `json:"tel" bun:",notnull,unique"`
+	Email string `json:"email" bun:",notnull,unique"`
+}
+
+type CustomerCreateInput struct {
+	ID    *string `json:"ID"`
+	FName string  `json:"fName"`
+	LName string  `json:"lName"`
+	Tel   string  `json:"tel"`
+	Email string  `json:"email"`
+}
+
+type CustomerUpdateInput struct {
+	ID    string `json:"ID"`
+	FName string `json:"fName"`
+	LName string `json:"lName"`
+	Tel   string `json:"tel"`
+	Email string `json:"email"`
+}
+
+type Service struct {
+	ID   string `json:"ID" bun:"id,pk"`
+	Name string `json:"name" bun:",notnull"`
+}
+
+type ServiceCreateInput struct {
+	ID   *string `json:"ID"`
+	Name string  `json:"name"`
+}
+
+type ServiceUpdateInput struct {
+	ID   string `json:"ID"`
+	Name string `json:"name"`
+}
+
+type Shop struct {
+	ID      string `json:"ID" bun:"id,pk"`
+	Name    string `json:"name" bun:",notnull"`
+	Tel     string `json:"tel" bun:",notnull,unique"`
+	Email   string `json:"email" bun:",notnull,unique"`
+	Address string `json:"address" bun:",notnull"`
+}
+
+type ShopCreateInput struct {
+	ID      *string `json:"ID"`
+	Name    string  `json:"name"`
+	Tel     string  `json:"tel"`
+	Email   string  `json:"email"`
+	Address string  `json:"address"`
+}
+
+type ShopService struct {
+	ShopID    string `json:"shopID"`
+	ServiceID string `json:"serviceID"`
+}
+
+type ShopServiceCreateInput struct {
+	ShopID    string `json:"shopID"`
+	ServiceID string `json:"serviceID"`
+}
+
+type ShopServiceDeleteInput struct {
+	ShopID    string `json:"shopID"`
+	ServiceID string `json:"serviceID"`
+}
+
+type ShopUpdateInput struct {
+	ID      string `json:"ID"`
+	Name    string `json:"name"`
+	Tel     string `json:"tel"`
+	Email   string `json:"email"`
+	Address string `json:"address"`
+}
+
+type Ticket struct {
+	ID           string     `json:"ID" bun:"id,pk"`
+	CustomerID   string     `json:"customerID" bun:",notnull"`
+	CarID        string     `json:"carID" bun:",notnull"`
+	Problem      string     `json:"problem" bun:",notnull"`
+	CreateTime   time.Time  `json:"createTime" bun:",notnull"`
+	ShopID       string     `json:"shopID" bun:",notnull"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
+	Status       *string    `json:"status"`
+}
+
+type TicketByCustomerInput struct {
+	CustomerID string    `json:"customerID"`
+	FromTime   time.Time `json:"fromTime"`
+	ToTime     time.Time `json:"toTime"`
+	Status     *string   `json:"status"`
+}
+
+type TicketByShopInput struct {
+	ShopID   string    `json:"shopID"`
+	FromTime time.Time `json:"fromTime"`
+	ToTime   time.Time `json:"toTime"`
+	Status   *string   `json:"status"`
+}
+
+type TicketCreateInput struct {
+	ID           *string    `json:"ID"`
+	CustomerID   string     `json:"customerID"`
+	CarID        string     `json:"carID"`
+	Problem      string     `json:"problem"`
+	CreateTime   time.Time  `json:"createTime"`
+	ShopID       string     `json:"shopID"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
+	Status       *string    `json:"status"`
+}
+
+type TicketService struct {
+	TicketID  string `json:"ticketID" bun:",pk"`
+	ServiceID string `json:"serviceID" bun:",pk"`
+}
+
+type TicketServiceCreateInput struct {
+	TicketID  string `json:"ticketID"`
+	ServiceID string `json:"serviceID"`
+}
+
+type TicketUpdateInput struct {
+	ID           string     `json:"ID"`
+	CustomerID   string     `json:"customerID"`
+	CarID        string     `json:"carID"`
+	Problem      string     `json:"problem"`
+	CreateTime   time.Time  `json:"createTime"`
+	ShopID       string     `json:"shopID"`
+	AcceptedTime *time.Time `json:"acceptedTime"`
+	Status       *string    `json:"status"`
 }
