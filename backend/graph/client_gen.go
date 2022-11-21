@@ -1940,6 +1940,14 @@ type CarsResponse struct {
 // GetCars returns CarsResponse.Cars, and is useful for accessing the field via an interface.
 func (v *CarsResponse) GetCars() []*CarsCarsCar { return v.Cars }
 
+// CreateTableResponse is returned by CreateTable on success.
+type CreateTableResponse struct {
+	CreateTable bool `json:"createTable"`
+}
+
+// GetCreateTable returns CreateTableResponse.CreateTable, and is useful for accessing the field via an interface.
+func (v *CreateTableResponse) GetCreateTable() bool { return v.CreateTable }
+
 // CustomerByIDCustomerByIDCustomer includes the requested fields of the GraphQL type customer.
 type CustomerByIDCustomerByIDCustomer struct {
 	cusFragment `json:"-"`
@@ -2512,6 +2520,14 @@ type DeleteIDInput struct {
 
 // GetID returns DeleteIDInput.ID, and is useful for accessing the field via an interface.
 func (v *DeleteIDInput) GetID() string { return v.ID }
+
+// DropTableResponse is returned by DropTable on success.
+type DropTableResponse struct {
+	DropTable bool `json:"dropTable"`
+}
+
+// GetDropTable returns DropTableResponse.DropTable, and is useful for accessing the field via an interface.
+func (v *DropTableResponse) GetDropTable() bool { return v.DropTable }
 
 // ServiceByIDResponse is returned by ServiceByID on success.
 type ServiceByIDResponse struct {
@@ -6401,6 +6417,32 @@ fragment carFragment on car {
 	return &data, err
 }
 
+func CreateTable(
+	ctx context.Context,
+	client graphql.Client,
+) (*CreateTableResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateTable",
+		Query: `
+mutation CreateTable {
+	createTable
+}
+`,
+	}
+	var err error
+
+	var data CreateTableResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CustomerByID(
 	ctx context.Context,
 	client graphql.Client,
@@ -6616,6 +6658,32 @@ fragment cusFragment on customer {
 	var err error
 
 	var data CustomersResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DropTable(
+	ctx context.Context,
+	client graphql.Client,
+) (*DropTableResponse, error) {
+	req := &graphql.Request{
+		OpName: "DropTable",
+		Query: `
+mutation DropTable {
+	dropTable
+}
+`,
+	}
+	var err error
+
+	var data DropTableResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
