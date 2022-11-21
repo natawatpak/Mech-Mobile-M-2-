@@ -10,6 +10,7 @@ operations:
 - shopService.graphql
 - ticket.graphql
 - ticketService.graphql
+- tableOp.graphql
 
 generated: client_gen.go
 
