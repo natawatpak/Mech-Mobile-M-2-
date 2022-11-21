@@ -4,7 +4,7 @@
       <template v-slot:opposite>Accepted</template>
     </v-timeline-item>
 
-    <v-timeline-item size="large" v-model="items" :dot-color="currentState == 2? 'green':'white'" :icon=items[1]>
+    <v-timeline-item size="large" v-model="items" :dot-color="currentState == 2 || currentState == 1? 'green':'white'" :icon=items[1]>
       On the way
     </v-timeline-item>
 

@@ -1,74 +1,97 @@
 <template>
   <div class="text-center ma-4">
-    <v-list>
-      <v-list-item>
-        <v-list-title class="text-h5">
-          Incoming Order
-        </v-list-title>
-      </v-list-item>
-    </v-list>  
-        <v-card
-      class="text-left pa-4 d-flex justify-left align-center"
-      outlined
-      >
-    <v-card-text>
-      <div class="text-h6 text--primary">
-        #123456
-      </div>
-      <p>adjective</p>
-      <div class="text--primary">
-        relating to or dependent on charity; charitable.<br>
-        "an eleemosynary educational institution."
-      </div>
-    </v-card-text>
-    <v-card-actions>
-      <v-btn
-        text
-        color="teal accent-4"
-        @click="reveal = true"
-      >
-        Learn More
-      </v-btn>
-    </v-card-actions>
+    <v-row no-gutters>
+      <v-col cols="8">
+        <v-badge
+          color="#C0294A"
+          :content="orders"
+          :value="orders"
+          class="text-h4 pa-4"
+          overlap
+        >
+          Incoming order
+        </v-badge>
+        <v-card variant="tonal" class="text-left pa-4 ma-4">
+          <v-card-title>Order {{details.id}} | {{details.name}}</v-card-title>
+          <section>
+            <v-card-text class="text-h7">
+              Car {{details.type}} | {{details.brand}}
+              <br> Problems {{details.problem}}
+              <br> {{details.location}} km
+            <v-row justify="end">
+            <v-card-action>
+              <v-btn
+                class="mx-1"
+                variant="tonal"
+                color="error"
+              >
+                Decline
+              </v-btn>
 
-    <v-expand-transition>
-      <v-card
-        v-if="reveal"
-        class="transition-fast-in-fast-out v-card--reveal"
-        style="height: 100%;"
-      >
-        <v-card-text class="pb-0">
-          <p class="text-h4 text--primary">
-            Origin
-          </p>
-          <p>late 16th century (as a noun denoting a place where alms were distributed): from medieval Latin eleemosynarius, from late Latin eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’ </p>
-        </v-card-text>
-        <v-card-actions class="pt-0">
-          <v-btn
-            text
-            color="teal accent-4"
-            @click="reveal = false"
-          >
-            Close
-          </v-btn>
-        </v-card-actions>
+              <v-btn
+                class="mx-1"
+                color="blue"
+                variant="tonal"
+              >
+                Accept
+              </v-btn>
+            </v-card-action>
+          </v-row>
+          </v-card-text>          
+        </section>
       </v-card>
-    </v-expand-transition>
-  </v-card>
+        
+    
+    <v-tabs
+    v-model="tab"
+      grow
+      class="ma-4"
+    >
+      <v-tab value="one">On process</v-tab>
+      <v-tab value="two">Finish</v-tab>
+    </v-tabs>
+
+    <v-card-text>
+      <v-window v-model="tab">
+        <v-window-item value="one">
+          <v-card variant="tonal" class="text-left">
+          <v-card-title>Order {{details.id}} | {{details.name}}</v-card-title>
+          <section>
+            <v-card-text class="text-h7">
+              Car {{details.type}} | {{details.brand}}
+              <br> Problems {{details.problem}}
+              <br> {{details.location}} km
+          </v-card-text>          
+        </section>
+      </v-card>
+        </v-window-item>
+
+        <v-window-item value="two">
+          Two
+        </v-window-item>
+
+      </v-window>
+    </v-card-text>
+
+    </v-col>
+
+    <v-col cols="4">
+      <v-container class="bg-purple">
+        <v-card></v-card>
+      </v-container>
+    </v-col>
+    </v-row>
   </div>
 </template>
 
 <style>
-.text-h5 {
+.text-h4 {
+  color: #000000;
   display: flex;
   justify-content: left;
+  align-content: center;
 }
-v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
-  width: 100%;
-}
+
 </style>
 
 <script>
@@ -78,6 +101,9 @@ export default {
       items: [
           { order: '0123456', name: 'Nunnapat Kriengchaiyaprug' },
         ],
+      orders: 1,
+      details: { id:"12345", type: "SUV", brand: "MG", name: "nunnapat", problem: "2", location: "2.1" },
+      tab: null, 
     };
   }
 };
