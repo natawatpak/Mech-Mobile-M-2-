@@ -15,16 +15,20 @@
     </v-card>
     <v-spacer class="my-5"></v-spacer>
 
-    <v-card variant="tonal" class="text-left pa-4" @click="selectCarModal=true">
-      <v-card-title>Car detail</v-card-title>
-      <section>
-        <v-card-text>
-          Type {{car.type}}, Brand {{car.brand}}
-          <br />
-          License plate: {{car.plate}}
-        </v-card-text>
-      </section>
-    </v-card>
+    <v-card variant="tonal" class="text-left pa-4" >
+        <v-row class="pl-5">
+            <v-card-title>Car detail</v-card-title>
+            <v-spacer></v-spacer>
+            <v-btn @click="selectCarModal=true">choose from preset</v-btn>
+        </v-row>    
+            <section>
+            <v-card-text>
+                Type {{car.type}}, Brand {{car.brand}}
+                <br />
+                License plate: {{car.plate}}
+            </v-card-text>
+            </section>
+      </v-card>
 
     <v-dialog v-model="selectCarModal">
       <v-card>
@@ -36,7 +40,7 @@
 
     <v-spacer class="my-5"></v-spacer>
     <v-card variant="tonal" class="text-left pa-4">
-      <v-card-title>Problem {{problem}}</v-card-title>
+      <v-card-title>Problems</v-card-title>
       <v-card-text class="d-flex">
         <v-list>
           <v-list-item class="pa-0 ma-0">
@@ -58,7 +62,8 @@
       </v-card-text>
     </v-card>
     <v-spacer class="my-5"></v-spacer>
-    <v-container class="pa-0 ma-0" fluid>
+    <v-card variant="tonal" class="text-left pa-4">
+      <v-card-title>Details</v-card-title>
       <v-textarea
         outlined
         name="description"
@@ -67,9 +72,12 @@
         label="Description"
         bg-color="white"
       ></v-textarea>
-    </v-container>
+    </v-card>
     <v-spacer class="my-5"></v-spacer>
-    <v-file-input counter v-model="files" multiple show-size truncate-length="20"></v-file-input>
+    <v-card variant="tonal" class="text-left pa-4">
+      <v-card-title>Upload files</v-card-title>
+      <v-file-input counter v-model="files" accept="multiple show-size truncate-length=20" outlined label="Click here to attached photo or video"></v-file-input>
+    </v-card>
     <v-spacer class="my-5"></v-spacer>
     <section class="text-center">
       <router-link to="/loading"><v-btn>Find Service</v-btn></router-link>
@@ -91,7 +99,7 @@ export default {
         { id:"3", type: "Van", brand: "MG", plate: "ก8113" }
       ],
       selectCarModal: false,
-      problem: [],
+      problem: ["tyres", "flat"],
       description: undefined,
       files: []
     };

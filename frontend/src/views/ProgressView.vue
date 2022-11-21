@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <ProgressBar currentState="1" />
+  <div class="pa-5">
+    <ProgressBar currentState="2" />
     <v-spacer class="my-5"></v-spacer>
     <ProgressDetail :shop=shop :car=car :location=location :problems=problems />
   </div>
