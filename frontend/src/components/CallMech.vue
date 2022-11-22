@@ -19,7 +19,7 @@
         <v-row class="pl-5">
             <v-card-title>Car detail</v-card-title>
             <v-spacer></v-spacer>
-            <v-btn @click="selectCarModal=true">choose from preset</v-btn>
+            <v-btn class="mx-1" @click="selectCarModal=true">choose from preset</v-btn>
         </v-row>    
             <section>
             <v-card-text>

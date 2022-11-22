@@ -2,12 +2,12 @@
   <div class="text-center mx-16 justify-center">
     <div class="text-left text-h4 my-4 pa-4">Order</div>
       <v-container fluid v-for="item in items" :key="item.id" class="pa-0 mx-4">
-      <v-card variant="tonal" class="text-left pa-4 my-4 mr-6">
+      <v-card :to="'/details'" variant="tonal" class="text-left pa-4 my-4 mr-6">
         <v-row class="pa-2">
-          <v-card-title>
+          <v-card-title class="text-h6">
             Order {{item.id}} | {{item.username}}
           </v-card-title>
-          <v-chip class="ma-2" color="yellow">{{item.status}}</v-chip>
+          <v-chip class="ma-2" color="yellow-darken-3">{{item.status}}</v-chip>
         </v-row>      
         <v-card-subtitle>{{item.date}}</v-card-subtitle>
         <v-card-text class="text-h7">

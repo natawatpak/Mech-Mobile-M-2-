@@ -105,7 +105,7 @@
                       <v-card-title>
                         Order {{ item.id }} | {{ item.username }}
                       </v-card-title>
-                      <v-chip class="ma-2" color="yellow">{{
+                      <v-chip class="ma-2" color="yellow-darken-3">{{
                         item.status
                       }}</v-chip>
                     </v-row>
