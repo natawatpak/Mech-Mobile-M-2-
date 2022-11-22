@@ -1,4 +1,3 @@
-
 <template>
   <div class="pa-5">
     <div id="map"></div>
@@ -80,7 +79,7 @@
     </v-card>
     <v-spacer class="my-5"></v-spacer>
     <section class="text-center">
-      <router-link to="/loading"><v-btn>Find Service</v-btn></router-link>
+      <router-link to="/loading" @click="addTicket"><v-btn>Find Service</v-btn></router-link>
     </section>
   </div>
 </template>
@@ -93,11 +92,7 @@ export default {
       map: null,
       currentLocation: { lat: 0, lng: 0 },
       car: { id:"1", type: "SUV", brand: "MG", plate: "ก2113" },
-      cars: [
-        { id:"1", type: "SUV", brand: "MG", plate: "ก2113" },
-        { id:"2", type: "Sedan", brand: "MG", plate: "ก4113" },
-        { id:"3", type: "Van", brand: "MG", plate: "ก8113" }
-      ],
+      cars: [],
       selectCarModal: false,
       problem: ["tyres", "flat"],
       description: undefined,
@@ -108,6 +103,12 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
+    sessionStorage.setItem("cusID", "409ca447-04ba-4c86-b01a-ddf55c89667b");
+    sessionStorage.setItem("fName", "phum");
+    sessionStorage.setItem("lName", "kitiphum");
+    sessionStorage.setItem("tel", "0123456789");
+    sessionStorage.setItem("email", "phum@gmail.com");
+    this.getCarList();
   },
   methods: {
     locatorButtonPressed() {
@@ -153,6 +154,32 @@ export default {
     selectCar(car){
       this.car = car
       this.selectCarModal = false
+    },
+    getCarList() {
+      const data = new URLSearchParams({
+        cusID: sessionStorage.getItem("cusID"),
+      });
+      console.log(sessionStorage.getItem("cusID"))
+      this.axios
+        .post("http://localhost:3000/customer/get-car-list", data)
+        .then((response) => {
+          console.log(response.data);
+          this.cars = response.data;
+        });
+    },
+    addTicket(){
+      const data = new URLSearchParams({
+        cusID: sessionStorage.getItem("cusID"),
+        carID: this.car.id,
+        problem: this.problem,
+        status: "Active"
+      });
+      this.axios
+        .post("http://localhost:3000/customer/add-ticket", data)
+        .then((response) => {
+          console.log(response.data);
+          sessionStorage.push("ticketID", response.data)
+        });
     }
   }
 };

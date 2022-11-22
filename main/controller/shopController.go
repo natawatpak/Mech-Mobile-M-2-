@@ -10,7 +10,6 @@ import (
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
-	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
@@ -20,7 +19,7 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
-	resp, err := graph.ActiveTicketByStats(ctx, graphqlClient, graph.Status(model.StatusActive))
+	resp, err := graph.ActiveTicketByStats(ctx, graphqlClient, "Active")
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
