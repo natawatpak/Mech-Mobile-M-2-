@@ -23,6 +23,11 @@ func AddHeader(w http.ResponseWriter) http.ResponseWriter {
 	return w
 }
 
+func IsNil(strpt *string) string{
+	if (strpt == nil){return ""}
+	return *strpt
+}
+
 func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Fatal(err)
@@ -146,17 +151,17 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
-	fmt.Println(resp.CarByOwner)
+
 	data := make(map[int]map[string]string)
 	for i, car := range resp.CarByOwner {
 		carData := map[string]string{
 			"id":       car.ID,
 			"plate":    car.PlateNum,
-			"issuedAt": *car.IssuedAt,
-			"color":    *car.Color,
-			"type":     *car.Type,
+			"issuedAt": IsNil(car.IssuedAt),
+			"color":    IsNil(car.Color),
+			"type":     IsNil(car.Type),
 			"brand":    car.Brand,
-			"build":    *car.Build,
+			"build":    IsNil(car.Build),
 		}
 		data[i] = carData
 	}
@@ -331,7 +336,7 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 			"createTime":   t.CreateTime.String(),
 			"shopID":       t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
-			"status":       *t.Status,
+			"status":       IsNil(t.Status),
 		}
 		data[i] = tData
 	}
