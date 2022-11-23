@@ -26,7 +26,7 @@ func (op *SQLop) TicketCreate(ctx context.Context, ticketInput *model.TicketCrea
 }
 
 func (op *SQLop) TicketUpdateMulti(ctx context.Context, updateInput model.TicketUpdateInput) (*model.Ticket, error) {
-	_, err := op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
+	_, err := op.db.NewUpdate().Model(op.ticketModel).Where("id = ?", updateInput.ID).Exec(ctx)
 	if util.CheckErr(err) {
 		return nil, err
 	}

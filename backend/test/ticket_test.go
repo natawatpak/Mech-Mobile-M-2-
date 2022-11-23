@@ -151,5 +151,83 @@ func TestTicketCreate(t *testing.T) {
 	assert.Equal(t, ticketCreateInputTest[0].AcceptedTime, *respTicket.TicketCreate.AcceptedTime)
 	assert.Equal(t, ticketCreateInputTest[0].Status, *respTicket.TicketCreate.Status)
 
+	graph.CarDeleteAll(ctx, graphqlClient)
+	graph.CustomerDeleteAll(ctx, graphqlClient)
 	graph.ShopDeleteAll(ctx, graphqlClient)
+	graph.TicketDeleteAll(ctx, graphqlClient)
+}
+
+func TestTicketUpdate(t *testing.T) {
+	ctx := context.Background()
+
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+
+	respCus, err := graph.CustomerCreate(ctx, graphqlClient, &graph.CustomerCreateInput{
+		FName: customerCreateInputTest[0].FName,
+		LName: customerCreateInputTest[0].LName,
+		Tel:   customerCreateInputTest[0].Tel,
+		Email: customerCreateInputTest[0].Email,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	respCar, err := graph.CarCreate(ctx, graphqlClient, &graph.CarCreateInput{
+		OwnerID:   respCus.CustomerCreate.ID,
+		PlateNum:  carCreateInputTest[0].PlateNum,
+		PlateType: util.Ptr(carCreateInputTest[0].PlateType),
+		IssuedAt:  util.Ptr(carCreateInputTest[0].IssuedAt),
+		Color:     util.Ptr(carCreateInputTest[0].Color),
+		Type:      util.Ptr(carCreateInputTest[0].Type),
+		Brand:     carCreateInputTest[0].Brand,
+		Build:     util.Ptr(carCreateInputTest[0].Build),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	respShop, err := graph.ShopCreate(ctx, graphqlClient, &graph.ShopCreateInput{
+		Name:    shopCreateInputTest[0].Name,
+		Tel:     shopCreateInputTest[0].Tel,
+		Email:   shopCreateInputTest[0].Email,
+		Address: shopCreateInputTest[0].Address,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	respTicketCreate, err := graph.TicketCreate(ctx, graphqlClient, &graph.TicketCreateInput{
+		CustomerID:   respCus.CustomerCreate.ID,
+		CarID:        respCar.CarCreate.ID,
+		Problem:      ticketCreateInputTest[0].Problem,
+		CreateTime:   ticketCreateInputTest[0].CreateTime,
+		ShopID:       &respShop.ShopCreate.ID,
+		AcceptedTime: &ticketCreateInputTest[0].AcceptedTime,
+		Status:       &ticketCreateInputTest[0].Status,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	respTicketUpdate, err := graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
+		ID:           respTicketCreate.TicketCreate.ID,
+		CustomerID:   respCus.CustomerCreate.ID,
+		CarID:        respCar.CarCreate.ID,
+		Problem:      ticketCreateInputTest[1].Problem,
+		CreateTime:   ticketCreateInputTest[1].CreateTime,
+		ShopID:       &respShop.ShopCreate.ID,
+		AcceptedTime: &ticketCreateInputTest[1].AcceptedTime,
+		Status:       &ticketCreateInputTest[1].Status,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	assert.Equal(t, respCus.CustomerCreate.ID, respTicketUpdate.TicketUpdateMulti.CustomerID)
+	assert.Equal(t, respCar.CarCreate.ID, respTicketUpdate.TicketUpdateMulti.CarID)
+	assert.Equal(t, ticketCreateInputTest[1].Problem, respTicketUpdate.TicketUpdateMulti.Problem)
+	assert.Equal(t, ticketCreateInputTest[1].CreateTime, respTicketUpdate.TicketUpdateMulti.CreateTime)
+	assert.Equal(t, respShop.ShopCreate.ID, respTicketUpdate.TicketUpdateMulti.ShopID)
+	assert.Equal(t, ticketCreateInputTest[1].AcceptedTime, *respTicketUpdate.TicketUpdateMulti.AcceptedTime)
+	assert.Equal(t, ticketCreateInputTest[1].Status, *respTicketUpdate.TicketUpdateMulti.Status)
+
+	graph.CarDeleteAll(ctx, graphqlClient)
+	graph.CustomerDeleteAll(ctx, graphqlClient)
+	graph.ShopDeleteAll(ctx, graphqlClient)
+	graph.TicketDeleteAll(ctx, graphqlClient)
 }

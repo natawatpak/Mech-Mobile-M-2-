@@ -157,7 +157,7 @@ type Ticket struct {
 	CarID        string     `json:"carID" bun:",notnull"`
 	Problem      string     `json:"problem" bun:",notnull"`
 	CreateTime   time.Time  `json:"createTime" bun:",notnull"`
-	ShopID       *string    `json:"shopID" bun:",notnull"`
+	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
 }
