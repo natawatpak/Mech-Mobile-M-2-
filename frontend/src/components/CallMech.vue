@@ -1,4 +1,3 @@
-
 <template>
   <div class="pa-5">
     <div id="map"></div>
@@ -15,16 +14,20 @@
     </v-card>
     <v-spacer class="my-5"></v-spacer>
 
-    <v-card variant="tonal" class="text-left pa-4" @click="selectCarModal=true">
-      <v-card-title>Car detail</v-card-title>
-      <section>
-        <v-card-text>
-          Type {{car.type}}, Brand {{car.brand}}
-          <br />
-          License plate: {{car.plate}}
-        </v-card-text>
-      </section>
-    </v-card>
+    <v-card variant="tonal" class="text-left pa-4" >
+        <v-row class="pl-5">
+            <v-card-title>Car detail</v-card-title>
+            <v-spacer></v-spacer>
+            <v-btn class="mx-1" @click="selectCarModal=true">choose from preset</v-btn>
+        </v-row>    
+            <section>
+            <v-card-text>
+                Type {{car.type}}, Brand {{car.brand}}
+                <br />
+                License plate: {{car.plate}}
+            </v-card-text>
+            </section>
+      </v-card>
 
     <v-dialog v-model="selectCarModal">
       <v-card>
@@ -36,7 +39,7 @@
 
     <v-spacer class="my-5"></v-spacer>
     <v-card variant="tonal" class="text-left pa-4">
-      <v-card-title>Problem {{problem}}</v-card-title>
+      <v-card-title>Problems</v-card-title>
       <v-card-text class="d-flex">
         <v-list>
           <v-list-item class="pa-0 ma-0">
@@ -58,7 +61,8 @@
       </v-card-text>
     </v-card>
     <v-spacer class="my-5"></v-spacer>
-    <v-container class="pa-0 ma-0" fluid>
+    <v-card variant="tonal" class="text-left pa-4">
+      <v-card-title>Details</v-card-title>
       <v-textarea
         outlined
         name="description"
@@ -67,12 +71,15 @@
         label="Description"
         bg-color="white"
       ></v-textarea>
-    </v-container>
+    </v-card>
     <v-spacer class="my-5"></v-spacer>
-    <v-file-input counter v-model="files" multiple show-size truncate-length="20"></v-file-input>
+    <v-card variant="tonal" class="text-left pa-4">
+      <v-card-title>Upload files</v-card-title>
+      <v-file-input counter v-model="files" accept="multiple show-size truncate-length=20" outlined label="Click here to attached photo or video"></v-file-input>
+    </v-card>
     <v-spacer class="my-5"></v-spacer>
     <section class="text-center">
-      <router-link to="/loading" class="text-decoration-none"><v-btn variant="tonal" color="green">Find Service</v-btn></router-link>
+      <router-link to="/loading" @click="addTicket"><v-btn>Find Service</v-btn></router-link>
     </section>
   </div>
 </template>
@@ -85,13 +92,9 @@ export default {
       map: null,
       currentLocation: { lat: 0, lng: 0 },
       car: { id:"1", type: "SUV", brand: "MG", plate: "ก2113" },
-      cars: [
-        { id:"1", type: "SUV", brand: "MG", plate: "ก2113" },
-        { id:"2", type: "Sedan", brand: "MG", plate: "ก4113" },
-        { id:"3", type: "Van", brand: "MG", plate: "ก8113" }
-      ],
+      cars: [],
       selectCarModal: false,
-      problem: [],
+      problem: ["tyres", "flat"],
       description: undefined,
       files: []
     };
@@ -100,6 +103,12 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
+    sessionStorage.setItem("cusID", "409ca447-04ba-4c86-b01a-ddf55c89667b");
+    sessionStorage.setItem("fName", "phum");
+    sessionStorage.setItem("lName", "kitiphum");
+    sessionStorage.setItem("tel", "0123456789");
+    sessionStorage.setItem("email", "phum@gmail.com");
+    this.getCarList();
   },
   methods: {
     locatorButtonPressed() {
@@ -145,6 +154,32 @@ export default {
     selectCar(car){
       this.car = car
       this.selectCarModal = false
+    },
+    getCarList() {
+      const data = new URLSearchParams({
+        cusID: sessionStorage.getItem("cusID"),
+      });
+      console.log(sessionStorage.getItem("cusID"))
+      this.axios
+        .post("http://localhost:3000/customer/get-car-list", data)
+        .then((response) => {
+          console.log(response.data);
+          this.cars = response.data;
+        });
+    },
+    addTicket(){
+      const data = new URLSearchParams({
+        cusID: sessionStorage.getItem("cusID"),
+        carID: this.car.id,
+        problem: this.problem,
+        status: "Active"
+      });
+      this.axios
+        .post("http://localhost:3000/customer/add-ticket", data)
+        .then((response) => {
+          console.log(response.data);
+          sessionStorage.push("ticketID", response.data)
+        });
     }
   }
 };

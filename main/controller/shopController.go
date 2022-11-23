@@ -19,7 +19,7 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
-	resp, err := graph.ActiveTicketByStats(ctx, graphqlClient, "active")
+	resp, err := graph.ActiveTicketByStats(ctx, graphqlClient, "Active")
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -35,8 +35,8 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 			"cusID":    t.CustomerID,
 			"carID":    t.CarID,
 			"problem":  t.Problem,
-			"shopID":   *t.ShopID,
-			"status":   *t.Status,
+			"shopID":   IsNil(t.ShopID),
+			"status":   IsNil(t.Status),
 		}
 		data[i] = tData
 	}
@@ -73,8 +73,8 @@ func ShopGetOngoingTicketList(w http.ResponseWriter, r *http.Request) {
 			"cusID":    t.CustomerID,
 			"carID":    t.CarID,
 			"problem":  t.Problem,
-			"shopID":   *t.ShopID,
-			"status":   *t.Status,
+			"shopID":   IsNil(t.ShopID),
+			"status":   IsNil(t.Status),
 		}
 		data[i] = tData
 	}
@@ -116,8 +116,8 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 		"cusID":    resp.ActiveTicketUpdateMulti.CustomerID,
 		"carID":    resp.ActiveTicketUpdateMulti.CarID,
 		"problem":  resp.ActiveTicketUpdateMulti.Problem,
-		"shopID":   *resp.ActiveTicketUpdateMulti.ShopID,
-		"status":   *resp.ActiveTicketUpdateMulti.Status,
+		"shopID":   IsNil(resp.ActiveTicketUpdateMulti.ShopID),
+		"status":   IsNil(resp.ActiveTicketUpdateMulti.Status),
 	}
 
 	jsonData, err := json.Marshal(data)
@@ -157,8 +157,8 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 		"cusID":    resp.ActiveTicketUpdateMulti.CustomerID,
 		"carID":    resp.ActiveTicketUpdateMulti.CarID,
 		"problem":  resp.ActiveTicketUpdateMulti.Problem,
-		"shopID":   *resp.ActiveTicketUpdateMulti.ShopID,
-		"status":   *resp.ActiveTicketUpdateMulti.Status,
+		"shopID":   IsNil(resp.ActiveTicketUpdateMulti.ShopID),
+		"status":   IsNil(resp.ActiveTicketUpdateMulti.Status),
 	}
 
 	jsonData, err := json.Marshal(data)
@@ -233,7 +233,7 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 			"createTime":   t.CreateTime.String(),
 			"shopID":       t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
-			"status":       *t.Status,
+			"status":       IsNil(t.Status),
 		}
 		data[i] = tData
 	}
@@ -278,7 +278,7 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 			"createTime":   t.CreateTime.String(),
 			"shopID":       t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
-			"status":       *t.Status,
+			"status":       IsNil(t.Status),
 		}
 		data[i] = tData
 	}

@@ -29,7 +29,6 @@ func main() {
 	r.HandleFunc("/customer/get-car-list", controller.CustomerGetCarList)
 	r.HandleFunc("/customer/remove-car", controller.CustomerRemoveCar)
 	r.HandleFunc("/customer/add-ticket", controller.CustomerAddTicket)
-	r.HandleFunc("/customer/get-car-list", controller.CustomerGetCarList)
 	// r.HandleFunc("/customer/get-active-ticket", controller.CustomerGetActiveTicket)
 	r.HandleFunc("/customer/cancel-ticket", controller.CustomerCancelTicket)
 	r.HandleFunc("/customer/history", controller.CustomerGetHistory)

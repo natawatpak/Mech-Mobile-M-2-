@@ -22,6 +22,11 @@ const routes = [
     component: () => import('../views/CallMechView.vue')
   },
   {
+    path: '/callcar',
+    name: 'callcar',
+    component: () => import('../views/CallCarView.vue')
+  },
+  {
     path: '/loading',
     name: 'loading',
     component: LoadingView
