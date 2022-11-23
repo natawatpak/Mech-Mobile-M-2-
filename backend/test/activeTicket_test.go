@@ -40,10 +40,12 @@ func TestActiveTicketCreate(t *testing.T) {
 		log.Fatal(err)
 	}
 	respShop, err := graph.ShopCreate(ctx, graphqlClient, &graph.ShopCreateInput{
-		Name:    shopCreateInputTest[0].Name,
-		Tel:     shopCreateInputTest[0].Tel,
-		Email:   shopCreateInputTest[0].Email,
-		Address: shopCreateInputTest[0].Address,
+		Name:      shopCreateInputTest[0].Name,
+		Tel:       shopCreateInputTest[0].Tel,
+		Email:     shopCreateInputTest[0].Email,
+		Address:   shopCreateInputTest[0].Address,
+		Longitude: shopCreateInputTest[0].longitude,
+		Latitude:  shopCreateInputTest[0].latitude,
 	})
 	if err != nil {
 		log.Fatal(err)

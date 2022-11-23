@@ -1370,8 +1370,8 @@ type ticket {
   shopID: ID
   acceptedTime: Time
   status: String
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input ticketCreateInput {
@@ -1384,8 +1384,8 @@ input ticketCreateInput {
   shopID: ID
   acceptedTime: Time
   status: String
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input ticketUpdateInput {
@@ -1398,8 +1398,8 @@ input ticketUpdateInput {
   shopID: ID
   acceptedTime: Time
   status: String
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input ticketByCustomerInput {
@@ -1422,8 +1422,8 @@ type shop {
   tel: String!
   email: String!
   address: String!
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input shopCreateInput {
@@ -1432,8 +1432,8 @@ input shopCreateInput {
   tel: String!
   email: String!
   address: String!
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input shopUpdateInput {
@@ -1442,8 +1442,8 @@ input shopUpdateInput {
   tel: String!
   email: String!
   address: String!
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 type service {
@@ -8746,9 +8746,9 @@ func (ec *executionContext) _shop_longitude(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(float64)
 	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
+	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_shop_longitude(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8758,7 +8758,7 @@ func (ec *executionContext) fieldContext_shop_longitude(ctx context.Context, fie
 		IsMethod:   false,
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type String does not have child fields")
+			return nil, errors.New("field of type Float does not have child fields")
 		},
 	}
 	return fc, nil
@@ -8790,9 +8790,9 @@ func (ec *executionContext) _shop_latitude(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(float64)
 	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
+	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_shop_latitude(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8802,7 +8802,7 @@ func (ec *executionContext) fieldContext_shop_latitude(ctx context.Context, fiel
 		IsMethod:   false,
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type String does not have child fields")
+			return nil, errors.New("field of type Float does not have child fields")
 		},
 	}
 	return fc, nil
@@ -9306,9 +9306,9 @@ func (ec *executionContext) _ticket_longitude(ctx context.Context, field graphql
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(float64)
 	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
+	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ticket_longitude(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9318,7 +9318,7 @@ func (ec *executionContext) fieldContext_ticket_longitude(ctx context.Context, f
 		IsMethod:   false,
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type String does not have child fields")
+			return nil, errors.New("field of type Float does not have child fields")
 		},
 	}
 	return fc, nil
@@ -9350,9 +9350,9 @@ func (ec *executionContext) _ticket_latitude(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(float64)
 	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
+	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ticket_latitude(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9362,7 +9362,7 @@ func (ec *executionContext) fieldContext_ticket_latitude(ctx context.Context, fi
 		IsMethod:   false,
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type String does not have child fields")
+			return nil, errors.New("field of type Float does not have child fields")
 		},
 	}
 	return fc, nil
@@ -10058,7 +10058,7 @@ func (ec *executionContext) unmarshalInputshopCreateInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("longitude"))
-			it.Longitude, err = ec.unmarshalNString2string(ctx, v)
+			it.Longitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10066,7 +10066,7 @@ func (ec *executionContext) unmarshalInputshopCreateInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("latitude"))
-			it.Latitude, err = ec.unmarshalNString2string(ctx, v)
+			it.Latitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10206,7 +10206,7 @@ func (ec *executionContext) unmarshalInputshopUpdateInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("longitude"))
-			it.Longitude, err = ec.unmarshalNString2string(ctx, v)
+			it.Longitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10214,7 +10214,7 @@ func (ec *executionContext) unmarshalInputshopUpdateInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("latitude"))
-			it.Latitude, err = ec.unmarshalNString2string(ctx, v)
+			it.Latitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10418,7 +10418,7 @@ func (ec *executionContext) unmarshalInputticketCreateInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("longitude"))
-			it.Longitude, err = ec.unmarshalNString2string(ctx, v)
+			it.Longitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10426,7 +10426,7 @@ func (ec *executionContext) unmarshalInputticketCreateInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("latitude"))
-			it.Latitude, err = ec.unmarshalNString2string(ctx, v)
+			it.Latitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10562,7 +10562,7 @@ func (ec *executionContext) unmarshalInputticketUpdateInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("longitude"))
-			it.Longitude, err = ec.unmarshalNString2string(ctx, v)
+			it.Longitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10570,7 +10570,7 @@ func (ec *executionContext) unmarshalInputticketUpdateInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("latitude"))
-			it.Latitude, err = ec.unmarshalNString2string(ctx, v)
+			it.Latitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -12206,6 +12206,21 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 func (ec *executionContext) unmarshalNDeleteIDInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐDeleteIDInput(ctx context.Context, v interface{}) (model.DeleteIDInput, error) {
 	res, err := ec.unmarshalInputDeleteIDInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNFloat2float64(ctx context.Context, v interface{}) (float64, error) {
+	res, err := graphql.UnmarshalFloatContext(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNFloat2float64(ctx context.Context, sel ast.SelectionSet, v float64) graphql.Marshaler {
+	res := graphql.MarshalFloatContext(v)
+	if res == graphql.Null {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+	}
+	return graphql.WrapContextMarshaler(ctx, res)
 }
 
 func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {

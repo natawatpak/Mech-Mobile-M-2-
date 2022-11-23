@@ -118,8 +118,8 @@ type Shop struct {
 	Tel     string `json:"tel" bun:",notnull,unique"`
 	Email   string `json:"email" bun:",notnull,unique"`
 	Address string `json:"address" bun:",notnull"`
-	Longitude string `json:"longitude" bun:",notnull"`
-	Latitude  string `json:"latitude" bun:",notnull"`
+	Longitude float64 `json:"longitude" bun:",notnull"`
+	Latitude  float64 `json:"latitude" bun:",notnull"`
 }
 
 type ShopCreateInput struct {
@@ -128,8 +128,8 @@ type ShopCreateInput struct {
 	Tel       string  `json:"tel"`
 	Email     string  `json:"email"`
 	Address   string  `json:"address"`
-	Longitude string  `json:"longitude"`
-	Latitude  string  `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+	Latitude  float64 `json:"latitude"`
 }
 
 type ShopService struct {
@@ -148,13 +148,13 @@ type ShopServiceDeleteInput struct {
 }
 
 type ShopUpdateInput struct {
-	ID        string `json:"ID"`
-	Name      string `json:"name"`
-	Tel       string `json:"tel"`
-	Email     string `json:"email"`
-	Address   string `json:"address"`
-	Longitude string `json:"longitude"`
-	Latitude  string `json:"latitude"`
+	ID        string  `json:"ID"`
+	Name      string  `json:"name"`
+	Tel       string  `json:"tel"`
+	Email     string  `json:"email"`
+	Address   string  `json:"address"`
+	Longitude float64 `json:"longitude"`
+	Latitude  float64 `json:"latitude"`
 }
 
 type Ticket struct {
@@ -167,8 +167,8 @@ type Ticket struct {
 	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
-	Longitude    string     `json:"longitude" bun:",notnull"`
-	Latitude     string     `json:"latitude" bun:",notnull"`
+	Longitude    float64    `json:"longitude" bun:",notnull"`
+	Latitude     float64    `json:"latitude" bun:",notnull"`
 }
 
 type TicketByCustomerInput struct {
@@ -195,8 +195,8 @@ type TicketCreateInput struct {
 	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
-	Longitude    string     `json:"longitude"`
-	Latitude     string     `json:"latitude"`
+	Longitude    float64    `json:"longitude"`
+	Latitude     float64    `json:"latitude"`
 }
 
 type TicketService struct {
@@ -219,6 +219,6 @@ type TicketUpdateInput struct {
 	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
-	Longitude    string     `json:"longitude"`
-	Latitude     string     `json:"latitude"`
+	Longitude    float64    `json:"longitude"`
+	Latitude     float64    `json:"latitude"`
 }

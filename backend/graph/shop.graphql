@@ -40,4 +40,6 @@ fragment shopFragment on shop {
   tel
   email
   address
+  longitude
+  latitude
 }

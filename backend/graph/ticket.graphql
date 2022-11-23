@@ -51,8 +51,11 @@ fragment ticketFragment on ticket {
   customerID
   carID
   problem
+  description
   createTime
   shopID
   acceptedTime
   status
+  longitude
+  latitude
 }
