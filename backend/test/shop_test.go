@@ -16,8 +16,8 @@ type shopCreateInput struct {
 	Tel       string
 	Email     string
 	Address   string
-	longitude string
-	latitude  string
+	longitude float64
+	latitude  float64
 }
 
 var shopCreateInputTest = []shopCreateInput{
@@ -26,16 +26,16 @@ var shopCreateInputTest = []shopCreateInput{
 		Tel:       "098-278-9331",
 		Email:     "Chic@gmail.com",
 		Address:   "second street",
-		longitude: "1000",
-		latitude:  "1000",
+		longitude: 1000.8,
+		latitude:  1000.6,
 	},
 	{
 		Name:      "chicken's auto",
 		Tel:       "123456789",
 		Email:     "Chicken@gmail.com",
 		Address:   "3/4 street",
-		longitude: "1500",
-		latitude:  "1500",
+		longitude: 1500.5,
+		latitude:  1500.4,
 	},
 }
 

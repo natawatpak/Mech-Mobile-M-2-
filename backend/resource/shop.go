@@ -12,11 +12,13 @@ import (
 func (op *SQLop) ShopCreate(ctx context.Context, shopInput *model.ShopCreateInput) (*model.Shop, error) {
 	newID := uuid.New().String()
 	shopToBeAdd := model.Shop{
-		ID:      newID,
-		Name:    shopInput.Name,
-		Tel:     shopInput.Tel,
-		Email:   shopInput.Email,
-		Address: shopInput.Address,
+		ID:        newID,
+		Name:      shopInput.Name,
+		Tel:       shopInput.Tel,
+		Email:     shopInput.Email,
+		Address:   shopInput.Address,
+		Longitude: shopInput.Longitude,
+		Latitude:  shopInput.Latitude,
 	}
 	_, err := op.db.NewInsert().Model(&shopToBeAdd).Exec(ctx)
 	return &shopToBeAdd, err

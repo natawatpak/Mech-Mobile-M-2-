@@ -20,6 +20,8 @@ func (op *SQLop) TicketCreate(ctx context.Context, ticketInput *model.TicketCrea
 		ShopID:       ticketInput.ShopID,
 		AcceptedTime: ticketInput.AcceptedTime,
 		Status:       ticketInput.Status,
+		Longitude:    ticketInput.Longitude,
+		Latitude:     ticketInput.Latitude,
 	}
 	_, err := op.db.NewInsert().Model(&ticketToBeAdd).Exec(ctx)
 	return &ticketToBeAdd, err
