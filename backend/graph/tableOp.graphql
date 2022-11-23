@@ -1,0 +1,7 @@
+mutation CreateTable {
+  createTable()
+}
+
+mutation DropTable {
+  dropTable()
+}

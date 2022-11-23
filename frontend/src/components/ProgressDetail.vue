@@ -9,8 +9,8 @@
       <section class="d-flex justify-left align-center">
         <v-icon icon="mdi-store"></v-icon>
         <section>
-          <v-card-title>{{shop.name}}</v-card-title>
-          <v-card-text>{{shop.address}}, {{shop.ratings}}</v-card-text>
+          <v-card-title>{{shop.shopName}}</v-card-title>
+          <v-card-text>{{shop.shopAddress}}, {{shop.ratings}}</v-card-text>
         </section>
       </section>
       <v-icon icon="mdi-phone" class="px-8"></v-icon>

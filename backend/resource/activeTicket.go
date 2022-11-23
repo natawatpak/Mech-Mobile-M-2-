@@ -3,16 +3,14 @@ package resource
 import (
 	"context"
 
-	"github.com/google/uuid"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph/model"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
 // ActiveTicket
 func (op *SQLop) ActiveTicketCreate(ctx context.Context, activeTicketInput *model.ActiveTicketCreateInput) (*model.ActiveTicket, error) {
-	newID := uuid.New().String()
 	activeTicketToBeAdd := model.ActiveTicket{
-		ID:         newID,
+		ID:         activeTicketInput.ID,
 		CarID:      activeTicketInput.CarID,
 		CustomerID: activeTicketInput.CustomerID,
 		Problem:    activeTicketInput.Problem,
@@ -41,8 +39,8 @@ func (op *SQLop) ActiveTicketDelete(ctx context.Context, ID string) (*model.Acti
 	return resultActiveTicket, err
 }
 
-func (op *SQLop) ActiveTicketDeleteActive(ctx context.Context) ([]*model.ActiveTicket, error) {
-	activeTicketArr, err := op.ActiveTicketList(ctx)
+func (op *SQLop) ActiveTicketDeleteByStatus(ctx context.Context, input string) ([]*model.ActiveTicket, error) {
+	activeTicketArr, err := op.ActiveTicketFindByStatus(ctx, input)
 	PrintIfErrorExist(err)
 	for _, v := range activeTicketArr {
 		_, err := op.ActiveTicketDelete(ctx, v.ID)

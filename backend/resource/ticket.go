@@ -20,12 +20,14 @@ func (op *SQLop) TicketCreate(ctx context.Context, ticketInput *model.TicketCrea
 		ShopID:       ticketInput.ShopID,
 		AcceptedTime: ticketInput.AcceptedTime,
 		Status:       ticketInput.Status,
+		Longitude:    ticketInput.Longitude,
+		Latitude:     ticketInput.Latitude,
 	}
 	_, err := op.db.NewInsert().Model(&ticketToBeAdd).Exec(ctx)
 	return &ticketToBeAdd, err
 }
 
-func (op *SQLop) TicketUpdateMulti(ctx context.Context, updateInput model.TicketUpdateInput) (*model.Ticket, error) {
+func (op *SQLop) TicketUpdateMulti(ctx context.Context, updateInput model.Ticket) (*model.Ticket, error) {
 	_, err := op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
 	if util.CheckErr(err) {
 		return nil, err

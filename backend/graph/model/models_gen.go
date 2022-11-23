@@ -20,7 +20,7 @@ type ActiveTicket struct {
 }
 
 type ActiveTicketCreateInput struct {
-	ID         *string `json:"ID"`
+	ID         string  `json:"ID"`
 	CarID      string  `json:"carID"`
 	CustomerID string  `json:"customerID"`
 	Problem    string  `json:"problem"`
@@ -118,14 +118,18 @@ type Shop struct {
 	Tel     string `json:"tel" bun:",notnull,unique"`
 	Email   string `json:"email" bun:",notnull,unique"`
 	Address string `json:"address" bun:",notnull"`
+	Longitude float64 `json:"longitude" bun:",notnull"`
+	Latitude  float64 `json:"latitude" bun:",notnull"`
 }
 
 type ShopCreateInput struct {
-	ID      *string `json:"ID"`
-	Name    string  `json:"name"`
-	Tel     string  `json:"tel"`
-	Email   string  `json:"email"`
-	Address string  `json:"address"`
+	ID        *string `json:"ID"`
+	Name      string  `json:"name"`
+	Tel       string  `json:"tel"`
+	Email     string  `json:"email"`
+	Address   string  `json:"address"`
+	Longitude float64 `json:"longitude"`
+	Latitude  float64 `json:"latitude"`
 }
 
 type ShopService struct {
@@ -144,11 +148,13 @@ type ShopServiceDeleteInput struct {
 }
 
 type ShopUpdateInput struct {
-	ID      string `json:"ID"`
-	Name    string `json:"name"`
-	Tel     string `json:"tel"`
-	Email   string `json:"email"`
-	Address string `json:"address"`
+	ID        string  `json:"ID"`
+	Name      string  `json:"name"`
+	Tel       string  `json:"tel"`
+	Email     string  `json:"email"`
+	Address   string  `json:"address"`
+	Longitude float64 `json:"longitude"`
+	Latitude  float64 `json:"latitude"`
 }
 
 type Ticket struct {
@@ -156,10 +162,13 @@ type Ticket struct {
 	CustomerID   string     `json:"customerID" bun:",notnull"`
 	CarID        string     `json:"carID" bun:",notnull"`
 	Problem      string     `json:"problem" bun:",notnull"`
+	Description  *string    `json:"description"`
 	CreateTime   time.Time  `json:"createTime" bun:",notnull"`
-	ShopID       string     `json:"shopID" bun:",notnull"`
+	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
+	Longitude    float64    `json:"longitude" bun:",notnull"`
+	Latitude     float64    `json:"latitude" bun:",notnull"`
 }
 
 type TicketByCustomerInput struct {
@@ -181,10 +190,13 @@ type TicketCreateInput struct {
 	CustomerID   string     `json:"customerID"`
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
+	Description  *string    `json:"description"`
 	CreateTime   time.Time  `json:"createTime"`
-	ShopID       string     `json:"shopID"`
+	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
+	Longitude    float64    `json:"longitude"`
+	Latitude     float64    `json:"latitude"`
 }
 
 type TicketService struct {
@@ -202,8 +214,11 @@ type TicketUpdateInput struct {
 	CustomerID   string     `json:"customerID"`
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
+	Description  *string    `json:"description"`
 	CreateTime   time.Time  `json:"createTime"`
-	ShopID       string     `json:"shopID"`
+	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
+	Longitude    float64    `json:"longitude"`
+	Latitude     float64    `json:"latitude"`
 }

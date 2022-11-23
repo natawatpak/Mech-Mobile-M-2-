@@ -23,6 +23,20 @@ func AddHeader(w http.ResponseWriter) http.ResponseWriter {
 	return w
 }
 
+func IsNil(strpt *string) string {
+	if strpt == nil {
+		return ""
+	}
+	return *strpt
+}
+
+func IsNilTime(strpt *time.Time) string {
+	if strpt == nil {
+		return ""
+	}
+	return strpt.String()
+}
+
 func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Fatal(err)
@@ -146,17 +160,17 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
-	fmt.Println(resp.CarByOwner)
+
 	data := make(map[int]map[string]string)
 	for i, car := range resp.CarByOwner {
 		carData := map[string]string{
 			"id":       car.ID,
 			"plate":    car.PlateNum,
-			"issuedAt": *car.IssuedAt,
-			"color":    *car.Color,
-			"type":     *car.Type,
+			"issuedAt": IsNil(car.IssuedAt),
+			"color":    IsNil(car.Color),
+			"type":     IsNil(car.Type),
 			"brand":    car.Brand,
-			"build":    *car.Build,
+			"build":    IsNil(car.Build),
 		}
 		data[i] = carData
 	}
@@ -217,7 +231,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		CarID:        r.FormValue("carID"),
 		Problem:      r.FormValue("problem"),
 		CreateTime:   time.Now(),
-		ShopID:       "no shopID", // need to be optional
+		ShopID:       nil,
 		AcceptedTime: nil,
 		Status:       util.Ptr(r.FormValue("status")),
 	})
@@ -240,6 +254,40 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	AddHeader(w).Write(jsonData)
+}
+
+func CustomerGetTicket(w http.ResponseWriter, r *http.Request){
+	r.ParseForm()
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	fmt.Println(r.FormValue("ticketID"))
+	resp, err := graph.TicketByID(ctx, graphqlClient, r.FormValue("ticketID"))
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	data := map[string]string{
+		"cusID": resp.TicketByID.CustomerID,
+		"carID": resp.TicketByID.CarID,
+		"shopID": IsNil(resp.TicketByID.ShopID),
+		"problem": resp.TicketByID.Problem,
+		"createTime": resp.TicketByID.CreateTime.String(),
+		"acceptedTime": IsNilTime(resp.TicketByID.AcceptedTime),
+		"status": IsNil(resp.TicketByID.Status),
+	}
+
+
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
 	AddHeader(w).Write(jsonData)
 }
 
@@ -329,9 +377,9 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 			"carID":        t.CarID,
 			"problem":      t.Problem,
 			"createTime":   t.CreateTime.String(),
-			"shopID":       t.ShopID,
+			"shopID":       *t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
-			"status":       *t.Status,
+			"status":       IsNil(t.Status),
 		}
 		data[i] = tData
 	}
