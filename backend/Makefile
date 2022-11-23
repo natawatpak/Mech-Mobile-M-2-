@@ -39,3 +39,6 @@ deploywindows:
 
 client:
 	genqlient graph/genqlient.yaml
+
+t:
+	go test -v ./test/...
