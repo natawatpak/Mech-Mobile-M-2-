@@ -147,7 +147,7 @@ func TestTicketCreate(t *testing.T) {
 	assert.Equal(t, respCar.CarCreate.ID, respTicket.TicketCreate.CarID)
 	assert.Equal(t, ticketCreateInputTest[0].Problem, respTicket.TicketCreate.Problem)
 	assert.Equal(t, ticketCreateInputTest[0].CreateTime, respTicket.TicketCreate.CreateTime)
-	assert.Equal(t, respShop.ShopCreate.ID, respTicket.TicketCreate.ShopID)
+	assert.Equal(t, respShop.ShopCreate.ID, *respTicket.TicketCreate.ShopID)
 	assert.Equal(t, ticketCreateInputTest[0].AcceptedTime, *respTicket.TicketCreate.AcceptedTime)
 	assert.Equal(t, ticketCreateInputTest[0].Status, *respTicket.TicketCreate.Status)
 
