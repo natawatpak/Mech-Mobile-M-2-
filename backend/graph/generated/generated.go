@@ -1326,7 +1326,7 @@ type ticket {
   carID: ID!
   problem: String!
   createTime: Time!
-  shopID: ID!
+  shopID: ID
   acceptedTime: Time
   status: String
 }
@@ -1337,7 +1337,7 @@ input ticketCreateInput {
   carID: ID!
   problem: String!
   createTime: Time!
-  shopID: ID!
+  shopID: ID
   acceptedTime: Time
   status: String
 }
@@ -1348,7 +1348,7 @@ input ticketUpdateInput {
   carID: ID!
   problem: String!
   createTime: Time!
-  shopID: ID!
+  shopID: ID
   acceptedTime: Time
   status: String
 }
@@ -8922,14 +8922,11 @@ func (ec *executionContext) _ticket_shopID(ctx context.Context, field graphql.Co
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalNID2string(ctx, field.Selections, res)
+	return ec.marshalOID2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ticket_shopID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10013,7 +10010,7 @@ func (ec *executionContext) unmarshalInputticketCreateInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("shopID"))
-			it.ShopID, err = ec.unmarshalNID2string(ctx, v)
+			it.ShopID, err = ec.unmarshalOID2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10133,7 +10130,7 @@ func (ec *executionContext) unmarshalInputticketUpdateInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("shopID"))
-			it.ShopID, err = ec.unmarshalNID2string(ctx, v)
+			it.ShopID, err = ec.unmarshalOID2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -11677,9 +11674,6 @@ func (ec *executionContext) _ticket(ctx context.Context, sel ast.SelectionSet, o
 
 			out.Values[i] = ec._ticket_shopID(ctx, field, obj)
 
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "acceptedTime":
 
 			out.Values[i] = ec._ticket_acceptedTime(ctx, field, obj)

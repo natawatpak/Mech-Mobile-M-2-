@@ -136,7 +136,7 @@ func TestTicketCreate(t *testing.T) {
 		CarID:        respCar.CarCreate.ID,
 		Problem:      ticketCreateInputTest[0].Problem,
 		CreateTime:   ticketCreateInputTest[0].CreateTime,
-		ShopID:       respShop.ShopCreate.ID,
+		ShopID:       &respShop.ShopCreate.ID,
 		AcceptedTime: &ticketCreateInputTest[0].AcceptedTime,
 		Status:       &ticketCreateInputTest[0].Status,
 	})

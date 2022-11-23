@@ -3943,7 +3943,7 @@ func (v *TicketByCustomerTicketByCustomerTicket) GetCreateTime() time.Time {
 }
 
 // GetShopID returns TicketByCustomerTicketByCustomerTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketByCustomerTicketByCustomerTicket) GetShopID() string { return v.ticketFragment.ShopID }
+func (v *TicketByCustomerTicketByCustomerTicket) GetShopID() *string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketByCustomerTicketByCustomerTicket.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketByCustomerTicketByCustomerTicket) GetAcceptedTime() *time.Time {
@@ -3989,7 +3989,7 @@ type __premarshalTicketByCustomerTicketByCustomerTicket struct {
 
 	CreateTime time.Time `json:"createTime"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
 	AcceptedTime *time.Time `json:"acceptedTime"`
 
@@ -4047,7 +4047,7 @@ func (v *TicketByIDTicketByIDTicket) GetProblem() string { return v.ticketFragme
 func (v *TicketByIDTicketByIDTicket) GetCreateTime() time.Time { return v.ticketFragment.CreateTime }
 
 // GetShopID returns TicketByIDTicketByIDTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketByIDTicketByIDTicket) GetShopID() string { return v.ticketFragment.ShopID }
+func (v *TicketByIDTicketByIDTicket) GetShopID() *string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketByIDTicketByIDTicket.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketByIDTicketByIDTicket) GetAcceptedTime() *time.Time {
@@ -4093,7 +4093,7 @@ type __premarshalTicketByIDTicketByIDTicket struct {
 
 	CreateTime time.Time `json:"createTime"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
 	AcceptedTime *time.Time `json:"acceptedTime"`
 
@@ -4174,7 +4174,7 @@ func (v *TicketByShopTicketByShopTicket) GetCreateTime() time.Time {
 }
 
 // GetShopID returns TicketByShopTicketByShopTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketByShopTicketByShopTicket) GetShopID() string { return v.ticketFragment.ShopID }
+func (v *TicketByShopTicketByShopTicket) GetShopID() *string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketByShopTicketByShopTicket.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketByShopTicketByShopTicket) GetAcceptedTime() *time.Time {
@@ -4220,7 +4220,7 @@ type __premarshalTicketByShopTicketByShopTicket struct {
 
 	CreateTime time.Time `json:"createTime"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
 	AcceptedTime *time.Time `json:"acceptedTime"`
 
@@ -4255,7 +4255,7 @@ type TicketCreateInput struct {
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
 	CreateTime   time.Time  `json:"createTime"`
-	ShopID       string     `json:"shopID"`
+	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
 }
@@ -4276,7 +4276,7 @@ func (v *TicketCreateInput) GetProblem() string { return v.Problem }
 func (v *TicketCreateInput) GetCreateTime() time.Time { return v.CreateTime }
 
 // GetShopID returns TicketCreateInput.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketCreateInput) GetShopID() string { return v.ShopID }
+func (v *TicketCreateInput) GetShopID() *string { return v.ShopID }
 
 // GetAcceptedTime returns TicketCreateInput.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketCreateInput) GetAcceptedTime() *time.Time { return v.AcceptedTime }
@@ -4317,7 +4317,7 @@ func (v *TicketCreateTicketCreateTicket) GetCreateTime() time.Time {
 }
 
 // GetShopID returns TicketCreateTicketCreateTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketCreateTicketCreateTicket) GetShopID() string { return v.ticketFragment.ShopID }
+func (v *TicketCreateTicketCreateTicket) GetShopID() *string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketCreateTicketCreateTicket.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketCreateTicketCreateTicket) GetAcceptedTime() *time.Time {
@@ -4363,7 +4363,7 @@ type __premarshalTicketCreateTicketCreateTicket struct {
 
 	CreateTime time.Time `json:"createTime"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
 	AcceptedTime *time.Time `json:"acceptedTime"`
 
@@ -4427,7 +4427,7 @@ func (v *TicketDeleteAllTicketDeleteAllTicket) GetCreateTime() time.Time {
 }
 
 // GetShopID returns TicketDeleteAllTicketDeleteAllTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketDeleteAllTicketDeleteAllTicket) GetShopID() string { return v.ticketFragment.ShopID }
+func (v *TicketDeleteAllTicketDeleteAllTicket) GetShopID() *string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketDeleteAllTicketDeleteAllTicket.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketDeleteAllTicketDeleteAllTicket) GetAcceptedTime() *time.Time {
@@ -4473,7 +4473,7 @@ type __premarshalTicketDeleteAllTicketDeleteAllTicket struct {
 
 	CreateTime time.Time `json:"createTime"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
 	AcceptedTime *time.Time `json:"acceptedTime"`
 
@@ -4535,7 +4535,7 @@ func (v *TicketDeleteTicketDeleteTicket) GetCreateTime() time.Time {
 }
 
 // GetShopID returns TicketDeleteTicketDeleteTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketDeleteTicketDeleteTicket) GetShopID() string { return v.ticketFragment.ShopID }
+func (v *TicketDeleteTicketDeleteTicket) GetShopID() *string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketDeleteTicketDeleteTicket.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketDeleteTicketDeleteTicket) GetAcceptedTime() *time.Time {
@@ -4581,7 +4581,7 @@ type __premarshalTicketDeleteTicketDeleteTicket struct {
 
 	CreateTime time.Time `json:"createTime"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
 	AcceptedTime *time.Time `json:"acceptedTime"`
 
@@ -4987,7 +4987,7 @@ type TicketUpdateInput struct {
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
 	CreateTime   time.Time  `json:"createTime"`
-	ShopID       string     `json:"shopID"`
+	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
 }
@@ -5008,7 +5008,7 @@ func (v *TicketUpdateInput) GetProblem() string { return v.Problem }
 func (v *TicketUpdateInput) GetCreateTime() time.Time { return v.CreateTime }
 
 // GetShopID returns TicketUpdateInput.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketUpdateInput) GetShopID() string { return v.ShopID }
+func (v *TicketUpdateInput) GetShopID() *string { return v.ShopID }
 
 // GetAcceptedTime returns TicketUpdateInput.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketUpdateInput) GetAcceptedTime() *time.Time { return v.AcceptedTime }
@@ -5053,7 +5053,9 @@ func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetCreateTime() time.Time {
 }
 
 // GetShopID returns TicketUpdateMultiTicketUpdateMultiTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetShopID() string { return v.ticketFragment.ShopID }
+func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetShopID() *string {
+	return v.ticketFragment.ShopID
+}
 
 // GetAcceptedTime returns TicketUpdateMultiTicketUpdateMultiTicket.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketUpdateMultiTicketUpdateMultiTicket) GetAcceptedTime() *time.Time {
@@ -5101,7 +5103,7 @@ type __premarshalTicketUpdateMultiTicketUpdateMultiTicket struct {
 
 	CreateTime time.Time `json:"createTime"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
 	AcceptedTime *time.Time `json:"acceptedTime"`
 
@@ -5159,7 +5161,7 @@ func (v *TicketsTicketsTicket) GetProblem() string { return v.ticketFragment.Pro
 func (v *TicketsTicketsTicket) GetCreateTime() time.Time { return v.ticketFragment.CreateTime }
 
 // GetShopID returns TicketsTicketsTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *TicketsTicketsTicket) GetShopID() string { return v.ticketFragment.ShopID }
+func (v *TicketsTicketsTicket) GetShopID() *string { return v.ticketFragment.ShopID }
 
 // GetAcceptedTime returns TicketsTicketsTicket.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *TicketsTicketsTicket) GetAcceptedTime() *time.Time { return v.ticketFragment.AcceptedTime }
@@ -5203,7 +5205,7 @@ type __premarshalTicketsTicketsTicket struct {
 
 	CreateTime time.Time `json:"createTime"`
 
-	ShopID string `json:"shopID"`
+	ShopID *string `json:"shopID"`
 
 	AcceptedTime *time.Time `json:"acceptedTime"`
 
@@ -5691,7 +5693,7 @@ type ticketFragment struct {
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
 	CreateTime   time.Time  `json:"createTime"`
-	ShopID       string     `json:"shopID"`
+	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
 }
@@ -5712,7 +5714,7 @@ func (v *ticketFragment) GetProblem() string { return v.Problem }
 func (v *ticketFragment) GetCreateTime() time.Time { return v.CreateTime }
 
 // GetShopID returns ticketFragment.ShopID, and is useful for accessing the field via an interface.
-func (v *ticketFragment) GetShopID() string { return v.ShopID }
+func (v *ticketFragment) GetShopID() *string { return v.ShopID }
 
 // GetAcceptedTime returns ticketFragment.AcceptedTime, and is useful for accessing the field via an interface.
 func (v *ticketFragment) GetAcceptedTime() *time.Time { return v.AcceptedTime }

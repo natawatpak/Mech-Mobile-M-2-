@@ -231,7 +231,7 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 			"carID":        t.CarID,
 			"problem":      t.Problem,
 			"createTime":   t.CreateTime.String(),
-			"shopID":       t.ShopID,
+			"shopID":       *t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
 			"status":       IsNil(t.Status),
 		}
@@ -276,7 +276,7 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 			"carID":        t.CarID,
 			"problem":      t.Problem,
 			"createTime":   t.CreateTime.String(),
-			"shopID":       t.ShopID,
+			"shopID":       *t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
 			"status":       IsNil(t.Status),
 		}
