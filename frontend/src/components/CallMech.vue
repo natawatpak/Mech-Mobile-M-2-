@@ -94,7 +94,7 @@ export default {
       car: { id:"1", type: "SUV", brand: "MG", plate: "ก2113" },
       cars: [],
       selectCarModal: false,
-      problem: ["tyres", "flat"],
+      problem: [],
       description: undefined,
       files: []
     };
@@ -103,7 +103,7 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
-    sessionStorage.setItem("cusID", "409ca447-04ba-4c86-b01a-ddf55c89667b");
+    sessionStorage.setItem("cusID", "c57a987c-0c23-43fb-a131-c73f1e37d2fe");
     sessionStorage.setItem("fName", "phum");
     sessionStorage.setItem("lName", "kitiphum");
     sessionStorage.setItem("tel", "0123456789");
@@ -178,7 +178,7 @@ export default {
         .post("http://localhost:3000/customer/add-ticket", data)
         .then((response) => {
           console.log(response.data);
-          sessionStorage.push("ticketID", response.data)
+          sessionStorage.setItem("ticketID", response.data.ticketID)
         });
     }
   }

@@ -19,6 +19,8 @@ export default {
       carID: undefined,
       shopID: undefined,
       status: undefined,
+      createdTime: undefined,
+      acceptedTime: undefined,
       shop: {
         shopID: undefined,
         shopName: "A",
@@ -37,39 +39,39 @@ export default {
     ProgressDetail
   },
   mounted () {
-    sessionStorage.put("ticketID", "1")
-
     this.ticketID = sessionStorage.getItem("ticketID")
+    console.log(this.ticketID)
     this.cusID = sessionStorage.getItem("cusID")
 
-    // this.getActiveTicket()
+    this.getTicket()
   },
   methods: {
-    getActiveTicket(){
+    getTicket(){
       const data = new URLSearchParams({
-        cusID: sessionStorage.getItem("cusID"),
+        ticketID: this.ticketID,
       });
-      console.log(sessionStorage.getItem("cusID"))
       this.axios
-        .post("http://localhost:3000/customer/get-active-ticket", data)
+        .post("http://localhost:3000/customer/get-ticket", data)
         .then((response) => {
           console.log(response.data);
           this.carID = response.data.carID;
           this.shopID = response.data.shopID;
           this.status = response.data.status;
+          this.problems = response.data.problem;
+          this.createdTime = response.data.createdTime;
+          this.acceptedTime = response.data.acceptedTime;
         });
     },
     getShopProfile(){
       const data = new URLSearchParams({
         shopID: this.shopID,
       });
-      console.log(sessionStorage.getItem("cusID"))
       this.axios
         .post("http://localhost:3000/customer/get-shop-profile", data)
         .then((response) => {
           this.shop = response.data;
         });
-    }
+    },
   }
 };
 </script>
