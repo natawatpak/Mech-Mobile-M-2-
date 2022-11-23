@@ -154,8 +154,8 @@ type ticket {
   shopID: ID
   acceptedTime: Time
   status: String
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input ticketCreateInput {
@@ -168,8 +168,8 @@ input ticketCreateInput {
   shopID: ID
   acceptedTime: Time
   status: String
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input ticketUpdateInput {
@@ -182,8 +182,8 @@ input ticketUpdateInput {
   shopID: ID
   acceptedTime: Time
   status: String
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input ticketByCustomerInput {
@@ -206,8 +206,8 @@ type shop {
   tel: String!
   email: String!
   address: String!
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input shopCreateInput {
@@ -216,8 +216,8 @@ input shopCreateInput {
   tel: String!
   email: String!
   address: String!
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 input shopUpdateInput {
@@ -226,8 +226,8 @@ input shopUpdateInput {
   tel: String!
   email: String!
   address: String!
-  longitude: String!
-  latitude: String!
+  longitude: Float!
+  latitude: Float!
 }
 
 type service {
