@@ -7,7 +7,6 @@ require (
 	github.com/Khan/genqlient v0.5.0
 	github.com/aws/aws-lambda-go v1.19.1
 	github.com/awslabs/aws-lambda-go-api-proxy v0.13.3
-	github.com/go-chi/chi v1.5.4
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/mux v1.7.4
 	github.com/lib/pq v1.10.7

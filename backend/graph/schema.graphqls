@@ -150,7 +150,7 @@ type ticket {
   carID: ID!
   problem: String!
   createTime: Time!
-  shopID: ID!
+  shopID: ID
   acceptedTime: Time
   status: String
 }
@@ -161,7 +161,7 @@ input ticketCreateInput {
   carID: ID!
   problem: String!
   createTime: Time!
-  shopID: ID!
+  shopID: ID
   acceptedTime: Time
   status: String
 }
@@ -172,7 +172,7 @@ input ticketUpdateInput {
   carID: ID!
   problem: String!
   createTime: Time!
-  shopID: ID!
+  shopID: ID
   acceptedTime: Time
   status: String
 }
