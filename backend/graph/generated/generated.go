@@ -1431,7 +1431,7 @@ type activeTicket {
 }
 
 input activeTicketCreateInput {
-  ID: ID
+  ID: ID!
   carID: ID!
   customerID: ID!
   problem: String!
@@ -9162,7 +9162,7 @@ func (ec *executionContext) unmarshalInputactiveTicketCreateInput(ctx context.Co
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-			it.ID, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			it.ID, err = ec.unmarshalNID2string(ctx, v)
 			if err != nil {
 				return it, err
 			}

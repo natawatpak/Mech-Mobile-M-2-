@@ -35,7 +35,7 @@ query ActiveTicketByID($activeTicketInput: ID!) {
 }
 
 query ActiveTicketByCustomer($activeTicketInput: ID!) {
-  activeTicketByID(input: $activeTicketInput) {
+  activeTicketByCustomer(input: $activeTicketInput) {
     ...activeTicketFragment
   }
 }
