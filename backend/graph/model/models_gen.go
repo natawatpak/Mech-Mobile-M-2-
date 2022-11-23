@@ -157,7 +157,7 @@ type Ticket struct {
 	CarID        string     `json:"carID" bun:",notnull"`
 	Problem      string     `json:"problem" bun:",notnull"`
 	CreateTime   time.Time  `json:"createTime" bun:",notnull"`
-	ShopID       string     `json:"shopID" bun:",notnull"`
+	ShopID       *string    `json:"shopID" bun:",notnull"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
 }
@@ -182,7 +182,7 @@ type TicketCreateInput struct {
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
 	CreateTime   time.Time  `json:"createTime"`
-	ShopID       string     `json:"shopID"`
+	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
 }
@@ -203,7 +203,7 @@ type TicketUpdateInput struct {
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
 	CreateTime   time.Time  `json:"createTime"`
-	ShopID       string     `json:"shopID"`
+	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
 }

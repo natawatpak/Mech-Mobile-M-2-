@@ -217,7 +217,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		CarID:        r.FormValue("carID"),
 		Problem:      r.FormValue("problem"),
 		CreateTime:   time.Now(),
-		ShopID:       "no shopID", // need to be optional
+		ShopID:       util.Ptr("no shopID"), // need to be optional
 		AcceptedTime: nil,
 		Status:       util.Ptr(r.FormValue("status")),
 	})
@@ -329,7 +329,7 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 			"carID":        t.CarID,
 			"problem":      t.Problem,
 			"createTime":   t.CreateTime.String(),
-			"shopID":       t.ShopID,
+			"shopID":       *t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
 			"status":       *t.Status,
 		}
