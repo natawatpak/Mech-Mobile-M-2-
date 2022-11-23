@@ -30,11 +30,37 @@
             </section>
       </v-card>
 
-    <v-dialog v-model="selectCarModal">
+    <v-dialog v-model="selectCarModal" width="800">
       <v-card>
+        <v-card-title>Car preset</v-card-title>
         <v-card-text v-for="(car,index) in cars" :key="index" @click="selectCar(car)">
           {{car.brand}} : {{car.plate}}
         </v-card-text>
+        <v-divider></v-divider>
+        <v-card-action>
+          <v-btn block class="mx-1" prepend-icon="mdi-plus" @click="dialog2=true">Add new preset</v-btn>
+        </v-card-action>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialog2" width="800">
+      <v-card>
+        <v-card-title>New preset</v-card-title>
+        <v-form ref="form" v-model="valid">
+          <v-text-field v-model="type" class="px-4" label="Car type" required></v-text-field>
+          <v-text-field v-model="brand" class="px-4" label="Brand" required></v-text-field>
+          <v-text-field v-model="plate" class="px-4" label="License Plate" required></v-text-field>
+        </v-form>
+        <v-row justify="end" class="pa-6">
+          <v-card-action>
+            <v-btn class="mx-1" variant="tonal" color="error" @click="dialog2=false">
+              Cancel
+            </v-btn>
+            <v-btn class="mx-1" color="blue" variant="tonal" @click="submitform, dialog2=false">
+              Save
+            </v-btn>
+          </v-card-action>
+        </v-row>
       </v-card>
     </v-dialog>
 
@@ -74,13 +100,10 @@
       ></v-textarea>
     </v-card>
     <v-spacer class="my-5"></v-spacer>
-    <v-card variant="tonal" class="text-left pa-4">
-      <v-card-title>Upload files</v-card-title>
-      <v-file-input counter v-model="files" accept="multiple show-size truncate-length=20" outlined label="Click here to attached photo or video"></v-file-input>
-    </v-card>
+  
     <v-spacer class="my-5"></v-spacer>
     <section class="text-center">
-      <router-link to="/loading"><v-btn>Find Service</v-btn></router-link>
+      <router-link to="/loading" class="text-decoration-none"><v-btn class="mx-1" variant="tonal" color="blue">Find Service</v-btn></router-link>
     </section>
   </div>
 </template>
@@ -99,6 +122,10 @@ export default {
         { id:"3", type: "Van", brand: "MG", plate: "ก8113" }
       ],
       selectCarModal: false,
+      dialog2: false,
+      type: '',
+      brand: '',
+      plate: '',
       problem: ["tyres", "flat"],
       description: undefined,
       files: []
@@ -153,6 +180,16 @@ export default {
     selectCar(car){
       this.car = car
       this.selectCarModal = false
+    },
+    submitForm(){
+      const data = new URLSearchParams({
+        type: this.type,
+        brand: this.brand,
+        plate: this.plate,
+      })
+      this.axios.post("http://localhost:3000/customer/create-profile",data).then((response)=>{
+        console.log(response.data)
+      })
     }
   }
 };
