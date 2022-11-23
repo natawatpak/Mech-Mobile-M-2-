@@ -149,10 +149,13 @@ type ticket {
   customerID: ID!
   carID: ID!
   problem: String!
+  description: String
   createTime: Time!
   shopID: ID
   acceptedTime: Time
   status: String
+  longitude: String!
+  latitude: String!
 }
 
 input ticketCreateInput {
@@ -160,10 +163,13 @@ input ticketCreateInput {
   customerID: ID!
   carID: ID!
   problem: String!
+  description: String
   createTime: Time!
   shopID: ID
   acceptedTime: Time
   status: String
+  longitude: String!
+  latitude: String!
 }
 
 input ticketUpdateInput {
@@ -171,10 +177,13 @@ input ticketUpdateInput {
   customerID: ID!
   carID: ID!
   problem: String!
+  description: String
   createTime: Time!
   shopID: ID
   acceptedTime: Time
   status: String
+  longitude: String!
+  latitude: String!
 }
 
 input ticketByCustomerInput {
@@ -197,6 +206,8 @@ type shop {
   tel: String!
   email: String!
   address: String!
+  longitude: String!
+  latitude: String!
 }
 
 input shopCreateInput {
@@ -205,6 +216,8 @@ input shopCreateInput {
   tel: String!
   email: String!
   address: String!
+  longitude: String!
+  latitude: String!
 }
 
 input shopUpdateInput {
@@ -213,6 +226,8 @@ input shopUpdateInput {
   tel: String!
   email: String!
   address: String!
+  longitude: String!
+  latitude: String!
 }
 
 type service {
@@ -255,7 +270,7 @@ type activeTicket {
 }
 
 input activeTicketCreateInput {
-  ID: ID
+  ID: ID!
   carID: ID!
   customerID: ID!
   problem: String!

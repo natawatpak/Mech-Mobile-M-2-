@@ -40,7 +40,7 @@ type DatabaseOp interface {
 	CarList(ctx context.Context) ([]*model.Car, error)
 
 	TicketCreate(ctx context.Context, ticketInput *model.TicketCreateInput) (*model.Ticket, error)
-	TicketUpdateMulti(ctx context.Context, updateInput model.TicketUpdateInput) (*model.Ticket, error)
+	TicketUpdateMulti(ctx context.Context, updateInput model.Ticket) (*model.Ticket, error)
 	TicketDelete(ctx context.Context, ID string) (*model.Ticket, error)
 	TicketDeleteAll(ctx context.Context) ([]*model.Ticket, error)
 	TicketFindByID(ctx context.Context, ID string) (*model.Ticket, error)
@@ -51,7 +51,7 @@ type DatabaseOp interface {
 	ActiveTicketCreate(ctx context.Context, activeTicketInput *model.ActiveTicketCreateInput) (*model.ActiveTicket, error)
 	ActiveTicketUpdateMulti(ctx context.Context, updateInput model.ActiveTicket) (*model.ActiveTicket, error)
 	ActiveTicketDelete(ctx context.Context, ID string) (*model.ActiveTicket, error)
-	ActiveTicketDeleteActive(ctx context.Context) ([]*model.ActiveTicket, error)
+	ActiveTicketDeleteByStatus(ctx context.Context, input string) ([]*model.ActiveTicket, error)
 	ActiveTicketDeleteAll(ctx context.Context) ([]*model.ActiveTicket, error)
 	ActiveTicketFindByID(ctx context.Context, ID string) (*model.ActiveTicket, error)
 	ActiveTicketFindByStatus(ctx context.Context, input string) ([]*model.ActiveTicket, error)

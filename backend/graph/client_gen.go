@@ -10,52 +10,52 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
-// ActiveTicketByCustomerActiveTicketByIDActiveTicket includes the requested fields of the GraphQL type activeTicket.
-type ActiveTicketByCustomerActiveTicketByIDActiveTicket struct {
+// ActiveTicketByCustomerActiveTicketByCustomerActiveTicket includes the requested fields of the GraphQL type activeTicket.
+type ActiveTicketByCustomerActiveTicketByCustomerActiveTicket struct {
 	activeTicketFragment `json:"-"`
 }
 
-// GetID returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.ID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetID() string {
+// GetID returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.ID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetID() string {
 	return v.activeTicketFragment.ID
 }
 
-// GetCarID returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.CarID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetCarID() string {
+// GetCarID returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.CarID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetCarID() string {
 	return v.activeTicketFragment.CarID
 }
 
-// GetCustomerID returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.CustomerID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetCustomerID() string {
+// GetCustomerID returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.CustomerID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetCustomerID() string {
 	return v.activeTicketFragment.CustomerID
 }
 
-// GetProblem returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.Problem, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetProblem() string {
+// GetProblem returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.Problem, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetProblem() string {
 	return v.activeTicketFragment.Problem
 }
 
-// GetShopID returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.ShopID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetShopID() *string {
+// GetShopID returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.ShopID, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
 }
 
-// GetStatus returns ActiveTicketByCustomerActiveTicketByIDActiveTicket.Status, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) GetStatus() *string {
+// GetStatus returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.Status, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) UnmarshalJSON(b []byte) error {
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
 		return nil
 	}
 
 	var firstPass struct {
-		*ActiveTicketByCustomerActiveTicketByIDActiveTicket
+		*ActiveTicketByCustomerActiveTicketByCustomerActiveTicket
 		graphql.NoUnmarshalJSON
 	}
-	firstPass.ActiveTicketByCustomerActiveTicketByIDActiveTicket = v
+	firstPass.ActiveTicketByCustomerActiveTicketByCustomerActiveTicket = v
 
 	err := json.Unmarshal(b, &firstPass)
 	if err != nil {
@@ -70,7 +70,7 @@ func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) UnmarshalJSON(b []b
 	return nil
 }
 
-type __premarshalActiveTicketByCustomerActiveTicketByIDActiveTicket struct {
+type __premarshalActiveTicketByCustomerActiveTicketByCustomerActiveTicket struct {
 	ID string `json:"ID"`
 
 	CarID string `json:"carID"`
@@ -84,7 +84,7 @@ type __premarshalActiveTicketByCustomerActiveTicketByIDActiveTicket struct {
 	Status *string `json:"status"`
 }
 
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) MarshalJSON() ([]byte, error) {
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) MarshalJSON() ([]byte, error) {
 	premarshaled, err := v.__premarshalJSON()
 	if err != nil {
 		return nil, err
@@ -92,8 +92,8 @@ func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) MarshalJSON() ([]by
 	return json.Marshal(premarshaled)
 }
 
-func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) __premarshalJSON() (*__premarshalActiveTicketByCustomerActiveTicketByIDActiveTicket, error) {
-	var retval __premarshalActiveTicketByCustomerActiveTicketByIDActiveTicket
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) __premarshalJSON() (*__premarshalActiveTicketByCustomerActiveTicketByCustomerActiveTicket, error) {
+	var retval __premarshalActiveTicketByCustomerActiveTicketByCustomerActiveTicket
 
 	retval.ID = v.activeTicketFragment.ID
 	retval.CarID = v.activeTicketFragment.CarID
@@ -106,12 +106,12 @@ func (v *ActiveTicketByCustomerActiveTicketByIDActiveTicket) __premarshalJSON() 
 
 // ActiveTicketByCustomerResponse is returned by ActiveTicketByCustomer on success.
 type ActiveTicketByCustomerResponse struct {
-	ActiveTicketByID *ActiveTicketByCustomerActiveTicketByIDActiveTicket `json:"activeTicketByID"`
+	ActiveTicketByCustomer []*ActiveTicketByCustomerActiveTicketByCustomerActiveTicket `json:"activeTicketByCustomer"`
 }
 
-// GetActiveTicketByID returns ActiveTicketByCustomerResponse.ActiveTicketByID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketByCustomerResponse) GetActiveTicketByID() *ActiveTicketByCustomerActiveTicketByIDActiveTicket {
-	return v.ActiveTicketByID
+// GetActiveTicketByCustomer returns ActiveTicketByCustomerResponse.ActiveTicketByCustomer, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerResponse) GetActiveTicketByCustomer() []*ActiveTicketByCustomerActiveTicketByCustomerActiveTicket {
+	return v.ActiveTicketByCustomer
 }
 
 // ActiveTicketByIDActiveTicketByIDActiveTicket includes the requested fields of the GraphQL type activeTicket.
@@ -521,7 +521,7 @@ func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) __premarshalJSON() (*
 }
 
 type ActiveTicketCreateInput struct {
-	ID         *string `json:"ID"`
+	ID         string  `json:"ID"`
 	CarID      string  `json:"carID"`
 	CustomerID string  `json:"customerID"`
 	Problem    string  `json:"problem"`
@@ -530,7 +530,7 @@ type ActiveTicketCreateInput struct {
 }
 
 // GetID returns ActiveTicketCreateInput.ID, and is useful for accessing the field via an interface.
-func (v *ActiveTicketCreateInput) GetID() *string { return v.ID }
+func (v *ActiveTicketCreateInput) GetID() string { return v.ID }
 
 // GetCarID returns ActiveTicketCreateInput.CarID, and is useful for accessing the field via an interface.
 func (v *ActiveTicketCreateInput) GetCarID() string { return v.CarID }
@@ -3040,11 +3040,13 @@ func (v *ShopByIDShopByIDShop) __premarshalJSON() (*__premarshalShopByIDShopByID
 }
 
 type ShopCreateInput struct {
-	ID      *string `json:"ID"`
-	Name    string  `json:"name"`
-	Tel     string  `json:"tel"`
-	Email   string  `json:"email"`
-	Address string  `json:"address"`
+	ID        *string `json:"ID"`
+	Name      string  `json:"name"`
+	Tel       string  `json:"tel"`
+	Email     string  `json:"email"`
+	Address   string  `json:"address"`
+	Longitude string  `json:"longitude"`
+	Latitude  string  `json:"latitude"`
 }
 
 // GetID returns ShopCreateInput.ID, and is useful for accessing the field via an interface.
@@ -3061,6 +3063,12 @@ func (v *ShopCreateInput) GetEmail() string { return v.Email }
 
 // GetAddress returns ShopCreateInput.Address, and is useful for accessing the field via an interface.
 func (v *ShopCreateInput) GetAddress() string { return v.Address }
+
+// GetLongitude returns ShopCreateInput.Longitude, and is useful for accessing the field via an interface.
+func (v *ShopCreateInput) GetLongitude() string { return v.Longitude }
+
+// GetLatitude returns ShopCreateInput.Latitude, and is useful for accessing the field via an interface.
+func (v *ShopCreateInput) GetLatitude() string { return v.Latitude }
 
 // ShopCreateResponse is returned by ShopCreate on success.
 type ShopCreateResponse struct {
@@ -3697,11 +3705,13 @@ func (v *ShopServicesShopServicesShopService) __premarshalJSON() (*__premarshalS
 }
 
 type ShopUpdateInput struct {
-	ID      string `json:"ID"`
-	Name    string `json:"name"`
-	Tel     string `json:"tel"`
-	Email   string `json:"email"`
-	Address string `json:"address"`
+	ID        string `json:"ID"`
+	Name      string `json:"name"`
+	Tel       string `json:"tel"`
+	Email     string `json:"email"`
+	Address   string `json:"address"`
+	Longitude string `json:"longitude"`
+	Latitude  string `json:"latitude"`
 }
 
 // GetID returns ShopUpdateInput.ID, and is useful for accessing the field via an interface.
@@ -3718,6 +3728,12 @@ func (v *ShopUpdateInput) GetEmail() string { return v.Email }
 
 // GetAddress returns ShopUpdateInput.Address, and is useful for accessing the field via an interface.
 func (v *ShopUpdateInput) GetAddress() string { return v.Address }
+
+// GetLongitude returns ShopUpdateInput.Longitude, and is useful for accessing the field via an interface.
+func (v *ShopUpdateInput) GetLongitude() string { return v.Longitude }
+
+// GetLatitude returns ShopUpdateInput.Latitude, and is useful for accessing the field via an interface.
+func (v *ShopUpdateInput) GetLatitude() string { return v.Latitude }
 
 // ShopUpdateMultiResponse is returned by ShopUpdateMulti on success.
 type ShopUpdateMultiResponse struct {
@@ -4254,10 +4270,13 @@ type TicketCreateInput struct {
 	CustomerID   string     `json:"customerID"`
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
+	Description  *string    `json:"description"`
 	CreateTime   time.Time  `json:"createTime"`
 	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
+	Longitude    string     `json:"longitude"`
+	Latitude     string     `json:"latitude"`
 }
 
 // GetID returns TicketCreateInput.ID, and is useful for accessing the field via an interface.
@@ -4272,6 +4291,9 @@ func (v *TicketCreateInput) GetCarID() string { return v.CarID }
 // GetProblem returns TicketCreateInput.Problem, and is useful for accessing the field via an interface.
 func (v *TicketCreateInput) GetProblem() string { return v.Problem }
 
+// GetDescription returns TicketCreateInput.Description, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetDescription() *string { return v.Description }
+
 // GetCreateTime returns TicketCreateInput.CreateTime, and is useful for accessing the field via an interface.
 func (v *TicketCreateInput) GetCreateTime() time.Time { return v.CreateTime }
 
@@ -4283,6 +4305,12 @@ func (v *TicketCreateInput) GetAcceptedTime() *time.Time { return v.AcceptedTime
 
 // GetStatus returns TicketCreateInput.Status, and is useful for accessing the field via an interface.
 func (v *TicketCreateInput) GetStatus() *string { return v.Status }
+
+// GetLongitude returns TicketCreateInput.Longitude, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetLongitude() string { return v.Longitude }
+
+// GetLatitude returns TicketCreateInput.Latitude, and is useful for accessing the field via an interface.
+func (v *TicketCreateInput) GetLatitude() string { return v.Latitude }
 
 // TicketCreateResponse is returned by TicketCreate on success.
 type TicketCreateResponse struct {
@@ -4986,10 +5014,13 @@ type TicketUpdateInput struct {
 	CustomerID   string     `json:"customerID"`
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
+	Description  *string    `json:"description"`
 	CreateTime   time.Time  `json:"createTime"`
 	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
+	Longitude    string     `json:"longitude"`
+	Latitude     string     `json:"latitude"`
 }
 
 // GetID returns TicketUpdateInput.ID, and is useful for accessing the field via an interface.
@@ -5004,6 +5035,9 @@ func (v *TicketUpdateInput) GetCarID() string { return v.CarID }
 // GetProblem returns TicketUpdateInput.Problem, and is useful for accessing the field via an interface.
 func (v *TicketUpdateInput) GetProblem() string { return v.Problem }
 
+// GetDescription returns TicketUpdateInput.Description, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetDescription() *string { return v.Description }
+
 // GetCreateTime returns TicketUpdateInput.CreateTime, and is useful for accessing the field via an interface.
 func (v *TicketUpdateInput) GetCreateTime() time.Time { return v.CreateTime }
 
@@ -5015,6 +5049,12 @@ func (v *TicketUpdateInput) GetAcceptedTime() *time.Time { return v.AcceptedTime
 
 // GetStatus returns TicketUpdateInput.Status, and is useful for accessing the field via an interface.
 func (v *TicketUpdateInput) GetStatus() *string { return v.Status }
+
+// GetLongitude returns TicketUpdateInput.Longitude, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetLongitude() string { return v.Longitude }
+
+// GetLatitude returns TicketUpdateInput.Latitude, and is useful for accessing the field via an interface.
+func (v *TicketUpdateInput) GetLatitude() string { return v.Latitude }
 
 // TicketUpdateMultiResponse is returned by TicketUpdateMulti on success.
 type TicketUpdateMultiResponse struct {
@@ -5743,7 +5783,7 @@ func ActiveTicketByCustomer(
 		OpName: "ActiveTicketByCustomer",
 		Query: `
 query ActiveTicketByCustomer ($activeTicketInput: ID!) {
-	activeTicketByID(input: $activeTicketInput) {
+	activeTicketByCustomer(input: $activeTicketInput) {
 		... activeTicketFragment
 	}
 }

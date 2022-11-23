@@ -95,7 +95,7 @@ func (r *mutationResolver) TicketCreate(ctx context.Context, input model.TicketC
 
 // TicketUpdateMulti is the resolver for the ticketUpdateMulti field.
 func (r *mutationResolver) TicketUpdateMulti(ctx context.Context, input model.TicketUpdateInput) (*model.Ticket, error) {
-	result, err := r.DB.TicketUpdateMulti(ctx, input)
+	result, err := r.DB.TicketUpdateMulti(ctx, model.Ticket(input))
 	return result, err
 }
 
@@ -140,9 +140,6 @@ func (r *mutationResolver) ShopDeleteAll(ctx context.Context) ([]*model.Shop, er
 
 // ActiveTicketCreate is the resolver for the activeTicketCreate field.
 func (r *mutationResolver) ActiveTicketCreate(ctx context.Context, input model.ActiveTicketCreateInput) (*model.ActiveTicket, error) {
-	if input.ID != nil {
-		return nil, errors.New("id must be null")
-	}
 	returnCustomer, err := r.DB.ActiveTicketCreate(ctx, &input)
 	return returnCustomer, err
 }
@@ -161,7 +158,7 @@ func (r *mutationResolver) ActiveTicketDelete(ctx context.Context, input model.D
 
 // ActiveTicketDeleteStatus is the resolver for the activeTicketDeleteStatus field.
 func (r *mutationResolver) ActiveTicketDeleteStatus(ctx context.Context, input string) ([]*model.ActiveTicket, error) {
-	result, err := r.DB.ActiveTicketFindByStatus(ctx, input)
+	result, err := r.DB.ActiveTicketDeleteByStatus(ctx, input)
 	return result, err
 }
 

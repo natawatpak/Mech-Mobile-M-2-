@@ -11,17 +11,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestTableCreateFunc(t *testing.T) {
-	ctx := context.Background()
-
-	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
-
-	resp, err := graph.CreateTable(ctx, graphqlClient)
-	if err != nil {
-		log.Fatal(err)
-	}
-	assert.Equal(t, true, resp.CreateTable)
-}
 func TestTableDropFunc(t *testing.T) {
 	ctx := context.Background()
 
@@ -32,4 +21,16 @@ func TestTableDropFunc(t *testing.T) {
 		log.Fatal(err)
 	}
 	assert.Equal(t, true, resp.DropTable)
+}
+
+func TestTableCreateFunc(t *testing.T) {
+	ctx := context.Background()
+
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+
+	resp, err := graph.CreateTable(ctx, graphqlClient)
+	if err != nil {
+		log.Fatal(err)
+	}
+	assert.Equal(t, true, resp.CreateTable)
 }

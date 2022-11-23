@@ -12,24 +12,30 @@ import (
 )
 
 type shopCreateInput struct {
-	Name    string
-	Tel     string
-	Email   string
-	Address string
+	Name      string
+	Tel       string
+	Email     string
+	Address   string
+	longitude string
+	latitude  string
 }
 
 var shopCreateInputTest = []shopCreateInput{
 	{
-		Name:    "Phone's auto",
-		Tel:     "098-278-9331",
-		Email:   "Chic@gmail.com",
-		Address: "second street",
+		Name:      "Phone's auto",
+		Tel:       "098-278-9331",
+		Email:     "Chic@gmail.com",
+		Address:   "second street",
+		longitude: "1000",
+		latitude:  "1000",
 	},
 	{
-		Name:    "chicken's auto",
-		Tel:     "123456789",
-		Email:   "Chicken@gmail.com",
-		Address: "3/4 street",
+		Name:      "chicken's auto",
+		Tel:       "123456789",
+		Email:     "Chicken@gmail.com",
+		Address:   "3/4 street",
+		longitude: "1500",
+		latitude:  "1500",
 	},
 }
 
@@ -39,10 +45,12 @@ func TestShopCreate(t *testing.T) {
 	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ShopCreate(ctx, graphqlClient, &graph.ShopCreateInput{
-		Name:    shopCreateInputTest[0].Name,
-		Tel:     shopCreateInputTest[0].Tel,
-		Email:   shopCreateInputTest[0].Email,
-		Address: shopCreateInputTest[0].Address,
+		Name:      shopCreateInputTest[0].Name,
+		Tel:       shopCreateInputTest[0].Tel,
+		Email:     shopCreateInputTest[0].Email,
+		Address:   shopCreateInputTest[0].Address,
+		Longitude: shopCreateInputTest[0].longitude,
+		Latitude:  shopCreateInputTest[0].latitude,
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -61,21 +69,28 @@ func TestShopUpdate(t *testing.T) {
 	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	respCreate, err := graph.ShopCreate(ctx, graphqlClient, &graph.ShopCreateInput{
-		Name:    shopCreateInputTest[0].Name,
-		Tel:     shopCreateInputTest[0].Tel,
-		Email:   shopCreateInputTest[0].Email,
-		Address: shopCreateInputTest[0].Address,
+		Name:      shopCreateInputTest[0].Name,
+		Tel:       shopCreateInputTest[0].Tel,
+		Email:     shopCreateInputTest[0].Email,
+		Address:   shopCreateInputTest[0].Address,
+		Longitude: shopCreateInputTest[0].longitude,
+		Latitude:  shopCreateInputTest[0].latitude,
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 	respUpdate, err := graph.ShopUpdateMulti(ctx, graphqlClient, &graph.ShopUpdateInput{
-		ID:      respCreate.ShopCreate.ID,
-		Name:    shopCreateInputTest[1].Name,
-		Tel:     shopCreateInputTest[1].Tel,
-		Email:   shopCreateInputTest[1].Email,
-		Address: shopCreateInputTest[1].Address,
+		ID:        respCreate.ShopCreate.ID,
+		Name:      shopCreateInputTest[1].Name,
+		Tel:       shopCreateInputTest[1].Tel,
+		Email:     shopCreateInputTest[1].Email,
+		Address:   shopCreateInputTest[1].Address,
+		Longitude: shopCreateInputTest[1].longitude,
+		Latitude:  shopCreateInputTest[1].latitude,
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	assert.Equal(t, shopCreateInputTest[1].Name, respUpdate.ShopUpdateMulti.Name)
 	assert.Equal(t, shopCreateInputTest[1].Tel, respUpdate.ShopUpdateMulti.Tel)
@@ -91,10 +106,12 @@ func TestShopDelete(t *testing.T) {
 	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	respCreate, err := graph.ShopCreate(ctx, graphqlClient, &graph.ShopCreateInput{
-		Name:    shopCreateInputTest[0].Name,
-		Tel:     shopCreateInputTest[0].Tel,
-		Email:   shopCreateInputTest[0].Email,
-		Address: shopCreateInputTest[0].Address,
+		Name:      shopCreateInputTest[0].Name,
+		Tel:       shopCreateInputTest[0].Tel,
+		Email:     shopCreateInputTest[0].Email,
+		Address:   shopCreateInputTest[0].Address,
+		Longitude: shopCreateInputTest[0].longitude,
+		Latitude:  shopCreateInputTest[0].latitude,
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -151,16 +168,21 @@ func TestShopByID(t *testing.T) {
 	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
 
 	resp, err := graph.ShopCreate(ctx, graphqlClient, &graph.ShopCreateInput{
-		Name:    shopCreateInputTest[0].Name,
-		Tel:     shopCreateInputTest[0].Tel,
-		Email:   shopCreateInputTest[0].Email,
-		Address: shopCreateInputTest[0].Address,
+		Name:      shopCreateInputTest[0].Name,
+		Tel:       shopCreateInputTest[0].Tel,
+		Email:     shopCreateInputTest[0].Email,
+		Address:   shopCreateInputTest[0].Address,
+		Longitude: shopCreateInputTest[0].longitude,
+		Latitude:  shopCreateInputTest[0].latitude,
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	respQuery, err := graph.ShopByID(ctx, graphqlClient, resp.ShopCreate.ID)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	assert.Equal(t, shopCreateInputTest[0].Name, respQuery.ShopByID.Name)
 	assert.Equal(t, shopCreateInputTest[0].Tel, respQuery.ShopByID.Tel)
