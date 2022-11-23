@@ -20,7 +20,7 @@ type ActiveTicket struct {
 }
 
 type ActiveTicketCreateInput struct {
-	ID         *string `json:"ID"`
+	ID         string  `json:"ID"`
 	CarID      string  `json:"carID"`
 	CustomerID string  `json:"customerID"`
 	Problem    string  `json:"problem"`
