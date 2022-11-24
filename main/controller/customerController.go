@@ -294,6 +294,24 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 	fmt.Print("ticketID: ")
 	fmt.Println(resp.TicketCreate.ID)
 
+	// _, err = graph.ActiveTicketCreate(ctx, graphqlClient, &graph.ActiveTicketCreateInput{
+	// 	ID: resp.TicketCreate.ID,
+	// 	CustomerID:   r.FormValue("cusID"),
+	// 	CarID:        r.FormValue("carID"),
+	// 	Problem:      r.FormValue("problem"),
+	// 	ShopID:       nil,
+	// 	Status:       util.Ptr(r.FormValue("status")),
+	// 	Longitude:    StrToFloat(r.FormValue("lng")),
+	// 	Latitude: StrToFloat(r.FormValue("lat")),
+	// 	Description: util.Ptr(r.FormValue("description")),
+	// })
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
 	data := map[string]string{
 		"ticketID": resp.TicketCreate.ID,
 	}
