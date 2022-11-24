@@ -27,6 +27,8 @@ func main() {
 	r.HandleFunc("/customer/create-profile", controller.CustomerCreateProfile)
 	r.HandleFunc("/customer/update-profile", controller.CustomerUpdateProfile)
 	r.HandleFunc("/customer/get-car-list", controller.CustomerGetCarList)
+	r.HandleFunc("/customer/get-car", controller.CustomerGetCar)
+	r.HandleFunc("/customer/add-car", controller.CustomerAddCar)
 	r.HandleFunc("/customer/remove-car", controller.CustomerRemoveCar)
 	r.HandleFunc("/customer/add-ticket", controller.CustomerAddTicket)
 	// r.HandleFunc("/customer/get-active-ticket", controller.CustomerGetActiveTicket)

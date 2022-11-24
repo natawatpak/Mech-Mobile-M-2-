@@ -20,7 +20,7 @@
     <v-card flat>
       <v-card-title>Detail</v-card-title>
       <v-card-text>
-        ({{location.lat+', '+location.lng}})
+        ({{shop.location.lat+', '+shop.location.lng}})
         <br />
         {{car.plate+' '+car.brand}}
         <br />

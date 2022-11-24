@@ -28,15 +28,20 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.ActiveTicketByStats)
 
-	data := make(map[int]map[string]string)
+	data := make(map[int]map[string]interface{},)
 	for i, t := range resp.ActiveTicketByStats {
-		tData := map[string]string{
+		tData := map[string]interface{}{
 			"ticketID": t.ID,
 			"cusID":    t.CustomerID,
 			"carID":    t.CarID,
 			"problem":  t.Problem,
 			"shopID":   IsNil(t.ShopID),
 			"status":   IsNil(t.Status),
+			// "description": IsNil(t.Description),
+			// "location": map[string]float64{
+			// 	"lng": t.Longitude,
+			// 	"lat": t.Latitude,
+			// },
 		}
 		data[i] = tData
 	}
@@ -66,15 +71,20 @@ func ShopGetOngoingTicketList(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.ActiveTicketByShop)
 
-	data := make(map[int]map[string]string)
+	data := make(map[int]map[string]interface{})
 	for i, t := range resp.ActiveTicketByShop {
-		tData := map[string]string{
+		tData := map[string]interface{}{
 			"ticketID": t.ID,
 			"cusID":    t.CustomerID,
 			"carID":    t.CarID,
 			"problem":  t.Problem,
 			"shopID":   IsNil(t.ShopID),
 			"status":   IsNil(t.Status),
+			// "description": IsNil(t.Description),
+			// "location": map[string]float64{
+			// 	"lng": t.Longitude,
+			// 	"lat": t.Latitude,
+			// },
 		}
 		data[i] = tData
 	}
@@ -102,6 +112,9 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 		Problem:    r.FormValue("problem"),
 		ShopID:     util.Ptr(r.FormValue("shopID")),
 		Status:     util.Ptr("Accepted"),
+		// Latitude: r.FormValue("lat"),
+		// Longitude: r.FormValue("lng"),
+		// Description: r.FormValue("description"),
 	})
 
 	if err != nil {
@@ -111,13 +124,18 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
 
-	data := map[string]string{
+	data := map[string]interface{}{
 		"ticketID": resp.ActiveTicketUpdateMulti.ID,
 		"cusID":    resp.ActiveTicketUpdateMulti.CustomerID,
 		"carID":    resp.ActiveTicketUpdateMulti.CarID,
 		"problem":  resp.ActiveTicketUpdateMulti.Problem,
 		"shopID":   IsNil(resp.ActiveTicketUpdateMulti.ShopID),
 		"status":   IsNil(resp.ActiveTicketUpdateMulti.Status),
+		// "description": resp.ActiveTicketUpdateMulti.Description,
+		// "location": map[string]float64{
+		// 	"lat": resp.ActiveTicketUpdateMulti.latitude,
+		// 	"lng": resp.ActiveTicketUpdateMulti.longitude,
+		// },
 	}
 
 	jsonData, err := json.Marshal(data)
@@ -143,6 +161,9 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 		Problem:    r.FormValue("problem"),
 		ShopID:     util.Ptr(r.FormValue("shopID")),
 		Status:     util.Ptr("Completed"),
+		// Latitude: r.FormValue("lat"),
+		// Longitude: r.FormValue("lng"),
+		// Description: r.FormValue("description"),
 	})
 
 	if err != nil {
@@ -159,6 +180,11 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 		"problem":  resp.ActiveTicketUpdateMulti.Problem,
 		"shopID":   IsNil(resp.ActiveTicketUpdateMulti.ShopID),
 		"status":   IsNil(resp.ActiveTicketUpdateMulti.Status),
+		// "description": resp.ActiveTicketUpdateMulti.Description,
+		// "location": map[string]float64{
+		// 	"lat": resp.ActiveTicketUpdateMulti.latitude,
+		// 	"lng": resp.ActiveTicketUpdateMulti.longitude,
+		// },
 	}
 
 	jsonData, err := json.Marshal(data)
@@ -223,9 +249,9 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.TicketByShop)
 
-	data := make(map[int]map[string]string)
+	data := make(map[int]map[string]interface{})
 	for i, t := range resp.TicketByShop {
-		tData := map[string]string{
+		tData := map[string]interface{}{
 			"ticketID":     t.ID,
 			"cusID":        t.CustomerID,
 			"carID":        t.CarID,
@@ -234,6 +260,11 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 			"shopID":       *t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
 			"status":       IsNil(t.Status),
+			"location": map[string]float64{
+				"lat": t.Latitude,
+				"lng": t.Longitude,
+			},
+			"description": t.Description,
 		}
 		data[i] = tData
 	}
@@ -268,9 +299,9 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.TicketByShop)
 
-	data := make(map[int]map[string]string)
+	data := make(map[int]map[string]interface{})
 	for i, t := range resp.TicketByShop {
-		tData := map[string]string{
+		tData := map[string]interface{}{
 			"ticketID":     t.ID,
 			"cusID":        t.CustomerID,
 			"carID":        t.CarID,
@@ -279,6 +310,11 @@ func ShopGetTodayCompletedTicket(w http.ResponseWriter, r *http.Request) {
 			"shopID":       *t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
 			"status":       IsNil(t.Status),
+			"location": map[string]float64{
+				"lat": t.Latitude,
+				"lng": t.Longitude,
+			},
+			"description": t.Description,
 		}
 		data[i] = tData
 	}
@@ -307,6 +343,8 @@ func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
 		Tel:     r.FormValue("shopTel"),
 		Email:   r.FormValue("shopEmail"),
 		Address: r.FormValue("shopAddress"),
+		Latitude: StrToFloat(r.FormValue("lat")),
+		Longitude: StrToFloat(r.FormValue("lng")),
 	})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -314,11 +352,15 @@ func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := map[string]string{
+	data := map[string]interface{}{
 		"shopID":      resp.ShopCreate.ID,
 		"shopName":    resp.ShopCreate.Name,
 		"shopTel":     resp.ShopCreate.Tel,
 		"shopAddress": resp.ShopCreate.Address,
+		"location": map[string]float64{
+			"lat": resp.ShopCreate.Latitude,
+			"lng": resp.ShopCreate.Longitude,
+		},
 	}
 	jsonData, err := json.Marshal(data)
 	if err != nil {
@@ -345,6 +387,8 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 		Tel:     r.FormValue("shopTel"),
 		Email:   r.FormValue("shopEmail"),
 		Address: r.FormValue("shopAddress"),
+		Latitude: StrToFloat(r.FormValue("lat")),
+		Longitude: StrToFloat(r.FormValue("lng")),
 	})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -352,12 +396,16 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := map[string]string{
+	data := map[string]interface{}{
 		"shopID":      resp.ShopUpdateMulti.ID,
 		"shopName":    resp.ShopUpdateMulti.Name,
 		"shopTel":     resp.ShopUpdateMulti.Tel,
 		"shopEmail":   resp.ShopUpdateMulti.Email,
 		"shopAddress": resp.ShopUpdateMulti.Address,
+		"location": map[string]float64{
+			"lat": resp.ShopUpdateMulti.Latitude,
+			"lng": resp.ShopUpdateMulti.Longitude,
+		},
 	}
 	jsonData, err := json.Marshal(data)
 	if err != nil {

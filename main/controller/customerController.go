@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
@@ -35,6 +36,16 @@ func IsNilTime(strpt *time.Time) string {
 		return ""
 	}
 	return strpt.String()
+}
+
+func StrToFloat(str string) float64{
+	f,err := strconv.ParseFloat(str,64)
+	if (err != nil){return -1}
+	return f
+}
+
+func FloatToString(f float64) string{
+	return fmt.Sprintf("%f", f)
 }
 
 func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
@@ -185,6 +196,42 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 	AddHeader(w).Write(jsonData)
 }
 
+func CustomerGetCar(w http.ResponseWriter, r *http.Request){
+	r.ParseForm()
+
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	resp, err := graph.CarByID(ctx, graphqlClient, r.FormValue("carID"))
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	fmt.Println(resp.CarByID.ID)
+	data := map[string]string{
+		"id": resp.CarByID.ID,
+		"type": IsNil(resp.CarByID.Type),
+		"brand": resp.CarByID.Brand,
+		"plate": resp.CarByID.PlateNum,
+	}
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	AddHeader(w).Write(jsonData)
+}
+
 func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
@@ -234,6 +281,9 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		ShopID:       nil,
 		AcceptedTime: nil,
 		Status:       util.Ptr(r.FormValue("status")),
+		Longitude:    StrToFloat(r.FormValue("lng")),
+		Latitude: StrToFloat(r.FormValue("lat")),
+		Description: util.Ptr(r.FormValue("description")),
 	})
 
 	if err != nil {
@@ -241,6 +291,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
+	fmt.Print("ticketID: ")
 	fmt.Println(resp.TicketCreate.ID)
 
 	data := map[string]string{
@@ -271,7 +322,7 @@ func CustomerGetTicket(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	data := map[string]string{
+	data := map[string]interface{}{
 		"cusID": resp.TicketByID.CustomerID,
 		"carID": resp.TicketByID.CarID,
 		"shopID": IsNil(resp.TicketByID.ShopID),
@@ -279,6 +330,10 @@ func CustomerGetTicket(w http.ResponseWriter, r *http.Request){
 		"createTime": resp.TicketByID.CreateTime.String(),
 		"acceptedTime": IsNilTime(resp.TicketByID.AcceptedTime),
 		"status": IsNil(resp.TicketByID.Status),
+		"location": map[string]float64{
+			"lat": resp.TicketByID.Latitude,
+			"lng": resp.TicketByID.Longitude,
+		},
 	}
 
 
@@ -369,9 +424,9 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.TicketByCustomer)
 
-	data := make(map[int]map[string]string)
+	data := make(map[int]map[string]interface{})
 	for i, t := range resp.TicketByCustomer {
-		tData := map[string]string{
+		tData := map[string]interface{}{
 			"id":           t.ID,
 			"cusID":        t.CustomerID,
 			"carID":        t.CarID,
@@ -380,6 +435,10 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 			"shopID":       *t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
 			"status":       IsNil(t.Status),
+			"location": map[string]float64{
+				"lat": t.Latitude,
+				"lng": t.Longitude,
+			},
 		}
 		data[i] = tData
 	}
@@ -408,12 +467,18 @@ func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := map[string]string{
+	location := map[string]float64{
+		"lat": resp.ShopByID.Latitude,
+		"lng": resp.ShopByID.Latitude,
+	}
+
+	data := map[string]interface{}{
 		"shopID":      resp.ShopByID.ID,
 		"shopName":    resp.ShopByID.Name,
 		"shopTel":     resp.ShopByID.Tel,
 		"shopEmail":   resp.ShopByID.Email,
 		"shopAddress": resp.ShopByID.Address,
+		"location": location,
 	}
 
 	jsonData, err := json.Marshal(data)

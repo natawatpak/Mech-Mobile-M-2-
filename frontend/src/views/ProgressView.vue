@@ -1,8 +1,8 @@
 <template>
   <div class="pa-5">
-    <ProgressBar currentState="4" />
+    <ProgressBar :currentState=status />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :location=location :problems=problems />
+    <ProgressDetail :shop=shop :car=car :problems=problems />
   </div>
 </template>
 
@@ -23,15 +23,16 @@ export default {
       acceptedTime: undefined,
       shop: {
         shopID: undefined,
-        shopName: "A",
-        shopAddress: "567 Kingston Rd.",
-        shopTel: undefined,
-        shopEmail: undefined,
-        ratings: "4.5"
+        shopName: "",
+        shopAddress: "",
+        shopTel: "",
+        shopEmail: "",
+        ratings: "",
+        location: { lat:"20", lng:"90"},
       },
       car: { id: "1", type: "SUV", brand: "MG", plate: "ก2113" },
-      location: { lat:"20", lng:"90"},
-      problems: ["no battery", "broken motor"]
+      
+      problems: []
     };
   },
   components: {
@@ -44,6 +45,8 @@ export default {
     this.cusID = sessionStorage.getItem("cusID")
 
     this.getTicket()
+    
+
   },
   methods: {
     getTicket(){
@@ -60,7 +63,11 @@ export default {
           this.problems = response.data.problem;
           this.createdTime = response.data.createdTime;
           this.acceptedTime = response.data.acceptedTime;
-        });
+          this.getCarDetail()
+          if(this.status!="Active"){
+            this.getShopProfile()
+          }
+        })
     },
     getShopProfile(){
       const data = new URLSearchParams({
@@ -70,6 +77,16 @@ export default {
         .post("http://localhost:3000/customer/get-shop-profile", data)
         .then((response) => {
           this.shop = response.data;
+        });
+    },
+    getCarDetail(){
+      const data = new URLSearchParams({
+        carID: this.carID,
+      });
+      this.axios
+        .post("http://localhost:3000/customer/get-car", data)
+        .then((response) => {
+          this.car = response.data;
         });
     },
   }

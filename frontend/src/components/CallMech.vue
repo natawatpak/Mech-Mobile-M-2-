@@ -1,7 +1,7 @@
 <template>
   <div class="pa-5">
     <v-card text-left pa-4 d-flex justify-left align-center>
-      <div style="width:auto;height:15rem;" id="map"></div>
+      <div style="width: auto; height: 15rem" id="map"></div>
     </v-card>
     <v-card
       variant="tonal"
@@ -38,12 +38,22 @@
     <v-dialog v-model="selectCarModal" width="800">
       <v-card>
         <v-card-title>Car preset</v-card-title>
-        <v-card-text v-for="(car,index) in cars" :key="index" @click="selectCar(car)">
-          {{car.brand}} : {{car.plate}}
+        <v-card-text
+          v-for="(car, index) in cars"
+          :key="index"
+          @click="selectCar(car)"
+        >
+          {{ car.brand }} : {{ car.plate }}
         </v-card-text>
         <v-divider></v-divider>
         <v-card-action>
-          <v-btn block class="mx-1" prepend-icon="mdi-plus" @click="dialog2=true">Add new preset</v-btn>
+          <v-btn
+            block
+            class="mx-1"
+            prepend-icon="mdi-plus"
+            @click="dialog2 = true"
+            >Add new preset</v-btn
+          >
         </v-card-action>
       </v-card>
     </v-dialog>
@@ -52,16 +62,41 @@
       <v-card>
         <v-card-title>New preset</v-card-title>
         <v-form ref="form" v-model="valid">
-          <v-text-field v-model="type" class="px-4" label="Car type" required></v-text-field>
-          <v-text-field v-model="brand" class="px-4" label="Brand" required></v-text-field>
-          <v-text-field v-model="plate" class="px-4" label="License Plate" required></v-text-field>
+          <v-text-field
+            v-model="newCar.type"
+            class="px-4"
+            label="Car type"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="newCar.brand"
+            class="px-4"
+            label="Brand"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="newCar.plate"
+            class="px-4"
+            label="License Plate"
+            required
+          ></v-text-field>
         </v-form>
         <v-row justify="end" class="pa-6">
           <v-card-action>
-            <v-btn class="mx-1" variant="tonal" color="error" @click="dialog2=false">
+            <v-btn
+              class="mx-1"
+              variant="tonal"
+              color="error"
+              @click="dialog2 = false"
+            >
               Cancel
             </v-btn>
-            <v-btn class="mx-1" color="blue" variant="tonal" @click="submitform, dialog2=false">
+            <v-btn
+              class="mx-1"
+              color="blue"
+              variant="tonal"
+              @click="addNewCar(), (dialog2 = false)"
+            >
               Save
             </v-btn>
           </v-card-action>
@@ -121,10 +156,14 @@
       ></v-textarea>
     </v-card>
     <v-spacer class="my-5"></v-spacer>
-  
+
     <v-spacer class="my-5"></v-spacer>
     <section class="text-center">
-      <router-link to="/loading" class="text-decoration-none"><v-btn class="mx-1" variant="tonal" color="blue">Find Service</v-btn></router-link>
+      <router-link to="/loading" class="text-decoration-none" @click= "addTicket()"
+        ><v-btn class="mx-1" variant="tonal" color="blue" 
+          >Find Service</v-btn
+        ></router-link
+      >
     </section>
   </div>
 </template>
@@ -136,15 +175,17 @@ export default {
     return {
       map: null,
       currentLocation: { lat: 0, lng: 0 },
-      car: { id: "1", type: "SUV", brand: "MG", plate: "ก2113" },
+      car: { id: "", type: "", brand: "", plate: "" },
       cars: [],
       selectCarModal: false,
       dialog2: false,
-      type: '',
-      brand: '',
-      plate: '',
+      newCar: {
+        type: "",
+        brand: "",
+        plate: "",
+      },
       problem: ["tyres", "flat"],
-      description: undefined,
+      description: "",
       files: [],
     };
   },
@@ -152,7 +193,7 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
-    sessionStorage.setItem("cusID", "c57a987c-0c23-43fb-a131-c73f1e37d2fe");
+    sessionStorage.setItem("cusID", "326b5b53-c89e-4f47-8766-ea22190f4c9a");
     sessionStorage.setItem("fName", "phum");
     sessionStorage.setItem("lName", "kitiphum");
     sessionStorage.setItem("tel", "0123456789");
@@ -191,14 +232,10 @@ export default {
         zoomControl: true,
       });
     },
-    setMarker(Points, Label) {
+    setMarker(Points) {
       const markers = new google.maps.Marker({
         position: Points,
         map: this.map,
-        label: {
-          text: Label,
-          color: "#FFF",
-        },
       });
     },
     selectCar(car) {
@@ -223,12 +260,33 @@ export default {
         carID: this.car.id,
         problem: this.problem,
         status: "Active",
+        lng: this.currentLocation.lng,
+        lat: this.currentLocation.lat,
+        description: this.description,
       });
       this.axios
         .post("http://localhost:3000/customer/add-ticket", data)
         .then((response) => {
           console.log(response.data);
-          sessionStorage.push("ticketID", response.data);
+          sessionStorage.setItem("ticketID", response.data.ticketID);
+        });
+    },
+    addNewCar() {
+      console.log("clicked")
+      const data = new URLSearchParams({
+        cusID: sessionStorage.getItem("cusID"),
+        plateNum: this.newCar.plate,
+        issuedAt: this.newCar.issuedAt,
+        color: this.newCar.color,
+        type: this.newCar.type,
+        brand: this.newCar.brand,
+        build: this.newCar.build,
+      });
+      this.axios
+        .post("http://localhost:3000/customer/add-car", data)
+        .then((response) => {
+          console.log(response.data);
+          this.getCarList();
         });
     },
   },
