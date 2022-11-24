@@ -1,11 +1,12 @@
 <template>
   <nav>
     <v-app-bar elevation = "4" flat app dark>
+      <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title class="text-uppercase grey--text">
         <span class="font-weight-bold">M^2</span>
       </v-app-bar-title>
     </v-app-bar>
-    <v-navigation-drawer permanent width="320" class="pa-4">
+    <v-navigation-drawer v-model="drawer" absolute bottom temporary class="pa-4">
         <v-list-item link>
           <v-list-item-content>
             <router-link to="/" class="text-decoration-none">
@@ -48,6 +49,7 @@
  export default {
     data () {
       return {
+        drawer: false,
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard' },
           { title: 'Order', icon: 'mdi-order' },
