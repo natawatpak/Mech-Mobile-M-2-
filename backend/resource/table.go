@@ -3,6 +3,7 @@ package resource
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 
 	_ "github.com/lib/pq"
@@ -20,6 +21,13 @@ func PrintIfErrorExist(err error) {
 	}
 }
 
+func ValidateID(sIn string) error {
+	if len(sIn) < 1 {
+		return errors.New("ID must not be empty")
+	}
+	return nil
+}
+
 func NewDBOperator(inDSN string) (*SQLop, error) {
 	db, err := sql.Open("postgres", inDSN)
 	bunDB := bun.NewDB(db, pgdialect.New())
@@ -27,6 +35,7 @@ func NewDBOperator(inDSN string) (*SQLop, error) {
 		bundebug.WithVerbose(true),
 		bundebug.FromEnv("BUNDEBUG"),
 	))
+	util.CheckErr(err)
 	err = db.Ping()
 	util.CheckErr(err)
 	return &SQLop{
