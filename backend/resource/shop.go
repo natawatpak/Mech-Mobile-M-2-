@@ -25,7 +25,11 @@ func (op *SQLop) ShopCreate(ctx context.Context, shopInput *model.ShopCreateInpu
 }
 
 func (op *SQLop) ShopUpdateMulti(ctx context.Context, updateInput model.Shop) (*model.Shop, error) {
-	_, err := op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
+	err := ValidateID(updateInput.ID)
+	if err != nil {
+		return nil, err
+	}
+	_, err = op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
 	if util.CheckErr(err) {
 		return nil, err
 	}
@@ -34,6 +38,10 @@ func (op *SQLop) ShopUpdateMulti(ctx context.Context, updateInput model.Shop) (*
 }
 
 func (op *SQLop) ShopDelete(ctx context.Context, ID string) (*model.Shop, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	resultShop, err := op.ShopFindByID(ctx, ID)
 	if util.CheckErr(err) {
 		return nil, err
@@ -53,8 +61,12 @@ func (op *SQLop) ShopDeleteAll(ctx context.Context) ([]*model.Shop, error) {
 }
 
 func (op *SQLop) ShopFindByID(ctx context.Context, ID string) (*model.Shop, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	arrModel := new(model.Shop)
-	err := op.db.NewSelect().Model(op.shopModel).Where("id = ?", ID).Scan(ctx, arrModel)
+	err = op.db.NewSelect().Model(op.shopModel).Where("id = ?", ID).Scan(ctx, arrModel)
 	return arrModel, err
 }
 

@@ -28,7 +28,11 @@ func (op *SQLop) TicketCreate(ctx context.Context, ticketInput *model.TicketCrea
 }
 
 func (op *SQLop) TicketUpdateMulti(ctx context.Context, updateInput model.Ticket) (*model.Ticket, error) {
-	_, err := op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
+	err := ValidateID(updateInput.ID)
+	if err != nil {
+		return nil, err
+	}
+	_, err = op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
 	if util.CheckErr(err) {
 		return nil, err
 	}
@@ -37,6 +41,10 @@ func (op *SQLop) TicketUpdateMulti(ctx context.Context, updateInput model.Ticket
 }
 
 func (op *SQLop) TicketDelete(ctx context.Context, ID string) (*model.Ticket, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	resultTicket, err := op.TicketFindByID(ctx, ID)
 	if util.CheckErr(err) {
 		return nil, err
@@ -56,21 +64,33 @@ func (op *SQLop) TicketDeleteAll(ctx context.Context) ([]*model.Ticket, error) {
 }
 
 func (op *SQLop) TicketFindByID(ctx context.Context, ID string) (*model.Ticket, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	arrModel := new(model.Ticket)
-	err := op.db.NewSelect().Model(op.ticketModel).Where("id = ?", ID).Scan(ctx, arrModel)
+	err = op.db.NewSelect().Model(op.ticketModel).Where("id = ?", ID).Scan(ctx, arrModel)
 	return arrModel, err
 }
 
 func (op *SQLop) TicketFindByCustomer(ctx context.Context, input model.TicketByCustomerInput) ([]*model.Ticket, error) {
+	err := ValidateID(input.CustomerID)
+	if err != nil {
+		return nil, err
+	}
 	Ticket := new([]*model.Ticket)
-	err := op.db.NewSelect().Model(op.ticketModel).
+	err = op.db.NewSelect().Model(op.ticketModel).
 		Where("customer_id = ? AND create_time >= ? AND create_time <= ?", input.CustomerID, input.FromTime, input.ToTime).Scan(ctx, Ticket)
 	return *Ticket, err
 }
 
 func (op *SQLop) TicketFindByShop(ctx context.Context, input model.TicketByShopInput) ([]*model.Ticket, error) {
+	err := ValidateID(input.ShopID)
+	if err != nil {
+		return nil, err
+	}
 	Ticket := new([]*model.Ticket)
-	err := op.db.NewSelect().Model(op.ticketModel).
+	err = op.db.NewSelect().Model(op.ticketModel).
 		Where("shop_id = ? AND create_time >= ? AND create_time <= ?", input.ShopID, input.FromTime, input.ToTime).Scan(ctx, Ticket)
 	return *Ticket, err
 }

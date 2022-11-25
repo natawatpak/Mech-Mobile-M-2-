@@ -23,7 +23,11 @@ func (op *SQLop) CustomerCreate(ctx context.Context, cusInput *model.CustomerCre
 }
 
 func (op *SQLop) CustomerUpdateMulti(ctx context.Context, updateInput model.Customer) (*model.Customer, error) {
-	_, err := op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
+	err := ValidateID(updateInput.ID)
+	if err != nil {
+		return nil, err
+	}
+	_, err = op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
 	if util.CheckErr(err) {
 		return nil, err
 	}
@@ -32,6 +36,10 @@ func (op *SQLop) CustomerUpdateMulti(ctx context.Context, updateInput model.Cust
 }
 
 func (op *SQLop) CustomerDelete(ctx context.Context, ID string) (*model.Customer, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	resultCustomer, err := op.CustomerFindByID(ctx, ID)
 	if util.CheckErr(err) {
 		return nil, err
@@ -51,8 +59,12 @@ func (op *SQLop) CustomerDeleteAll(ctx context.Context) ([]*model.Customer, erro
 }
 
 func (op *SQLop) CustomerFindByID(ctx context.Context, ID string) (*model.Customer, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	arrModel := new(model.Customer)
-	err := op.db.NewSelect().Model(op.cusModel).Where("id = ?", ID).Scan(ctx, arrModel)
+	err = op.db.NewSelect().Model(op.cusModel).Where("id = ?", ID).Scan(ctx, arrModel)
 	return arrModel, err
 }
 

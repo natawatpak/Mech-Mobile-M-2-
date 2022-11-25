@@ -267,6 +267,8 @@ type activeTicket {
   problem: String!
   shopID: ID
   status: String
+  longitude: Float!
+  latitude: Float!
 }
 
 input activeTicketCreateInput {
@@ -276,6 +278,8 @@ input activeTicketCreateInput {
   problem: String!
   shopID: ID
   status: String
+  longitude: Float!
+  latitude: Float!
 }
 
 input activeTicketUpdateInput {
@@ -285,6 +289,8 @@ input activeTicketUpdateInput {
   problem: String!
   shopID: ID
   status: String
+  longitude: Float!
+  latitude: Float!
 }
 
 type ticketService {

@@ -28,7 +28,11 @@ func (op *SQLop) CarCreate(ctx context.Context, carInput *model.CarCreateInput) 
 }
 
 func (op *SQLop) CarUpdateMulti(ctx context.Context, updateInput model.Car) (*model.Car, error) {
-	_, err := op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
+	err := ValidateID(updateInput.ID)
+	if err != nil {
+		return nil, err
+	}
+	_, err = op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
 	if util.CheckErr(err) {
 		return nil, err
 	}
@@ -37,6 +41,10 @@ func (op *SQLop) CarUpdateMulti(ctx context.Context, updateInput model.Car) (*mo
 }
 
 func (op *SQLop) CarDelete(ctx context.Context, ID string) (*model.Car, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	resultCustomer, err := op.CarFindByID(ctx, ID)
 	if util.CheckErr(err) {
 		return nil, err
@@ -56,14 +64,22 @@ func (op *SQLop) CarDeleteAll(ctx context.Context) ([]*model.Car, error) {
 }
 
 func (op *SQLop) CarFindByID(ctx context.Context, ID string) (*model.Car, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	arrModel := new(model.Car)
-	err := op.db.NewSelect().Model(op.carModel).Where("id = ?", ID).Scan(ctx, arrModel)
+	err = op.db.NewSelect().Model(op.carModel).Where("id = ?", ID).Scan(ctx, arrModel)
 	return arrModel, err
 }
 
 func (op *SQLop) CarFindByOwner(ctx context.Context, ID string) ([]*model.Car, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	car := new([]*model.Car)
-	err := op.db.NewSelect().Model(op.carModel).Where("owner_id = ?", ID).Scan(ctx, car)
+	err = op.db.NewSelect().Model(op.carModel).Where("owner_id = ?", ID).Scan(ctx, car)
 	return *car, err
 }
 
