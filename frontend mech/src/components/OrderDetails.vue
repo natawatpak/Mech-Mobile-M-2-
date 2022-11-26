@@ -136,6 +136,8 @@
 export default {
   data() {
     return {
+      status: ["On the way", "On the way", "Processing", "Finish:Garage", "Finish:Complete"],
+      ticketID: undefined,
       valid: true,
       dialog: false,
       currentState: 1,
@@ -153,6 +155,7 @@ export default {
         lng: "90",
         status: "Accept",
       },
+      socket: undefined,
       items: ['mdi-thumb-up', 'mdi-car', 'mdi-wrench', 'mdi-check'],
       otw: "Next stage: 'On the way'. Are your mechanic ready to go?",
       onp: "Next stage: 'On process'. Your mechanic is fixing customer car.",
@@ -164,12 +167,91 @@ export default {
       if (this.confirmation == 'confirmation') {
         this.dialog = false;
         this.currentState++;
+        this.updateTicketStatus(this.status[this.currentState])
       }
       if (this.confirmation == 'confirmation' && this.currentState == 4) {
         this.currentState = 4;
         this.valid = false;
       }
-    }
-  }
+    },
+    updateTicketStatus(status){
+      this.socket.send(status);
+
+      const data = new URLSearchParams({
+        ticketID: this.ticketID,
+        cusID: this.cusID,
+        carID: this.carID,
+        problem: this.problem,
+        shopID: sessionStorage.getItem("shopID"),
+        status: status,
+        // lat:
+        // lng:
+        // description:
+      });
+      this.axios
+        .post("http://localhost:3000/shop/update-ticket", data)
+        .then((response) => {
+          console.log(response.data);
+          this.cusID = response.data.cusID;
+          this.carID = response.data.carID;
+          this.shopID = response.data.shopID;
+          this.status = response.data.status;
+          this.problems = response.data.problem;
+        })
+    },
+    getTicket(){
+      const data = new URLSearchParams({
+        ticketID: this.ticketID,
+      });
+      this.axios
+        .post("http://localhost:3000/customer/get-ticket", data)
+        .then((response) => {
+          console.log(response.data);
+          this.carID = response.data.carID;
+          this.shopID = response.data.shopID;
+          this.status = response.data.status;
+          this.problems = response.data.problem;
+          this.createdTime = response.data.createdTime;
+          this.acceptedTime = response.data.acceptedTime;
+          this.getCarDetail()
+        })
+    },
+    getCarDetail(){
+      const data = new URLSearchParams({
+        carID: this.carID,
+      });
+      this.axios
+        .post("http://localhost:3000/customer/get-car", data)
+        .then((response) => {
+          this.car = response.data;
+        });
+    },
+  },
+  mounted() {
+    this.ticketID = sessionStorage.getItem("ticketID")
+    console.log(sessionStorage.getItem("ticketID"))
+
+    this.socket = new WebSocket("ws://127.0.0.1:3000/shop/ws/"+sessionStorage.getItem("ticketID"));
+    console.log("Attempting Connection...");
+
+    this.socket.onopen = () => {
+      console.log("Successfully Connected");
+      this.socket.send("Accepted");
+    };
+
+    this.socket.addEventListener("message", (event) => {
+      console.log("Message from server ", event.data);
+    });
+
+    this.socket.onclose = (event) => {
+      console.log("Socket Closed Connection: ", event);
+      this.socket.send("Client Closed!");
+    };
+
+    this.socket.onerror = (error) => {
+      this.console.log("Socket Error: ", error);
+    };
+
+  },
 };
 </script>

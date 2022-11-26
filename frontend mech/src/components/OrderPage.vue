@@ -1,11 +1,11 @@
 <template>
   <div class="text-center mx-16 justify-center">
     <div class="text-left text-h4 my-4 pa-4">Order</div>
-      <v-container fluid v-for="item in items" :key="item.id" class="pa-0 mx-4">
-      <v-card :to="'/details'" variant="tonal" class="text-left pa-4 my-4 mr-6">
+      <v-container fluid v-for="item in items" :key="item.ticketID" class="pa-0 mx-4">
+      <v-card :to="'/details'" @click="acceptTicket(item)" variant="tonal" class="text-left pa-4 my-4 mr-6">
         <v-row class="pa-2">
           <v-card-title class="text-h6">
-            Order {{item.id}} | {{item.username}}
+            Order {{item.ticketID}} | {{item.username}}
           </v-card-title>
           <v-chip class="ma-2" color="yellow-darken-3">{{item.status}}</v-chip>
         </v-row>      
@@ -28,6 +28,7 @@
 export default {
   mounted(){
     this.getActiveTicket()
+    sessionStorage.setItem("shopID",1)
   },
   data() {
     return {
@@ -72,6 +73,33 @@ export default {
           console.log(response.data);
           this.items = response.data
         });
+    },
+    acceptTicket(ticket){
+      sessionStorage.setItem("ticketID", ticket.ticketID)
+
+      const data = new URLSearchParams({
+        ticketID: ticket.ticketID,
+        cusID: ticket.cusID,
+        carID: ticket.carID,
+        problem: ticket.problem,
+        shopID: sessionStorage.getItem("shopID"),
+        // lat:
+        // lng:
+        // description:
+      });
+      this.axios
+        .post("http://localhost:3000/shop/accept-ticket", data)
+        .then((response) => {
+          console.log(response.data);
+          this.carID = response.data.carID;
+          this.shopID = response.data.shopID;
+          this.status = response.data.status;
+          this.problems = response.data.problem;
+          this.getCarDetail()
+          if(this.status!="Active"){
+            this.getShopProfile()
+          }
+        })
     },
   }
 };

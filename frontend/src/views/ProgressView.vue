@@ -57,6 +57,7 @@ export default {
 
     this.socket.addEventListener("message", (event) => {
       console.log("Message from server ", event.data);
+      this.status = event.data
     });
     
     this.socket.onclose = event => {

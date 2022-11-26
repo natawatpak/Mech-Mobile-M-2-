@@ -112,8 +112,8 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 		Problem:    r.FormValue("problem"),
 		ShopID:     util.Ptr(r.FormValue("shopID")),
 		Status:     util.Ptr("Accepted"),
-		// Latitude: r.FormValue("lat"),
-		// Longitude: r.FormValue("lng"),
+		// Latitude: 	StrToFloat(r.FormValue("lat")),
+		// Longitude: StrToFloat(r.FormValue("lng")),
 		// Description: r.FormValue("description"),
 	})
 
@@ -148,7 +148,7 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	AddHeader(w).Write(jsonData)
 }
 
-func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
+func ShopUpdateTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
@@ -160,7 +160,7 @@ func ShopCompleteTicket(w http.ResponseWriter, r *http.Request) {
 		CustomerID: r.FormValue("cusID"),
 		Problem:    r.FormValue("problem"),
 		ShopID:     util.Ptr(r.FormValue("shopID")),
-		Status:     util.Ptr("Completed"),
+		Status:     util.Ptr(r.FormValue("status")),
 		// Latitude: r.FormValue("lat"),
 		// Longitude: r.FormValue("lng"),
 		// Description: r.FormValue("description"),

@@ -71,14 +71,14 @@ func (ticket *WsTicket) readShop() {
 	ticket.Shop_conn.SetPongHandler(func(string) error { ticket.Shop_conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 	for {
 		_, jsonMessage, err := ticket.Shop_conn.ReadMessage()
-		fmt.Println(string(jsonMessage))
+		
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Printf("unexpected close error: %v", err)
 			}
 			break
 		}
-
+		fmt.Println(string(jsonMessage))
 		ticket.handleNewMessage(jsonMessage)
 	}
 }
@@ -97,9 +97,10 @@ func ShopWs(w http.ResponseWriter, r *http.Request) {
 	}
 
 	vars := mux.Vars(r)
-	
+	fmt.Print("ticket_id: ")
+	fmt.Println(vars["ticketID"]);
+
 	WsTickets[vars["ticketID"]].Shop_conn = conn
 
 	go WsTickets[vars["ticketID"]].readShop()
-
 }
