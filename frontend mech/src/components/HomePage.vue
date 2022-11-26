@@ -1,94 +1,62 @@
 <template>
-  <div class="text-center ma-4">
-    <v-row no-gutters>
-      <v-col cols="8">
-        <v-badge
-          color="#C0294A"
-          :content="orders"
-          :value="orders"
-          class="text-h4 pa-4"
-          floating
-        >
-          Incoming order
-        </v-badge>
-        <v-card @click="dialog = true" variant="tonal" class="text-left pa-4 ma-4">
-          <v-card-title
-            >Order {{ details.id }} | {{ details.name }}</v-card-title
+  <div class="text-left ma-4">
+    <div>
+      <v-alert
+        color="teal"
+        title="Incoming order"
+        variant="tonal"
+        icon="mdi-ballot"
+      >
+        <div class="d-flex flex-row align-center justify-space-between">
+          <div>
+            There was an incoming order from your client. Go check now!
+          </div>
+
+          <v-btn
+            color="teal-darken-1"
+            variant="outlined"
           >
-          <section>
-            <v-card-text class="text-h7">
-              Car {{ details.type }} | {{ details.brand }} <br />
-              Problems {{ details.problem }} <br />
-              {{ details.location }} km
-              <v-row justify="end">
-                <v-card-action>
-                  <v-btn class="mx-1" variant="tonal" color="error">
-                    Decline
-                  </v-btn>
+            Go
+          </v-btn>
+        </div>
+      </v-alert>
+    </div>
 
-                  <v-btn class="mx-1" color="blue" variant="tonal">
-                    Accept
-                  </v-btn>
-                </v-card-action>
-              </v-row>
-            </v-card-text>
-          </section>
+    <div class="mt-4">
+      <v-text class="text-h5">Today summary</v-text>
+    </div>
+
+    <v-row no-gutters>
+      <v-col>
+        <v-card class="pa-2 ma-2" variant="tonal">
+          <v-card-title>Total order</v-card-title>
+          <v-card-text class="text-center text-h6">{{total}}</v-card-text>
         </v-card>
+      </v-col>
+      <v-col>
+        <v-card class="pa-2 ma-2" variant="tonal">
+          <v-card-title>On the way</v-card-title>
+          <v-card-text class="text-center text-h6">{{otw}}</v-card-text>
+        </v-card>
+      </v-col>
 
-        <v-dialog v-model="dialog" width="800" class="text-left pa-4">
-          <v-card class="text-left pa-4">
-            <v-row class="pa-5">
-              <v-btn
-                icon
-                dark
-                @click="dialog = false"
-              >
-              <v-icon>mdi-close</v-icon>
-              </v-btn>
-              <v-card-title class="text-h5"> Order {{details.id}}</v-card-title>
-            </v-row>
-            <v-card class="text-left ma-2 pa-1" variant="outlined">
-              <v-title class="text-h6">Car Details</v-title>
-              <v-card-text class="text-h7">
-                Type: {{details.type}} | Brand: {{details.brand}}
-                <br />
-                License plate: {{details.plate}}
-              </v-card-text>
-            </v-card>
-            <v-card
-              variant="outlined"
-              class="text-left ma-2 pa-1 d-flex justify-left align-center"
-            >
-              <section>
-                <v-card-title>Current Location</v-card-title>
-                <v-card-text>{{location.lat+', '+ location.lng}}</v-card-text>
-              </section>
-            </v-card>
-            <v-card class="text-left ma-2 pa-1" variant="outlined">
-              <v-title class="text-h6">Problems</v-title>
-              <v-card-text class="text-h7">
-                <p v-for="p in problems" :key="p">{{'-' + p}}</p>
-              </v-card-text>
-            </v-card>
-            <v-card class="text-left ma-2 pa-1" variant="outlined">
-              <v-title class="text-h6">Description</v-title>
-              <v-card-text class="text-h7">
-                <p>{{description}}</p>
-              </v-card-text>
-            </v-card> 
-            <v-row justify="end" class="pa-4">
-                <v-card-action>
-                  <v-btn class="mx-1" variant="tonal" color="error" @click="dialog = false">
-                    Decline
-                  </v-btn>
+      <v-responsive width="100%"></v-responsive>
 
-                  <v-btn class="mx-1" color="blue" variant="tonal" @click="dialog = false">
-                    Accept
-                  </v-btn>
-                </v-card-action>
-              </v-row>
-          </v-card>
-        </v-dialog>
+      <v-col>
+        <v-card class="pa-2 ma-2" variant="tonal">
+          <v-card-title>In process</v-card-title>
+          <v-card-text class="text-center text-h6">{{onprocess}}</v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col>
+        <v-card class="pa-2 ma-2" variant="tonal">
+          <v-card-title>Finish</v-card-title>
+          <v-card-text class="text-center text-h6">{{finish}}</v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
 
         <v-tabs v-model="tab" grow class="ma-4">
           <v-tab class="text-h5" value="one">On process</v-tab>
@@ -138,71 +106,6 @@
             </v-window-item>
           </v-window>
         </v-card-text>
-      </v-col>
-      <v-col cols="4">
-        <div class="mr-8">
-        <v-container class="bg-grey-lighten-3 ma-4 rounded" style="height: 90vh;">
-          <v-card class="mb-4" variant="tonal">
-            <v-card-title class="text-left text-h5 pa-4">Total order</v-card-title>
-              <v-card-text class="justify-center text-h4 pa-4">
-                {{total}}
-              </v-card-text>
-              <v-card-text class="text-right text-h6 pa-4">
-                Yesterday {{total}}
-              </v-card-text>
-          </v-card>
-          <v-card variant="tonal" class="mb-4">
-            <v-list-item class="text-left text-h6">Accepted
-            <template v-slot:append>
-              <v-badge
-                color="green-lighten-1"
-                :content="accept"
-                :value="accept"
-                inline
-              ></v-badge>
-            </template>
-            </v-list-item>
-          </v-card>
-          <v-card variant="tonal" class="mb-4">
-            <v-list-item class="text-left text-h6 pa-5">On the way
-            <template v-slot:append>
-              <v-badge
-                color="green-lighten-1"
-                :content="otw"
-                :value="otw"
-                inline
-              ></v-badge>
-            </template>
-            </v-list-item>
-          </v-card>
-          <v-card variant="tonal" class="mb-4">
-            <v-list-item class="text-left text-h6 pa-5">On process
-            <template v-slot:append>
-              <v-badge
-                color="green-lighten-1"
-                :content="onprocess"
-                :value="onprocess"
-                inline
-              ></v-badge>
-            </template>
-            </v-list-item>
-          </v-card>
-          <v-card variant="tonal" class="mb-4"> 
-            <v-list-item class="text-left text-h6 pa-5">Finish
-            <template v-slot:append>
-              <v-badge
-                color="green-lighten-1"
-                :content="finish"
-                :value="finish"
-                inline
-              ></v-badge>
-            </template>
-            </v-list-item>
-          </v-card>
-        </v-container>
-      </div>
-      </v-col>
-    </v-row>
   </div>
 </template>
 
@@ -221,7 +124,6 @@ export default {
       dialog: false,
       orders: 1,
       total: 5,
-      accept: 2,
       otw: 1,
       onprocess: 1,
       finish: 1,
