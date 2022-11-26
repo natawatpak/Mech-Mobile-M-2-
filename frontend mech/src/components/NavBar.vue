@@ -36,12 +36,6 @@
   color: #000000;
 }
 
-.font-weight-bold {
-  font-size: 28px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-}
 </style>
 
 

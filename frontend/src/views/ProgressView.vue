@@ -1,8 +1,8 @@
 <template>
   <div class="pa-5">
-    <ProgressBar currentState="4" />
+    <ProgressBar id='state' currentState="4" />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :location=location :problems=problems />
+    <ProgressDetail :shop=shop :car=car :location=location :problems=problems :currentStage="4"/>
   </div>
 </template>
 
