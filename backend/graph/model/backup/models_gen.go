@@ -15,6 +15,7 @@ type ActiveTicket struct {
 	CarID      string  `json:"carID" bun:",unique"`
 	CustomerID string  `json:"customerID" bun:",notnull"`
 	Problem    string  `json:"problem" bun:",notnull"`
+	Description *string `json:"description"`
 	ShopID     *string `json:"shopID"`
 	Status     *string `json:"status"`
 	Longitude  float64 `json:"longitude" bun:",notnull"`
@@ -22,25 +23,27 @@ type ActiveTicket struct {
 }
 
 type ActiveTicketCreateInput struct {
-	ID         string  `json:"ID"`
-	CarID      string  `json:"carID"`
-	CustomerID string  `json:"customerID"`
-	Problem    string  `json:"problem"`
-	ShopID     *string `json:"shopID"`
-	Status     *string `json:"status"`
-	Longitude  float64 `json:"longitude"`
-	Latitude   float64 `json:"latitude"`
+	ID          string  `json:"ID"`
+	CarID       string  `json:"carID"`
+	CustomerID  string  `json:"customerID"`
+	Problem     string  `json:"problem"`
+	Description *string `json:"description"`
+	ShopID      *string `json:"shopID"`
+	Status      *string `json:"status"`
+	Longitude   float64 `json:"longitude"`
+	Latitude    float64 `json:"latitude"`
 }
 
 type ActiveTicketUpdateInput struct {
-	ID         string  `json:"ID"`
-	CarID      string  `json:"carID"`
-	CustomerID string  `json:"customerID"`
-	Problem    string  `json:"problem"`
-	ShopID     *string `json:"shopID"`
-	Status     *string `json:"status"`
-	Longitude  float64 `json:"longitude"`
-	Latitude   float64 `json:"latitude"`
+	ID          string  `json:"ID"`
+	CarID       string  `json:"carID"`
+	CustomerID  string  `json:"customerID"`
+	Problem     string  `json:"problem"`
+	Description *string `json:"description"`
+	ShopID      *string `json:"shopID"`
+	Status      *string `json:"status"`
+	Longitude   float64 `json:"longitude"`
+	Latitude    float64 `json:"latitude"`
 }
 
 type Car struct {

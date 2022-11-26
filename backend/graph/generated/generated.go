@@ -107,14 +107,15 @@ type ComplexityRoot struct {
 	}
 
 	ActiveTicket struct {
-		CarID      func(childComplexity int) int
-		CustomerID func(childComplexity int) int
-		ID         func(childComplexity int) int
-		Latitude   func(childComplexity int) int
-		Longitude  func(childComplexity int) int
-		Problem    func(childComplexity int) int
-		ShopID     func(childComplexity int) int
-		Status     func(childComplexity int) int
+		CarID       func(childComplexity int) int
+		CustomerID  func(childComplexity int) int
+		Description func(childComplexity int) int
+		ID          func(childComplexity int) int
+		Latitude    func(childComplexity int) int
+		Longitude   func(childComplexity int) int
+		Problem     func(childComplexity int) int
+		ShopID      func(childComplexity int) int
+		Status      func(childComplexity int) int
 	}
 
 	Car struct {
@@ -836,6 +837,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.ActiveTicket.CustomerID(childComplexity), true
 
+	case "activeTicket.description":
+		if e.complexity.ActiveTicket.Description == nil {
+			break
+		}
+
+		return e.complexity.ActiveTicket.Description(childComplexity), true
+
 	case "activeTicket.ID":
 		if e.complexity.ActiveTicket.ID == nil {
 			break
@@ -1497,6 +1505,7 @@ type activeTicket {
   carID: ID!
   customerID: ID!
   problem: String!
+  description: String
   shopID: ID
   status: String
   longitude: Float!
@@ -1508,6 +1517,7 @@ input activeTicketCreateInput {
   carID: ID!
   customerID: ID!
   problem: String!
+  description: String
   shopID: ID
   status: String
   longitude: Float!
@@ -1519,6 +1529,7 @@ input activeTicketUpdateInput {
   carID: ID!
   customerID: ID!
   problem: String!
+  description: String
   shopID: ID
   status: String
   longitude: Float!
@@ -3397,6 +3408,8 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketCreate(ctx context
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -3470,6 +3483,8 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketUpdateMulti(ctx co
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -3543,6 +3558,8 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketDelete(ctx context
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -3613,6 +3630,8 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketDeleteStatus(ctx c
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -3683,6 +3702,8 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketDeleteAll(ctx cont
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -5305,6 +5326,8 @@ func (ec *executionContext) fieldContext_Query_activeTicketByID(ctx context.Cont
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -5378,6 +5401,8 @@ func (ec *executionContext) fieldContext_Query_activeTicketByCustomer(ctx contex
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -5451,6 +5476,8 @@ func (ec *executionContext) fieldContext_Query_activeTicketByShop(ctx context.Co
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -5521,6 +5548,8 @@ func (ec *executionContext) fieldContext_Query_activeTicketByStats(ctx context.C
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -5594,6 +5623,8 @@ func (ec *executionContext) fieldContext_Query_activeTickets(ctx context.Context
 				return ec.fieldContext_activeTicket_customerID(ctx, field)
 			case "problem":
 				return ec.fieldContext_activeTicket_problem(ctx, field)
+			case "description":
+				return ec.fieldContext_activeTicket_description(ctx, field)
 			case "shopID":
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
@@ -7791,6 +7822,47 @@ func (ec *executionContext) fieldContext_activeTicket_problem(ctx context.Contex
 	return fc, nil
 }
 
+func (ec *executionContext) _activeTicket_description(ctx context.Context, field graphql.CollectedField, obj *model.ActiveTicket) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_activeTicket_description(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Description, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_activeTicket_description(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "activeTicket",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _activeTicket_shopID(ctx context.Context, field graphql.CollectedField, obj *model.ActiveTicket) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_activeTicket_shopID(ctx, field)
 	if err != nil {
@@ -9645,7 +9717,7 @@ func (ec *executionContext) unmarshalInputactiveTicketCreateInput(ctx context.Co
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"ID", "carID", "customerID", "problem", "shopID", "status", "longitude", "latitude"}
+	fieldsInOrder := [...]string{"ID", "carID", "customerID", "problem", "description", "shopID", "status", "longitude", "latitude"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -9681,6 +9753,14 @@ func (ec *executionContext) unmarshalInputactiveTicketCreateInput(ctx context.Co
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("problem"))
 			it.Problem, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("description"))
+			it.Description, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9729,7 +9809,7 @@ func (ec *executionContext) unmarshalInputactiveTicketUpdateInput(ctx context.Co
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"ID", "carID", "customerID", "problem", "shopID", "status", "longitude", "latitude"}
+	fieldsInOrder := [...]string{"ID", "carID", "customerID", "problem", "description", "shopID", "status", "longitude", "latitude"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -9765,6 +9845,14 @@ func (ec *executionContext) unmarshalInputactiveTicketUpdateInput(ctx context.Co
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("problem"))
 			it.Problem, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("description"))
+			it.Description, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -11961,6 +12049,10 @@ func (ec *executionContext) _activeTicket(ctx context.Context, sel ast.Selection
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "description":
+
+			out.Values[i] = ec._activeTicket_description(ctx, field, obj)
+
 		case "shopID":
 
 			out.Values[i] = ec._activeTicket_shopID(ctx, field, obj)
