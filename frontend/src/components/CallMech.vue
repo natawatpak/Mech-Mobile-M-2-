@@ -193,7 +193,7 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
-    sessionStorage.setItem("cusID", "326b5b53-c89e-4f47-8766-ea22190f4c9a");
+    sessionStorage.setItem("cusID", "73cf4edf-279b-40fd-a451-2abd9be31957");
     sessionStorage.setItem("fName", "phum");
     sessionStorage.setItem("lName", "kitiphum");
     sessionStorage.setItem("tel", "0123456789");

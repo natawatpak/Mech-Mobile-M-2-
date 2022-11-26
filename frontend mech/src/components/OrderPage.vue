@@ -26,6 +26,9 @@
 
 <script>
 export default {
+  mounted(){
+    this.getActiveTicket()
+  },
   data() {
     return {
       items: [
@@ -60,6 +63,16 @@ export default {
         },
       ],
     };
+  },
+  methods:{
+    getActiveTicket(){
+      this.axios
+        .post("http://localhost:3000/shop/get-ticket-list")
+        .then((response) => {
+          console.log(response.data);
+          this.items = response.data
+        });
+    },
   }
 };
 </script>

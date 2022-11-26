@@ -294,17 +294,20 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 	fmt.Print("ticketID: ")
 	fmt.Println(resp.TicketCreate.ID)
 
-	// _, err = graph.ActiveTicketCreate(ctx, graphqlClient, &graph.ActiveTicketCreateInput{
-	// 	ID: resp.TicketCreate.ID,
-	// 	CustomerID:   r.FormValue("cusID"),
-	// 	CarID:        r.FormValue("carID"),
-	// 	Problem:      r.FormValue("problem"),
-	// 	ShopID:       nil,
-	// 	Status:       util.Ptr(r.FormValue("status")),
-	// 	Longitude:    StrToFloat(r.FormValue("lng")),
-	// 	Latitude: StrToFloat(r.FormValue("lat")),
-	// 	Description: util.Ptr(r.FormValue("description")),
-	// })
+	ctx, _ = context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	_, err = graph.ActiveTicketCreate(ctx, graphqlClient, &graph.ActiveTicketCreateInput{
+		ID: resp.TicketCreate.ID,
+		CustomerID:   r.FormValue("cusID"),
+		CarID:        r.FormValue("carID"),
+		Problem:      r.FormValue("problem"),
+		ShopID:       nil,
+		Status:       util.Ptr(r.FormValue("status")),
+		Longitude:    StrToFloat(r.FormValue("lng")),
+		Latitude: StrToFloat(r.FormValue("lat")),
+		// Description: util.Ptr(r.FormValue("description")),
+	})
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -363,27 +366,6 @@ func CustomerGetTicket(w http.ResponseWriter, r *http.Request){
 	}
 	AddHeader(w).Write(jsonData)
 }
-
-// func CustomerGetActiveTicket(w http.ResponseWriter, r *http.Request) []byte {
-// 	r.ParseForm()
-
-// 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-// 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
-
-// 	resp, err := graph.ActiveTicketByCustomer(ctx, graphqlClient, r.FormValue("cusID"))
-
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	data := make(map[int]map[string]string)
-
-// 	jsonData, err := json.Marshal(data)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	return jsonData
-// }
 
 // need improvise
 func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) {

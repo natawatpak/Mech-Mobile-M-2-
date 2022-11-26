@@ -81,10 +81,10 @@ func ShopGetOngoingTicketList(w http.ResponseWriter, r *http.Request) {
 			"shopID":   IsNil(t.ShopID),
 			"status":   IsNil(t.Status),
 			// "description": IsNil(t.Description),
-			// "location": map[string]float64{
-			// 	"lng": t.Longitude,
-			// 	"lat": t.Latitude,
-			// },
+			"location": map[string]float64{
+				"lng": t.Longitude,
+				"lat": t.Latitude,
+			},
 		}
 		data[i] = tData
 	}
