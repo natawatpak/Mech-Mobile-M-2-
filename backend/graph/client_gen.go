@@ -45,6 +45,16 @@ func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetStatus() *
 	return v.activeTicketFragment.Status
 }
 
+// GetLongitude returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
+}
+
 func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -82,6 +92,10 @@ type __premarshalActiveTicketByCustomerActiveTicketByCustomerActiveTicket struct
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) MarshalJSON() ([]byte, error) {
@@ -101,6 +115,8 @@ func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) __premarshalJ
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -149,6 +165,16 @@ func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
+// GetLongitude returns ActiveTicketByIDActiveTicketByIDActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketByIDActiveTicketByIDActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
+}
+
 func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -186,6 +212,10 @@ type __premarshalActiveTicketByIDActiveTicketByIDActiveTicket struct {
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) MarshalJSON() ([]byte, error) {
@@ -205,6 +235,8 @@ func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) __premarshalJSON() (*__pr
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -253,6 +285,16 @@ func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
+// GetLongitude returns ActiveTicketByShopActiveTicketByShopActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketByShopActiveTicketByShopActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
+}
+
 func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -290,6 +332,10 @@ type __premarshalActiveTicketByShopActiveTicketByShopActiveTicket struct {
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) MarshalJSON() ([]byte, error) {
@@ -309,6 +355,8 @@ func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) __premarshalJSON() (*
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -357,6 +405,16 @@ func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetStatus() *string
 	return v.activeTicketFragment.Status
 }
 
+// GetLongitude returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
+}
+
 func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -394,6 +452,10 @@ type __premarshalActiveTicketByStatsActiveTicketByStatsActiveTicket struct {
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) MarshalJSON() ([]byte, error) {
@@ -413,6 +475,8 @@ func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) __premarshalJSON() 
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -461,6 +525,16 @@ func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
+// GetLongitude returns ActiveTicketCreateActiveTicketCreateActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketCreateActiveTicketCreateActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
+}
+
 func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -498,6 +572,10 @@ type __premarshalActiveTicketCreateActiveTicketCreateActiveTicket struct {
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) MarshalJSON() ([]byte, error) {
@@ -517,6 +595,8 @@ func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) __premarshalJSON() (*
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -527,6 +607,8 @@ type ActiveTicketCreateInput struct {
 	Problem    string  `json:"problem"`
 	ShopID     *string `json:"shopID"`
 	Status     *string `json:"status"`
+	Longitude  float64 `json:"longitude"`
+	Latitude   float64 `json:"latitude"`
 }
 
 // GetID returns ActiveTicketCreateInput.ID, and is useful for accessing the field via an interface.
@@ -546,6 +628,12 @@ func (v *ActiveTicketCreateInput) GetShopID() *string { return v.ShopID }
 
 // GetStatus returns ActiveTicketCreateInput.Status, and is useful for accessing the field via an interface.
 func (v *ActiveTicketCreateInput) GetStatus() *string { return v.Status }
+
+// GetLongitude returns ActiveTicketCreateInput.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateInput) GetLongitude() float64 { return v.Longitude }
+
+// GetLatitude returns ActiveTicketCreateInput.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateInput) GetLatitude() float64 { return v.Latitude }
 
 // ActiveTicketCreateResponse is returned by ActiveTicketCreate on success.
 type ActiveTicketCreateResponse struct {
@@ -592,6 +680,16 @@ func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
+// GetLongitude returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
+}
+
 func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -629,6 +727,10 @@ type __premarshalActiveTicketDeleteActiveTicketDeleteActiveTicket struct {
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) MarshalJSON() ([]byte, error) {
@@ -648,6 +750,8 @@ func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) __premarshalJSON() (*
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -684,6 +788,16 @@ func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetShopID() *st
 // GetStatus returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.Status, and is useful for accessing the field via an interface.
 func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
+}
+
+// GetLongitude returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
 }
 
 func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) UnmarshalJSON(b []byte) error {
@@ -723,6 +837,10 @@ type __premarshalActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket struct {
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) MarshalJSON() ([]byte, error) {
@@ -742,6 +860,8 @@ func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) __premarshalJSO
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -800,6 +920,16 @@ func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetStatus
 	return v.activeTicketFragment.Status
 }
 
+// GetLongitude returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
+}
+
 func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -837,6 +967,10 @@ type __premarshalActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket st
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) MarshalJSON() ([]byte, error) {
@@ -856,6 +990,8 @@ func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) __premars
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -876,6 +1012,8 @@ type ActiveTicketUpdateInput struct {
 	Problem    string  `json:"problem"`
 	ShopID     *string `json:"shopID"`
 	Status     *string `json:"status"`
+	Longitude  float64 `json:"longitude"`
+	Latitude   float64 `json:"latitude"`
 }
 
 // GetID returns ActiveTicketUpdateInput.ID, and is useful for accessing the field via an interface.
@@ -895,6 +1033,12 @@ func (v *ActiveTicketUpdateInput) GetShopID() *string { return v.ShopID }
 
 // GetStatus returns ActiveTicketUpdateInput.Status, and is useful for accessing the field via an interface.
 func (v *ActiveTicketUpdateInput) GetStatus() *string { return v.Status }
+
+// GetLongitude returns ActiveTicketUpdateInput.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateInput) GetLongitude() float64 { return v.Longitude }
+
+// GetLatitude returns ActiveTicketUpdateInput.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateInput) GetLatitude() float64 { return v.Latitude }
 
 // ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket includes the requested fields of the GraphQL type activeTicket.
 type ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket struct {
@@ -929,6 +1073,16 @@ func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetShopID()
 // GetStatus returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.Status, and is useful for accessing the field via an interface.
 func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
+}
+
+// GetLongitude returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
 }
 
 func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) UnmarshalJSON(b []byte) error {
@@ -968,6 +1122,10 @@ type __premarshalActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket stru
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) MarshalJSON() ([]byte, error) {
@@ -987,6 +1145,8 @@ func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) __premarsha
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -1033,6 +1193,16 @@ func (v *ActiveTicketsActiveTicketsActiveTicket) GetStatus() *string {
 	return v.activeTicketFragment.Status
 }
 
+// GetLongitude returns ActiveTicketsActiveTicketsActiveTicket.Longitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetLongitude() float64 {
+	return v.activeTicketFragment.Longitude
+}
+
+// GetLatitude returns ActiveTicketsActiveTicketsActiveTicket.Latitude, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetLatitude() float64 {
+	return v.activeTicketFragment.Latitude
+}
+
 func (v *ActiveTicketsActiveTicketsActiveTicket) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -1070,6 +1240,10 @@ type __premarshalActiveTicketsActiveTicketsActiveTicket struct {
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
 }
 
 func (v *ActiveTicketsActiveTicketsActiveTicket) MarshalJSON() ([]byte, error) {
@@ -1089,6 +1263,8 @@ func (v *ActiveTicketsActiveTicketsActiveTicket) __premarshalJSON() (*__premarsh
 	retval.Problem = v.activeTicketFragment.Problem
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
+	retval.Longitude = v.activeTicketFragment.Longitude
+	retval.Latitude = v.activeTicketFragment.Latitude
 	return &retval, nil
 }
 
@@ -5834,6 +6010,8 @@ type activeTicketFragment struct {
 	Problem    string  `json:"problem"`
 	ShopID     *string `json:"shopID"`
 	Status     *string `json:"status"`
+	Longitude  float64 `json:"longitude"`
+	Latitude   float64 `json:"latitude"`
 }
 
 // GetID returns activeTicketFragment.ID, and is useful for accessing the field via an interface.
@@ -5853,6 +6031,12 @@ func (v *activeTicketFragment) GetShopID() *string { return v.ShopID }
 
 // GetStatus returns activeTicketFragment.Status, and is useful for accessing the field via an interface.
 func (v *activeTicketFragment) GetStatus() *string { return v.Status }
+
+// GetLongitude returns activeTicketFragment.Longitude, and is useful for accessing the field via an interface.
+func (v *activeTicketFragment) GetLongitude() float64 { return v.Longitude }
+
+// GetLatitude returns activeTicketFragment.Latitude, and is useful for accessing the field via an interface.
+func (v *activeTicketFragment) GetLatitude() float64 { return v.Latitude }
 
 // carFragment includes the GraphQL fields of car requested by the fragment carFragment.
 type carFragment struct {
@@ -6054,6 +6238,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 		Variables: &__ActiveTicketByCustomerInput{
@@ -6094,6 +6280,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 		Variables: &__ActiveTicketByIDInput{
@@ -6134,6 +6322,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 		Variables: &__ActiveTicketByShopInput{
@@ -6174,6 +6364,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 		Variables: &__ActiveTicketByStatsInput{
@@ -6214,6 +6406,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 		Variables: &__ActiveTicketCreateInput{
@@ -6254,6 +6448,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 		Variables: &__ActiveTicketDeleteInput{
@@ -6293,6 +6489,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 	}
@@ -6330,6 +6528,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 		Variables: &__ActiveTicketDeleteStatusInput{
@@ -6370,6 +6570,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 		Variables: &__ActiveTicketUpdateMultiInput{
@@ -6409,6 +6611,8 @@ fragment activeTicketFragment on activeTicket {
 	problem
 	shopID
 	status
+	longitude
+	latitude
 }
 `,
 	}

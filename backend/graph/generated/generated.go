@@ -110,6 +110,8 @@ type ComplexityRoot struct {
 		CarID      func(childComplexity int) int
 		CustomerID func(childComplexity int) int
 		ID         func(childComplexity int) int
+		Latitude   func(childComplexity int) int
+		Longitude  func(childComplexity int) int
 		Problem    func(childComplexity int) int
 		ShopID     func(childComplexity int) int
 		Status     func(childComplexity int) int
@@ -841,6 +843,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.ActiveTicket.ID(childComplexity), true
 
+	case "activeTicket.latitude":
+		if e.complexity.ActiveTicket.Latitude == nil {
+			break
+		}
+
+		return e.complexity.ActiveTicket.Latitude(childComplexity), true
+
+	case "activeTicket.longitude":
+		if e.complexity.ActiveTicket.Longitude == nil {
+			break
+		}
+
+		return e.complexity.ActiveTicket.Longitude(childComplexity), true
+
 	case "activeTicket.problem":
 		if e.complexity.ActiveTicket.Problem == nil {
 			break
@@ -1483,6 +1499,8 @@ type activeTicket {
   problem: String!
   shopID: ID
   status: String
+  longitude: Float!
+  latitude: Float!
 }
 
 input activeTicketCreateInput {
@@ -1492,6 +1510,8 @@ input activeTicketCreateInput {
   problem: String!
   shopID: ID
   status: String
+  longitude: Float!
+  latitude: Float!
 }
 
 input activeTicketUpdateInput {
@@ -1501,6 +1521,8 @@ input activeTicketUpdateInput {
   problem: String!
   shopID: ID
   status: String
+  longitude: Float!
+  latitude: Float!
 }
 
 type ticketService {
@@ -3379,6 +3401,10 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketCreate(ctx context
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -3448,6 +3474,10 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketUpdateMulti(ctx co
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -3517,6 +3547,10 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketDelete(ctx context
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -3583,6 +3617,10 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketDeleteStatus(ctx c
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -3649,6 +3687,10 @@ func (ec *executionContext) fieldContext_Mutation_activeTicketDeleteAll(ctx cont
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -5267,6 +5309,10 @@ func (ec *executionContext) fieldContext_Query_activeTicketByID(ctx context.Cont
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -5336,6 +5382,10 @@ func (ec *executionContext) fieldContext_Query_activeTicketByCustomer(ctx contex
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -5405,6 +5455,10 @@ func (ec *executionContext) fieldContext_Query_activeTicketByShop(ctx context.Co
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -5471,6 +5525,10 @@ func (ec *executionContext) fieldContext_Query_activeTicketByStats(ctx context.C
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -5540,6 +5598,10 @@ func (ec *executionContext) fieldContext_Query_activeTickets(ctx context.Context
 				return ec.fieldContext_activeTicket_shopID(ctx, field)
 			case "status":
 				return ec.fieldContext_activeTicket_status(ctx, field)
+			case "longitude":
+				return ec.fieldContext_activeTicket_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_activeTicket_latitude(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type activeTicket", field.Name)
 		},
@@ -7811,6 +7873,94 @@ func (ec *executionContext) fieldContext_activeTicket_status(ctx context.Context
 	return fc, nil
 }
 
+func (ec *executionContext) _activeTicket_longitude(ctx context.Context, field graphql.CollectedField, obj *model.ActiveTicket) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_activeTicket_longitude(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Longitude, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalNFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_activeTicket_longitude(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "activeTicket",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _activeTicket_latitude(ctx context.Context, field graphql.CollectedField, obj *model.ActiveTicket) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_activeTicket_latitude(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Latitude, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalNFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_activeTicket_latitude(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "activeTicket",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _car_ID(ctx context.Context, field graphql.CollectedField, obj *model.Car) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_car_ID(ctx, field)
 	if err != nil {
@@ -9495,7 +9645,7 @@ func (ec *executionContext) unmarshalInputactiveTicketCreateInput(ctx context.Co
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"ID", "carID", "customerID", "problem", "shopID", "status"}
+	fieldsInOrder := [...]string{"ID", "carID", "customerID", "problem", "shopID", "status", "longitude", "latitude"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -9547,6 +9697,22 @@ func (ec *executionContext) unmarshalInputactiveTicketCreateInput(ctx context.Co
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("status"))
 			it.Status, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "longitude":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("longitude"))
+			it.Longitude, err = ec.unmarshalNFloat2float64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "latitude":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("latitude"))
+			it.Latitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9563,7 +9729,7 @@ func (ec *executionContext) unmarshalInputactiveTicketUpdateInput(ctx context.Co
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"ID", "carID", "customerID", "problem", "shopID", "status"}
+	fieldsInOrder := [...]string{"ID", "carID", "customerID", "problem", "shopID", "status", "longitude", "latitude"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -9615,6 +9781,22 @@ func (ec *executionContext) unmarshalInputactiveTicketUpdateInput(ctx context.Co
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("status"))
 			it.Status, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "longitude":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("longitude"))
+			it.Longitude, err = ec.unmarshalNFloat2float64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "latitude":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("latitude"))
+			it.Latitude, err = ec.unmarshalNFloat2float64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -11787,6 +11969,20 @@ func (ec *executionContext) _activeTicket(ctx context.Context, sel ast.Selection
 
 			out.Values[i] = ec._activeTicket_status(ctx, field, obj)
 
+		case "longitude":
+
+			out.Values[i] = ec._activeTicket_longitude(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "latitude":
+
+			out.Values[i] = ec._activeTicket_latitude(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}

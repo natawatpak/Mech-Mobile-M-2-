@@ -20,7 +20,11 @@ func (op *SQLop) ServiceCreate(ctx context.Context, serviceInput *model.ServiceC
 }
 
 func (op *SQLop) ServiceUpdateMulti(ctx context.Context, updateInput model.ServiceUpdateInput) (*model.Service, error) {
-	_, err := op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
+	err := ValidateID(updateInput.ID)
+	if err != nil {
+		return nil, err
+	}
+	_, err = op.db.NewUpdate().Model(&updateInput).Where("id = ?", updateInput.ID).Exec(ctx)
 	if util.CheckErr(err) {
 		return nil, err
 	}
@@ -29,6 +33,10 @@ func (op *SQLop) ServiceUpdateMulti(ctx context.Context, updateInput model.Servi
 }
 
 func (op *SQLop) ServiceDelete(ctx context.Context, ID string) (*model.Service, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	resultService, err := op.ServiceFindByID(ctx, ID)
 	if util.CheckErr(err) {
 		return nil, err
@@ -48,8 +56,12 @@ func (op *SQLop) ServiceDeleteAll(ctx context.Context) ([]*model.Service, error)
 }
 
 func (op *SQLop) ServiceFindByID(ctx context.Context, ID string) (*model.Service, error) {
+	err := ValidateID(ID)
+	if err != nil {
+		return nil, err
+	}
 	arrModel := new(model.Service)
-	err := op.db.NewSelect().Model(op.serviceModel).Where("id = ?", ID).Scan(ctx, arrModel)
+	err = op.db.NewSelect().Model(op.serviceModel).Where("id = ?", ID).Scan(ctx, arrModel)
 	return arrModel, err
 }
 

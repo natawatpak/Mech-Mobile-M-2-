@@ -17,6 +17,8 @@ type ActiveTicket struct {
 	Problem    string  `json:"problem" bun:",notnull"`
 	ShopID     *string `json:"shopID"`
 	Status     *string `json:"status"`
+	Longitude  float64 `json:"longitude" bun:",notnull"`
+	Latitude   float64 `json:"latitude" bun:",notnull"`
 }
 
 type ActiveTicketCreateInput struct {
@@ -26,6 +28,8 @@ type ActiveTicketCreateInput struct {
 	Problem    string  `json:"problem"`
 	ShopID     *string `json:"shopID"`
 	Status     *string `json:"status"`
+	Longitude  float64 `json:"longitude"`
+	Latitude   float64 `json:"latitude"`
 }
 
 type ActiveTicketUpdateInput struct {
@@ -35,6 +39,8 @@ type ActiveTicketUpdateInput struct {
 	Problem    string  `json:"problem"`
 	ShopID     *string `json:"shopID"`
 	Status     *string `json:"status"`
+	Longitude  float64 `json:"longitude"`
+	Latitude   float64 `json:"latitude"`
 }
 
 type Car struct {
