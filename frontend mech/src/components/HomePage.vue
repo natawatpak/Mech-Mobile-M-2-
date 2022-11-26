@@ -11,13 +11,11 @@
           <div>
             There was an incoming order from your client. Go check now!
           </div>
-
-          <v-btn
-            color="teal-darken-1"
-            variant="outlined"
-          >
-            Go
-          </v-btn>
+          <router-link to="/order" class="text-decoration-none">
+            <v-btn color="teal-darken-1" variant="outlined">
+              Go
+            </v-btn>
+          </router-link>
         </div>
       </v-alert>
     </div>
