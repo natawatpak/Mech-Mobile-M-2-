@@ -21,6 +21,8 @@ func (op *SQLop) ActiveTicketCreate(ctx context.Context, activeTicketInput *mode
 		Problem:    activeTicketInput.Problem,
 		ShopID:     activeTicketInput.ShopID,
 		Status:     activeTicketInput.Status,
+		Latitude:   activeTicketInput.Latitude,
+		Longitude:  activeTicketInput.Longitude,
 	}
 	_, err = op.db.NewInsert().Model(&activeTicketToBeAdd).Exec(ctx)
 	return &activeTicketToBeAdd, err

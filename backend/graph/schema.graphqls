@@ -265,6 +265,7 @@ type activeTicket {
   carID: ID!
   customerID: ID!
   problem: String!
+  description: String
   shopID: ID
   status: String
   longitude: Float!
@@ -276,6 +277,7 @@ input activeTicketCreateInput {
   carID: ID!
   customerID: ID!
   problem: String!
+  description: String
   shopID: ID
   status: String
   longitude: Float!
@@ -287,6 +289,7 @@ input activeTicketUpdateInput {
   carID: ID!
   customerID: ID!
   problem: String!
+  description: String
   shopID: ID
   status: String
   longitude: Float!
