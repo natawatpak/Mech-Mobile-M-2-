@@ -210,10 +210,6 @@
 
 <script>
 export default {
-  mounted(){
-    this.getActiveTicket()
-    sessionStorage.setItem("shopID",1)
-  },
   data() {
     return {
       items: [
@@ -393,41 +389,6 @@ export default {
     };
   },
   methods:{
-    getActiveTicket(){
-      this.axios
-        .post("http://localhost:3000/shop/get-ticket-list")
-        .then((response) => {
-          console.log(response.data);
-          this.items = response.data
-        });
-    },
-    acceptTicket(ticket){
-      sessionStorage.setItem("ticketID", ticket.ticketID)
-
-      const data = new URLSearchParams({
-        ticketID: ticket.ticketID,
-        cusID: ticket.cusID,
-        carID: ticket.carID,
-        problem: ticket.problem,
-        shopID: sessionStorage.getItem("shopID"),
-        // lat:
-        // lng:
-        // description:
-      });
-      this.axios
-        .post("http://localhost:3000/shop/accept-ticket", data)
-        .then((response) => {
-          console.log(response.data);
-          this.carID = response.data.carID;
-          this.shopID = response.data.shopID;
-          this.status = response.data.status;
-          this.problems = response.data.problem;
-          this.getCarDetail()
-          if(this.status!="Active"){
-            this.getShopProfile()
-          }
-        })
-    },
     remove (item) {
       this.chips.splice(this.chips.indexOf(item), 1)
       this.chips = [...this.chips]

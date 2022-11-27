@@ -13,6 +13,22 @@ import (
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
+func getCar(id string) (*graph.CarByIDResponse, error) {
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	resp, err := graph.CarByID(ctx, graphqlClient, id)
+	return resp, err
+}
+
+func getCus(id string) (*graph.CustomerByIDResponse, error){
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	resp, err := graph.CustomerByID(ctx, graphqlClient, id)
+	return resp, err
+}
+
 func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
@@ -30,18 +46,34 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 
 	data := make(map[int]map[string]interface{},)
 	for i, t := range resp.ActiveTicketByStats {
+		car,err := getCar(t.CarID)
+		cus,err := getCus(t.CustomerID)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(err.Error()))
+			return
+		}
 		tData := map[string]interface{}{
 			"ticketID": t.ID,
-			"cusID":    t.CustomerID,
-			"carID":    t.CarID,
+			"cus":    map[string]interface{}{
+				"cusID": cus.CustomerByID.ID,
+				"fName" : cus.CustomerByID.FName,
+				"lName" : cus.CustomerByID.LName,
+			},
+			"car": map[string]interface{}{
+				"carID": car.CarByID.ID,
+				"plate" : car.CarByID.PlateNum,
+				"type" : car.CarByID.Type,
+				"brand": car.CarByID.Brand,
+			},
 			"problem":  t.Problem,
 			"shopID":   IsNil(t.ShopID),
 			"status":   IsNil(t.Status),
 			// "description": IsNil(t.Description),
-			// "location": map[string]float64{
-			// 	"lng": t.Longitude,
-			// 	"lat": t.Latitude,
-			// },
+			"location": map[string]float64{
+			 	"lng": t.Longitude,
+				"lat": t.Latitude,
+			},
 		}
 		data[i] = tData
 	}
@@ -99,6 +131,66 @@ func ShopGetOngoingTicketList(w http.ResponseWriter, r *http.Request) {
 	AddHeader(w).Write(jsonData)
 }
 
+func ShopGetTicket(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	resp, err := graph.ActiveTicketByID(ctx, graphqlClient, r.FormValue("ticketID"))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	cus,err := getCus(resp.ActiveTicketByID.CustomerID)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	car,err := getCar(resp.ActiveTicketByID.CarID)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	data := map[string]interface{}{
+			"ticketID": resp.ActiveTicketByID.ID,
+			"cus":    map[string]interface{}{
+				"cusID": cus.CustomerByID.ID,
+				"fName" : cus.CustomerByID.FName,
+				"lName" : cus.CustomerByID.LName,
+			},
+			"car": map[string]interface{}{
+				"carID": car.CarByID.ID,
+				"plate" : car.CarByID.PlateNum,
+				"type" : car.CarByID.Type,
+				"brand": car.CarByID.Brand,
+			},
+			"problem":  resp.ActiveTicketByID.Problem,
+			"shopID":   IsNil(resp.ActiveTicketByID.ShopID),
+			"status":   IsNil(resp.ActiveTicketByID.Status),
+			// "description": IsNil(t.Description),
+			"location": map[string]float64{
+			 	"lng": resp.ActiveTicketByID.Longitude,
+				"lat": resp.ActiveTicketByID.Latitude,
+			},
+	}
+
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	AddHeader(w).Write(jsonData)
+}
+
 func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
@@ -112,9 +204,9 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 		Problem:    r.FormValue("problem"),
 		ShopID:     util.Ptr(r.FormValue("shopID")),
 		Status:     util.Ptr("Accepted"),
-		// Latitude: 	StrToFloat(r.FormValue("lat")),
-		// Longitude: StrToFloat(r.FormValue("lng")),
-		// Description: r.FormValue("description"),
+		Latitude: 	StrToFloat(r.FormValue("lat")),
+		Longitude: StrToFloat(r.FormValue("lng")),
+		Description: util.Ptr(r.FormValue("description")),
 	})
 
 	if err != nil {
@@ -131,11 +223,11 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 		"problem":  resp.ActiveTicketUpdateMulti.Problem,
 		"shopID":   IsNil(resp.ActiveTicketUpdateMulti.ShopID),
 		"status":   IsNil(resp.ActiveTicketUpdateMulti.Status),
-		// "description": resp.ActiveTicketUpdateMulti.Description,
-		// "location": map[string]float64{
-		// 	"lat": resp.ActiveTicketUpdateMulti.latitude,
-		// 	"lng": resp.ActiveTicketUpdateMulti.longitude,
-		// },
+		// "description": IsNil(resp.ActiveTicketUpdateMulti.Description),
+		"location": map[string]float64{
+		 	"lat": resp.ActiveTicketUpdateMulti.Latitude,
+		 	"lng": resp.ActiveTicketUpdateMulti.Longitude,
+		},
 	}
 
 	jsonData, err := json.Marshal(data)

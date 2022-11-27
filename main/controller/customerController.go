@@ -306,7 +306,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		Status:       util.Ptr(r.FormValue("status")),
 		Longitude:    StrToFloat(r.FormValue("lng")),
 		Latitude: StrToFloat(r.FormValue("lat")),
-		// Description: util.Ptr(r.FormValue("description")),
+		Description: util.Ptr(r.FormValue("description")),
 	})
 
 	if err != nil {
@@ -335,7 +335,7 @@ func CustomerGetTicket(w http.ResponseWriter, r *http.Request){
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	fmt.Println(r.FormValue("ticketID"))
-	resp, err := graph.TicketByID(ctx, graphqlClient, r.FormValue("ticketID"))
+	resp, err := graph.ActiveTicketByID(ctx, graphqlClient, r.FormValue("ticketID"))
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -344,16 +344,14 @@ func CustomerGetTicket(w http.ResponseWriter, r *http.Request){
 	}
 
 	data := map[string]interface{}{
-		"cusID": resp.TicketByID.CustomerID,
-		"carID": resp.TicketByID.CarID,
-		"shopID": IsNil(resp.TicketByID.ShopID),
-		"problem": resp.TicketByID.Problem,
-		"createTime": resp.TicketByID.CreateTime.String(),
-		"acceptedTime": IsNilTime(resp.TicketByID.AcceptedTime),
-		"status": IsNil(resp.TicketByID.Status),
+		"cusID": resp.ActiveTicketByID.CustomerID,
+		"carID": resp.ActiveTicketByID.CarID,
+		"shopID": IsNil(resp.ActiveTicketByID.ShopID),
+		"problem": resp.ActiveTicketByID.Problem,
+		"status": IsNil(resp.ActiveTicketByID.Status),
 		"location": map[string]float64{
-			"lat": resp.TicketByID.Latitude,
-			"lng": resp.TicketByID.Longitude,
+			"lat": resp.ActiveTicketByID.Latitude,
+			"lng": resp.ActiveTicketByID.Longitude,
 		},
 	}
 

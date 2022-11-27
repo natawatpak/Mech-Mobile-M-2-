@@ -159,10 +159,10 @@
 
     <v-spacer class="my-5"></v-spacer>
     <section class="text-center">
-      <router-link to="/loading" class="text-decoration-none" @click= "addTicket()"
+      <div class="text-decoration-none" @click= "addTicket()"
         ><v-btn class="mx-1" variant="tonal" color="blue" 
           >Find Service</v-btn
-        ></router-link
+        ></div
       >
     </section>
   </div>
@@ -184,7 +184,7 @@ export default {
         brand: "",
         plate: "",
       },
-      problem: ["tyres", "flat"],
+      problem: [],
       description: "",
       files: [],
     };
@@ -193,7 +193,7 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
-    sessionStorage.setItem("cusID", "73cf4edf-279b-40fd-a451-2abd9be31957");
+    sessionStorage.setItem("cusID", "f67efc77-629d-4672-a753-558b1c0dd250");
     sessionStorage.setItem("fName", "phum");
     sessionStorage.setItem("lName", "kitiphum");
     sessionStorage.setItem("tel", "0123456789");
@@ -214,7 +214,7 @@ export default {
       };
 
       const error = (err) => {
-        console.log(error);
+        console.log(err);
       };
 
       // This will open permission popup
@@ -269,6 +269,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           sessionStorage.setItem("ticketID", response.data.ticketID);
+          this.$router.push('/progress');
         });
     },
     addNewCar() {

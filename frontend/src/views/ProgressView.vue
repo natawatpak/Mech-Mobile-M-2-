@@ -2,7 +2,7 @@
   <div class="pa-5">
     <ProgressBar id='state' :currentState=status />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :location=location :problems=problems :currentState=status/>
+    <ProgressDetail :shop=shop :car=car :location=location :problems=problems :currentState=status />
 
     <v-dialog 
       v-model="dialog"
@@ -58,7 +58,7 @@ export default {
     ProgressBar,
     ProgressDetail
   },
-  mounted () {
+  created () {
     this.ticketID = sessionStorage.getItem("ticketID")
     console.log(this.ticketID)
     this.cusID = sessionStorage.getItem("cusID")
@@ -71,11 +71,17 @@ export default {
     this.socket.onopen = () => {
         console.log("Successfully Connected");
         this.socket.send("Hi From the Client!")
+        this.dialog = false;
     };
 
     this.socket.addEventListener("message", (event) => {
       console.log("Message from server ", event.data);
-      this.status = event.data
+      if(event.data == "Accepted"){
+        this.getTicket();
+      }else{
+        this.status = event.data
+      }
+      
     });
     
     this.socket.onclose = event => {
@@ -86,7 +92,6 @@ export default {
     this.socket.onerror = error => {
         this.console.log("Socket Error: ", error);
     };
-    
 
   },
   methods: {
@@ -130,6 +135,7 @@ export default {
           this.car = response.data;
         });
     },
+    
   }
 };
 </script>

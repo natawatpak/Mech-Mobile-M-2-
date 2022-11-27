@@ -42,6 +42,7 @@ func main() {
 	r.HandleFunc("/customer/get-shop-profile", controller.CustomerGetShopProfile)
 
 	r.HandleFunc("/shop/get-ticket-list", controller.ShopGetActiveTicketList)
+	r.HandleFunc("/shop/get-ticket", controller.ShopGetTicket)
 	r.HandleFunc("/shop/get-ongoing-ticket-list", controller.ShopGetOngoingTicketList)
 	r.HandleFunc("/shop/accept-ticket", controller.ShopAcceptTicket)
 	r.HandleFunc("/shop/update-ticket", controller.ShopUpdateTicket)
