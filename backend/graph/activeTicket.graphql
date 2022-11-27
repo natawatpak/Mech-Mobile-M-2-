@@ -63,6 +63,7 @@ fragment activeTicketFragment on activeTicket {
   carID
   customerID
   problem
+  description
   shopID
   status
   longitude
