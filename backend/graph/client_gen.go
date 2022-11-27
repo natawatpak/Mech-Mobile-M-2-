@@ -35,6 +35,11 @@ func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetProblem() 
 	return v.activeTicketFragment.Problem
 }
 
+// GetDescription returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
+}
+
 // GetShopID returns ActiveTicketByCustomerActiveTicketByCustomerActiveTicket.ShopID, and is useful for accessing the field via an interface.
 func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
@@ -89,6 +94,8 @@ type __premarshalActiveTicketByCustomerActiveTicketByCustomerActiveTicket struct
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -113,6 +120,7 @@ func (v *ActiveTicketByCustomerActiveTicketByCustomerActiveTicket) __premarshalJ
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -153,6 +161,11 @@ func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetCustomerID() string {
 // GetProblem returns ActiveTicketByIDActiveTicketByIDActiveTicket.Problem, and is useful for accessing the field via an interface.
 func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetProblem() string {
 	return v.activeTicketFragment.Problem
+}
+
+// GetDescription returns ActiveTicketByIDActiveTicketByIDActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
 }
 
 // GetShopID returns ActiveTicketByIDActiveTicketByIDActiveTicket.ShopID, and is useful for accessing the field via an interface.
@@ -209,6 +222,8 @@ type __premarshalActiveTicketByIDActiveTicketByIDActiveTicket struct {
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -233,6 +248,7 @@ func (v *ActiveTicketByIDActiveTicketByIDActiveTicket) __premarshalJSON() (*__pr
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -273,6 +289,11 @@ func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetCustomerID() strin
 // GetProblem returns ActiveTicketByShopActiveTicketByShopActiveTicket.Problem, and is useful for accessing the field via an interface.
 func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetProblem() string {
 	return v.activeTicketFragment.Problem
+}
+
+// GetDescription returns ActiveTicketByShopActiveTicketByShopActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
 }
 
 // GetShopID returns ActiveTicketByShopActiveTicketByShopActiveTicket.ShopID, and is useful for accessing the field via an interface.
@@ -329,6 +350,8 @@ type __premarshalActiveTicketByShopActiveTicketByShopActiveTicket struct {
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -353,6 +376,7 @@ func (v *ActiveTicketByShopActiveTicketByShopActiveTicket) __premarshalJSON() (*
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -393,6 +417,11 @@ func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetCustomerID() str
 // GetProblem returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.Problem, and is useful for accessing the field via an interface.
 func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetProblem() string {
 	return v.activeTicketFragment.Problem
+}
+
+// GetDescription returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
 }
 
 // GetShopID returns ActiveTicketByStatsActiveTicketByStatsActiveTicket.ShopID, and is useful for accessing the field via an interface.
@@ -449,6 +478,8 @@ type __premarshalActiveTicketByStatsActiveTicketByStatsActiveTicket struct {
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -473,6 +504,7 @@ func (v *ActiveTicketByStatsActiveTicketByStatsActiveTicket) __premarshalJSON() 
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -513,6 +545,11 @@ func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetCustomerID() strin
 // GetProblem returns ActiveTicketCreateActiveTicketCreateActiveTicket.Problem, and is useful for accessing the field via an interface.
 func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetProblem() string {
 	return v.activeTicketFragment.Problem
+}
+
+// GetDescription returns ActiveTicketCreateActiveTicketCreateActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
 }
 
 // GetShopID returns ActiveTicketCreateActiveTicketCreateActiveTicket.ShopID, and is useful for accessing the field via an interface.
@@ -569,6 +606,8 @@ type __premarshalActiveTicketCreateActiveTicketCreateActiveTicket struct {
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -593,6 +632,7 @@ func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) __premarshalJSON() (*
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -674,6 +714,11 @@ func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetProblem() string {
 	return v.activeTicketFragment.Problem
 }
 
+// GetDescription returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
+}
+
 // GetShopID returns ActiveTicketDeleteActiveTicketDeleteActiveTicket.ShopID, and is useful for accessing the field via an interface.
 func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
@@ -728,6 +773,8 @@ type __premarshalActiveTicketDeleteActiveTicketDeleteActiveTicket struct {
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -752,6 +799,7 @@ func (v *ActiveTicketDeleteActiveTicketDeleteActiveTicket) __premarshalJSON() (*
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -782,6 +830,11 @@ func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetCustomerID()
 // GetProblem returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.Problem, and is useful for accessing the field via an interface.
 func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetProblem() string {
 	return v.activeTicketFragment.Problem
+}
+
+// GetDescription returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
 }
 
 // GetShopID returns ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket.ShopID, and is useful for accessing the field via an interface.
@@ -838,6 +891,8 @@ type __premarshalActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket struct {
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -862,6 +917,7 @@ func (v *ActiveTicketDeleteAllActiveTicketDeleteAllActiveTicket) __premarshalJSO
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -912,6 +968,11 @@ func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetCustom
 // GetProblem returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.Problem, and is useful for accessing the field via an interface.
 func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetProblem() string {
 	return v.activeTicketFragment.Problem
+}
+
+// GetDescription returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
 }
 
 // GetShopID returns ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket.ShopID, and is useful for accessing the field via an interface.
@@ -968,6 +1029,8 @@ type __premarshalActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket st
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -992,6 +1055,7 @@ func (v *ActiveTicketDeleteStatusActiveTicketDeleteStatusActiveTicket) __premars
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -1073,6 +1137,11 @@ func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetProblem(
 	return v.activeTicketFragment.Problem
 }
 
+// GetDescription returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
+}
+
 // GetShopID returns ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket.ShopID, and is useful for accessing the field via an interface.
 func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) GetShopID() *string {
 	return v.activeTicketFragment.ShopID
@@ -1127,6 +1196,8 @@ type __premarshalActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket stru
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -1151,6 +1222,7 @@ func (v *ActiveTicketUpdateMultiActiveTicketUpdateMultiActiveTicket) __premarsha
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -1189,6 +1261,11 @@ func (v *ActiveTicketsActiveTicketsActiveTicket) GetCustomerID() string {
 // GetProblem returns ActiveTicketsActiveTicketsActiveTicket.Problem, and is useful for accessing the field via an interface.
 func (v *ActiveTicketsActiveTicketsActiveTicket) GetProblem() string {
 	return v.activeTicketFragment.Problem
+}
+
+// GetDescription returns ActiveTicketsActiveTicketsActiveTicket.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketsActiveTicketsActiveTicket) GetDescription() *string {
+	return v.activeTicketFragment.Description
 }
 
 // GetShopID returns ActiveTicketsActiveTicketsActiveTicket.ShopID, and is useful for accessing the field via an interface.
@@ -1245,6 +1322,8 @@ type __premarshalActiveTicketsActiveTicketsActiveTicket struct {
 
 	Problem string `json:"problem"`
 
+	Description *string `json:"description"`
+
 	ShopID *string `json:"shopID"`
 
 	Status *string `json:"status"`
@@ -1269,6 +1348,7 @@ func (v *ActiveTicketsActiveTicketsActiveTicket) __premarshalJSON() (*__premarsh
 	retval.CarID = v.activeTicketFragment.CarID
 	retval.CustomerID = v.activeTicketFragment.CustomerID
 	retval.Problem = v.activeTicketFragment.Problem
+	retval.Description = v.activeTicketFragment.Description
 	retval.ShopID = v.activeTicketFragment.ShopID
 	retval.Status = v.activeTicketFragment.Status
 	retval.Longitude = v.activeTicketFragment.Longitude
@@ -6012,14 +6092,15 @@ func (v *__TicketUpdateMultiInput) GetTicketInput() *TicketUpdateInput { return 
 
 // activeTicketFragment includes the GraphQL fields of activeTicket requested by the fragment activeTicketFragment.
 type activeTicketFragment struct {
-	ID         string  `json:"ID"`
-	CarID      string  `json:"carID"`
-	CustomerID string  `json:"customerID"`
-	Problem    string  `json:"problem"`
-	ShopID     *string `json:"shopID"`
-	Status     *string `json:"status"`
-	Longitude  float64 `json:"longitude"`
-	Latitude   float64 `json:"latitude"`
+	ID          string  `json:"ID"`
+	CarID       string  `json:"carID"`
+	CustomerID  string  `json:"customerID"`
+	Problem     string  `json:"problem"`
+	Description *string `json:"description"`
+	ShopID      *string `json:"shopID"`
+	Status      *string `json:"status"`
+	Longitude   float64 `json:"longitude"`
+	Latitude    float64 `json:"latitude"`
 }
 
 // GetID returns activeTicketFragment.ID, and is useful for accessing the field via an interface.
@@ -6033,6 +6114,9 @@ func (v *activeTicketFragment) GetCustomerID() string { return v.CustomerID }
 
 // GetProblem returns activeTicketFragment.Problem, and is useful for accessing the field via an interface.
 func (v *activeTicketFragment) GetProblem() string { return v.Problem }
+
+// GetDescription returns activeTicketFragment.Description, and is useful for accessing the field via an interface.
+func (v *activeTicketFragment) GetDescription() *string { return v.Description }
 
 // GetShopID returns activeTicketFragment.ShopID, and is useful for accessing the field via an interface.
 func (v *activeTicketFragment) GetShopID() *string { return v.ShopID }
@@ -6244,6 +6328,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
@@ -6286,6 +6371,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
@@ -6328,6 +6414,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
@@ -6370,6 +6457,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
@@ -6412,6 +6500,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
@@ -6454,6 +6543,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
@@ -6495,6 +6585,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
@@ -6534,6 +6625,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
@@ -6576,6 +6668,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
@@ -6617,6 +6710,7 @@ fragment activeTicketFragment on activeTicket {
 	carID
 	customerID
 	problem
+	description
 	shopID
 	status
 	longitude
