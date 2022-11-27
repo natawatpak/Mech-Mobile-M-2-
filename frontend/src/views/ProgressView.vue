@@ -1,8 +1,25 @@
 <template>
   <div class="pa-5">
-    <ProgressBar :currentState=status />
+    <ProgressBar id='state' :currentState=status />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :problems=problems />
+    <ProgressDetail :shop=shop :car=car :location=location :problems=problems :currentState=status/>
+
+    <v-dialog 
+      v-model="dialog"
+      style="width: 300px;">
+      <v-card class="py-6">
+        <v-card-text>
+          Loading, please wait ...
+          <v-progress-linear
+            indeterminate
+            color="deep-purple-accent-4"
+            rounded
+            height="6"
+            class="my-4">
+          </v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -22,6 +39,7 @@ export default {
       createdTime: undefined,
       acceptedTime: undefined,
       socket: undefined,
+      dialog: true,
       shop: {
         shopID: undefined,
         shopName: "",

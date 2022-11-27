@@ -1,6 +1,6 @@
 <template>
-  <div class="text-center mx-16 justify-center">
-    <v-row class="pa-4 ma-4 align-center">
+  <div class="text-center ma-4 justify-center">
+    <v-row class="ma-4 align-center">
       <router-link to="/order" class="text-decoration-none">
       <v-btn
         icon
@@ -13,7 +13,7 @@
       <v-chip color="yellow-darken-3" text-color="white">{{details.status}}</v-chip>
     </v-row>
 
-    <v-card class="text-left mx-8 mb-4 pa-4" variant="tonal">
+    <v-card class="text-left mb-4 pa-4" variant="tonal">
       <v-card-title class="text-h6">Status</v-card-title>
       <v-timeline direction="horizontal" line-inset="12" class="pa-4">
       <v-timeline-item size="large" v-model="items" :dot-color="currentState == 1 || currentState == 2 || currentState == 3 || currentState == 4? 'green':'white'" :icon=items[0]>
@@ -48,7 +48,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="text-left mx-8 mb-4 pa-4" variant="tonal">
+    <v-card class="text-left mb-4 pa-4" variant="tonal">
       <v-title class="text-h6">Car Details</v-title>
         <v-card-text class="text-h7">
           Type: {{details.type}} | Brand: {{details.brand}}
@@ -57,21 +57,21 @@
         </v-card-text>
     </v-card>
 
-    <v-card variant="tonal" class="text-left mx-8 mb-4 pa-4 d-flex justify-left align-center">
+    <v-card variant="tonal" class="text-left mb-4 pa-4 d-flex justify-left align-center">
       <section>
         <v-card-title class="text-h6">Current Location</v-card-title>
         <v-card-text>{{details.lat+', '+ details.lng}}</v-card-text>
       </section>
     </v-card>
 
-    <v-card class="text-left mx-8 mb-4 pa-4" variant="tonal">
+    <v-card class="text-left mb-4 pa-4" variant="tonal">
       <v-title class="text-h6">Problems</v-title>
       <v-card-text class="text-h7">
         <p v-for="p in problems" :key="p">{{'-' + p}}</p>
       </v-card-text>
     </v-card>
 
-    <v-card class="text-left mx-8 mb-4 pa-4" variant="tonal">
+    <v-card class="text-left mb-4 pa-4" variant="tonal">
       <v-title class="text-h6">Description</v-title>
       <v-card-text class="text-h7">
         <p>{{description}}</p>
