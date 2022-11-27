@@ -601,14 +601,15 @@ func (v *ActiveTicketCreateActiveTicketCreateActiveTicket) __premarshalJSON() (*
 }
 
 type ActiveTicketCreateInput struct {
-	ID         string  `json:"ID"`
-	CarID      string  `json:"carID"`
-	CustomerID string  `json:"customerID"`
-	Problem    string  `json:"problem"`
-	ShopID     *string `json:"shopID"`
-	Status     *string `json:"status"`
-	Longitude  float64 `json:"longitude"`
-	Latitude   float64 `json:"latitude"`
+	ID          string  `json:"ID"`
+	CarID       string  `json:"carID"`
+	CustomerID  string  `json:"customerID"`
+	Problem     string  `json:"problem"`
+	Description *string `json:"description"`
+	ShopID      *string `json:"shopID"`
+	Status      *string `json:"status"`
+	Longitude   float64 `json:"longitude"`
+	Latitude    float64 `json:"latitude"`
 }
 
 // GetID returns ActiveTicketCreateInput.ID, and is useful for accessing the field via an interface.
@@ -622,6 +623,9 @@ func (v *ActiveTicketCreateInput) GetCustomerID() string { return v.CustomerID }
 
 // GetProblem returns ActiveTicketCreateInput.Problem, and is useful for accessing the field via an interface.
 func (v *ActiveTicketCreateInput) GetProblem() string { return v.Problem }
+
+// GetDescription returns ActiveTicketCreateInput.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketCreateInput) GetDescription() *string { return v.Description }
 
 // GetShopID returns ActiveTicketCreateInput.ShopID, and is useful for accessing the field via an interface.
 func (v *ActiveTicketCreateInput) GetShopID() *string { return v.ShopID }
@@ -1006,14 +1010,15 @@ func (v *ActiveTicketDeleteStatusResponse) GetActiveTicketDeleteStatus() []*Acti
 }
 
 type ActiveTicketUpdateInput struct {
-	ID         string  `json:"ID"`
-	CarID      string  `json:"carID"`
-	CustomerID string  `json:"customerID"`
-	Problem    string  `json:"problem"`
-	ShopID     *string `json:"shopID"`
-	Status     *string `json:"status"`
-	Longitude  float64 `json:"longitude"`
-	Latitude   float64 `json:"latitude"`
+	ID          string  `json:"ID"`
+	CarID       string  `json:"carID"`
+	CustomerID  string  `json:"customerID"`
+	Problem     string  `json:"problem"`
+	Description *string `json:"description"`
+	ShopID      *string `json:"shopID"`
+	Status      *string `json:"status"`
+	Longitude   float64 `json:"longitude"`
+	Latitude    float64 `json:"latitude"`
 }
 
 // GetID returns ActiveTicketUpdateInput.ID, and is useful for accessing the field via an interface.
@@ -1027,6 +1032,9 @@ func (v *ActiveTicketUpdateInput) GetCustomerID() string { return v.CustomerID }
 
 // GetProblem returns ActiveTicketUpdateInput.Problem, and is useful for accessing the field via an interface.
 func (v *ActiveTicketUpdateInput) GetProblem() string { return v.Problem }
+
+// GetDescription returns ActiveTicketUpdateInput.Description, and is useful for accessing the field via an interface.
+func (v *ActiveTicketUpdateInput) GetDescription() *string { return v.Description }
 
 // GetShopID returns ActiveTicketUpdateInput.ShopID, and is useful for accessing the field via an interface.
 func (v *ActiveTicketUpdateInput) GetShopID() *string { return v.ShopID }
