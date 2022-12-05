@@ -18,12 +18,19 @@
         <v-list-item link>
           <v-list-item-content>
             <router-link to="/order" class="text-decoration-none">
-              <v-list-item-title class="text-h6">Order</v-list-item-title>
+              <v-list-item-title class="text-h6">Incoming order</v-list-item-title>
             </router-link>
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
-
+        <v-list-item link>
+          <v-list-item-content>
+            <router-link to="/history" class="text-decoration-none">
+              <v-list-item-title class="text-h6">History</v-list-item-title>
+            </router-link>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
     </v-navigation-drawer>
   </nav>
   

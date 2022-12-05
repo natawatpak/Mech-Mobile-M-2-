@@ -9,7 +9,7 @@
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
     </router-link>
-      <v-toolbar-title class="text-left text-h4 px-6">Order {{details.id}}</v-toolbar-title>
+      <v-toolbar-title class="text-left text-h5 px-6">Order {{details.id}}</v-toolbar-title>
       <v-chip color="yellow-darken-3" text-color="white">{{details.status}}</v-chip>
     </v-row>
 

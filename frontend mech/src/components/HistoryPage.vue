@@ -1,6 +1,6 @@
 <template>
-  <div class="pa-5">
-    <div class="text-left text-h4 my-2">Incoming order</div>
+  <div class="text-center ma-4 justify-center">
+    <div class="text-left text-h4 my-2">History</div>
 
     <v-card-text class="pa-0 ma-0">
       <v-window v-model="tab">
@@ -8,27 +8,20 @@
           <v-content class="justify-start pa-0">
             <v-container v-for="item in incoming" :key="item.id" class="pa-0" >
               <v-card @click="dialog=true" width="100%" variant="tonal" v-if="show" class="text-left pa-0 my-4">
-                <v-card-title class="text-h6">
-                  Order {{item.cus.fName}}  {{item.cus.lName}}
-                </v-card-title>
+                <v-row class="px-4 pt-4 d-flex justify-space-between align-center">
+                  <v-card-title class="text-h6">
+                    {{item.cus.fName}}  {{item.cus.lName}}
+                  </v-card-title>
+                  <v-chip class="ma-2" color="green">{{
+                        item.status
+                      }}</v-chip>
+                </v-row>
                 <v-card-subtitle>{{item.date}}</v-card-subtitle>
                 <v-card-text class="text-h7">
                   Car {{ item.car.type }} | {{ item.car.brand }} <br />
                   Problems {{ item.problem }} <br />
                   {{ item.distance }} km
                 </v-card-text>
-                <v-row justify="end" class="pa-6">
-                  <v-card-action>
-                    <v-btn @click.stop="removeMessage()" class="mx-1" variant="tonal" color="error">
-                      Decline
-                    </v-btn>
-                    <router-link to="/details" class="text-decoration-none" v-slot={navigate}>
-                    <v-btn @click.stop="navigate" class="mx-1" color="blue" variant="tonal">
-                      Accept
-                    </v-btn>
-                    </router-link>
-                  </v-card-action>
-                </v-row>
               </v-card>
             </v-container>
           </v-content>
@@ -36,7 +29,7 @@
       </v-window>
     </v-card-text>
 
-    <v-dialog v-model="dialog" scrollable class="text-left pa-4">
+        <v-dialog v-model="dialog" scrollable class="text-left pa-4">
       <v-card class="text-left pa-4">
         <v-row class="pa-5">
           <v-btn
