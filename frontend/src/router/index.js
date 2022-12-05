@@ -8,7 +8,6 @@ const routes = [
     component: HomeView,
     beforeEnter: () => {
       if(sessionStorage.getItem('ticketID')){return 'progress'}
-      if(sessionStorage.getItem('cusID')){return 'callmech'}
       return true
     },
   },
@@ -27,7 +26,7 @@ const routes = [
     beforeEnter: () => {
       if(sessionStorage.getItem('cusID')){return true}
       if(sessionStorage.getItem('ticketID')){return 'progress'}
-      return 'home'
+      return true
     },
   },
   {
@@ -42,7 +41,7 @@ const routes = [
     beforeEnter: () => {
       if(sessionStorage.getItem('ticketID')){return true}
       if(sessionStorage.getItem('cusID')){return 'callmech'}
-      return 'home'
+      return true
     },
   },
   {
