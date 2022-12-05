@@ -29,6 +29,7 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 4096,
 }
 
+var WsShops []*websocket.Conn
 var WsTickets = make(map[string] *WsTicket)
 
 type WsTicket struct {
@@ -71,7 +72,6 @@ func (ticket *WsTicket) readShop() {
 	ticket.Shop_conn.SetPongHandler(func(string) error { ticket.Shop_conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 	for {
 		_, jsonMessage, err := ticket.Shop_conn.ReadMessage()
-		
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Printf("unexpected close error: %v", err)
@@ -86,7 +86,6 @@ func (ticket *WsTicket) readShop() {
 func (ticket *WsTicket) handleNewMessage(jsonMessage []byte) {
 	ticket.Customer_conn.WriteMessage(1, jsonMessage)
 }
-
 
 func ShopWs(w http.ResponseWriter, r *http.Request) {
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
@@ -103,4 +102,22 @@ func ShopWs(w http.ResponseWriter, r *http.Request) {
 	WsTickets[vars["ticketID"]].Shop_conn = conn
 
 	go WsTickets[vars["ticketID"]].readShop()
+}
+
+func ShopActiveTicketWs(w http.ResponseWriter, r *http.Request) {
+	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	WsShops = append(WsShops,conn)
+	sendUpdateSignal(WsShops)
+}
+
+func  sendUpdateSignal( conns []*websocket.Conn){
+	for _, conn := range(conns){
+		conn.WriteMessage(1, []byte(`"command": "refresh"`))
+		println("send")
+	}
 }

@@ -146,6 +146,7 @@
     <v-spacer class="my-5"></v-spacer>
     <v-card variant="tonal" class="text-left pa-4">
       <v-card-title>Details</v-card-title>
+      {{description}}
       <v-textarea
         outlined
         name="description"
@@ -193,7 +194,7 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
-    sessionStorage.setItem("cusID", "f67efc77-629d-4672-a753-558b1c0dd250");
+    sessionStorage.setItem("cusID", "9eeb700d-01f3-4697-a66d-6acce03f3d34");
     sessionStorage.setItem("fName", "phum");
     sessionStorage.setItem("lName", "kitiphum");
     sessionStorage.setItem("tel", "0123456789");

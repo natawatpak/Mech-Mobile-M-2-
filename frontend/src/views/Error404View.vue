@@ -10,7 +10,7 @@
     <h3>Please go back to home page</h3>
     <v-spacer class="my-5"></v-spacer>
     <section class="text-center">
-      <router-link to="/home" class="text-decoration-none"><v-btn class="mx-1" variant="tonal" color="blue">Go home</v-btn></router-link>
+      <router-link to="/" class="text-decoration-none"><v-btn class="mx-1" variant="tonal" color="blue">Go home</v-btn></router-link>
     </section>
   </div>
 </template>

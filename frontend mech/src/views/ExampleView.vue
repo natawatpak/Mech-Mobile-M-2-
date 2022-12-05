@@ -24,6 +24,27 @@ export default {
   mounted() {
     this.getActiveTicket();
     sessionStorage.setItem("shopID", 1);
+    this.socket = new WebSocket("ws://127.0.0.1:3000/shop/ws/active-ticket");
+    console.log("Attempting Connection...");
+
+    this.socket.onopen = () => {
+      console.log("Successfully Connected");
+      this.socket.send("Accepted");
+    };
+
+    this.socket.addEventListener("message", (event) => {
+      console.log("Message from server ", event.data);
+      this.getActiveTicket();
+    });
+
+    this.socket.onclose = (event) => {
+      console.log("Socket Closed Connection: ", event);
+      this.socket.send("Client Closed!");
+    };
+
+    this.socket.onerror = (error) => {
+      this.console.log("Socket Error: ", error);
+    };
   },
   methods: {
     getActiveTicket() {

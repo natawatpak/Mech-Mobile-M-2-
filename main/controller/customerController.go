@@ -52,7 +52,6 @@ func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Fatal(err)
 	}
-	// fName := r.FormValue("fName")
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
@@ -291,7 +290,8 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
-	fmt.Print("ticketID: ")
+	fmt.Print("description")
+	fmt.Println(r.FormValue("description"))
 	fmt.Println(resp.TicketCreate.ID)
 
 	ctx, _ = context.WithTimeout(context.Background(), 30*time.Second)
@@ -326,6 +326,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	sendUpdateSignal(WsShops)
 	AddHeader(w).Write(jsonData)
 }
 

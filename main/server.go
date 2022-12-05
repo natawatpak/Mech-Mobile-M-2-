@@ -26,8 +26,9 @@ func main() {
 	})
 	
 	r.HandleFunc("/customer/ws/{ticketID}", controller.CustomerWs)
+	r.HandleFunc("/shop/ws/active-ticket", controller.ShopActiveTicketWs)
 	r.HandleFunc("/shop/ws/{ticketID}", controller.ShopWs)
-
+	
 	r.HandleFunc("/customer/create-profile", controller.CustomerCreateProfile)
 	r.HandleFunc("/customer/update-profile", controller.CustomerUpdateProfile)
 	r.HandleFunc("/customer/get-car-list", controller.CustomerGetCarList)

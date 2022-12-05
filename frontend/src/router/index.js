@@ -36,7 +36,7 @@ const routes = [
     component: () => import('../views/RegisterView.vue')
   },
   {
-    path: '/error404',
+    path: '/:pathMatch(.*)*',
     name: 'error404',
     component: () => import('../views/Error404View.vue')
   }
