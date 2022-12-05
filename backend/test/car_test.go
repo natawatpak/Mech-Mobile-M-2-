@@ -39,6 +39,19 @@ func TestCarCreate(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	respCar, err = graph.CarCreate(ctx, graphqlClient, &graph.CarCreateInput{
+		OwnerID:   respCus.CustomerCreate.ID,
+		PlateNum:  "9999",
+		PlateType: util.Ptr("white"),
+		IssuedAt:  util.Ptr("Bangkok"),
+		Color:     util.Ptr("Blue"),
+		Type:      util.Ptr("SUV"),
+		Brand:     "Toyota",
+		Build:     util.Ptr("Thailand"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
 	assert.Equal(t, respCus.CustomerCreate.ID, respCar.CarCreate.OwnerID)
 	assert.Equal(t, "9999", respCar.CarCreate.PlateNum)
 	assert.Equal(t, "white", *respCar.CarCreate.PlateType)

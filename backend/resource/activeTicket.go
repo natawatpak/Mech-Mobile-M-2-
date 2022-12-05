@@ -15,14 +15,15 @@ func (op *SQLop) ActiveTicketCreate(ctx context.Context, activeTicketInput *mode
 		return nil, err
 	}
 	activeTicketToBeAdd := model.ActiveTicket{
-		ID:         activeTicketInput.ID,
-		CarID:      activeTicketInput.CarID,
-		CustomerID: activeTicketInput.CustomerID,
-		Problem:    activeTicketInput.Problem,
-		ShopID:     activeTicketInput.ShopID,
-		Status:     activeTicketInput.Status,
-		Latitude:   activeTicketInput.Latitude,
-		Longitude:  activeTicketInput.Longitude,
+		ID:          activeTicketInput.ID,
+		CarID:       activeTicketInput.CarID,
+		CustomerID:  activeTicketInput.CustomerID,
+		Problem:     activeTicketInput.Problem,
+		Description: activeTicketInput.Description,
+		ShopID:      activeTicketInput.ShopID,
+		Status:      activeTicketInput.Status,
+		Latitude:    activeTicketInput.Latitude,
+		Longitude:   activeTicketInput.Longitude,
 	}
 	_, err = op.db.NewInsert().Model(&activeTicketToBeAdd).Exec(ctx)
 	return &activeTicketToBeAdd, err
