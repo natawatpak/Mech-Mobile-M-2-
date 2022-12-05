@@ -74,6 +74,8 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 			 	"lng": t.Longitude,
 				"lat": t.Latitude,
 			},
+			// "lng": t.Longitude,
+			// "lat": t.Latitude,
 		}
 		data[i] = tData
 	}
