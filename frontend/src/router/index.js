@@ -5,7 +5,12 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    beforeEnter: () => {
+      if(sessionStorage.getItem('ticketID')){return 'progress'}
+      if(sessionStorage.getItem('cusID')){return 'callmech'}
+      return true
+    },
   },
   {
     path: '/about',
@@ -18,7 +23,12 @@ const routes = [
   {
     path: '/callmech',
     name: 'callmech',
-    component: () => import('../views/CallMechView.vue')
+    component: () => import('../views/CallMechView.vue'),
+    beforeEnter: () => {
+      if(sessionStorage.getItem('cusID')){return true}
+      if(sessionStorage.getItem('ticketID')){return 'progress'}
+      return 'home'
+    },
   },
   {
     path: '/callcar',
@@ -29,6 +39,11 @@ const routes = [
     path: '/progress',
     name: 'progress',
     component: () => import('../views/ProgressView.vue'),
+    beforeEnter: () => {
+      if(sessionStorage.getItem('ticketID')){return true}
+      if(sessionStorage.getItem('cusID')){return 'callmech'}
+      return 'home'
+    },
   },
   {
     path: '/register',

@@ -468,7 +468,7 @@ func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
 
 	location := map[string]float64{
 		"lat": resp.ShopByID.Latitude,
-		"lng": resp.ShopByID.Latitude,
+		"lng": resp.ShopByID.Longitude,
 	}
 
 	data := map[string]interface{}{
