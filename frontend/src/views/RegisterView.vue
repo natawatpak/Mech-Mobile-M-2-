@@ -84,11 +84,4 @@ export default {
     }
   }
 };
-
-// create new repo branch and move current changes to it
-// git checkout -b new-branch
-// git add .
-// git commit -m "message"
-// git push origin new-branch
-
 </script>
