@@ -13,7 +13,7 @@ import (
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
-const GRAPHQL_CLIENT_URL = "http://localhost:8081/"
+const GRAPHQL_CLIENT_URL = "https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/carservice"
 
 
 func AddHeader(w http.ResponseWriter) http.ResponseWriter {

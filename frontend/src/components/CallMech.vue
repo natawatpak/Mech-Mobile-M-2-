@@ -194,11 +194,11 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
-    sessionStorage.setItem("cusID", "9eeb700d-01f3-4697-a66d-6acce03f3d34");
-    sessionStorage.setItem("fName", "phum");
-    sessionStorage.setItem("lName", "kitiphum");
-    sessionStorage.setItem("tel", "0123456789");
-    sessionStorage.setItem("email", "phum@gmail.com");
+    // sessionStorage.setItem("cusID", "409ca447-04ba-4c86-b01a-ddf55c89667b");
+    // sessionStorage.setItem("fName", "phum");
+    // sessionStorage.setItem("lName", "kitiphum");
+    // sessionStorage.setItem("tel", "0123456789");
+    // sessionStorage.setItem("email", "phum@gmail.com");
     this.getCarList();
   },
   methods: {
