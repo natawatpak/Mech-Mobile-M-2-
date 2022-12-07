@@ -42,7 +42,7 @@ export default {
         tel: this.tel,
         email: this.email,
       })
-      this.axios.post("http://localhost:3000/customer/create-profile",data).then((response)=>{
+      this.axios.post(this.$backendApi + "customer/create-profile",data).then((response)=>{
         console.log(response.data)
       })
     }

@@ -24,7 +24,7 @@ export default {
   mounted() {
     this.getActiveTicket();
     sessionStorage.setItem("shopID", 1);
-    this.socket = new WebSocket("ws://127.0.0.1:3000/shop/ws/active-ticket");
+    this.socket = new WebSocket(this.$wsApi + "shop/ws/active-ticket");
     console.log("Attempting Connection...");
 
     this.socket.onopen = () => {
@@ -49,7 +49,7 @@ export default {
   methods: {
     getActiveTicket() {
       this.axios
-        .post("http://localhost:3000/shop/get-ticket-list")
+        .post(this.$backendApi + "shop/get-ticket-list")
         .then((response) => {
           console.log(response.data);
           this.tickets = response.data;
@@ -70,7 +70,7 @@ export default {
         description: ticket.description,
       });
       this.axios
-        .post("http://localhost:3000/shop/accept-ticket", data)
+        .post(this.$backendApi + "shop/accept-ticket", data)
         .then((response) => {
           console.log(response.data);
           this.$router.push("/example2")

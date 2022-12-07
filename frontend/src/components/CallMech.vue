@@ -248,8 +248,9 @@ export default {
         cusID: sessionStorage.getItem("cusID"),
       });
       console.log(sessionStorage.getItem("cusID"));
+
       this.axios
-        .post("http://localhost:3000/customer/get-car-list", data)
+        .post(this.$backendApi + "customer/get-car-list", data)
         .then((response) => {
           console.log(response.data);
           this.cars = response.data;
@@ -266,7 +267,7 @@ export default {
         description: this.description,
       });
       this.axios
-        .post("http://localhost:3000/customer/add-ticket", data)
+        .post(this.$backendApi + "customer/add-ticket", data)
         .then((response) => {
           console.log(response.data);
           sessionStorage.setItem("ticketID", response.data.ticketID);
@@ -285,7 +286,7 @@ export default {
         build: this.newCar.build,
       });
       this.axios
-        .post("http://localhost:3000/customer/add-car", data)
+        .post(this.$backendApi + "customer/add-car", data)
         .then((response) => {
           console.log(response.data);
           this.getCarList();

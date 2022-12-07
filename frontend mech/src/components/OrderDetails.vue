@@ -309,7 +309,7 @@ export default {
         // description:
       });
       this.axios
-        .post("http://localhost:3000/shop/update-ticket", data)
+        .post(this.$backendApi+"shop/update-ticket", data)
         .then((response) => {
           console.log(response.data);
           this.cusID = response.data.cusID;
@@ -324,7 +324,7 @@ export default {
         ticketID: this.ticketID,
       });
       this.axios
-        .post("http://localhost:3000/customer/get-ticket", data)
+        .post(this.$backendApi + "customer/get-ticket", data)
         .then((response) => {
           console.log(response.data);
           this.carID = response.data.carID;
@@ -341,7 +341,7 @@ export default {
         carID: this.carID,
       });
       this.axios
-        .post("http://localhost:3000/customer/get-car", data)
+        .post(this.$backendApi + "customer/get-car", data)
         .then((response) => {
           this.car = response.data;
         });
@@ -378,7 +378,7 @@ export default {
       const data = new URLSearchParams({
         reason: this.value,
       })
-      this.axios.post("http://localhost:3000/customer/create-profile",data).then((response)=>{
+      this.axios.post(this.$backendApi + "customer/create-profile",data).then((response)=>{
         console.log(response.data)
       })
     },

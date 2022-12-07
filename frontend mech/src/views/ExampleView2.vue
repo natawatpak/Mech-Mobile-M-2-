@@ -20,7 +20,7 @@ export default {
   mounted() {
     this.getTicket(sessionStorage.getItem("ticketID"))
 
-    this.socket = new WebSocket("ws://127.0.0.1:3000/shop/ws/"+sessionStorage.getItem("ticketID"));
+    this.socket = new WebSocket(this.$wsApi + "shop/ws/"+sessionStorage.getItem("ticketID"));
     console.log("Attempting Connection...");
 
     this.socket.onopen = () => {
@@ -49,7 +49,7 @@ export default {
       });
 
       this.axios
-        .post("http://localhost:3000/shop/get-ticket",data)
+        .post(this.$backendApi + "shop/get-ticket",data)
         .then((response) => {
           console.log(response.data);
           this.ticket = response.data;
@@ -71,7 +71,7 @@ export default {
       });
 
       this.axios
-        .post("http://localhost:3000/shop/update-ticket", data)
+        .post(this.$backendApi + "shop/update-ticket", data)
         .then((response) => {
           console.log(response.data);
           this.ticket.status = response.data.status

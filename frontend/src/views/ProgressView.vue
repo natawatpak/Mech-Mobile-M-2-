@@ -65,7 +65,7 @@ export default {
 
     this.getTicket()
 
-    this.socket = new WebSocket("ws://127.0.0.1:3000/customer/ws/" + this.ticketID);
+    this.socket = new WebSocket(this.$wsApi + "customer/ws/" + this.ticketID);
     console.log("Attempting Connection...");
 
     this.socket.onopen = () => {
@@ -100,7 +100,7 @@ export default {
         ticketID: this.ticketID,
       });
       this.axios
-        .post("http://localhost:3000/customer/get-ticket", data)
+        .post(this.$backendApi + "customer/get-ticket", data)
         .then((response) => {
           console.log(response.data);
           this.carID = response.data.carID;
@@ -120,7 +120,7 @@ export default {
         shopID: this.shopID,
       });
       this.axios
-        .post("http://localhost:3000/customer/get-shop-profile", data)
+        .post(this.$backendApi + "customer/get-shop-profile", data)
         .then((response) => {
           this.shop = response.data;
         });
@@ -130,7 +130,7 @@ export default {
         carID: this.carID,
       });
       this.axios
-        .post("http://localhost:3000/customer/get-car", data)
+        .post(this.$backendApi + "customer/get-car", data)
         .then((response) => {
           this.car = response.data;
         });
