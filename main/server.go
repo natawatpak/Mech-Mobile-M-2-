@@ -17,27 +17,36 @@ import (
 
 var gorillaLambda *gorillamux.GorillaMuxAdapter
 
+
 func main() {
 	r := mux.NewRouter()
 	r.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Not found", r.RequestURI)
 		http.Error(w, fmt.Sprintf("Not found: %s", r.RequestURI), http.StatusNotFound)
 	})
-
+	
+	r.HandleFunc("/customer/ws/{ticketID}", controller.CustomerWs)
+	r.HandleFunc("/shop/ws/active-ticket", controller.ShopActiveTicketWs)
+	r.HandleFunc("/shop/ws/{ticketID}", controller.ShopWs)
+	
 	r.HandleFunc("/customer/create-profile", controller.CustomerCreateProfile)
 	r.HandleFunc("/customer/update-profile", controller.CustomerUpdateProfile)
 	r.HandleFunc("/customer/get-car-list", controller.CustomerGetCarList)
+	r.HandleFunc("/customer/get-car", controller.CustomerGetCar)
+	r.HandleFunc("/customer/add-car", controller.CustomerAddCar)
 	r.HandleFunc("/customer/remove-car", controller.CustomerRemoveCar)
 	r.HandleFunc("/customer/add-ticket", controller.CustomerAddTicket)
 	// r.HandleFunc("/customer/get-active-ticket", controller.CustomerGetActiveTicket)
+	r.HandleFunc("/customer/get-ticket", controller.CustomerGetTicket)
 	r.HandleFunc("/customer/cancel-ticket", controller.CustomerCancelTicket)
 	r.HandleFunc("/customer/history", controller.CustomerGetHistory)
 	r.HandleFunc("/customer/get-shop-profile", controller.CustomerGetShopProfile)
 
 	r.HandleFunc("/shop/get-ticket-list", controller.ShopGetActiveTicketList)
+	r.HandleFunc("/shop/get-ticket", controller.ShopGetTicket)
 	r.HandleFunc("/shop/get-ongoing-ticket-list", controller.ShopGetOngoingTicketList)
 	r.HandleFunc("/shop/accept-ticket", controller.ShopAcceptTicket)
-	r.HandleFunc("/shop/complete-ticket", controller.ShopCompleteTicket)
+	r.HandleFunc("/shop/update-ticket", controller.ShopUpdateTicket)
 	r.HandleFunc("/shop/cancel-ticket", controller.ShopCancelTicket)
 	r.HandleFunc("/shop/history", controller.ShopGetHistory)
 	r.HandleFunc("/shop/get-today-completed-ticket", controller.ShopGetTodayCompletedTicket)

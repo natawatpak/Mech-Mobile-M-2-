@@ -1,12 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import LoadingView from '../views/LoadingView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    beforeEnter: () => {
+      if(sessionStorage.getItem('ticketID')){return 'progress'}
+      return true
+    },
   },
   {
     path: '/about',
@@ -19,7 +22,12 @@ const routes = [
   {
     path: '/callmech',
     name: 'callmech',
-    component: () => import('../views/CallMechView.vue')
+    component: () => import('../views/CallMechView.vue'),
+    beforeEnter: () => {
+      if(sessionStorage.getItem('cusID')){return true}
+      if(sessionStorage.getItem('ticketID')){return 'progress'}
+      return true
+    },
   },
   {
     path: '/callcar',
@@ -27,19 +35,24 @@ const routes = [
     component: () => import('../views/CallCarView.vue')
   },
   {
-    path: '/loading',
-    name: 'loading',
-    component: LoadingView
-  },
-  {
     path: '/progress',
     name: 'progress',
-    component: () => import('../views/ProgressView.vue')
+    component: () => import('../views/ProgressView.vue'),
+    beforeEnter: () => {
+      if(sessionStorage.getItem('ticketID')){return true}
+      if(sessionStorage.getItem('cusID')){return 'callmech'}
+      return true
+    },
   },
   {
     path: '/register',
     name: 'register',
     component: () => import('../views/RegisterView.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'error404',
+    component: () => import('../views/Error404View.vue')
   }
 ]
 

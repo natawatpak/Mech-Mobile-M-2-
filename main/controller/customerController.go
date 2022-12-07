@@ -6,14 +6,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
-
 	"github.com/Khan/genqlient/graphql"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
 )
 
 const GRAPHQL_CLIENT_URL = "http://localhost:8081/"
+
 
 func AddHeader(w http.ResponseWriter) http.ResponseWriter {
 	w.Header().Set("Content-Type", "application/json")
@@ -23,16 +24,34 @@ func AddHeader(w http.ResponseWriter) http.ResponseWriter {
 	return w
 }
 
-func IsNil(strpt *string) string{
-	if (strpt == nil){return ""}
+func IsNil(strpt *string) string {
+	if strpt == nil {
+		return ""
+	}
 	return *strpt
+}
+
+func IsNilTime(strpt *time.Time) string {
+	if strpt == nil {
+		return ""
+	}
+	return strpt.String()
+}
+
+func StrToFloat(str string) float64{
+	f,err := strconv.ParseFloat(str,64)
+	if (err != nil){return -1}
+	return f
+}
+
+func FloatToString(f float64) string{
+	return fmt.Sprintf("%f", f)
 }
 
 func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Fatal(err)
 	}
-	// fName := r.FormValue("fName")
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
@@ -176,6 +195,42 @@ func CustomerGetCarList(w http.ResponseWriter, r *http.Request) {
 	AddHeader(w).Write(jsonData)
 }
 
+func CustomerGetCar(w http.ResponseWriter, r *http.Request){
+	r.ParseForm()
+
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	resp, err := graph.CarByID(ctx, graphqlClient, r.FormValue("carID"))
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	fmt.Println(resp.CarByID.ID)
+	data := map[string]string{
+		"id": resp.CarByID.ID,
+		"type": IsNil(resp.CarByID.Type),
+		"brand": resp.CarByID.Brand,
+		"plate": resp.CarByID.PlateNum,
+	}
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	AddHeader(w).Write(jsonData)
+}
+
 func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
@@ -222,9 +277,12 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		CarID:        r.FormValue("carID"),
 		Problem:      r.FormValue("problem"),
 		CreateTime:   time.Now(),
-		ShopID:       util.Ptr("no shopID"), // need to be optional
+		ShopID:       nil,
 		AcceptedTime: nil,
 		Status:       util.Ptr(r.FormValue("status")),
+		Longitude:    StrToFloat(r.FormValue("lng")),
+		Latitude: StrToFloat(r.FormValue("lat")),
+		Description: util.Ptr(r.FormValue("description")),
 	})
 
 	if err != nil {
@@ -232,7 +290,30 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
+	fmt.Print("description")
+	fmt.Println(r.FormValue("description"))
 	fmt.Println(resp.TicketCreate.ID)
+
+	ctx, _ = context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	_, err = graph.ActiveTicketCreate(ctx, graphqlClient, &graph.ActiveTicketCreateInput{
+		ID: resp.TicketCreate.ID,
+		CustomerID:   r.FormValue("cusID"),
+		CarID:        r.FormValue("carID"),
+		Problem:      r.FormValue("problem"),
+		ShopID:       nil,
+		Status:       util.Ptr(r.FormValue("status")),
+		Longitude:    StrToFloat(r.FormValue("lng")),
+		Latitude: StrToFloat(r.FormValue("lat")),
+		Description: util.Ptr(r.FormValue("description")),
+	})
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
 
 	data := map[string]string{
 		"ticketID": resp.TicketCreate.ID,
@@ -245,29 +326,45 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	sendUpdateSignal(WsShops)
 	AddHeader(w).Write(jsonData)
 }
 
-// func CustomerGetActiveTicket(w http.ResponseWriter, r *http.Request) []byte {
-// 	r.ParseForm()
+func CustomerGetTicket(w http.ResponseWriter, r *http.Request){
+	r.ParseForm()
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
-// 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-// 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+	fmt.Println(r.FormValue("ticketID"))
+	resp, err := graph.ActiveTicketByID(ctx, graphqlClient, r.FormValue("ticketID"))
 
-// 	resp, err := graph.ActiveTicketByCustomer(ctx, graphqlClient, r.FormValue("cusID"))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
 
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
+	data := map[string]interface{}{
+		"cusID": resp.ActiveTicketByID.CustomerID,
+		"carID": resp.ActiveTicketByID.CarID,
+		"shopID": IsNil(resp.ActiveTicketByID.ShopID),
+		"problem": resp.ActiveTicketByID.Problem,
+		"status": IsNil(resp.ActiveTicketByID.Status),
+		"location": map[string]float64{
+			"lat": resp.ActiveTicketByID.Latitude,
+			"lng": resp.ActiveTicketByID.Longitude,
+		},
+	}
 
-// 	data := make(map[int]map[string]string)
 
-// 	jsonData, err := json.Marshal(data)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	return jsonData
-// }
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+	AddHeader(w).Write(jsonData)
+}
 
 // need improvise
 func CustomerCancelTicket(w http.ResponseWriter, r *http.Request) {
@@ -326,9 +423,9 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.TicketByCustomer)
 
-	data := make(map[int]map[string]string)
+	data := make(map[int]map[string]interface{})
 	for i, t := range resp.TicketByCustomer {
-		tData := map[string]string{
+		tData := map[string]interface{}{
 			"id":           t.ID,
 			"cusID":        t.CustomerID,
 			"carID":        t.CarID,
@@ -337,6 +434,10 @@ func CustomerGetHistory(w http.ResponseWriter, r *http.Request) {
 			"shopID":       *t.ShopID,
 			"acceptedTime": t.AcceptedTime.String(),
 			"status":       IsNil(t.Status),
+			"location": map[string]float64{
+				"lat": t.Latitude,
+				"lng": t.Longitude,
+			},
 		}
 		data[i] = tData
 	}
@@ -365,12 +466,18 @@ func CustomerGetShopProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := map[string]string{
+	location := map[string]float64{
+		"lat": resp.ShopByID.Latitude,
+		"lng": resp.ShopByID.Longitude,
+	}
+
+	data := map[string]interface{}{
 		"shopID":      resp.ShopByID.ID,
 		"shopName":    resp.ShopByID.Name,
 		"shopTel":     resp.ShopByID.Tel,
 		"shopEmail":   resp.ShopByID.Email,
 		"shopAddress": resp.ShopByID.Address,
+		"location": location,
 	}
 
 	jsonData, err := json.Marshal(data)
