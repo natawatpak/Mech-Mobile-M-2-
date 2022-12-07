@@ -103,11 +103,11 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
-    sessionStorage.setItem("cusID", "409ca447-04ba-4c86-b01a-ddf55c89667b");
-    sessionStorage.setItem("fName", "phum");
-    sessionStorage.setItem("lName", "kitiphum");
-    sessionStorage.setItem("tel", "0123456789");
-    sessionStorage.setItem("email", "phum@gmail.com");
+    // sessionStorage.setItem("cusID", "409ca447-04ba-4c86-b01a-ddf55c89667b");
+    // sessionStorage.setItem("fName", "phum");
+    // sessionStorage.setItem("lName", "kitiphum");
+    // sessionStorage.setItem("tel", "0123456789");
+    // sessionStorage.setItem("email", "phum@gmail.com");
     this.getCarList();
   },
   methods: {
