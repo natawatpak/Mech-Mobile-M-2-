@@ -1,6 +1,6 @@
 <template>
   <div class="pa-5">
-    <ProgressBar id='state' currentState="1" />
+    <ProgressBar id='state' status="Accepted" />
     <v-spacer class="my-5"></v-spacer>
     <ProgressDetail :shop=shop :car=car :location=location :problems=problems :currentStage="1"/>
 
@@ -12,7 +12,7 @@
           Loading, please wait ...
           <v-progress-linear
             indeterminate
-            color="deep-purple-accent-4"
+            color="blue-darken-1"
             rounded
             height="6"
             class="my-4">

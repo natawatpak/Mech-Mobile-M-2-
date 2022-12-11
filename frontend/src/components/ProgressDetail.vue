@@ -2,10 +2,11 @@
 <template>
   <div>
     <v-card
-      variant="tonal"
       @click="locatorButtonPressed()"
-      class="text-left pa-4 d-flex justify-space-between align-center"
+      class="text-left pa-4 d-flex justify-space-between align-center rounded-lg elevation-4"
+      color="blue-darken-2"
     >
+    <v-row class="align-center justify-space-between px-4">
       <section class="d-flex justify-left align-center">
         <v-icon icon="mdi-store"></v-icon>
         <section>
@@ -14,25 +15,30 @@
         </section>
       </section>
       <v-icon icon="mdi-phone" class="px-8"></v-icon>
+    </v-row>
     </v-card>
     <v-spacer class="mt-3"></v-spacer>
     <v-divider class="my-3"></v-divider>
-    <v-card flat>
+    <v-card flat class="rounded-lg elevation-4">
       <v-card-title>Detail</v-card-title>
       <v-card-text>
-        ({{location.lat+', '+location.lng}})
+        Location: {{location.lat+', '+location.lng}}
         <br />
-        {{car.plate+' '+car.brand}}
+        Car brand: {{car.brand}}
         <br />
-        <p class="d-inline" v-for="p in problems" :key="p">{{p+' '}}</p>
+        Car license plate: {{car.plate}}
         <br />
+        Problems
+        <br />
+        <p v-for="p in problems" :key="p">{{'- ' + p}}</p>
       </v-card-text>
-      <div class="text-center">
+    </v-card>
+
+    <div class="text-center pa-4">
         <v-card-action>
           <v-btn :disabled="valid" color="red" variant="tonal" @click="checkStage()">Cancel</v-btn>
         </v-card-action>
-      </div>
-    </v-card>
+    </div>
 
     <v-dialog v-model="dialog" width="1000" class="text-left pa-4">
       <v-card class="text-left pa-4">
