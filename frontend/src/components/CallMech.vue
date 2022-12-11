@@ -250,11 +250,15 @@ export default {
       console.log(sessionStorage.getItem("cusID"));
 
       this.axios
-        .post(this.$backendApi + "customer/get-car-list", data)
+        .post(this.$backendApi + "customer/get-car-list", data, {
+        headers:{
+            Authorization: sessionStorage.getItem("jwt")
+        }})
         .then((response) => {
           console.log(response.data);
           this.cars = response.data;
         });
+        console.log(sessionStorage.getItem("jwt"));
     },
     addTicket() {
       const data = new URLSearchParams({
@@ -267,7 +271,10 @@ export default {
         description: this.description,
       });
       this.axios
-        .post(this.$backendApi + "customer/add-ticket", data)
+        .post(this.$backendApi + "customer/add-ticket", data,{
+        headers:{
+            Authorization: sessionStorage.getItem("jwt")
+        }})
         .then((response) => {
           console.log(response.data);
           sessionStorage.setItem("ticketID", response.data.ticketID);
@@ -286,7 +293,10 @@ export default {
         build: this.newCar.build,
       });
       this.axios
-        .post(this.$backendApi + "customer/add-car", data)
+        .post(this.$backendApi + "customer/add-car", data,{
+        headers:{
+            Authorization: sessionStorage.getItem("jwt")
+        }})
         .then((response) => {
           console.log(response.data);
           this.getCarList();

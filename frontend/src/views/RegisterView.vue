@@ -69,6 +69,7 @@ export default {
           console.log(response);
           if (response.status == 200) {
             console.log("GGG");
+          sessionStorage.setItem("jwt", this.data);
           sessionStorage.setItem("cusID", response.data.ID);
           sessionStorage.setItem("fName", response.data.fName);
           sessionStorage.setItem("lName", response.data.lName);
@@ -80,7 +81,7 @@ export default {
     getandkeeptoken() {
       Auth.currentSession()
         .then(data => this.data = data.getIdToken().getJwtToken())
-        .catch(err => console.log(err));
+        .catch(err => console.log(err)).then(() => sessionStorage.setItem("jwt", this.data));
     }
   }
 };
