@@ -90,7 +90,12 @@
       </v-card-text>
     </v-card> 
 
-    <v-btn class="mx-1" color="error" variant="tonal" @click="dialog3 = true">Cancel</v-btn>
+    <div class="text-center pa-4">
+        <v-card-action>
+          <v-btn :disabled="valid" color="red" variant="tonal" @click="checkStage()" v-if="(incoming[0].status==stage[0] || incoming[0].status==stage[1]|| incoming[0].status==stage[2])">Cancel</v-btn>
+          <v-btn color="blue-darken-2" variant="tonal" to="/" v-if="(incoming[0].status== stage[3] || incoming[0].status==stage[4])">Go home</v-btn>
+        </v-card-action>
+    </div>
 
     <v-dialog v-model="dialog3" width="1000" class="text-left pa-4">
       <v-card class="text-left pa-4">
@@ -245,7 +250,7 @@ export default {
                     "problem": ["Lubricating oil overdue that should be changed", "Out of Brake lining"],
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rutrum tincidunt arcu sed gravida. Suspendisse mollis ex sed magna viverra, eu tincidunt velit lobortis. Phasellus accumsan mauris est, in pretium orci lacinia in. Nulla in bibendum ex, eu condimentum mauris. Pellentesque quis nisl a justo ultrices molestie ac mattis libero. Aliquam vel sollicitudin quam, vel molestie nunc. Proin dolor dolor, vehicula sed nisl dapibus, semper scelerisque nisl. Sed id neque ac metus efficitur vestibulum. Phasellus quis nibh ac dui molestie fringilla sit amet bibendum sem. Quisque consectetur sit amet nunc ac elementum. Suspendisse vulputate mauris erat, nec tempus dui vulputate.", 
                     "date": '12 Nov 2022',
-                    "shopID": "1", "status": "Accepted", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }],
+                    "shopID": "1", "status": "Finish:Completed", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }],
       items: ['mdi-thumb-up', 'mdi-car', 'mdi-wrench', 'mdi-check'],
       otw: "Next stage: 'On the way'. Are your mechanic ready to go?",
       onp: "Next stage: 'On process'. Your mechanic is fixing customer car.",

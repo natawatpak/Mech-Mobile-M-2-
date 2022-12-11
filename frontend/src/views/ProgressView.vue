@@ -1,8 +1,8 @@
 <template>
   <div class="pa-5">
-    <ProgressBar id='state' status="Accepted" />
+    <ProgressBar id='state' status='Finish:Garage' />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :location=location :problems=problems :currentStage="1"/>
+    <ProgressDetail :shop=shop :car=car :location=location :problems=problems :status=status />
 
     <v-dialog 
       v-model="dialog"
