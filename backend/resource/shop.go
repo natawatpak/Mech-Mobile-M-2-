@@ -70,6 +70,16 @@ func (op *SQLop) ShopFindByID(ctx context.Context, ID string) (*model.Shop, erro
 	return arrModel, err
 }
 
+func (op *SQLop) ShopFindByEmail(ctx context.Context, Email string) (*model.Shop, error) {
+	err := ValidateID(Email)
+	if err != nil {
+		return nil, err
+	}
+	arrModel := new(model.Shop)
+	err = op.db.NewSelect().Model(op.shopModel).Where("email = ?", Email).Scan(ctx, arrModel)
+	return arrModel, err
+}
+
 func (op *SQLop) ShopList(ctx context.Context) ([]*model.Shop, error) {
 	Shop := new([]*model.Shop)
 	err := op.db.NewSelect().Model(op.shopModel).Scan(ctx, Shop)

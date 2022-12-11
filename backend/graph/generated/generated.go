@@ -103,6 +103,7 @@ type ComplexityRoot struct {
 		Customers              func(childComplexity int) int
 		ServiceByID            func(childComplexity int, input string) int
 		Services               func(childComplexity int) int
+		ShopByEmail            func(childComplexity int, input string) int
 		ShopByID               func(childComplexity int, input string) int
 		ShopConnectByID        func(childComplexity int, input string) int
 		ShopConnects           func(childComplexity int) int
@@ -257,6 +258,7 @@ type QueryResolver interface {
 	TicketByShop(ctx context.Context, input model.TicketByShopInput) ([]*model.Ticket, error)
 	Tickets(ctx context.Context) ([]*model.Ticket, error)
 	ShopByID(ctx context.Context, input string) (*model.Shop, error)
+	ShopByEmail(ctx context.Context, input string) (*model.Shop, error)
 	Shops(ctx context.Context) ([]*model.Shop, error)
 	ServiceByID(ctx context.Context, input string) (*model.Service, error)
 	Services(ctx context.Context) ([]*model.Service, error)
@@ -852,6 +854,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.Services(childComplexity), true
+
+	case "Query.shopByEmail":
+		if e.complexity.Query.ShopByEmail == nil {
+			break
+		}
+
+		args, err := ec.field_Query_shopByEmail_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.ShopByEmail(childComplexity, args["input"].(string)), true
 
 	case "Query.shopByID":
 		if e.complexity.Query.ShopByID == nil {
@@ -1464,6 +1478,7 @@ type Query {
   tickets: [ticket!]!
 
   shopByID(input: ID!): shop!
+  shopByEmail(input: String!): shop!
   shops: [shop!]!
 
   serviceByID(input: ID!): service!
@@ -2359,6 +2374,21 @@ func (ec *executionContext) field_Query_serviceByID_args(ctx context.Context, ra
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_shopByEmail_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNString2string(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5879,6 +5909,77 @@ func (ec *executionContext) fieldContext_Query_shopByID(ctx context.Context, fie
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Query_shopByID_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_shopByEmail(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_shopByEmail(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().ShopByEmail(rctx, fc.Args["input"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.Shop)
+	fc.Result = res
+	return ec.marshalNshop2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShop(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_shopByEmail(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ID":
+				return ec.fieldContext_shop_ID(ctx, field)
+			case "name":
+				return ec.fieldContext_shop_name(ctx, field)
+			case "tel":
+				return ec.fieldContext_shop_tel(ctx, field)
+			case "email":
+				return ec.fieldContext_shop_email(ctx, field)
+			case "address":
+				return ec.fieldContext_shop_address(ctx, field)
+			case "longitude":
+				return ec.fieldContext_shop_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_shop_latitude(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type shop", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_shopByEmail_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
 	}
@@ -12897,6 +12998,29 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_shopByID(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "shopByEmail":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_shopByEmail(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
