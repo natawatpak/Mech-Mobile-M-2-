@@ -19,6 +19,7 @@ type Query {
   tickets: [ticket!]!
 
   shopByID(input: ID!): shop!
+  shopByEmail(input: String!): shop!
   shops: [shop!]!
 
   serviceByID(input: ID!): service!

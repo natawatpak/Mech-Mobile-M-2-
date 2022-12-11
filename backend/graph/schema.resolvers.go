@@ -349,6 +349,12 @@ func (r *queryResolver) ShopByID(ctx context.Context, input string) (*model.Shop
 	return result, err
 }
 
+// ShopByEmail is the resolver for the shopByEmail field.
+func (r *queryResolver) ShopByEmail(ctx context.Context, input string) (*model.Shop, error) {
+	result, err := r.DB.ShopFindByEmail(ctx, input)
+	return result, err
+}
+
 // Shops is the resolver for the shops field.
 func (r *queryResolver) Shops(ctx context.Context) ([]*model.Shop, error) {
 	result, err := r.DB.ShopList(ctx)
