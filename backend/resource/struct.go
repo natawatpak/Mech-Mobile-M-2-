@@ -29,6 +29,7 @@ type DatabaseOp interface {
 	CustomerDelete(ctx context.Context, ID string) (*model.Customer, error)
 	CustomerDeleteAll(ctx context.Context) ([]*model.Customer, error)
 	CustomerFindByID(ctx context.Context, ID string) (*model.Customer, error)
+	CustomerFindByEmail(ctx context.Context, Email string) (*model.Customer, error)
 	CustomerList(ctx context.Context) ([]*model.Customer, error)
 
 	CarCreate(ctx context.Context, carInput *model.CarCreateInput) (*model.Car, error)

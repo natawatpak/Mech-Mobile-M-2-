@@ -6,6 +6,7 @@ scalar Time
 
 type Query {
   customerByID(input: ID!): customer!
+  customerByEmail(input: String!): customer!
   customers: [customer!]!
 
   carByID(input: ID!): car!
