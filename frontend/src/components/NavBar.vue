@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar elevation = "4" flat app>
+    <v-app-bar elevation = "4" color="blue-grey-darken-2" flat app>
       <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title class="text-uppercase grey--text">
         <span class="font-weight-bold">M^2</span>

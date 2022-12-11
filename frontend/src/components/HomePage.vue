@@ -1,6 +1,6 @@
 <template>
   <div class="text-center ma-4">
-    <v-list>
+    <v-list class="herosection">
       <v-list-item>
         <router-link to="/callmech" class="text-decoration-none">
           <v-btn variant="tonal" color="green" size="large">Call Mechanic!!</v-btn>
@@ -16,6 +16,9 @@
 </template>
 
 <style>
+.herosection {
+  background-color: transparent;
+}
 </style>
 <script>
 </script>
