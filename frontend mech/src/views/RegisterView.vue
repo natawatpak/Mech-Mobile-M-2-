@@ -30,7 +30,7 @@ const formFields = {
         order:2,
         label: 'Email:'
       },
-      shopname: {
+      "custom:shopname": {
         order: 3,
         label: 'Shop name:'
       },
@@ -42,11 +42,11 @@ const formFields = {
         order: 4,
         label: 'Phone No.:'
       },
-      longitude:{
+      "custom:longitude":{
         order: 7,
         label: 'Longitude:'
       },
-      latitude:{
+      "custom:latitude":{
         order:8,
         label: 'Latitude:'
       },
@@ -93,14 +93,13 @@ export default {
       await Auth.currentSession()
         .then(data => this.data = data.getIdToken().getJwtToken())
         .catch(err => console.log(err)).then(() => sessionStorage.setItem("jwt", this.data));
-
         const data = new URLSearchParams({
-        shopName: user.attributes.name,
+        shopName: user.attributes["custom:shopname"],
         shopTel: user.attributes.phone_number,
         shopEmail: user.attributes.email,
         shopAddress: user.attributes.address,
-        lat: user.attributes.latitude,
-        lng: user.attributes.longitude
+        lat: user.attributes["custom:latitude"],
+        lng: user.attributes["custom:longitude"]
       })
         this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/shop/create-profile",data, {
         headers:{

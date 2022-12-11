@@ -605,7 +605,7 @@ func ShopGetProfile(w http.ResponseWriter, r *http.Request) {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
-	resp, err := graph.ShopByEmail(ctx, graphqlClient, r.FormValue("email"))
+	resp, err := graph.ShopByEmail(ctx, graphqlClient, r.FormValue("shopEmail"))
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

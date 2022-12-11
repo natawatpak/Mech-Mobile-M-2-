@@ -45,7 +45,6 @@ func Handler(context context.Context, request events.APIGatewayWebsocketProxyReq
 		}, nil
 	}
 
-
 	// The body of the response will be returned to the client over the socket
 	r := WebSocketResponseBody{
 		Message: "via routeResponseSelectionExpression" + string(wsrb.Data),
