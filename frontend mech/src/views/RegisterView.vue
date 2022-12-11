@@ -30,11 +30,11 @@ const formFields = {
         order:2,
         label: 'Email:'
       },
-      'custom:shopname': {
+      shopname: {
         order: 3,
         label: 'Shop name:'
       },
-      'custom:address': {
+      address: {
         order: 5,
         label: 'Address:'
       },
@@ -42,11 +42,11 @@ const formFields = {
         order: 4,
         label: 'Phone No.:'
       },
-      'custom:longitude':{
+      longitude:{
         order: 7,
         label: 'Longitude:'
       },
-      'custom:latitude':{
+      latitude:{
         order:8,
         label: 'Latitude:'
       },
