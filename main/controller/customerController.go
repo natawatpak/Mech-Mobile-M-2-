@@ -226,6 +226,33 @@ func CustomerGetCar(w http.ResponseWriter, r *http.Request){
 		w.Write([]byte(err.Error()))
 		return
 	}
+
+	AddHeader(w).Write(jsonData)
+}
+
+func CustomerGetProfile(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	resp, err := graph.CustomerByEmail(ctx, graphqlClient, r.FormValue("email"))
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	fmt.Println(resp.CustomerByEmail.ID)
+	data := map[string]string{
+		"cusID": resp.CustomerByEmail.ID,
+		"fname": resp.CustomerByEmail.FName,
+		"lname": resp.CustomerByEmail.LName,
+		"email": resp.CustomerByEmail.Email,
+		"tel": resp.CustomerByEmail.Tel,
+	}
+	jsonData, err := json.Marshal(data)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
@@ -256,11 +283,6 @@ func CustomerRemoveCar(w http.ResponseWriter, r *http.Request) {
 		"CarID": resp.CarDelete.ID,
 	}
 	jsonData, err := json.Marshal(data)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(err.Error()))
-		return
-	}
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))

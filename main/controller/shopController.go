@@ -29,6 +29,14 @@ func getCus(id string) (*graph.CustomerByIDResponse, error){
 	return resp, err
 }
 
+func getTicket(id string) (*graph.TicketByIDResponse, error){
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	resp, err := graph.TicketByID(ctx, graphqlClient, id)
+	return resp, err
+}
+
 func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
@@ -196,26 +204,35 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+	t, err := getTicket(r.FormValue("ticketID"));
 
-	// _, err := graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
-	// 	ID:         r.FormValue("ticketID"),
-	// 	CarID:      r.FormValue("carID"),
-	// 	CustomerID: r.FormValue("cusID"),
-	// 	Problem:    r.FormValue("problem"),
-	// 	ShopID:     util.Ptr(r.FormValue("shopID")),
-	// 	Status:     util.Ptr("Accepted"),
-	// 	Latitude: 	StrToFloat(r.FormValue("lat")),
-	// 	Longitude: StrToFloat(r.FormValue("lng")),
-	// 	Description: util.Ptr(r.FormValue("description")),
-	// 	AcceptedTime: toTimePtr(time.Now()),
-	// })
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		println(err.Error())
+		return
+	}
 
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusInternalServerError)
-	// 	w.Write([]byte(err.Error()))
-	// 	println(err.Error())
-	// 	return
-	// }
+	_, err = graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
+		ID:         r.FormValue("ticketID"),
+		CarID:      r.FormValue("carID"),
+		CustomerID: r.FormValue("cusID"),
+		Problem:    r.FormValue("problem"),
+		ShopID:     util.Ptr(r.FormValue("shopID")),
+		Status:     util.Ptr("Accepted"),
+		Latitude: 	StrToFloat(r.FormValue("lat")),
+		Longitude: StrToFloat(r.FormValue("lng")),
+		Description: util.Ptr(r.FormValue("description")),
+		AcceptedTime: toTimePtr(time.Now()),
+		CreateTime: t.TicketByID.CreateTime,
+	})
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		println(err.Error())
+		return
+	}
 
 	ctx, _ = context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
@@ -269,24 +286,33 @@ func ShopUpdateTicket(w http.ResponseWriter, r *http.Request) {
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+	t, err := getTicket(r.FormValue("ticketID"));
 
-	// _, err := graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
-	// 	ID:         r.FormValue("ticketID"),
-	// 	CarID:      r.FormValue("carID"),
-	// 	CustomerID: r.FormValue("cusID"),
-	// 	Problem:    r.FormValue("problem"),
-	// 	ShopID:     util.Ptr(r.FormValue("shopID")),
-	// 	Status:     util.Ptr(r.FormValue("status")),
-	// 	Latitude: StrToFloat(r.FormValue("lat")),
-	// 	Longitude: StrToFloat(r.FormValue("lng")),
-	// 	Description: util.Ptr(r.FormValue("description")),
-	// })
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
 
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusInternalServerError)
-	// 	w.Write([]byte(err.Error()))
-	// 	return
-	// }
+	_, err = graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
+		ID:         r.FormValue("ticketID"),
+		CarID:      r.FormValue("carID"),
+		CustomerID: r.FormValue("cusID"),
+		Problem:    r.FormValue("problem"),
+		ShopID:     util.Ptr(r.FormValue("shopID")),
+		Status:     util.Ptr(r.FormValue("status")),
+		Latitude: StrToFloat(r.FormValue("lat")),
+		Longitude: StrToFloat(r.FormValue("lng")),
+		Description: util.Ptr(r.FormValue("description")),
+		AcceptedTime: t.TicketByID.AcceptedTime,
+		CreateTime: t.TicketByID.CreateTime,
+	})
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
 
 	ctx, _ = context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
