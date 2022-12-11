@@ -348,7 +348,7 @@ export default {
     this.ticketID = sessionStorage.getItem("ticketID")
     console.log(sessionStorage.getItem("ticketID"))
 
-    this.socket = new WebSocket("ws://127.0.0.1:3000/shop/ws/"+sessionStorage.getItem("ticketID"));
+    this.socket = new WebSocket("wss://axzrwmh7sb.execute-api.us-east-1.amazonaws.com/production?ticketID="+sessionStorage.getItem("ticketID"));
     console.log("Attempting Connection...");
 
     this.socket.onopen = () => {

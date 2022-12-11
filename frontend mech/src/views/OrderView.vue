@@ -13,8 +13,5 @@ export default {
   components: {
     OrderPage,
   },
-  created(){
-    sessionStorage.setItem("shopID", 1);
-  },
 };
 </script>

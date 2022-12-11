@@ -110,7 +110,7 @@ export default {
   },
   mounted() {
     this.getActiveTicket();
-    this.socket = new WebSocket(this.$wsApi + "shop/ws/active-ticket");
+    this.socket = new WebSocket("wss://ar20w151pd.execute-api.us-east-1.amazonaws.com/production?shopID="+sessionStorage.getItem("shopID"));
     console.log("Attempting Connection...");
 
     this.socket.onopen = () => {

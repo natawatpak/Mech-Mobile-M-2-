@@ -65,8 +65,7 @@ export default {
 
     this.getTicket()
 
-    //this.socket = new WebSocket(this.$wsApi + "customer/ws/" + this.ticketID);
-    this.socket = new WebSocket(this.$wsApi);
+    this.socket = new WebSocket("wss://7c2mohris1.execute-api.us-east-1.amazonaws.com/production?ticketID=" + this.ticketID);
 
     console.log("Attempting Connection...");
 
