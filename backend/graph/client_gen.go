@@ -3305,6 +3305,102 @@ func (v *ServicesServicesService) __premarshalJSON() (*__premarshalServicesServi
 	return &retval, nil
 }
 
+// ShopByEmailResponse is returned by ShopByEmail on success.
+type ShopByEmailResponse struct {
+	ShopByEmail *ShopByEmailShopByEmailShop `json:"shopByEmail"`
+}
+
+// GetShopByEmail returns ShopByEmailResponse.ShopByEmail, and is useful for accessing the field via an interface.
+func (v *ShopByEmailResponse) GetShopByEmail() *ShopByEmailShopByEmailShop { return v.ShopByEmail }
+
+// ShopByEmailShopByEmailShop includes the requested fields of the GraphQL type shop.
+type ShopByEmailShopByEmailShop struct {
+	shopFragment `json:"-"`
+}
+
+// GetID returns ShopByEmailShopByEmailShop.ID, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetID() string { return v.shopFragment.ID }
+
+// GetName returns ShopByEmailShopByEmailShop.Name, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetName() string { return v.shopFragment.Name }
+
+// GetTel returns ShopByEmailShopByEmailShop.Tel, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetTel() string { return v.shopFragment.Tel }
+
+// GetEmail returns ShopByEmailShopByEmailShop.Email, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetEmail() string { return v.shopFragment.Email }
+
+// GetAddress returns ShopByEmailShopByEmailShop.Address, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetAddress() string { return v.shopFragment.Address }
+
+// GetLongitude returns ShopByEmailShopByEmailShop.Longitude, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetLongitude() float64 { return v.shopFragment.Longitude }
+
+// GetLatitude returns ShopByEmailShopByEmailShop.Latitude, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetLatitude() float64 { return v.shopFragment.Latitude }
+
+func (v *ShopByEmailShopByEmailShop) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopByEmailShopByEmailShop
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopByEmailShopByEmailShop = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopByEmailShopByEmailShop struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+
+	Address string `json:"address"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
+}
+
+func (v *ShopByEmailShopByEmailShop) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopByEmailShopByEmailShop) __premarshalJSON() (*__premarshalShopByEmailShopByEmailShop, error) {
+	var retval __premarshalShopByEmailShopByEmailShop
+
+	retval.ID = v.shopFragment.ID
+	retval.Name = v.shopFragment.Name
+	retval.Tel = v.shopFragment.Tel
+	retval.Email = v.shopFragment.Email
+	retval.Address = v.shopFragment.Address
+	retval.Longitude = v.shopFragment.Longitude
+	retval.Latitude = v.shopFragment.Latitude
+	return &retval, nil
+}
+
 // ShopByIDResponse is returned by ShopByID on success.
 type ShopByIDResponse struct {
 	ShopByID *ShopByIDShopByIDShop `json:"shopByID"`
@@ -6908,6 +7004,14 @@ type __ServiceUpdateMultiInput struct {
 // GetServiceInput returns __ServiceUpdateMultiInput.ServiceInput, and is useful for accessing the field via an interface.
 func (v *__ServiceUpdateMultiInput) GetServiceInput() *ServiceUpdateInput { return v.ServiceInput }
 
+// __ShopByEmailInput is used internally by genqlient
+type __ShopByEmailInput struct {
+	ShopInput string `json:"shopInput"`
+}
+
+// GetShopInput returns __ShopByEmailInput.ShopInput, and is useful for accessing the field via an interface.
+func (v *__ShopByEmailInput) GetShopInput() string { return v.ShopInput }
+
 // __ShopByIDInput is used internally by genqlient
 type __ShopByIDInput struct {
 	ShopInput string `json:"shopInput"`
@@ -8597,6 +8701,47 @@ fragment serviceFragment on service {
 	var err error
 
 	var data ServicesResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopByEmail(
+	ctx context.Context,
+	client graphql.Client,
+	shopInput string,
+) (*ShopByEmailResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopByEmail",
+		Query: `
+query ShopByEmail ($shopInput: String!) {
+	shopByEmail(input: $shopInput) {
+		... shopFragment
+	}
+}
+fragment shopFragment on shop {
+	ID
+	name
+	tel
+	email
+	address
+	longitude
+	latitude
+}
+`,
+		Variables: &__ShopByEmailInput{
+			ShopInput: shopInput,
+		},
+	}
+	var err error
+
+	var data ShopByEmailResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

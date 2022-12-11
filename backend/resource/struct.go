@@ -79,6 +79,7 @@ type DatabaseOp interface {
 	ShopServiceDelete(ctx context.Context, input *model.ShopServiceDeleteInput) (*model.ShopService, error)
 	ShopServiceDeleteAll(ctx context.Context) ([]*model.ShopService, error)
 	ShopServiceFindByID(ctx context.Context, input model.ShopServiceCreateInput) (*model.ShopService, error)
+	ShopFindByEmail(ctx context.Context, Email string) (*model.Shop, error)
 	ShopServiceList(ctx context.Context) ([]*model.ShopService, error)
 
 	TicketServiceCreate(ctx context.Context, TicketServiceInput *model.TicketServiceCreateInput) (*model.TicketService, error)
