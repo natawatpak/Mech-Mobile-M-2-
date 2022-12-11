@@ -197,24 +197,25 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
-	_, err := graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
-		ID:         r.FormValue("ticketID"),
-		CarID:      r.FormValue("carID"),
-		CustomerID: r.FormValue("cusID"),
-		Problem:    r.FormValue("problem"),
-		ShopID:     util.Ptr(r.FormValue("shopID")),
-		Status:     util.Ptr("Accepted"),
-		Latitude: 	StrToFloat(r.FormValue("lat")),
-		Longitude: StrToFloat(r.FormValue("lng")),
-		Description: util.Ptr(r.FormValue("description")),
-		AcceptedTime: toTimePtr(time.Now()),
-	})
+	// _, err := graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
+	// 	ID:         r.FormValue("ticketID"),
+	// 	CarID:      r.FormValue("carID"),
+	// 	CustomerID: r.FormValue("cusID"),
+	// 	Problem:    r.FormValue("problem"),
+	// 	ShopID:     util.Ptr(r.FormValue("shopID")),
+	// 	Status:     util.Ptr("Accepted"),
+	// 	Latitude: 	StrToFloat(r.FormValue("lat")),
+	// 	Longitude: StrToFloat(r.FormValue("lng")),
+	// 	Description: util.Ptr(r.FormValue("description")),
+	// 	AcceptedTime: toTimePtr(time.Now()),
+	// })
 
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(err.Error()))
-		return
-	}
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusInternalServerError)
+	// 	w.Write([]byte(err.Error()))
+	// 	println(err.Error())
+	// 	return
+	// }
 
 	ctx, _ = context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
@@ -234,6 +235,7 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
+		println(err.Error())
 		return
 	}
 	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
@@ -268,23 +270,23 @@ func ShopUpdateTicket(w http.ResponseWriter, r *http.Request) {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
-	_, err := graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
-		ID:         r.FormValue("ticketID"),
-		CarID:      r.FormValue("carID"),
-		CustomerID: r.FormValue("cusID"),
-		Problem:    r.FormValue("problem"),
-		ShopID:     util.Ptr(r.FormValue("shopID")),
-		Status:     util.Ptr(r.FormValue("status")),
-		Latitude: StrToFloat(r.FormValue("lat")),
-		Longitude: StrToFloat(r.FormValue("lng")),
-		Description: util.Ptr(r.FormValue("description")),
-	})
+	// _, err := graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
+	// 	ID:         r.FormValue("ticketID"),
+	// 	CarID:      r.FormValue("carID"),
+	// 	CustomerID: r.FormValue("cusID"),
+	// 	Problem:    r.FormValue("problem"),
+	// 	ShopID:     util.Ptr(r.FormValue("shopID")),
+	// 	Status:     util.Ptr(r.FormValue("status")),
+	// 	Latitude: StrToFloat(r.FormValue("lat")),
+	// 	Longitude: StrToFloat(r.FormValue("lng")),
+	// 	Description: util.Ptr(r.FormValue("description")),
+	// })
 
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(err.Error()))
-		return
-	}
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusInternalServerError)
+	// 	w.Write([]byte(err.Error()))
+	// 	return
+	// }
 
 	ctx, _ = context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)

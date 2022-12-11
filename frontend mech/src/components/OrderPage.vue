@@ -71,7 +71,7 @@
             <v-btn @click="dialog=false" class="mx-1" variant="tonal" color="error">
               Decline
             </v-btn>
-            <v-btn to="/details" class="mx-1" color="blue" variant="tonal">
+            <v-btn @click="acceptTicket()" class="mx-1" color="blue" variant="tonal">
               Accept
             </v-btn>
           </v-card-action>
@@ -108,8 +108,34 @@ export default {
                     "shopID": "1", "status": "Finish:Garage", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }]
     };
   },
+  mounted() {
+    this.getActiveTicket();
+    sessionStorage.setItem("shopID", 1);
+    this.socket = new WebSocket(this.$wsApi + "shop/ws/active-ticket");
+    console.log("Attempting Connection...");
+
+    this.socket.onopen = () => {
+      console.log("Successfully Connected");
+      this.socket.send("Accepted");
+    };
+
+    this.socket.addEventListener("message", (event) => {
+      console.log("Message from server ", event.data);
+      this.getActiveTicket();
+    });
+
+    this.socket.onclose = (event) => {
+      console.log("Socket Closed Connection: ", event);
+      this.socket.send("Client Closed!");
+    };
+
+    this.socket.onerror = (error) => {
+      this.console.log("Socket Error: ", error);
+    };
+  },
   methods: {
-    acceptTicket(ticket) {
+    acceptTicket() {
+      let ticket = this.details;
       sessionStorage.setItem("ticketID", ticket.ticketID);
 
       const data = new URLSearchParams({
@@ -133,7 +159,15 @@ export default {
       this.details = t;
       console.log(this.details)
       this.dialog = true;
-    }
+    },
+    getActiveTicket() {
+      this.axios
+        .post(this.$backendApi + "shop/get-ticket-list")
+        .then((response) => {
+          console.log(response.data);
+          this.tickets = response.data;
+        });
+    },
   },
 };
 </script>
