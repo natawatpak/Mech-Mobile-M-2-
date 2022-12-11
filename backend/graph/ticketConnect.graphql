@@ -1,0 +1,41 @@
+mutation TicketConnectsCreate($ticketConnectsInput: ticketConnectCreateInput!) {
+  ticketConnectCreate(input: $ticketConnectsInput) {
+    ...ticketConnectFragment
+  }
+}
+
+mutation TicketConnectsUpdateMulti($ticketConnectsInput: ticketConnectCreateInput!) {
+  ticketConnectUpdate(input: $ticketConnectsInput) {
+    ...ticketConnectFragment
+  }
+}
+
+mutation TicketConnectsDelete($shopConnectInput: ID!) {
+  ticketConnectDelete(input: $shopConnectInput) {
+    ...ticketConnectFragment
+  }
+}
+
+mutation TicketConnectsDeleteAll() {
+  ticketConnectDeleteAll() {
+    ...ticketConnectFragment
+  }
+}
+
+query TicketConnectsByID($shopConnectInput: ID!) {
+  ticketConnectByID(input: $shopConnectInput) {
+    ...ticketConnectFragment
+  }
+}
+
+query TicketConnects() {
+  ticketConnects() {
+    ...ticketConnectFragment
+  }
+}
+
+fragment ticketConnectFragment on ticketConnect {
+  ticketID
+  customerConnectionID
+  shopConnectionID
+}

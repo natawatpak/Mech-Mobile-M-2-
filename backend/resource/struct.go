@@ -23,6 +23,7 @@ type SQLop struct {
 type DatabaseOp interface {
 	DropTable(ctx context.Context) (bool, error)
 	CreateTables(ctx context.Context) (bool, error)
+	CreateConnectTables(ctx context.Context) (bool, error)
 
 	CustomerCreate(ctx context.Context, userInput *model.CustomerCreateInput) (*model.Customer, error)
 	CustomerUpdateMulti(ctx context.Context, updateInput model.Customer) (*model.Customer, error)
@@ -85,4 +86,17 @@ type DatabaseOp interface {
 	TicketServiceDeleteAll(ctx context.Context) ([]*model.TicketService, error)
 	TicketServiceFindByID(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error)
 	TicketServiceList(ctx context.Context) ([]*model.TicketService, error)
+
+	TicketConnectCreate(ctx context.Context, input *model.TicketConnectCreateInput) (*model.TicketConnect, error)
+	TicketConnectUpdateMulti(ctx context.Context, updateInput model.TicketConnectCreateInput) (*model.TicketConnect, error)
+	TicketConnectDelete(ctx context.Context, ID string) (*model.TicketConnect, error)
+	TicketConnectDeleteAll(ctx context.Context) ([]*model.TicketConnect, error)
+	TicketConnectFindByID(ctx context.Context, ID string) (*model.TicketConnect, error)
+	TicketConnectList(ctx context.Context) ([]*model.TicketConnect, error)
+
+	ShopConnectCreate(ctx context.Context, input *model.ShopConnectCreateInput) (*model.ShopConnect, error)
+	ShopConnectDelete(ctx context.Context, ID string) ([]*model.ShopConnect, error)
+	ShopConnectDeleteAll(ctx context.Context) ([]*model.ShopConnect, error)
+	ShopConnectFindByID(ctx context.Context, ID string) ([]*model.ShopConnect, error)
+	ShopConnectList(ctx context.Context) ([]*model.ShopConnect, error)
 }
