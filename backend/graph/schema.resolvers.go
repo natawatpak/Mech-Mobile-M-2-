@@ -31,6 +31,15 @@ func (r *mutationResolver) CreateTable(ctx context.Context) (bool, error) {
 	return true, err
 }
 
+// CreateConnectionTable is the resolver for the createConnectionTable field.
+func (r *mutationResolver) CreateConnectionTable(ctx context.Context) (bool, error) {
+	_, err := r.DB.CreateConnectTables(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	return true, err
+}
+
 // CustomerCreate is the resolver for the customerCreate field.
 func (r *mutationResolver) CustomerCreate(ctx context.Context, input model.CustomerCreateInput) (*model.Customer, error) {
 	if input.ID != nil {
@@ -232,6 +241,48 @@ func (r *mutationResolver) TicketServiceDeleteAll(ctx context.Context) ([]*model
 	return returnCustomer, err
 }
 
+// TicketConnectCreate is the resolver for the ticketConnectCreate field.
+func (r *mutationResolver) TicketConnectCreate(ctx context.Context, input model.TicketConnectCreateInput) (*model.TicketConnect, error) {
+	result, err := r.DB.TicketConnectCreate(ctx, &input)
+	return result, err
+}
+
+// TicketConnectUpdate is the resolver for the ticketConnectUpdate field.
+func (r *mutationResolver) TicketConnectUpdate(ctx context.Context, input model.TicketConnectCreateInput) (*model.TicketConnect, error) {
+	result, err := r.DB.TicketConnectUpdateMulti(ctx, input)
+	return result, err
+}
+
+// TicketConnectDelete is the resolver for the ticketConnectDelete field.
+func (r *mutationResolver) TicketConnectDelete(ctx context.Context, input string) (*model.TicketConnect, error) {
+	result, err := r.DB.TicketConnectDelete(ctx, input)
+	return result, err
+}
+
+// TicketConnectDeleteAll is the resolver for the ticketConnectDeleteAll field.
+func (r *mutationResolver) TicketConnectDeleteAll(ctx context.Context) ([]*model.TicketConnect, error) {
+	result, err := r.DB.TicketConnectDeleteAll(ctx)
+	return result, err
+}
+
+// ShopConnectCreate is the resolver for the shopConnectCreate field.
+func (r *mutationResolver) ShopConnectCreate(ctx context.Context, input model.ShopConnectCreateInput) (*model.ShopConnect, error) {
+	result, err := r.DB.ShopConnectCreate(ctx, &input)
+	return result, err
+}
+
+// ShopConnectDelete is the resolver for the shopConnectDelete field.
+func (r *mutationResolver) ShopConnectDelete(ctx context.Context, input string) ([]*model.ShopConnect, error) {
+	result, err := r.DB.ShopConnectDelete(ctx, input)
+	return result, err
+}
+
+// ShopConnectDeleteAll is the resolver for the shopConnectDeleteAll field.
+func (r *mutationResolver) ShopConnectDeleteAll(ctx context.Context) ([]*model.ShopConnect, error) {
+	result, err := r.DB.ShopConnectDeleteAll(ctx)
+	return result, err
+}
+
 // CustomerByID is the resolver for the customerByID field.
 func (r *queryResolver) CustomerByID(ctx context.Context, input string) (*model.Customer, error) {
 	result, err := r.DB.CustomerFindByID(ctx, input)
@@ -367,6 +418,30 @@ func (r *queryResolver) TicketServiceByID(ctx context.Context, input model.Ticke
 // TicketServices is the resolver for the ticketServices field.
 func (r *queryResolver) TicketServices(ctx context.Context) ([]*model.TicketService, error) {
 	result, err := r.DB.TicketServiceList(ctx)
+	return result, err
+}
+
+// TicketConnectByID is the resolver for the ticketConnectByID field.
+func (r *queryResolver) TicketConnectByID(ctx context.Context, input string) (*model.TicketConnect, error) {
+	result, err := r.DB.TicketConnectFindByID(ctx, input)
+	return result, err
+}
+
+// TicketConnects is the resolver for the ticketConnects field.
+func (r *queryResolver) TicketConnects(ctx context.Context) ([]*model.TicketConnect, error) {
+	result, err := r.DB.TicketConnectList(ctx)
+	return result, err
+}
+
+// ShopConnectByID is the resolver for the shopConnectByID field.
+func (r *queryResolver) ShopConnectByID(ctx context.Context, input string) ([]*model.ShopConnect, error) {
+	result, err := r.DB.ShopConnectFindByID(ctx, input)
+	return result, err
+}
+
+// ShopConnects is the resolver for the shopConnects field.
+func (r *queryResolver) ShopConnects(ctx context.Context) ([]*model.ShopConnect, error) {
+	result, err := r.DB.ShopConnectList(ctx)
 	return result, err
 }
 

@@ -62,6 +62,14 @@ func (op *SQLop) DropTable(ctx context.Context) (bool, error) {
 	if util.CheckErr(err) {
 		return false, err
 	}
+	// ticket connect
+	_, err = op.db.NewDropTable().
+		Model((*model.TicketConnect)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
 	//ticket
 	_, err = op.db.NewDropTable().
 		Model((*model.Ticket)(nil)).
@@ -81,6 +89,14 @@ func (op *SQLop) DropTable(ctx context.Context) (bool, error) {
 	//service
 	_, err = op.db.NewDropTable().
 		Model((*model.Service)(nil)).
+		IfExists().
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	//shop connect
+	_, err = op.db.NewDropTable().
+		Model((*model.ShopConnect)(nil)).
 		IfExists().
 		Exec(ctx)
 	if util.CheckErr(err) {
@@ -192,5 +208,23 @@ func (op *SQLop) CreateTables(ctx context.Context) (bool, error) {
 		return false, err
 	}
 
+	return true, err
+}
+
+func (op *SQLop) CreateConnectTables(ctx context.Context) (bool, error) {
+	_, err := op.db.NewCreateTable().
+		Model((*model.TicketConnect)(nil)).
+		ForeignKey(`("ticket_id") REFERENCES "tickets" ("id") ON DELETE CASCADE`).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
+	_, err = op.db.NewCreateTable().
+		Model((*model.ShopConnect)(nil)).
+		ForeignKey(`("shop_id") REFERENCES "shops" ("id") ON DELETE CASCADE`).
+		Exec(ctx)
+	if util.CheckErr(err) {
+		return false, err
+	}
 	return true, err
 }

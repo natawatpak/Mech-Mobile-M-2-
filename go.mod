@@ -9,6 +9,7 @@ require (
 	github.com/awslabs/aws-lambda-go-api-proxy v0.13.3
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/mux v1.7.4
+	github.com/gorilla/websocket v1.5.0
 	github.com/lib/pq v1.10.7
 	github.com/stretchr/testify v1.8.1
 	github.com/uptrace/bun v1.1.8
@@ -22,7 +23,6 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
-	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
