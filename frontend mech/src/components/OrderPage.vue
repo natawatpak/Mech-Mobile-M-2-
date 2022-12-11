@@ -149,14 +149,5 @@ export default {
                     "shopID": "1", "status": "Finish:Garage", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }]
     };
   },
-  methods:{
-    remove (item) {
-      this.chips.splice(this.chips.indexOf(item), 1)
-      this.chips = [...this.chips]
-    },
-    removeMessage(seconds) {
-         setTimeout(()=> this.show = false, seconds * 1000);
-      },
-  }
 };
 </script>
