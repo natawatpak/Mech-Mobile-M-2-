@@ -6427,7 +6427,7 @@ type TicketUpdateInput struct {
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
 	Description  *string    `json:"description"`
-	CreateTime   time.Time  `json:"createTime,omitempty"`
+	CreateTime   time.Time  `json:"createTime"`
 	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
@@ -7189,6 +7189,16 @@ func (v *carFragment) GetBrand() string { return v.Brand }
 
 // GetBuild returns carFragment.Build, and is useful for accessing the field via an interface.
 func (v *carFragment) GetBuild() *string { return v.Build }
+
+// createConnectionTableResponse is returned by createConnectionTable on success.
+type createConnectionTableResponse struct {
+	CreateConnectionTable bool `json:"createConnectionTable"`
+}
+
+// GetCreateConnectionTable returns createConnectionTableResponse.CreateConnectionTable, and is useful for accessing the field via an interface.
+func (v *createConnectionTableResponse) GetCreateConnectionTable() bool {
+	return v.CreateConnectionTable
+}
 
 // cusFragment includes the GraphQL fields of customer requested by the fragment cusFragment.
 type cusFragment struct {
@@ -9907,6 +9917,32 @@ fragment ticketFragment on ticket {
 	var err error
 
 	var data TicketsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func createConnectionTable(
+	ctx context.Context,
+	client graphql.Client,
+) (*createConnectionTableResponse, error) {
+	req := &graphql.Request{
+		OpName: "createConnectionTable",
+		Query: `
+mutation createConnectionTable {
+	createConnectionTable
+}
+`,
+	}
+	var err error
+
+	var data createConnectionTableResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
