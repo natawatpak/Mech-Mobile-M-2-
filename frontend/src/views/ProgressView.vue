@@ -77,12 +77,7 @@ export default {
 
     this.socket.addEventListener("message", (event) => {
       console.log("Message from server ", event.data);
-      if(event.data == "Accepted"){
-        this.getTicket();
-      }else{
-        this.status = event.data
-      }
-      
+      this.getTicket();
     });
     
     this.socket.onclose = event => {

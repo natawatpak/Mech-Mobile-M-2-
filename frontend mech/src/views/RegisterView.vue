@@ -105,7 +105,6 @@ export default {
         headers:{
             Authorization: this.data 
         }}).then((response)=>{
-          console.log(response);
           if (response.status == 200) {
           sessionStorage.setItem("jwt", this.data);
           sessionStorage.setItem("shopID", response.data.ID);
@@ -115,10 +114,9 @@ export default {
         headers:{
             Authorization: this.data 
         }}).then((response)=>{
-          console.log(response);
           if (response.status == 200) {
           sessionStorage.setItem("jwt", this.data);
-          sessionStorage.setItem("shopID", response.data.ID);
+          sessionStorage.setItem("shopID", response.data.shopID);
           }
           })
 

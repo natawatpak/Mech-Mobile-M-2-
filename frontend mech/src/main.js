@@ -10,7 +10,7 @@ import VueGoogleMaps from '@fawmi/vue-google-maps'
 loadFonts()
 
 let app = createApp(App).use(router)
-app.config.globalProperties.$backendApi = 'http://localhost:3000/'
+app.config.globalProperties.$backendApi = 'https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/'
 app.config.globalProperties.$wsApi = 'ws://localhost:3000/'
 app.use(vuetify)
   .use(VueAxios, axios)
