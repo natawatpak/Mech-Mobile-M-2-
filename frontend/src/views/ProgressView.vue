@@ -65,7 +65,9 @@ export default {
 
     this.getTicket()
 
-    this.socket = new WebSocket(this.$wsApi + "customer/ws/" + this.ticketID);
+    //this.socket = new WebSocket(this.$wsApi + "customer/ws/" + this.ticketID);
+    this.socket = new WebSocket(this.$wsApi);
+
     console.log("Attempting Connection...");
 
     this.socket.onopen = () => {
@@ -97,10 +99,13 @@ export default {
   methods: {
     getTicket(){
       const data = new URLSearchParams({
-        ticketID: this.ticketID,
+        ticketID: this.ticketID
       });
       this.axios
-        .post(this.$backendApi + "customer/get-ticket", data)
+        .post(this.$backendApi + "customer/get-ticket", data,{
+        headers:{
+            Authorization: sessionStorage.getItem("jwt")
+        }})
         .then((response) => {
           console.log(response.data);
           this.carID = response.data.carID;
@@ -130,7 +135,12 @@ export default {
         carID: this.carID,
       });
       this.axios
-        .post(this.$backendApi + "customer/get-car", data)
+        .post(this.$backendApi + "customer/get-car", data,
+        {
+          headers:{
+              Authorization: sessionStorage.getItem("jwt")
+          }
+        })
         .then((response) => {
           this.car = response.data;
         });

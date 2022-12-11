@@ -77,6 +77,22 @@ export default {
           sessionStorage.setItem("tel", response.data.tel);
           sessionStorage.setItem("email", response.data.email);
           }
+          else {
+            this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/customer/create-profile",data, {
+        headers:{
+            Authorization: this.data 
+        }}).then((response)=>{
+          console.log(response);
+          if (response.status == 200) {
+          sessionStorage.setItem("jwt", this.data);
+          sessionStorage.setItem("cusID", response.data.ID);
+          sessionStorage.setItem("fName", response.data.fName);
+          sessionStorage.setItem("lName", response.data.lName);
+          sessionStorage.setItem("tel", response.data.tel);
+          sessionStorage.setItem("email", response.data.email);
+          }
+          })
+          }
       })
       this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/customer/get-profile",data, {
         headers:{
