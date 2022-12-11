@@ -43,7 +43,7 @@ func (op *SQLop) TicketConnectDelete(ctx context.Context, ID string) (*model.Tic
 	if util.CheckErr(err) {
 		return nil, err
 	}
-	_, err = op.db.NewDelete().Model(op.cusModel).Where("ticket_id = ?", ID).Exec(ctx)
+	_, err = op.db.NewDelete().Model(new(model.ShopConnect)).Where("ticket_id = ?", ID).Exec(ctx)
 	return resultTicketConnect, err
 }
 
@@ -63,12 +63,12 @@ func (op *SQLop) TicketConnectFindByID(ctx context.Context, ID string) (*model.T
 		return nil, err
 	}
 	arrModel := new(model.TicketConnect)
-	err = op.db.NewSelect().Model(op.cusModel).Where("ticket_id = ?", ID).Scan(ctx, arrModel)
+	err = op.db.NewSelect().Model(arrModel).Where("ticket_id = ?", ID).Scan(ctx, arrModel)
 	return arrModel, err
 }
 
 func (op *SQLop) TicketConnectList(ctx context.Context) ([]*model.TicketConnect, error) {
 	ticketConnect := new([]*model.TicketConnect)
-	err := op.db.NewSelect().Model(op.cusModel).Scan(ctx, ticketConnect)
+	err := op.db.NewSelect().Model(new(model.TicketConnect)).Scan(ctx, ticketConnect)
 	return *ticketConnect, err
 }
