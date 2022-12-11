@@ -2212,6 +2212,92 @@ type CreateTableResponse struct {
 // GetCreateTable returns CreateTableResponse.CreateTable, and is useful for accessing the field via an interface.
 func (v *CreateTableResponse) GetCreateTable() bool { return v.CreateTable }
 
+// CustomerByEmailCustomerByEmailCustomer includes the requested fields of the GraphQL type customer.
+type CustomerByEmailCustomerByEmailCustomer struct {
+	cusFragment `json:"-"`
+}
+
+// GetID returns CustomerByEmailCustomerByEmailCustomer.ID, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetID() string { return v.cusFragment.ID }
+
+// GetFName returns CustomerByEmailCustomerByEmailCustomer.FName, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetFName() string { return v.cusFragment.FName }
+
+// GetLName returns CustomerByEmailCustomerByEmailCustomer.LName, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetLName() string { return v.cusFragment.LName }
+
+// GetTel returns CustomerByEmailCustomerByEmailCustomer.Tel, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetTel() string { return v.cusFragment.Tel }
+
+// GetEmail returns CustomerByEmailCustomerByEmailCustomer.Email, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetEmail() string { return v.cusFragment.Email }
+
+func (v *CustomerByEmailCustomerByEmailCustomer) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CustomerByEmailCustomerByEmailCustomer
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CustomerByEmailCustomerByEmailCustomer = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.cusFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCustomerByEmailCustomerByEmailCustomer struct {
+	ID string `json:"ID"`
+
+	FName string `json:"fName"`
+
+	LName string `json:"lName"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+}
+
+func (v *CustomerByEmailCustomerByEmailCustomer) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CustomerByEmailCustomerByEmailCustomer) __premarshalJSON() (*__premarshalCustomerByEmailCustomerByEmailCustomer, error) {
+	var retval __premarshalCustomerByEmailCustomerByEmailCustomer
+
+	retval.ID = v.cusFragment.ID
+	retval.FName = v.cusFragment.FName
+	retval.LName = v.cusFragment.LName
+	retval.Tel = v.cusFragment.Tel
+	retval.Email = v.cusFragment.Email
+	return &retval, nil
+}
+
+// CustomerByEmailResponse is returned by CustomerByEmail on success.
+type CustomerByEmailResponse struct {
+	CustomerByEmail *CustomerByEmailCustomerByEmailCustomer `json:"customerByEmail"`
+}
+
+// GetCustomerByEmail returns CustomerByEmailResponse.CustomerByEmail, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailResponse) GetCustomerByEmail() *CustomerByEmailCustomerByEmailCustomer {
+	return v.CustomerByEmail
+}
+
 // CustomerByIDCustomerByIDCustomer includes the requested fields of the GraphQL type customer.
 type CustomerByIDCustomerByIDCustomer struct {
 	cusFragment `json:"-"`
@@ -5886,6 +5972,14 @@ type __CarUpdateMultiInput struct {
 // GetCarInput returns __CarUpdateMultiInput.CarInput, and is useful for accessing the field via an interface.
 func (v *__CarUpdateMultiInput) GetCarInput() *CarUpdateInput { return v.CarInput }
 
+// __CustomerByEmailInput is used internally by genqlient
+type __CustomerByEmailInput struct {
+	CusInput string `json:"cusInput"`
+}
+
+// GetCusInput returns __CustomerByEmailInput.CusInput, and is useful for accessing the field via an interface.
+func (v *__CustomerByEmailInput) GetCusInput() string { return v.CusInput }
+
 // __CustomerByIDInput is used internally by genqlient
 type __CustomerByIDInput struct {
 	CusInput string `json:"cusInput"`
@@ -7040,6 +7134,45 @@ mutation CreateTable {
 	var err error
 
 	var data CreateTableResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CustomerByEmail(
+	ctx context.Context,
+	client graphql.Client,
+	cusInput string,
+) (*CustomerByEmailResponse, error) {
+	req := &graphql.Request{
+		OpName: "CustomerByEmail",
+		Query: `
+query CustomerByEmail ($cusInput: String!) {
+	customerByEmail(input: $cusInput) {
+		... cusFragment
+	}
+}
+fragment cusFragment on customer {
+	ID
+	fName
+	lName
+	tel
+	email
+}
+`,
+		Variables: &__CustomerByEmailInput{
+			CusInput: cusInput,
+		},
+	}
+	var err error
+
+	var data CustomerByEmailResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
