@@ -48,6 +48,10 @@ func FloatToString(f float64) string{
 	return fmt.Sprintf("%f", f)
 }
 
+func toTimePtr(t time.Time) *time.Time {
+	return &t
+}
+
 func CustomerCreateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Fatal(err)
