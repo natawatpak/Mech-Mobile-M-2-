@@ -47,7 +47,7 @@
       <section>
         <v-card-title class="text-h6 pa-0">Customer name</v-card-title>
         <v-card-text class="pa-0 py-2" v-for="item in incoming" :key="item.id">
-          {{(incoming[0].cus.fName+' '+incoming[0].cus.lName)}}
+          {{(ticket.cus.fName+' '+ticket.cus.lName)}}
         </v-card-text>
       </section>
     </v-card>
@@ -79,14 +79,14 @@
     <v-card class="text-left mb-4 pa-4 rounded-lg elevation-4">
       <v-title class="text-h6 pa-0">Problems</v-title>
       <v-card-text class="text-h7 pa-0">
-        <p v-for="p in incoming[0].problem" :key="p">{{'- ' + p}}</p>
+        <p v-for="p in ticket.problem" :key="p">{{'- ' + p}}</p>
       </v-card-text>
     </v-card>
 
     <v-card class="text-left mb-4 pa-4 rounded-lg elevation-4">
       <v-title class="text-h6 pa-0">Description</v-title>
       <v-card-text class="text-h7 pa-0">
-        <p>{{incoming[0].description}}</p>
+        <p>{{ticket.description}}</p>
       </v-card-text>
     </v-card> 
 
@@ -240,13 +240,7 @@ export default {
       finishOption: null,
       stage: [ 'Accepted', 'On the way', 'Processing', 'Finish:Garage', 'Finish:Completed'],
       confirm: '',
-      incoming: [ { "car": { "brand": "dgdg", "carID": "fa96015c-8b1c-4f3d-8481-dfc6b54b3476", "plate": "1234", "type": "vfx" }, 
-                    "cus": { "cusID": "f67efc77-629d-4672-a753-558b1c0dd250", "fName": "ggg", "lName": "gg" }, 
-                    "location": { "lat": 13.726849, "lng": 100.770309, "distance": 2.34 }, 
-                    "problem": ["Lubricating oil overdue that should be changed", "Out of Brake lining"],
-                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rutrum tincidunt arcu sed gravida. Suspendisse mollis ex sed magna viverra, eu tincidunt velit lobortis. Phasellus accumsan mauris est, in pretium orci lacinia in. Nulla in bibendum ex, eu condimentum mauris. Pellentesque quis nisl a justo ultrices molestie ac mattis libero. Aliquam vel sollicitudin quam, vel molestie nunc. Proin dolor dolor, vehicula sed nisl dapibus, semper scelerisque nisl. Sed id neque ac metus efficitur vestibulum. Phasellus quis nibh ac dui molestie fringilla sit amet bibendum sem. Quisque consectetur sit amet nunc ac elementum. Suspendisse vulputate mauris erat, nec tempus dui vulputate.", 
-                    "date": '12 Nov 2022',
-                    "shopID": "1", "status": "Accepted", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }],
+      ticket: undefined,
       items: ['mdi-thumb-up', 'mdi-car', 'mdi-wrench', 'mdi-check'],
       otw: "Next stage: 'On the way'. Are your mechanic ready to go?",
       onp: "Next stage: 'On process'. Your mechanic is fixing customer car.",
@@ -256,37 +250,37 @@ export default {
   methods: {
     checkConfirm() {
       if (this.confirm == 'confirm') {
-        if (this.incoming[0].status == this.stage[0]) {
+        if (this.ticket.status == this.stage[0]) {
           this.dialog = false;
           this.confirm = '';
           this.currentState++;
           // this.details.status = 'On the way';
           this.updateTicketStatus('On the way')
-          this.incoming[0].status = 'On the way';
+          this.ticket.status = 'On the way';
         }
-        else if (this.incoming[0].status == this.stage[1]) {
+        else if (this.ticket.status == this.stage[1]) {
           this.dialog = false;
           this.confirm = '';
           this.currentState++;
           // this.details.status = 'In process';
           this.updateTicketStatus('In process')
-          this.incoming[0].status = 'Processing';
+          this.ticket.status = 'Processing';
         }
-        else if (this.incoming[0].status == this.stage[2]) {
+        else if (this.ticket.status == this.stage[2]) {
           this.dialog2 = false;
           this.confirm = '';
           this.currentState++;
           // this.details.status = 'Complete';
           this.updateTicketStatus('Complete')
-          this.incoming[0].status = this.finishOption;
+          this.ticket.status = this.finishOption;
         }
       }
     },
     checkStage() {
-      if (this.incoming[0].status == this.stage[0] || this.incoming[0].status == this.stage[1]) {
+      if (this.ticket.status == this.stage[0] || this.ticket.status == this.stage[1]) {
         this.dialog = true;      
       }
-      else if (this.incoming[0].status == this.stage[2]) {
+      else if (this.ticket.status == this.stage[2]) {
         this.dialog2 = true;
       }
       else {
@@ -347,8 +341,8 @@ export default {
     },
   },
   mounted() {
-    this.ticketID = sessionStorage.getItem("ticketID")
-    console.log(sessionStorage.getItem("ticketID"))
+    this.ticket = this.getTicket(sessionStorage.getItem("ticketID"))
+    console.log(this.ticket)
 
     this.socket = new WebSocket("wss://axzrwmh7sb.execute-api.us-east-1.amazonaws.com/production?ticketID="+sessionStorage.getItem("ticketID"));
     console.log("Attempting Connection...");

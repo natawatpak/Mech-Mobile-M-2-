@@ -25,9 +25,9 @@ func main() {
 		http.Error(w, fmt.Sprintf("Not found: %s", r.RequestURI), http.StatusNotFound)
 	})
 	
-	r.HandleFunc("/customer/ws/{ticketID}", controller.CustomerWs)
-	r.HandleFunc("/shop/ws/active-ticket", controller.ShopActiveTicketWs)
-	r.HandleFunc("/shop/ws/{ticketID}", controller.ShopWs)
+	// r.HandleFunc("/customer/ws/{ticketID}", controller.CustomerWs)
+	// r.HandleFunc("/shop/ws/active-ticket", controller.ShopActiveTicketWs)
+	// r.HandleFunc("/shop/ws/{ticketID}", controller.ShopWs)
 	
 	r.HandleFunc("/customer/create-profile", controller.CustomerCreateProfile)
 	r.HandleFunc("/customer/update-profile", controller.CustomerUpdateProfile)

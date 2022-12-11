@@ -382,7 +382,7 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sendUpdateSignal(WsShops)
+	// sendUpdateSignal(WsShops)
 	AddHeader(w).Write(jsonData)
 }
 
