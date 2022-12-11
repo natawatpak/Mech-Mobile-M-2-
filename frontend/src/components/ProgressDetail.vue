@@ -36,7 +36,8 @@
 
     <div class="text-center pa-4">
         <v-card-action>
-          <v-btn :disabled="valid" color="red" variant="tonal" @click="checkStage()">Cancel</v-btn>
+          <v-btn :disabled="valid" color="red" variant="tonal" @click="checkStage()" v-if="(status==stage[0] || status==stage[1]|| status==stage[2])">Cancel</v-btn>
+          <v-btn color="blue-darken-2" variant="tonal" to="/" v-if="(status== stage[3] || status==stage[4])">Go home</v-btn>
         </v-card-action>
     </div>
 
@@ -88,6 +89,10 @@
         </v-row>
       </v-card>
     </v-dialog>
+
+    <v-dialog>
+
+    </v-dialog>
   </div>
 </template>
 
@@ -106,8 +111,8 @@ export default {
     problems: {
       type: Array
     },
-    currentStage: {
-      type: Number
+    status: {
+      type: String
     }
   },
   data() {
@@ -115,6 +120,7 @@ export default {
       valid: false,
       dialog: false,
       dialog2: false,
+      stage: ['Accepted', 'On the way', 'Processing', 'Finish:Garage', 'Finish:Completed']
     };
   },
   methods: {

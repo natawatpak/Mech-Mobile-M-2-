@@ -90,7 +90,12 @@
       </v-card-text>
     </v-card> 
 
-    <v-btn class="mx-1" color="error" variant="tonal" @click="dialog3 = true">Cancel</v-btn>
+    <div class="text-center pa-4">
+        <v-card-action>
+          <v-btn :disabled="valid" color="red" variant="tonal" @click="checkStage()" v-if="(incoming[0].status==stage[0] || incoming[0].status==stage[1]|| incoming[0].status==stage[2])">Cancel</v-btn>
+          <v-btn color="blue-darken-2" variant="tonal" to="/" v-if="(incoming[0].status== stage[3] || incoming[0].status==stage[4])">Go home</v-btn>
+        </v-card-action>
+    </div>
 
     <v-dialog v-model="dialog3" width="1000" class="text-left pa-4">
       <v-card class="text-left pa-4">
