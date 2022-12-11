@@ -12,7 +12,6 @@
         </router-link>
       </v-list-item>
     </v-list>
-
   </div>
 </template>
 
