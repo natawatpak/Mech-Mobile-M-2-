@@ -11,6 +11,10 @@ import (
 	"github.com/Khan/genqlient/graphql"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+
+	"github.com/aws/aws-sdk-go/service/apigatewaymanagementapi"
 )
 
 const GRAPHQL_CLIENT_URL = "https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/carservice"
@@ -341,6 +345,30 @@ func CustomerAddTicket(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
 		return
+	}
+
+	ctx, _ = context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+	
+	conns, err := graph.ShopConnects(ctx, graphqlClient)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	mySession := session.Must(session.NewSession())
+
+	for _,conn := range conns.ShopConnects {
+		apig := apigatewaymanagementapi.New(mySession)
+		apig.Endpoint = "https://6eblsxltxc.execute-api.us-east-1.amazonaws.com/production"
+		_, err = apig.PostToConnection(&apigatewaymanagementapi.PostToConnectionInput{
+			ConnectionId: aws.String(conn.ConnectionID),
+			Data:         []byte(`"command": "refresh"`),
+		})
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 
 	data := map[string]string{

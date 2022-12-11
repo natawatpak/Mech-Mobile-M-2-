@@ -11,6 +11,10 @@ import (
 	"github.com/Khan/genqlient/graphql"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/graph"
 	"github.com/natawatpak/Mech-Mobile-M-2-/backend/util"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+
+	"github.com/aws/aws-sdk-go/service/apigatewaymanagementapi"
 )
 
 func getCar(id string) (*graph.CarByIDResponse, error) {
@@ -257,6 +261,19 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
 
+	conn, _ := graph.TicketConnectsByID(ctx, graphqlClient,r.FormValue("ticketID"))
+	mySession := session.Must(session.NewSession())
+
+	apig := apigatewaymanagementapi.New(mySession)
+	apig.Endpoint = "https://6eblsxltxc.execute-api.us-east-1.amazonaws.com/production"
+	_, err = apig.PostToConnection(&apigatewaymanagementapi.PostToConnectionInput{
+		ConnectionId: aws.String(conn.TicketConnectByID.CustomerConnectionID),
+		Data:         []byte(`"data" : "Accepted"`),
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	data := map[string]interface{}{
 		"ticketID":    resp.ActiveTicketUpdateMulti.ID,
 		"cusID":       resp.ActiveTicketUpdateMulti.CustomerID,
@@ -335,6 +352,19 @@ func ShopUpdateTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
+
+	conn, _ := graph.TicketConnectsByID(ctx, graphqlClient,r.FormValue("ticketID"))
+	mySession := session.Must(session.NewSession())
+
+	apig := apigatewaymanagementapi.New(mySession)
+	apig.Endpoint = "https://6eblsxltxc.execute-api.us-east-1.amazonaws.com/production"
+	_, err = apig.PostToConnection(&apigatewaymanagementapi.PostToConnectionInput{
+		ConnectionId: aws.String(conn.TicketConnectByID.CustomerConnectionID),
+		Data:         []byte(`"data" : `+ r.FormValue("status")),
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	data := map[string]interface{}{
 		"ticketID":    resp.ActiveTicketUpdateMulti.ID,

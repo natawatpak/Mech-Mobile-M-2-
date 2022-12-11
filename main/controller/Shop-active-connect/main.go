@@ -35,7 +35,7 @@ func handler(_ context.Context, request events.APIGatewayWebsocketProxyRequest) 
   ctx, _ = context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
-	_, err = graph.TicketConnectsCreate(ctx, graphqlClient, &graph.TicketConnectCreateInput{
+	_, err = graph.TicketConnectsUpdateMulti(ctx, graphqlClient, &graph.TicketConnectCreateInput{
         TicketID: request.QueryStringParameters["ticketID"],
         CustomerConnectionID: resp.TicketConnectByID.CustomerConnectionID,
         ShopConnectionID: request.RequestContext.ConnectionID,
