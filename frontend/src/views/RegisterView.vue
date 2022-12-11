@@ -29,16 +29,14 @@ console.log(currentConfig);
     'family_name',
     'given_name',
     'phone_number' ]">
-    <template v-slot="{ user, signOut }">
-      <h1>Hello {{ user.username }}!</h1>
-      <button @click="signOut">Sign Out</button>
-      <button @click="getandkeeptoken">Get JWT Token</button>
-      <button @click="submitForm(user)">test API call with Cognito</button>
-      <p>{{data}}</p>
-      <p>{{user.attributes.email}}</p>
-      <p>{{user.attributes.given_name}}</p>
-      <p>{{user.attributes.family_name}}</p>
-      <p>{{user.attributes.phone_number}}</p>
+    <template v-slot="{ user, signOut}">
+      <h1 class="text-center">Welcome to Mech Moblie, {{ user.username }}!</h1>
+      <p></p>
+      <div class="text-center">
+        <button class="btn btn-primary" @click="getandkeeptoken(user)">Proceed to Home Page</button>
+        <p></p>
+        <button class="btn btn-primary" @click="signOut">Sign Out</button>
+      </div>
     </template>
   </authenticator>
 </template>
@@ -55,20 +53,24 @@ export default {
     }
   },
   methods:{
-    submitForm(user){
-      const data = new URLSearchParams({
+    async getandkeeptoken(user) {
+      await Auth.currentSession()
+        .then(data => this.data = data.getIdToken().getJwtToken())
+        .catch(err => console.log(err)).then(() => sessionStorage.setItem("jwt", this.data));
+
+        const data = new URLSearchParams({
         fName: user.attributes.given_name,
         lName: user.attributes.family_name,
         tel: user.attributes.phone_number,
         email: user.attributes.email,
       })
-      this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/customer/create-profile",data, {
+        this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/customer/create-profile",data, {
         headers:{
             Authorization: this.data 
         }}).then((response)=>{
           console.log(response);
           if (response.status == 200) {
-            console.log("GGG");
+          sessionStorage.setItem("jwt", this.data);
           sessionStorage.setItem("cusID", response.data.ID);
           sessionStorage.setItem("fName", response.data.fName);
           sessionStorage.setItem("lName", response.data.lName);
@@ -76,11 +78,21 @@ export default {
           sessionStorage.setItem("email", response.data.email);
           }
       })
-    },
-    getandkeeptoken() {
-      Auth.currentSession()
-        .then(data => this.data = data.getIdToken().getJwtToken())
-        .catch(err => console.log(err));
+      this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/customer/get-profile",data, {
+        headers:{
+            Authorization: this.data 
+        }}).then((response)=>{
+          console.log(response);
+          if (response.status == 200) {
+          sessionStorage.setItem("jwt", this.data);
+          sessionStorage.setItem("cusID", response.data.cusID);
+          sessionStorage.setItem("fName", response.data.fName);
+          sessionStorage.setItem("lName", response.data.lName);
+          sessionStorage.setItem("tel", response.data.tel);
+          sessionStorage.setItem("email", response.data.email);
+          }
+          })
+
     }
   }
 };
