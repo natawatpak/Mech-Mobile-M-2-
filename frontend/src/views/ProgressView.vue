@@ -12,7 +12,7 @@
           Loading, please wait ...
           <v-progress-linear
             indeterminate
-            color="deep-purple-accent-4"
+            color="blue-darken-1"
             rounded
             height="6"
             class="my-4">

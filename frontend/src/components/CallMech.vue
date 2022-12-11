@@ -1,38 +1,46 @@
 <template>
-  <div class="pa-5">
-    <v-card text-left pa-4 d-flex justify-left align-center>
-      <div style="width: auto; height: 15rem" id="map"></div>
-    </v-card>
-    <v-card
-      variant="tonal"
-      @click="locatorButtonPressed()"
-      class="text-left pa-4 d-flex justify-left align-center"
-    >
-      <v-icon icon="mdi-pin"></v-icon>
+  <div class="pa-4 px-lg-16 px-xl-16 mx-lg-auto mx-xl-auto">
+    <v-row class="pa-5">
+          <v-btn
+            icon
+            dark
+            to="/"
+            size="small"
+          >
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
+          <v-card-title class="text-h5 text-center"> Call mech</v-card-title>
+        </v-row>
+    <v-card text-left pa-4 d-flex justify-left align-center  class="rounded-lg elevation-4">
+      <div style="width:auto;height:15rem;" id="map"></div>
+      <v-card
+        @click="locatorButtonPressed()"
+        class="text-left pa-4 d-flex justify-left align-center"
+      >
       <section>
-        <v-card-title>Current Location</v-card-title>
-        <v-card-text>{{
-          currentLocation.lat + ", " + currentLocation.lng
-        }}</v-card-text>
+        <v-card-title class="pa-0">Current Location</v-card-title>
+        <v-card-text class="pa-0">
+          Latitude: {{currentLocation.lat}}
+          <br>
+          Longtitude: {{currentLocation.lng}}
+        </v-card-text>
       </section>
     </v-card>
+  </v-card>
     <v-spacer class="my-5"></v-spacer>
 
-    <v-card variant="tonal" class="text-left pa-4">
-      <v-row class="pl-5">
-        <v-card-title>Car detail</v-card-title>
-        <v-spacer></v-spacer>
-        <v-btn class="mx-1" @click="selectCarModal = true"
-          >choose from preset</v-btn
-        >
-      </v-row>
+    <v-card class="text-left pa-4 rounded-lg elevation-4">
+      <v-card-title class="pa-0">Car detail</v-card-title>
       <section>
-        <v-card-text>
+        <v-card-text class="pa-0">
           Type {{ car.type }}, Brand {{ car.brand }}
           <br />
           License plate: {{ car.plate }}
         </v-card-text>
       </section>
+      <v-card-actions class="pa-0 ma-0 justify-end">
+        <v-btn color="blue-darken-2" @click="selectCarModal = true">choose from preset</v-btn>
+      </v-card-actions>
     </v-card>
 
     <v-dialog v-model="selectCarModal" width="800">
@@ -47,13 +55,7 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-action>
-          <v-btn
-            block
-            class="mx-1"
-            prepend-icon="mdi-plus"
-            @click="dialog2 = true"
-            >Add new preset</v-btn
-          >
+          <v-btn block variant="plain" color="blue-darken-2" prepend-icon="mdi-plus" @click="dialog2=true">Add new preset</v-btn>
         </v-card-action>
       </v-card>
     </v-dialog>
@@ -105,48 +107,81 @@
     </v-dialog>
 
     <v-spacer class="my-5"></v-spacer>
-    <v-card variant="tonal" class="text-left pa-4">
-      <v-card-title>Problems</v-card-title>
-      <v-card-text class="d-flex">
-        <v-list>
-          <v-list-item class="pa-0 ma-0">
-            <v-checkbox
-              v-model="problem"
-              value="1"
-              label="Problem1"
-            ></v-checkbox>
-          </v-list-item>
-          <v-list-item class="pa-0 ma-0">
-            <v-checkbox
-              v-model="problem"
-              value="3"
-              label="Problem3"
-            ></v-checkbox>
-          </v-list-item>
-        </v-list>
-
-        <v-list>
-          <v-list-item class="pa-0 ma-0">
-            <v-checkbox
-              v-model="problem"
-              value="2"
-              label="Problem2"
-            ></v-checkbox>
-          </v-list-item>
-          <v-list-item class="pa-0 ma-0">
-            <v-checkbox
-              v-model="problem"
-              value="4"
-              label="Problem4"
-            ></v-checkbox>
-          </v-list-item>
-        </v-list>
+    <v-card class="text-left pa-4 rounded-lg elevation-4">
+      <v-card-title class="pa-0">Problems</v-card-title>
+      <v-card-text class="d-flex pa-0">
+        <v-container fluid>
+      <v-row class="pa-0">
+        <v-col
+          cols="12"
+          sm="4"
+          md="4"
+          class="pa-0"
+        >
+          <v-checkbox
+            v-model="problem"
+            label="Out of break lining"
+            color="blue-darken-2"
+            value="Out of break lining"
+            hide-details
+          ></v-checkbox>
+          <v-checkbox
+            v-model="problem"
+            label="Battery overdue"
+            color="blue-darken-2"
+            value="Battery overdue"
+            hide-details
+          ></v-checkbox>
+        </v-col>
+        <v-col
+          cols="12"
+          sm="4"
+          md="4"
+          class="pa-0"
+        >
+          <v-checkbox
+            v-model="problem"
+            label="Oil leaked"
+            color="blue-darken-2"
+            value="Oil leaked"
+            hide-details
+          ></v-checkbox>
+          <v-checkbox
+            v-model="problem"
+            label="Oil clogged"
+            color="blue-darken-2"
+            value="Oil clogged"
+            hide-details
+          ></v-checkbox>
+        </v-col>
+        <v-col
+          cols="12"
+          sm="4"
+          md="4"
+          class="pa-0"
+        >
+          <v-checkbox
+            v-model="problem"
+            label="High temperature in car engine"
+            color="blue-darken-2"
+            value="High temperature in car engine"
+            hide-details
+          ></v-checkbox>
+          <v-checkbox
+            v-model="problem"
+            label="Low temperature in car engine"
+            color="blue-darken-2"
+            value="Low temperature in car engine"
+            hide-details
+          ></v-checkbox>
+        </v-col>
+      </v-row>
+    </v-container>
       </v-card-text>
     </v-card>
     <v-spacer class="my-5"></v-spacer>
-    <v-card variant="tonal" class="text-left pa-4">
-      <v-card-title>Details</v-card-title>
-      {{description}}
+    <v-card class="text-left pa-4 rounded-lg elevation-4">
+      <v-card-title class="pa-0">Details</v-card-title>
       <v-textarea
         outlined
         name="description"
@@ -154,17 +189,14 @@
         rows="5"
         label="Description"
         bg-color="white"
+        class="pa-0"
       ></v-textarea>
     </v-card>
     <v-spacer class="my-5"></v-spacer>
 
     <v-spacer class="my-5"></v-spacer>
     <section class="text-center">
-      <div class="text-decoration-none" @click= "addTicket()"
-        ><v-btn class="mx-1" variant="tonal" color="blue" 
-          >Find Service</v-btn
-        ></div
-      >
+      <router-link to="/loading" class="text-decoration-none"><v-btn class="mx-1" variant="tonal" color="blue-darken-2">Find Service</v-btn></router-link>
     </section>
   </div>
 </template>
@@ -180,14 +212,12 @@ export default {
       cars: [],
       selectCarModal: false,
       dialog2: false,
-      newCar: {
-        type: "",
-        brand: "",
-        plate: "",
-      },
-      problem: [],
-      description: "",
+      type: '',
+      brand: '',
+      plate: '',
+      description: undefined,
       files: [],
+      problem: [],
     };
   },
   mounted() {

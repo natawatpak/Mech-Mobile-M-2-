@@ -1,18 +1,18 @@
 <template>
   <div>
     <v-timeline direction="horizontal" line-inset="12">
-      <v-timeline-item size="large" v-model="items" :dot-color="currentState == 'Processing' || currentState == 'Accepted' || currentState == 'On the way' || currentState == 'Finish:Garage' || currentState == 'Finish:Complete' ? 'green':'white'" :icon=items[0]>
+      <v-timeline-item size="large" v-model="items" :dot-color="status == stage[0] || status == stage[1] || status == stage[2] || status == stage[3] || status == stage[4]? 'green-lighten-1':'white'" :icon=items[0]>
         <template v-slot:opposite>Accepted</template>
       </v-timeline-item>
 
-      <v-timeline-item size="large" v-model="items" :dot-color="currentState == 'Processing' || currentState == 'On the way' || currentState == 'Finish:Garage' || currentState == 'Finish:Complete'? 'green':'white'" :icon=items[1]>
+      <v-timeline-item size="large" v-model="items" :dot-color="status ==  stage[1] || status == stage[2] || status == stage[3] || status == stage[4]? 'green-lighten-1':'white'" :icon=items[1]>
         On the way
       </v-timeline-item>
 
-      <v-timeline-item size="large" v-model="items" :dot-color="currentState == 'Processing' || currentState == 'Finish:Garage' || currentState == 'Finish:Complete'? 'green':'white'" :icon=items[2]>
+      <v-timeline-item size="large" v-model="items" :dot-color="status == stage[2] || status == stage[3] || status == stage[4]? 'green-lighten-1':'white'" :icon=items[2]>
         <template v-slot:opposite>On process</template>
       </v-timeline-item>
-      <v-timeline-item size="large" v-model="items" :dot-color="currentState == 'Finish:Garage' || currentState == 'Finish:Complete'? 'green':'white'" :icon=items[3]>
+      <v-timeline-item size="large" v-model="items" :dot-color="status == stage[3] || status == stage[4]? 'green-lighten-1':'white'" :icon=items[3]>
         Complete
       </v-timeline-item>
     </v-timeline>
@@ -40,7 +40,7 @@
 <script>
 export default {
   props:{
-    currentState:{
+    status:{
       type: String
     }
   },
@@ -49,6 +49,7 @@ export default {
       dialog: true,
       rating: 0,
       complete: 'All fixed!',
+      stage: ['Accepted', 'On the way', 'Processing', 'Finish:Garage', 'Finish:Completed'],
       items: ['mdi-thumb-up', 'mdi-car', 'mdi-wrench', 'mdi-check'],
       shop: {
         name: "A",

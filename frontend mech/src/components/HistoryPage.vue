@@ -5,7 +5,7 @@
     <v-card-text class="pa-0 ma-0">
           <v-content class="justify-start pa-0">
             <v-container v-for="item in incoming" :key="item.id" class="pa-0" >
-              <v-card @click="dialog=true" width="100%" variant="tonal" class="text-left pa-0 my-4">
+              <v-card @click="dialog=true" width="100%" class="text-left pa-0 my-4 rounded-lg elevation-4">
                 <v-row class="px-4 pt-4 d-flex justify-space-between align-center">
                   <v-card-title class="text-h6">
                     {{item.cus.fName}} | {{item.car.plate}}
@@ -33,50 +33,46 @@
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-card-title class="text-h5"> Order details</v-card-title>
+          <v-card-title class="text-h5 text-center"> Order details</v-card-title>
         </v-row>
-        <v-card-text  style="height: 100%;" class="ma-0 pa-0">
-          <v-card class="text-left ma-2 pa-1" variant="outlined" style="height: 100%;">
-          <v-title class="text-h6">Customer</v-title>
-            <v-card-text class="text-h7">
-              Name:  {{(incoming[0].cus.fName+' '+incoming[0].cus.lName)}}
-            </v-card-text>
-        </v-card>
-        <v-card class="text-left ma-2 pa-1" variant="outlined" style="height: 100%;">
-          <v-title class="text-h6">Car Details</v-title>
-            <v-card-text class="text-h7">
-              Type: {{incoming[0].car.type}} | Brand: {{incoming[0].car.brand}}
-              <br />
-              License plate: {{incoming[0].car.plate}}
-            </v-card-text>
-        </v-card>
-        <v-card
-          variant="outlined"
-          class="text-left ma-2 pa-1 d-flex justify-left align-center"
-          height="100%"
-        >
-          <section>
-            <v-card-title>Current Location</v-card-title>
-            <v-card-text>
-              {{incoming[0].location.lat+', '+ incoming[0].location.lng}}
-              <br>
-              Distance: {{incoming[0].location.distance}} km
-            </v-card-text>
-          </section>
-        </v-card>
-        <v-card class="text-left ma-2 pa-1" variant="outlined">
-          <v-title class="text-h6">Problems</v-title>
-          <v-card-text class="text-h7">
+        <v-card-text  style="height: 100%;" class="ma-0 pa-2">
+          <div class="py-2">
+            <v-text class="text-h6 pa-0">Customer name</v-text>
+            <br>
+            {{(incoming[0].cus.fName+' '+incoming[0].cus.lName)}}
+          </div>
+          <v-divider></v-divider>
+          <div class="py-2">
+            <v-text class="text-h6 pa-0">Car details</v-text>
+            <br>
+            Type: {{incoming[0].car.type}}
+            <br>
+            Brand: {{incoming[0].car.brand}}
+            <br>
+            License plate: {{incoming[0].car.plate}}
+          </div>
+          <v-divider></v-divider>
+          <div class="py-2">
+            <v-text class="text-h6 pa-0">Location</v-text>
+            <br>
+            {{incoming[0].location.lat+', '+ incoming[0].location.lng}}
+            <br>
+            Distance: {{incoming[0].location.distance}} km
+          </div>
+          <v-divider></v-divider>
+          <div class="py-2">
+            <v-text class="text-h6 pa-0">Problems</v-text>
+            <br>
             <p v-for="p in incoming[0].problem" :key="p">{{'- ' + p}}</p>
-          </v-card-text>
-        </v-card>
-        <v-card class="text-left ma-2 pa-1" variant="outlined">
-          <v-title class="text-h6">Description</v-title>
-            <v-card-text class="text-h7">
-              <p>{{incoming[0].description}}</p>
-            </v-card-text>
-        </v-card>
-      </v-card-text>
+          </div>
+          <v-divider></v-divider>
+          <div class="py-2">
+            <v-text class="text-h6 pa-0">Description</v-text>
+            <br>
+            {{incoming[0].description}}
+          </div>
+        </v-card-text>
+        <v-divider></v-divider>
       </v-card>
     </v-dialog>
   </div>
