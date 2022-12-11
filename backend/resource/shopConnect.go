@@ -30,7 +30,7 @@ func (op *SQLop) ShopConnectDelete(ctx context.Context, ID string) ([]*model.Sho
 		return nil, err
 	}
 	for _, v := range resultShopConnect {
-		_, err = op.db.NewDelete().Model(op.cusModel).Where("shop_id = ?", v.ShopID).Exec(ctx)
+		_, err = op.db.NewDelete().Model(new(model.ShopConnect)).Where("shop_id = ?", v.ShopID).Exec(ctx)
 	}
 	return resultShopConnect, err
 }
@@ -51,12 +51,12 @@ func (op *SQLop) ShopConnectFindByID(ctx context.Context, ID string) ([]*model.S
 		return nil, err
 	}
 	arrModel := new([]*model.ShopConnect)
-	err = op.db.NewSelect().Model(op.cusModel).Where("shop_id = ?", ID).Scan(ctx, arrModel)
+	err = op.db.NewSelect().Model(new(model.ShopConnect)).Where("shop_id = ?", ID).Scan(ctx, arrModel)
 	return *arrModel, err
 }
 
 func (op *SQLop) ShopConnectList(ctx context.Context) ([]*model.ShopConnect, error) {
 	ticketConnect := new([]*model.ShopConnect)
-	err := op.db.NewSelect().Model(op.cusModel).Scan(ctx, ticketConnect)
+	err := op.db.NewSelect().Model(new(model.ShopConnect)).Scan(ctx, ticketConnect)
 	return *ticketConnect, err
 }
