@@ -10,17 +10,15 @@
               <v-card @click="dialog=true" width="100%" variant="tonal" v-if="show" class="text-left pa-0 my-4">
                 <v-row class="px-4 pt-4 d-flex justify-space-between align-center">
                   <v-card-title class="text-h6">
-                    {{item.cus.fName}}  {{item.cus.lName}}
+                    {{item.cus.fName}} | {{item.car.plate}}
                   </v-card-title>
-                  <v-chip class="ma-2" color="green">{{
-                        item.status
-                      }}</v-chip>
+                  <v-chip class="ma-2" color="green">{{item.status}}</v-chip>
                 </v-row>
                 <v-card-subtitle>{{item.date}}</v-card-subtitle>
                 <v-card-text class="text-h7">
                   Car {{ item.car.type }} | {{ item.car.brand }} <br />
                   Problems {{ item.problem }} <br />
-                  {{ item.distance }} km
+                  {{ item.location.distance }} km
                 </v-card-text>
               </v-card>
             </v-container>
@@ -29,7 +27,7 @@
       </v-window>
     </v-card-text>
 
-        <v-dialog v-model="dialog" scrollable class="text-left pa-4">
+    <v-dialog v-model="dialog" scrollable class="text-left pa-4">
       <v-card class="text-left pa-4">
         <v-row class="pa-5">
           <v-btn
@@ -137,13 +135,15 @@ export default {
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rutrum tincidunt arcu sed gravida. Suspendisse mollis ex sed magna viverra, eu tincidunt velit lobortis. Phasellus accumsan mauris est, in pretium orci lacinia in. Nulla in bibendum ex, eu condimentum mauris. Pellentesque quis nisl a justo ultrices molestie ac mattis libero. Aliquam vel sollicitudin quam, vel molestie nunc. Proin dolor dolor, vehicula sed nisl dapibus, semper scelerisque nisl. Sed id neque ac metus efficitur vestibulum. Phasellus quis nibh ac dui molestie fringilla sit amet bibendum sem. Quisque consectetur sit amet nunc ac elementum. Suspendisse vulputate mauris erat, nec tempus dui vulputate.",
       incoming: [ { "car": { "brand": "dgdg", "carID": "fa96015c-8b1c-4f3d-8481-dfc6b54b3476", "plate": "1234", "type": "vfx" }, 
                     "cus": { "cusID": "f67efc77-629d-4672-a753-558b1c0dd250", "fName": "ggg", "lName": "gg" }, 
-                    "location": { "lat": 13.726849, "lng": 100.770309 }, 
+                    "location": { "lat": 13.726849, "lng": 100.770309, "distance": 2.34 }, 
                     "problem": "1,4,3", 
+                    "date": '12 Nov 2022',
                     "shopID": "1", "status": "Finish:Garage", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" },
                     { "car": { "brand": "honda", "carID": "fa96015c-8b1c-4f3d-8481-dfc6b54b3476", "plate": "SN 4727", "type": "sedan" }, 
                     "cus": { "cusID": "f67efc77-629d-4672-a753-558b1c0dd250", "fName": "Nunnapat", "lName": "Kriengchaiyaprug" }, 
-                    "location": { "lat": 13.726849, "lng": 100.770309 }, 
-                    "problem": "1,4,3", 
+                    "location": { "lat": 13.726849, "lng": 100.770309, "distance": 2.34 }, 
+                    "problem": "1,4,3",
+                    "date": '12 Nov 2022', 
                     "shopID": "1", "status": "Finish:Garage", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }]
     };
   },
