@@ -26,7 +26,12 @@ func (op *SQLop) TicketConnectUpdateMulti(ctx context.Context, updateInput model
 	if err != nil {
 		return nil, err
 	}
-	_, err = op.db.NewUpdate().Model(&updateInput).Where("ticket_id = ?", updateInput.TicketID).Exec(ctx)
+	ticketToBeAdd := model.TicketConnect{
+		TicketID:             updateInput.TicketID,
+		CustomerConnectionID: updateInput.CustomerConnectionID,
+		ShopConnectionID:     updateInput.ShopConnectionID,
+	}
+	_, err = op.db.NewUpdate().Model(&ticketToBeAdd).Where("ticket_id = ?", updateInput.TicketID).Exec(ctx)
 	if util.CheckErr(err) {
 		return nil, err
 	}
