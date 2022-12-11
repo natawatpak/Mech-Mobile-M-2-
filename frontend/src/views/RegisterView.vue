@@ -33,7 +33,7 @@ console.log(currentConfig);
       <h1 class="text-center">Welcome to Mech Moblie, {{ user.username }}!</h1>
       <p></p>
       <div class="text-center">
-        <button class="btn btn-primary" @click="getandkeeptoken(user)">Proceed to Home Page</button>
+        <button class="btn btn-primary" @click="getandkeeptoken(user);" to="/">Proceed to Home Page</button>
         <p></p>
         <button class="btn btn-primary" @click="signOut">Sign Out</button>
       </div>
@@ -64,7 +64,7 @@ export default {
         tel: user.attributes.phone_number,
         email: user.attributes.email,
       })
-        this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/customer/create-profile",data, {
+      this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/customer/create-profile",data, {
         headers:{
             Authorization: this.data 
         }}).then((response)=>{
@@ -90,7 +90,6 @@ export default {
           sessionStorage.setItem("lName", response.data.lName);
           sessionStorage.setItem("tel", response.data.tel);
           sessionStorage.setItem("email", response.data.email);
-          this.$router.push("/")
           }
           })
 

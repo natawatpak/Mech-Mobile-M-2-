@@ -14,6 +14,8 @@ import (
 )
 
 const GRAPHQL_CLIENT_URL = "https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/carservice"
+// const GRAPHQL_CLIENT_URL = "http://localhost:8081"
+
 
 
 func AddHeader(w http.ResponseWriter) http.ResponseWriter {
