@@ -3,7 +3,7 @@ module github.com/natawatpak/Mech-Mobile-M-2-
 go 1.18
 
 require (
-	github.com/99designs/gqlgen v0.17.20
+	github.com/99designs/gqlgen v0.17.22
 	github.com/Khan/genqlient v0.5.0
 	github.com/aws/aws-lambda-go v1.19.1
 	github.com/awslabs/aws-lambda-go-api-proxy v0.13.3

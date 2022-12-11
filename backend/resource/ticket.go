@@ -16,6 +16,7 @@ func (op *SQLop) TicketCreate(ctx context.Context, ticketInput *model.TicketCrea
 		CustomerID:   ticketInput.CustomerID,
 		CarID:        ticketInput.CarID,
 		Problem:      ticketInput.Problem,
+		Description:  ticketInput.Description,
 		CreateTime:   ticketInput.CreateTime,
 		ShopID:       ticketInput.ShopID,
 		AcceptedTime: ticketInput.AcceptedTime,
