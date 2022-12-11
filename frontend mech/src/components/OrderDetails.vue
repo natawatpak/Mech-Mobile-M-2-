@@ -312,36 +312,21 @@ export default {
           this.problems = response.data.problem;
         })
     },
-    getTicket(){
+    getTicket(id) {
       const data = new URLSearchParams({
-        ticketID: this.ticketID,
+        ticketID: id,
       });
+
       this.axios
-        .post(this.$backendApi + "customer/get-ticket", data)
+        .post(this.$backendApi + "shop/get-ticket",data)
         .then((response) => {
           console.log(response.data);
-          this.carID = response.data.carID;
-          this.shopID = response.data.shopID;
-          this.status = response.data.status;
-          this.problems = response.data.problem;
-          this.createdTime = response.data.createdTime;
-          this.acceptedTime = response.data.acceptedTime;
-          this.getCarDetail()
-        })
-    },
-    getCarDetail(){
-      const data = new URLSearchParams({
-        carID: this.carID,
-      });
-      this.axios
-        .post(this.$backendApi + "customer/get-car", data)
-        .then((response) => {
-          this.car = response.data;
+          this.ticket = response.data;
         });
     },
   },
   mounted() {
-    this.ticket = this.getTicket(sessionStorage.getItem("ticketID"))
+    this.getTicket(sessionStorage.getItem("ticketID"))
     console.log(this.ticket)
 
     this.socket = new WebSocket("wss://axzrwmh7sb.execute-api.us-east-1.amazonaws.com/production?ticketID="+sessionStorage.getItem("ticketID"));
@@ -364,16 +349,6 @@ export default {
     this.socket.onerror = (error) => {
       this.console.log("Socket Error: ", error);
     };
-
   },
-    submitForm(){
-      this.dialog3 = false
-      const data = new URLSearchParams({
-        reason: this.value,
-      })
-      this.axios.post(this.$backendApi + "customer/create-profile",data).then((response)=>{
-        console.log(response.data)
-      })
-    },
 };
 </script>
