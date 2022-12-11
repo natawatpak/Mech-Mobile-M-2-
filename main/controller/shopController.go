@@ -21,7 +21,7 @@ func getCar(id string) (*graph.CarByIDResponse, error) {
 	return resp, err
 }
 
-func getCus(id string) (*graph.CustomerByIDResponse, error){
+func getCus(id string) (*graph.CustomerByIDResponse, error) {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
@@ -29,7 +29,7 @@ func getCus(id string) (*graph.CustomerByIDResponse, error){
 	return resp, err
 }
 
-func getTicket(id string) (*graph.TicketByIDResponse, error){
+func getTicket(id string) (*graph.TicketByIDResponse, error) {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
@@ -52,10 +52,10 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.ActiveTicketByStats)
 
-	data := make(map[int]map[string]interface{},)
+	data := make(map[int]map[string]interface{})
 	for i, t := range resp.ActiveTicketByStats {
-		car,err := getCar(t.CarID)
-		cus,err := getCus(t.CustomerID)
+		car, err := getCar(t.CarID)
+		cus, err := getCus(t.CustomerID)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(err.Error()))
@@ -63,23 +63,23 @@ func ShopGetActiveTicketList(w http.ResponseWriter, r *http.Request) {
 		}
 		tData := map[string]interface{}{
 			"ticketID": t.ID,
-			"cus":    map[string]interface{}{
+			"cus": map[string]interface{}{
 				"cusID": cus.CustomerByID.ID,
-				"fName" : cus.CustomerByID.FName,
-				"lName" : cus.CustomerByID.LName,
+				"fName": cus.CustomerByID.FName,
+				"lName": cus.CustomerByID.LName,
 			},
 			"car": map[string]interface{}{
 				"carID": car.CarByID.ID,
-				"plate" : car.CarByID.PlateNum,
-				"type" : car.CarByID.Type,
+				"plate": car.CarByID.PlateNum,
+				"type":  car.CarByID.Type,
 				"brand": car.CarByID.Brand,
 			},
-			"problem":  t.Problem,
-			"shopID":   IsNil(t.ShopID),
-			"status":   IsNil(t.Status),
+			"problem":     t.Problem,
+			"shopID":      IsNil(t.ShopID),
+			"status":      IsNil(t.Status),
 			"description": IsNil(t.Description),
 			"location": map[string]float64{
-			 	"lng": t.Longitude,
+				"lng": t.Longitude,
 				"lat": t.Latitude,
 			},
 		}
@@ -114,12 +114,12 @@ func ShopGetOngoingTicketList(w http.ResponseWriter, r *http.Request) {
 	data := make(map[int]map[string]interface{})
 	for i, t := range resp.ActiveTicketByShop {
 		tData := map[string]interface{}{
-			"ticketID": t.ID,
-			"cusID":    t.CustomerID,
-			"carID":    t.CarID,
-			"problem":  t.Problem,
-			"shopID":   IsNil(t.ShopID),
-			"status":   IsNil(t.Status),
+			"ticketID":    t.ID,
+			"cusID":       t.CustomerID,
+			"carID":       t.CarID,
+			"problem":     t.Problem,
+			"shopID":      IsNil(t.ShopID),
+			"status":      IsNil(t.Status),
 			"description": IsNil(t.Description),
 			"location": map[string]float64{
 				"lng": t.Longitude,
@@ -152,14 +152,14 @@ func ShopGetTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cus,err := getCus(resp.ActiveTicketByID.CustomerID)
+	cus, err := getCus(resp.ActiveTicketByID.CustomerID)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
 		return
 	}
 
-	car,err := getCar(resp.ActiveTicketByID.CarID)
+	car, err := getCar(resp.ActiveTicketByID.CarID)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
@@ -167,26 +167,26 @@ func ShopGetTicket(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := map[string]interface{}{
-			"ticketID": resp.ActiveTicketByID.ID,
-			"cus":    map[string]interface{}{
-				"cusID": cus.CustomerByID.ID,
-				"fName" : cus.CustomerByID.FName,
-				"lName" : cus.CustomerByID.LName,
-			},
-			"car": map[string]interface{}{
-				"carID": car.CarByID.ID,
-				"plate" : car.CarByID.PlateNum,
-				"type" : car.CarByID.Type,
-				"brand": car.CarByID.Brand,
-			},
-			"problem":  resp.ActiveTicketByID.Problem,
-			"shopID":   IsNil(resp.ActiveTicketByID.ShopID),
-			"status":   IsNil(resp.ActiveTicketByID.Status),
-			"description": IsNil(resp.ActiveTicketByID.Description),
-			"location": map[string]float64{
-			 	"lng": resp.ActiveTicketByID.Longitude,
-				"lat": resp.ActiveTicketByID.Latitude,
-			},
+		"ticketID": resp.ActiveTicketByID.ID,
+		"cus": map[string]interface{}{
+			"cusID": cus.CustomerByID.ID,
+			"fName": cus.CustomerByID.FName,
+			"lName": cus.CustomerByID.LName,
+		},
+		"car": map[string]interface{}{
+			"carID": car.CarByID.ID,
+			"plate": car.CarByID.PlateNum,
+			"type":  car.CarByID.Type,
+			"brand": car.CarByID.Brand,
+		},
+		"problem":     resp.ActiveTicketByID.Problem,
+		"shopID":      IsNil(resp.ActiveTicketByID.ShopID),
+		"status":      IsNil(resp.ActiveTicketByID.Status),
+		"description": IsNil(resp.ActiveTicketByID.Description),
+		"location": map[string]float64{
+			"lng": resp.ActiveTicketByID.Longitude,
+			"lat": resp.ActiveTicketByID.Latitude,
+		},
 	}
 
 	jsonData, err := json.Marshal(data)
@@ -204,7 +204,7 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
-	t, err := getTicket(r.FormValue("ticketID"));
+	t, err := getTicket(r.FormValue("ticketID"))
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -214,17 +214,17 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, err = graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
-		ID:         r.FormValue("ticketID"),
-		CarID:      r.FormValue("carID"),
-		CustomerID: r.FormValue("cusID"),
-		Problem:    r.FormValue("problem"),
-		ShopID:     util.Ptr(r.FormValue("shopID")),
-		Status:     util.Ptr("Accepted"),
-		Latitude: 	StrToFloat(r.FormValue("lat")),
-		Longitude: StrToFloat(r.FormValue("lng")),
-		Description: util.Ptr(r.FormValue("description")),
+		ID:           r.FormValue("ticketID"),
+		CarID:        r.FormValue("carID"),
+		CustomerID:   r.FormValue("cusID"),
+		Problem:      r.FormValue("problem"),
+		ShopID:       util.Ptr(r.FormValue("shopID")),
+		Status:       util.Ptr("Accepted"),
+		Latitude:     StrToFloat(r.FormValue("lat")),
+		Longitude:    StrToFloat(r.FormValue("lng")),
+		Description:  util.Ptr(r.FormValue("description")),
 		AcceptedTime: toTimePtr(time.Now()),
-		CreateTime: t.TicketByID.CreateTime,
+		CreateTime:   t.TicketByID.CreateTime,
 	})
 
 	if err != nil {
@@ -238,14 +238,14 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ActiveTicketUpdateMulti(ctx, graphqlClient, &graph.ActiveTicketUpdateInput{
-		ID:         r.FormValue("ticketID"),
-		CarID:      r.FormValue("carID"),
-		CustomerID: r.FormValue("cusID"),
-		Problem:    r.FormValue("problem"),
-		ShopID:     util.Ptr(r.FormValue("shopID")),
-		Status:     util.Ptr("Accepted"),
-		Latitude: 	StrToFloat(r.FormValue("lat")),
-		Longitude: StrToFloat(r.FormValue("lng")),
+		ID:          r.FormValue("ticketID"),
+		CarID:       r.FormValue("carID"),
+		CustomerID:  r.FormValue("cusID"),
+		Problem:     r.FormValue("problem"),
+		ShopID:      util.Ptr(r.FormValue("shopID")),
+		Status:      util.Ptr("Accepted"),
+		Latitude:    StrToFloat(r.FormValue("lat")),
+		Longitude:   StrToFloat(r.FormValue("lng")),
 		Description: util.Ptr(r.FormValue("description")),
 	})
 
@@ -258,16 +258,16 @@ func ShopAcceptTicket(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
 
 	data := map[string]interface{}{
-		"ticketID": resp.ActiveTicketUpdateMulti.ID,
-		"cusID":    resp.ActiveTicketUpdateMulti.CustomerID,
-		"carID":    resp.ActiveTicketUpdateMulti.CarID,
-		"problem":  resp.ActiveTicketUpdateMulti.Problem,
-		"shopID":   IsNil(resp.ActiveTicketUpdateMulti.ShopID),
-		"status":   IsNil(resp.ActiveTicketUpdateMulti.Status),
+		"ticketID":    resp.ActiveTicketUpdateMulti.ID,
+		"cusID":       resp.ActiveTicketUpdateMulti.CustomerID,
+		"carID":       resp.ActiveTicketUpdateMulti.CarID,
+		"problem":     resp.ActiveTicketUpdateMulti.Problem,
+		"shopID":      IsNil(resp.ActiveTicketUpdateMulti.ShopID),
+		"status":      IsNil(resp.ActiveTicketUpdateMulti.Status),
 		"description": IsNil(resp.ActiveTicketUpdateMulti.Description),
 		"location": map[string]float64{
-		 	"lat": resp.ActiveTicketUpdateMulti.Latitude,
-		 	"lng": resp.ActiveTicketUpdateMulti.Longitude,
+			"lat": resp.ActiveTicketUpdateMulti.Latitude,
+			"lng": resp.ActiveTicketUpdateMulti.Longitude,
 		},
 	}
 
@@ -286,7 +286,7 @@ func ShopUpdateTicket(w http.ResponseWriter, r *http.Request) {
 
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
-	t, err := getTicket(r.FormValue("ticketID"));
+	t, err := getTicket(r.FormValue("ticketID"))
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -295,17 +295,17 @@ func ShopUpdateTicket(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, err = graph.TicketUpdateMulti(ctx, graphqlClient, &graph.TicketUpdateInput{
-		ID:         r.FormValue("ticketID"),
-		CarID:      r.FormValue("carID"),
-		CustomerID: r.FormValue("cusID"),
-		Problem:    r.FormValue("problem"),
-		ShopID:     util.Ptr(r.FormValue("shopID")),
-		Status:     util.Ptr(r.FormValue("status")),
-		Latitude: StrToFloat(r.FormValue("lat")),
-		Longitude: StrToFloat(r.FormValue("lng")),
-		Description: util.Ptr(r.FormValue("description")),
+		ID:           r.FormValue("ticketID"),
+		CarID:        r.FormValue("carID"),
+		CustomerID:   r.FormValue("cusID"),
+		Problem:      r.FormValue("problem"),
+		ShopID:       util.Ptr(r.FormValue("shopID")),
+		Status:       util.Ptr(r.FormValue("status")),
+		Latitude:     StrToFloat(r.FormValue("lat")),
+		Longitude:    StrToFloat(r.FormValue("lng")),
+		Description:  util.Ptr(r.FormValue("description")),
 		AcceptedTime: t.TicketByID.AcceptedTime,
-		CreateTime: t.TicketByID.CreateTime,
+		CreateTime:   t.TicketByID.CreateTime,
 	})
 
 	if err != nil {
@@ -318,14 +318,14 @@ func ShopUpdateTicket(w http.ResponseWriter, r *http.Request) {
 	graphqlClient = graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ActiveTicketUpdateMulti(ctx, graphqlClient, &graph.ActiveTicketUpdateInput{
-		ID:         r.FormValue("ticketID"),
-		CarID:      r.FormValue("carID"),
-		CustomerID: r.FormValue("cusID"),
-		Problem:    r.FormValue("problem"),
-		ShopID:     util.Ptr(r.FormValue("shopID")),
-		Status:     util.Ptr(r.FormValue("status")),
-		Latitude: StrToFloat(r.FormValue("lat")),
-		Longitude: StrToFloat(r.FormValue("lng")),
+		ID:          r.FormValue("ticketID"),
+		CarID:       r.FormValue("carID"),
+		CustomerID:  r.FormValue("cusID"),
+		Problem:     r.FormValue("problem"),
+		ShopID:      util.Ptr(r.FormValue("shopID")),
+		Status:      util.Ptr(r.FormValue("status")),
+		Latitude:    StrToFloat(r.FormValue("lat")),
+		Longitude:   StrToFloat(r.FormValue("lng")),
 		Description: util.Ptr(r.FormValue("description")),
 	})
 
@@ -337,16 +337,16 @@ func ShopUpdateTicket(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
 
 	data := map[string]interface{}{
-		"ticketID": resp.ActiveTicketUpdateMulti.ID,
-		"cusID":    resp.ActiveTicketUpdateMulti.CustomerID,
-		"carID":    resp.ActiveTicketUpdateMulti.CarID,
-		"problem":  resp.ActiveTicketUpdateMulti.Problem,
-		"shopID":   IsNil(resp.ActiveTicketUpdateMulti.ShopID),
-		"status":   IsNil(resp.ActiveTicketUpdateMulti.Status),
+		"ticketID":    resp.ActiveTicketUpdateMulti.ID,
+		"cusID":       resp.ActiveTicketUpdateMulti.CustomerID,
+		"carID":       resp.ActiveTicketUpdateMulti.CarID,
+		"problem":     resp.ActiveTicketUpdateMulti.Problem,
+		"shopID":      IsNil(resp.ActiveTicketUpdateMulti.ShopID),
+		"status":      IsNil(resp.ActiveTicketUpdateMulti.Status),
 		"description": IsNil(resp.ActiveTicketUpdateMulti.Description),
 		"location": map[string]float64{
-		 	"lat": resp.ActiveTicketUpdateMulti.Latitude,
-		 	"lng": resp.ActiveTicketUpdateMulti.Longitude,
+			"lat": resp.ActiveTicketUpdateMulti.Latitude,
+			"lng": resp.ActiveTicketUpdateMulti.Longitude,
 		},
 	}
 
@@ -414,24 +414,24 @@ func ShopGetHistory(w http.ResponseWriter, r *http.Request) {
 
 	data := make(map[int]map[string]interface{})
 	for i, t := range resp.TicketByShop {
-		car,err := getCar(t.CarID)
-		cus,err := getCus(t.CustomerID)
+		car, err := getCar(t.CarID)
+		cus, err := getCus(t.CustomerID)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(err.Error()))
 			return
 		}
 		tData := map[string]interface{}{
-			"ticketID":     t.ID,
-			"cus":    map[string]interface{}{
+			"ticketID": t.ID,
+			"cus": map[string]interface{}{
 				"cusID": cus.CustomerByID.ID,
-				"fName" : cus.CustomerByID.FName,
-				"lName" : cus.CustomerByID.LName,
+				"fName": cus.CustomerByID.FName,
+				"lName": cus.CustomerByID.LName,
 			},
 			"car": map[string]interface{}{
 				"carID": car.CarByID.ID,
-				"plate" : car.CarByID.PlateNum,
-				"type" : car.CarByID.Type,
+				"plate": car.CarByID.PlateNum,
+				"type":  car.CarByID.Type,
 				"brand": car.CarByID.Brand,
 			},
 			"problem":      t.Problem,
@@ -518,11 +518,11 @@ func ShopCreateProfile(w http.ResponseWriter, r *http.Request) {
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ShopCreate(ctx, graphqlClient, &graph.ShopCreateInput{
-		Name:    r.FormValue("shopName"),
-		Tel:     r.FormValue("shopTel"),
-		Email:   r.FormValue("shopEmail"),
-		Address: r.FormValue("shopAddress"),
-		Latitude: StrToFloat(r.FormValue("lat")),
+		Name:      r.FormValue("shopName"),
+		Tel:       r.FormValue("shopTel"),
+		Email:     r.FormValue("shopEmail"),
+		Address:   r.FormValue("shopAddress"),
+		Latitude:  StrToFloat(r.FormValue("lat")),
 		Longitude: StrToFloat(r.FormValue("lng")),
 	})
 	if err != nil {
@@ -561,12 +561,12 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
 
 	resp, err := graph.ShopUpdateMulti(ctx, graphqlClient, &graph.ShopUpdateInput{
-		ID:      r.FormValue("shopID"),
-		Name:    r.FormValue("shopName"),
-		Tel:     r.FormValue("shopTel"),
-		Email:   r.FormValue("shopEmail"),
-		Address: r.FormValue("shopAddress"),
-		Latitude: StrToFloat(r.FormValue("lat")),
+		ID:        r.FormValue("shopID"),
+		Name:      r.FormValue("shopName"),
+		Tel:       r.FormValue("shopTel"),
+		Email:     r.FormValue("shopEmail"),
+		Address:   r.FormValue("shopAddress"),
+		Latitude:  StrToFloat(r.FormValue("lat")),
 		Longitude: StrToFloat(r.FormValue("lng")),
 	})
 	if err != nil {
@@ -584,6 +584,44 @@ func ShopUpdateProfile(w http.ResponseWriter, r *http.Request) {
 		"location": map[string]float64{
 			"lat": resp.ShopUpdateMulti.Latitude,
 			"lng": resp.ShopUpdateMulti.Longitude,
+		},
+	}
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	AddHeader(w).Write(jsonData)
+}
+
+func ShopGetProfile(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		fmt.Fprintf(w, "ParseForm() err: %v", err)
+		log.Fatal(err)
+	}
+
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	graphqlClient := graphql.NewClient(GRAPHQL_CLIENT_URL, http.DefaultClient)
+
+	resp, err := graph.ShopByEmail(ctx, graphqlClient, r.FormValue("email"))
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	data := map[string]interface{}{
+		"shopID":      resp.ShopByEmail.ID,
+		"shopName":    resp.ShopByEmail.Name,
+		"shopTel":     resp.ShopByEmail.Tel,
+		"shopEmail":   resp.ShopByEmail.Email,
+		"shopAddress": resp.ShopByEmail.Address,
+		"location": map[string]float64{
+			"lat": resp.ShopByEmail.Latitude,
+			"lng": resp.ShopByEmail.Longitude,
 		},
 	}
 	jsonData, err := json.Marshal(data)
