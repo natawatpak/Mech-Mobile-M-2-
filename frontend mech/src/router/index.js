@@ -27,6 +27,11 @@ const routes = [
     name: 'examples2',
     component: () => import('../views/ExampleView2.vue')
   },
+  {
+    path: '/history',
+    name: 'history',
+    component: () => import('../views/HistoryView.vue')
+  },
 ]
 
 const router = createRouter({

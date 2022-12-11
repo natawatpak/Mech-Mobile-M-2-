@@ -6427,7 +6427,7 @@ type TicketUpdateInput struct {
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
 	Description  *string    `json:"description"`
-	CreateTime   time.Time  `json:"createTime"`
+	CreateTime   time.Time  `json:"createTime,omitempty"`
 	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
