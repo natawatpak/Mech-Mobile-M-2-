@@ -112,7 +112,7 @@ export default {
           sessionStorage.setItem("shopID", response.data.ID);
           }
       })
-      this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/customer/get-profile",data, {
+      this.axios.post("https://a7okax4857.execute-api.us-east-1.amazonaws.com/default/shop/get-profile",data, {
         headers:{
             Authorization: this.data 
         }}).then((response)=>{
