@@ -118,7 +118,7 @@ export default {
           console.log(response);
           if (response.status == 200) {
           sessionStorage.setItem("jwt", this.data);
-          sessionStorage.setItem("shopID", response.data.ID);
+          sessionStorage.setItem("shopID", response.data.shopID);
           }
           })
 

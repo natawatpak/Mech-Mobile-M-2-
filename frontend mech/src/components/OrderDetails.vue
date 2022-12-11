@@ -92,8 +92,8 @@
 
     <div class="text-center pa-4">
         <v-card-action>
-          <v-btn :disabled="valid" color="red" variant="tonal" @click="checkStage()" v-if="(incoming[0].status==stage[0] || incoming[0].status==stage[1]|| incoming[0].status==stage[2])">Cancel</v-btn>
-          <v-btn color="blue-darken-2" variant="tonal" to="/" v-if="(incoming[0].status== stage[3] || incoming[0].status==stage[4])">Go home</v-btn>
+          <v-btn :disabled="valid" color="red" variant="tonal" @click="checkStage()" v-if="(ticket.status==stage[0] || ticket.status==stage[1]|| ticket.status==stage[2])">Cancel</v-btn>
+          <v-btn color="blue-darken-2" variant="tonal" to="/" v-if="(ticket.status== stage[3] || ticket.status==stage[4])">Go home</v-btn>
         </v-card-action>
     </div>
 
@@ -245,7 +245,7 @@ export default {
       finishOption: null,
       stage: [ 'Accepted', 'On the way', 'Processing', 'Finish:Garage', 'Finish:Completed'],
       confirm: '',
-      ticket: undefined,
+      ticket: "status: 'Accepted'",
       items: ['mdi-thumb-up', 'mdi-car', 'mdi-wrench', 'mdi-check'],
       otw: "Next stage: 'On the way'. Are your mechanic ready to go?",
       onp: "Next stage: 'On process'. Your mechanic is fixing customer car.",
