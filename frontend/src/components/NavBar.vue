@@ -12,7 +12,6 @@
       <v-list nav dense>
         <v-list-item><router-link to="/"><v-btn flat> Home</v-btn></router-link></v-list-item>
         <v-list-item><router-link to="/about"><v-btn flat> About</v-btn></router-link></v-list-item>
-        <v-list-item><router-link to="/error404"><v-btn flat> Error</v-btn></router-link></v-list-item>
       </v-list>
     </v-navigation-drawer>
   </nav>
