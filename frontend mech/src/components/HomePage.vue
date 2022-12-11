@@ -1,24 +1,16 @@
 <template>
   <div class="text-left ma-4">
-    <div>
-      <v-alert
-        color="teal"
-        title="Incoming order"
-        variant="tonal"
-        icon="mdi-ballot"
-      >
-        <div class="d-flex flex-row align-center justify-space-between">
-          <div>
-            There was an incoming order from your client. Go check now!
-          </div>
-          <router-link to="/order" class="text-decoration-none">
-            <v-btn color="teal-darken-1" variant="outlined">
-              Go
-            </v-btn>
-          </router-link>
-        </div>
-      </v-alert>
-    </div>
+
+    <v-card variant="tonal" color="teal" class="pa-4">
+      <v-row class="justify-space-between align-center">
+      <v-card-title>Incoming order</v-card-title>
+      <router-link to="/order" class="text-decoration-none">
+        <v-btn color="teal-darken-1" variant="outlined">
+          Go check
+        </v-btn>
+      </router-link>
+    </v-row>
+    </v-card>
 
     <div class="mt-4">
       <v-text class="text-h5">Today summary</v-text>

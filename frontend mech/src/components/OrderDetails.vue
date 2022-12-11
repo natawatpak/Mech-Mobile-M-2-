@@ -1,21 +1,16 @@
 <template>
   <div class="text-center ma-4 justify-center">
-    <v-row class="ma-4 align-center">
-      <router-link to="/order" class="text-decoration-none">
-      <v-btn
-        icon
-        class="hidden-xs-only"
-      >
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
-    </router-link>
-      <v-toolbar-title class="text-left text-h4 px-6">Order {{details.id}}</v-toolbar-title>
-      <v-chip color="yellow-darken-3" text-color="white">{{details.status}}</v-chip>
+    <v-row class="ma-4 justify-space-between align-center" v-for="item in incoming" :key="item.id">
+      <div class="text-left text-h4 my-2">{{item.cus.fName}} | {{item.car.plate}}</div>
+      <v-chip color="yellow-darken-3" text-color="white" v-if="(currentState == 1)">Accept</v-chip>
+      <v-chip color="yellow-darken-3" text-color="white" v-if="(currentState == 2)">On the way</v-chip>
+      <v-chip color="yellow-darken-3" text-color="white" v-if="(currentState == 3)">On process</v-chip>
+      <v-chip color="green" text-color="white" v-if="(currentState == 4)">Finish</v-chip>
     </v-row>
 
     <v-card class="text-left mb-4 pa-4" variant="tonal">
-      <v-card-title class="text-h6">Status</v-card-title>
-      <v-timeline direction="horizontal" line-inset="12" class="pa-4">
+      <v-card-title class="text-h6 pa-0">Status</v-card-title>
+      <v-timeline direction="horizontal" line-inset="12" class="pa-0">
       <v-timeline-item size="large" v-model="items" :dot-color="currentState == 1 || currentState == 2 || currentState == 3 || currentState == 4? 'green':'white'" :icon=items[0]>
         <template v-slot:opposite>
           Accept
@@ -40,40 +35,44 @@
         Finish
       </v-timeline-item>
       </v-timeline>
-      <v-card-subtitle v-if="currentState == 1">{{otw}}</v-card-subtitle>
-      <v-card-subtitle v-else-if="currentState == 2">{{onp}}</v-card-subtitle>
-      <v-card-subtitle v-else-if="currentState == 3">{{fin}}</v-card-subtitle>
+      <v-card-subtitle v-if="currentState == 1" class="pa-0 py-2 text-wrap">{{otw}}</v-card-subtitle>
+      <v-card-subtitle v-else-if="currentState == 2" class="pa-0 py-2 text-wrap">{{onp}}</v-card-subtitle>
+      <v-card-subtitle v-else-if="currentState == 3" class="pa-0 py-2 text-wrap">{{fin}}</v-card-subtitle>
       <v-row justify="end" class="pa-4">
         <v-btn :disabled="valid" class="mx-1 " variant="tonal" color="blue" @click="checkStage">Next stage</v-btn>
       </v-row>
     </v-card>
 
     <v-card class="text-left mb-4 pa-4" variant="tonal">
-      <v-title class="text-h6">Car Details</v-title>
-        <v-card-text class="text-h7">
-          Type: {{details.type}} | Brand: {{details.brand}}
+      <v-title class="text-h6 pa-0">Car Details</v-title>
+        <v-card-text class="text-h7 pa-0 py-2" v-for="item in incoming" :key="item.id">
+          Type: {{item.car.type}} | Brand: {{item.car.brand}}
           <br />
-          License plate: {{details.plate}}
+          License plate: {{item.car.plate}}
         </v-card-text>
     </v-card>
 
-    <v-card variant="tonal" class="text-left mb-4 pa-4 d-flex justify-left align-center">
+    <v-card variant="tonal" v-for="item in incoming" :key="item.id" class="text-left mb-4 pa-4 d-flex justify-left align-center">
       <section>
-        <v-card-title class="text-h6">Current Location</v-card-title>
-        <v-card-text>{{details.lat+', '+ details.lng}}</v-card-text>
+        <v-card-title class="text-h6 pa-0">Current Location</v-card-title>
+        <v-card-text class="pa-0 py-2" v-for="item in incoming" :key="item.id">
+          {{item.location.lat+', '+ item.location.lng}} 
+          <br>
+          {{item.location.distance}} km
+        </v-card-text>
       </section>
     </v-card>
 
     <v-card class="text-left mb-4 pa-4" variant="tonal">
-      <v-title class="text-h6">Problems</v-title>
-      <v-card-text class="text-h7">
-        <p v-for="p in problems" :key="p">{{'-' + p}}</p>
+      <v-title class="text-h6 pa-0">Problems</v-title>
+      <v-card-text class="text-h7 pa-0 py-2">
+        <p v-for="item in incoming" :key="item.id">{{item.problem}}</p>
       </v-card-text>
     </v-card>
 
     <v-card class="text-left mb-4 pa-4" variant="tonal">
-      <v-title class="text-h6">Description</v-title>
-      <v-card-text class="text-h7">
+      <v-title class="text-h6 pa-0">Description</v-title>
+      <v-card-text class="text-h7 pa-0">
         <p>{{description}}</p>
       </v-card-text>
     </v-card> 
@@ -137,7 +136,7 @@
             
             <div class="px-2">
               <v-text class="text-h6 pa-0">Please type 'confirm' to continue</v-text>
-              <v-text-field v-model="confirm" label="Confirmation" required></v-text-field>
+              <v-text-field v-model="confirm" label="Confirm" required></v-text-field>
             </div>
 
             <v-row justify="end" class="pa-4">
@@ -242,6 +241,11 @@ export default {
         status: "Accept",
       },
       socket: undefined,
+      incoming: [ { "car": { "brand": "dgdg", "carID": "fa96015c-8b1c-4f3d-8481-dfc6b54b3476", "plate": "1234", "type": "vfx" }, 
+                    "cus": { "cusID": "f67efc77-629d-4672-a753-558b1c0dd250", "fName": "ggg", "lName": "gg" }, 
+                    "location": { "lat": 13.726849, "lng": 100.770309, "distance": 2.34 }, 
+                    "problem": "1,4,3", 
+                    "shopID": "1", "status": "Finish:Garage", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }],
       items: ['mdi-thumb-up', 'mdi-car', 'mdi-wrench', 'mdi-check'],
       otw: "Next stage: 'On the way'. Are your mechanic ready to go?",
       onp: "Next stage: 'On process'. Your mechanic is fixing customer car.",

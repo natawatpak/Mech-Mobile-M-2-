@@ -1,24 +1,25 @@
 <template>
-  <div class="pa-5">
-    <div class="text-left text-h4 my-2">Incoming order</div>
+  <div class="text-center ma-4 justify-center">
+    <div class="text-left text-h4 my-2">History</div>
 
     <v-card-text class="pa-0 ma-0">
       <v-window v-model="tab">
         <v-window-item value="one">
           <v-content class="justify-start pa-0">
             <v-container v-for="item in incoming" :key="item.id" class="pa-0" >
-              <v-card @click="dialog=true; acceptTicket(item)" width="100%" variant="tonal" v-if="show" class="text-left pa-0 my-4">
-                <v-card-title class="text-h6">
-                  {{item.cus.fName}} | {{item.car.plate}}
-                  <v-card-subtitle class="pa-0">{{item.date}}</v-card-subtitle>
-                </v-card-title>
-                <v-card-text class="text-h7 pa-0 px-4">
+              <v-card @click="dialog=true" width="100%" variant="tonal" v-if="show" class="text-left pa-0 my-4">
+                <v-row class="px-4 pt-4 d-flex justify-space-between align-center">
+                  <v-card-title class="text-h6">
+                    {{item.cus.fName}} | {{item.car.plate}}
+                  </v-card-title>
+                  <v-chip class="ma-2" color="green">{{item.status}}</v-chip>
+                </v-row>
+                <v-card-subtitle>{{item.date}}</v-card-subtitle>
+                <v-card-text class="text-h7">
                   Car {{ item.car.type }} | {{ item.car.brand }} <br />
                   Problems {{ item.problem }} <br />
                   {{ item.location.distance }} km
                 </v-card-text>
-                <v-row justify="end" class="pa-6">
-                </v-row>
               </v-card>
             </v-container>
           </v-content>
@@ -28,51 +29,48 @@
 
     <v-dialog v-model="dialog" scrollable class="text-left pa-4">
       <v-card class="text-left pa-4">
-        <v-card-title class="text-h5"> Order {{details.id}}</v-card-title>
-        <v-divider></v-divider>
-        <v-card-text  style="height: 100%;" class="ma-0 pa-0">
-          <v-card class="text-left ma-2 pa-1" variant="outlined">
-            <v-title class="text-h6">Car Details</v-title>
-              <v-card-text class="text-h7">
-                Type: {{details.type}} | Brand: {{details.brand}}
-                <br />
-                License plate: {{details.plate}}
-              </v-card-text>
-          </v-card>
-          <v-card
-            variant="outlined"
-            class="text-left ma-2 pa-1 d-flex justify-left align-center"
-            height="100%"
+        <v-row class="pa-5">
+          <v-btn
+            icon
+            dark
+            @click="dialog = false"
           >
-            <section>
-              <v-card-title>Current Location</v-card-title>
-              <v-card-text>{{location.lat+', '+ location.lng}}</v-card-text>
-            </section>
-          </v-card>
-          <v-card class="text-left ma-2 pa-1" variant="outlined">
-            <v-title class="text-h6">Problems</v-title>
-            <v-card-text class="text-h7">
-              <p v-for="p in problems" :key="p">{{'-' + p}}</p>
-            </v-card-text>
-          </v-card>
-          <v-card class="text-left ma-2 pa-1" variant="outlined">
-            <v-title class="text-h6">Description</v-title>
-              <v-card-text class="text-h7">
-                <p>{{description}}</p>
-              </v-card-text>
-          </v-card>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-row class="justify-end">
-          <v-card-action class="py-4 justify-end">
-            <v-btn @click="dialog=false" class="mx-1" variant="tonal" color="error">
-              Decline
-            </v-btn>
-            <v-btn to="/details" class="mx-1" color="blue" variant="tonal">
-              Accept
-            </v-btn>
-          </v-card-action>
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-card-title class="text-h5"> Order {{details.id}}</v-card-title>
         </v-row>
+        <v-card-text  style="height: 100%;" class="ma-0 pa-0">
+        <v-card class="text-left ma-2 pa-1" variant="outlined" style="height: 100%;">
+          <v-title class="text-h6">Car Details</v-title>
+            <v-card-text class="text-h7">
+              Type: {{details.type}} | Brand: {{details.brand}}
+              <br />
+              License plate: {{details.plate}}
+            </v-card-text>
+        </v-card>
+        <v-card
+          variant="outlined"
+          class="text-left ma-2 pa-1 d-flex justify-left align-center"
+          height="100%"
+        >
+          <section>
+            <v-card-title>Current Location</v-card-title>
+            <v-card-text>{{location.lat+', '+ location.lng}}</v-card-text>
+          </section>
+        </v-card>
+        <v-card class="text-left ma-2 pa-1" variant="outlined">
+          <v-title class="text-h6">Problems</v-title>
+          <v-card-text class="text-h7">
+            <p v-for="p in problems" :key="p">{{'-' + p}}</p>
+          </v-card-text>
+        </v-card>
+        <v-card class="text-left ma-2 pa-1" variant="outlined">
+          <v-title class="text-h6">Description</v-title>
+            <v-card-text class="text-h7">
+              <p>{{description}}</p>
+            </v-card-text>
+        </v-card>
+      </v-card-text>
       </v-card>
     </v-dialog>
   </div>
@@ -139,17 +137,18 @@ export default {
                     "cus": { "cusID": "f67efc77-629d-4672-a753-558b1c0dd250", "fName": "ggg", "lName": "gg" }, 
                     "location": { "lat": 13.726849, "lng": 100.770309, "distance": 2.34 }, 
                     "problem": "1,4,3", 
-                    "date": "12 Nov 2022",
-                    "shopID": "1", "status": "Finish:Garage", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8"},
+                    "date": '12 Nov 2022',
+                    "shopID": "1", "status": "Finish:Garage", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" },
                     { "car": { "brand": "honda", "carID": "fa96015c-8b1c-4f3d-8481-dfc6b54b3476", "plate": "SN 4727", "type": "sedan" }, 
                     "cus": { "cusID": "f67efc77-629d-4672-a753-558b1c0dd250", "fName": "Nunnapat", "lName": "Kriengchaiyaprug" }, 
-                    "location": { "lat": 13.726849, "lng": 100.770309, "distance": 1.23 }, 
-                    "problem": "1,4,3", 
-                    "date": "12 Nov 2022",
+                    "location": { "lat": 13.726849, "lng": 100.770309, "distance": 2.34 }, 
+                    "problem": "1,4,3",
+                    "date": '12 Nov 2022', 
                     "shopID": "1", "status": "Finish:Garage", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }]
     };
   },
-  methods:{
+
+  methods: {
     remove (item) {
       this.chips.splice(this.chips.indexOf(item), 1)
       this.chips = [...this.chips]
@@ -157,6 +156,6 @@ export default {
     removeMessage(seconds) {
          setTimeout(()=> this.show = false, seconds * 1000);
       },
-  }
+  },
 };
 </script>
