@@ -2,42 +2,42 @@
   <div class="text-center ma-4 justify-center">
     <v-row class="ma-4 justify-space-between align-center" v-for="item in incoming" :key="item.id">
       <div class="text-left text-h4 my-2">{{item.cus.fName}} | {{item.car.plate}}</div>
-      <v-chip color="yellow-darken-3" text-color="white" v-if="(currentState == 1)">Accept</v-chip>
-      <v-chip color="yellow-darken-3" text-color="white" v-if="(currentState == 2)">On the way</v-chip>
-      <v-chip color="yellow-darken-3" text-color="white" v-if="(currentState == 3)">On process</v-chip>
-      <v-chip color="green" text-color="white" v-if="(currentState == 4)">Finish</v-chip>
+      <v-chip color="yellow-darken-3" text-color="white" v-if="(item.status == stage[0]) || (item.status == stage[1]) || (item.status == stage[2])">{{item.status}}</v-chip>
+      <v-chip color="green" text-color="white" v-if="(item.status == stage[3] || incoming.status == stage[4])">{{item.status}}</v-chip>
     </v-row>
 
     <v-card class="text-left mb-4 pa-4" variant="tonal">
       <v-card-title class="text-h6 pa-0">Status</v-card-title>
-      <v-timeline direction="horizontal" line-inset="12" class="pa-0">
-      <v-timeline-item size="large" v-model="items" :dot-color="currentState == 1 || currentState == 2 || currentState == 3 || currentState == 4? 'green':'white'" :icon=items[0]>
+      <v-timeline direction="horizontal" line-inset="12" class="pa-0" v-for="item in incoming" :key="item.id">
+      <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[0] || item.status == stage[1] || item.status == stage[2] || item.status == stage[3] || item.status == stage[4] ? 'green':'white'" :icon=items[0]>
         <template v-slot:opposite>
           Accept
         </template>
        </v-timeline-item>
 
-      <v-timeline-item size="large" v-model="items" :dot-color="currentState == 2 || currentState == 3 || currentState == 4? 'green':'white'" :icon=items[1]>
+      <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[1] || item.status == stage[2] || item.status == stage[3] || item.status == stage[4]? 'green':'white'" :icon=items[1]>
       <template v-slot:opposite>
       </template>
         On the way
       </v-timeline-item>
 
-      <v-timeline-item size="large" v-model="items" :dot-color="currentState == 3 || currentState == 4? 'green':'white'" :icon=items[2]>
+      <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[2] || item.status == stage[3] || item.status == stage[4]? 'green':'white'" :icon=items[2]>
         <template v-slot:opposite>
           On process
         </template>
       </v-timeline-item>
 
-      <v-timeline-item size="large" v-model="items" :dot-color="currentState == 4? 'green':'white'" :icon=items[3]>
+      <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[3] || item.status == stage[4]? 'green':'white'" :icon=items[3]>
         <template v-slot:opposite>
         </template>
         Finish
       </v-timeline-item>
       </v-timeline>
-      <v-card-subtitle v-if="currentState == 1" class="pa-0 py-2 text-wrap">{{otw}}</v-card-subtitle>
-      <v-card-subtitle v-else-if="currentState == 2" class="pa-0 py-2 text-wrap">{{onp}}</v-card-subtitle>
-      <v-card-subtitle v-else-if="currentState == 3" class="pa-0 py-2 text-wrap">{{fin}}</v-card-subtitle>
+      <div  v-for="item in incoming" :key="item.id">
+      <v-card-subtitle v-if="(item.status == stage[0])" class="pa-0 py-2 text-wrap">{{otw}}</v-card-subtitle>
+      <v-card-subtitle v-else-if="(item.status == stage[1])" class="pa-0 py-2 text-wrap">{{onp}}</v-card-subtitle>
+      <v-card-subtitle v-else-if="(item.status == stage[2])" class="pa-0 py-2 text-wrap">{{fin}}</v-card-subtitle>
+      </div>
       <v-row justify="end" class="pa-4">
         <v-btn :disabled="valid" class="mx-1 " variant="tonal" color="blue" @click="checkStage">Next stage</v-btn>
       </v-row>
@@ -118,29 +118,29 @@
 
     <v-dialog v-model="dialog" width="800" class="text-left pa-4">
           <v-card class="text-left pa-4">
-          <v-card-title class="text-h5">Status {{currentState}}</v-card-title> 
-          <v-timeline direction="horizontal" line-inset="12" class="pa-4">
-            <v-timeline-item size="large" v-model="items" :dot-color="currentState == '1' || currentState == '2' || currentState == '3' || currentState == '4'? 'green':'white'" :icon=items[0]>
-            <template v-slot:opposite>
-              Accept
-            </template>
+          <v-card-title class="text-h5">Status {{incoming.status}}</v-card-title> 
+          <v-timeline direction="horizontal" line-inset="12" class="pa-0" v-for="item in incoming" :key="item.id">
+            <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[0] || item.status == stage[1] || item.status == stage[2] || item.status == stage[3] || item.status == stage[4] ? 'green':'white'" :icon=items[0]>
+              <template v-slot:opposite>
+                Accept
+              </template>
             </v-timeline-item>
 
-            <v-timeline-item size="large" v-model="items" :dot-color="currentState == '2' || currentState == '3' || currentState == '4'? 'green':'white'" :icon=items[1]>
+            <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[1] || item.status == stage[2] || item.status == stage[3] || item.status == stage[4]? 'green':'white'" :icon=items[1]>
             <template v-slot:opposite>
             </template>
               On the way
             </v-timeline-item>
 
-            <v-timeline-item size="large" v-model="items" :dot-color="currentState == '3' || currentState == '4'? 'green':'white'" :icon=items[2]>
-            <template v-slot:opposite>
-              On process
-            </template>
+            <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[2] || item.status == stage[3] || item.status == stage[4]? 'green':'white'" :icon=items[2]>
+              <template v-slot:opposite>
+                On process
+              </template>
             </v-timeline-item>
 
-            <v-timeline-item size="large" v-model="items" :dot-color="currentState == '4'? 'green':'white'" :icon=items[3]>
-            <template v-slot:opposite>
-            </template>
+            <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[3] || item.status == stage[4]? 'green':'white'" :icon=items[3]>
+              <template v-slot:opposite>
+              </template>
               Finish
             </v-timeline-item>
             </v-timeline>
@@ -166,37 +166,37 @@
 
         <v-dialog v-model="dialog2" width="800" class="text-left pa-4">
           <v-card class="text-left pa-4">
-          <v-card-title class="text-h5">Status {{currentState}}</v-card-title> 
-          <v-timeline direction="horizontal" line-inset="12" class="pa-4">
-            <v-timeline-item size="large" v-model="items" :dot-color="currentState == '1' || currentState == '2' || currentState == '3' || currentState == '4'? 'green':'white'" :icon=items[0]>
-            <template v-slot:opposite>
-              Accept
-            </template>
+          <v-card-title class="text-h5">Status {{incoming.status}}</v-card-title> 
+          <v-timeline direction="horizontal" line-inset="12" class="pa-0" v-for="item in incoming" :key="item.id">
+            <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[0] || item.status == stage[1] || item.status == stage[2] || item.status == stage[3] || item.status == stage[4] ? 'green':'white'" :icon=items[0]>
+              <template v-slot:opposite>
+                Accept
+              </template>
             </v-timeline-item>
 
-            <v-timeline-item size="large" v-model="items" :dot-color="currentState == '2' || currentState == '3' || currentState == '4'? 'green':'white'" :icon=items[1]>
+            <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[1] || item.status == stage[2] || item.status == stage[3] || item.status == stage[4]? 'green':'white'" :icon=items[1]>
             <template v-slot:opposite>
             </template>
               On the way
             </v-timeline-item>
 
-            <v-timeline-item size="large" v-model="items" :dot-color="currentState == '3' || currentState == '4'? 'green':'white'" :icon=items[2]>
-            <template v-slot:opposite>
-              On process
-            </template>
+            <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[2] || item.status == stage[3] || item.status == stage[4]? 'green':'white'" :icon=items[2]>
+              <template v-slot:opposite>
+                On process
+              </template>
             </v-timeline-item>
 
-            <v-timeline-item size="large" v-model="items" :dot-color="currentState == '4'? 'green':'white'" :icon=items[3]>
-            <template v-slot:opposite>
-            </template>
+            <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[3] || item.status == stage[4]? 'green':'white'" :icon=items[3]>
+              <template v-slot:opposite>
+              </template>
               Finish
             </v-timeline-item>
             </v-timeline>
 
             <v-card-text>
-              <v-radio-group column>
-                <v-radio label="All complete" value="complete"></v-radio>
-                <v-radio label="Go to garage" value="garage"></v-radio>
+              <v-radio-group column v-model="finishOption">
+                <v-radio label="All complete" value="Finish:Completed"></v-radio>
+                <v-radio label="Go to garage" value="Finish:Garage"></v-radio>
               </v-radio-group>
             </v-card-text>
 
@@ -234,7 +234,8 @@ export default {
       dialog: false,
       dialog2: false,
       dialog3: false,
-      currentState: 2,
+      finishOption: null,
+      stage: [ 'Accepted', 'On the way', 'Processing', 'Finish:Garage', 'Finish:Completed'],
       confirm: '',
       incoming: [ { "car": { "brand": "dgdg", "carID": "fa96015c-8b1c-4f3d-8481-dfc6b54b3476", "plate": "1234", "type": "vfx" }, 
                     "cus": { "cusID": "f67efc77-629d-4672-a753-558b1c0dd250", "fName": "ggg", "lName": "gg" }, 
@@ -242,7 +243,7 @@ export default {
                     "problem": ["Lubricating oil overdue that should be changed", "Out of Brake lining"],
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rutrum tincidunt arcu sed gravida. Suspendisse mollis ex sed magna viverra, eu tincidunt velit lobortis. Phasellus accumsan mauris est, in pretium orci lacinia in. Nulla in bibendum ex, eu condimentum mauris. Pellentesque quis nisl a justo ultrices molestie ac mattis libero. Aliquam vel sollicitudin quam, vel molestie nunc. Proin dolor dolor, vehicula sed nisl dapibus, semper scelerisque nisl. Sed id neque ac metus efficitur vestibulum. Phasellus quis nibh ac dui molestie fringilla sit amet bibendum sem. Quisque consectetur sit amet nunc ac elementum. Suspendisse vulputate mauris erat, nec tempus dui vulputate.", 
                     "date": '12 Nov 2022',
-                    "shopID": "1", "status": "Finish:Garage", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }],
+                    "shopID": "1", "status": "Accepted", "ticketID": "677fe4c6-447f-4d21-a0cd-c5dbe52f7fc8" }],
       items: ['mdi-thumb-up', 'mdi-car', 'mdi-wrench', 'mdi-check'],
       otw: "Next stage: 'On the way'. Are your mechanic ready to go?",
       onp: "Next stage: 'On process'. Your mechanic is fixing customer car.",
@@ -252,41 +253,34 @@ export default {
   methods: {
     checkConfirm() {
       if (this.confirm == 'confirm') {
-        if (this.currentState == 1) {
+        if (this.incoming[0].status == this.stage[0]) {
           this.dialog = false;
           this.confirm = '';
           this.currentState++;
-          this.details.status = 'On the way';
+          this.incoming[0].status = 'On the way';
         }
-        else if (this.currentState == 2) {
+        else if (this.incoming[0].status == this.stage[1]) {
           this.dialog = false;
           this.confirm = '';
           this.currentState++;
-          this.details.status = 'In process';
+          this.incoming[0].status = 'Processing';
         }
-        else if (this.currentState == 3) {
+        else if (this.incoming[0].status == this.stage[2]) {
           this.dialog2 = false;
           this.confirm = '';
           this.currentState++;
-          this.details.status = 'Complete';
+          this.incoming[0].status = this.finishOption;
         }
       }
-      // else {
-      //   this.valid2 = true;
-      // }
     },
     checkStage() {
-      if (this.currentState == 1) {
+      if (this.incoming[0].status == this.stage[0] || this.incoming[0].status == this.stage[1]) {
         this.dialog = true;      
       }
-      else if (this.currentState == 2) {
-        this.dialog = true;
-      }
-      else if (this.currentState == 3) {
+      else if (this.incoming[0].status == this.stage[2]) {
         this.dialog2 = true;
-        // this.valid = true;
       }
-      else if (this.currentState == 4) {
+      else {
         this.valid = true;
       }
     },
