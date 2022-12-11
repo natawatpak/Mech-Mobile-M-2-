@@ -30,7 +30,8 @@
         <br />
         Problems
         <br />
-        <p v-for="p in problems" :key="p">{{'- ' + p}}</p>
+        <div v-for="p in problems" :key="p"> <p>{{'- ' + p}}</p></div>
+        <div>{{problems[0]}}</div>
       </v-card-text>
     </v-card>
 

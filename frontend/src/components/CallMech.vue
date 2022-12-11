@@ -195,8 +195,8 @@
     <v-spacer class="my-5"></v-spacer>
 
     <v-spacer class="my-5"></v-spacer>
-    <section class="text-center">
-      <router-link to="/loading" class="text-decoration-none"><v-btn class="mx-1" variant="tonal" color="blue-darken-2">Find Service</v-btn></router-link>
+    <section class="text-center" @click="addTicket()">
+      <router-link to="/progress" class="text-decoration-none"><v-btn class="mx-1" variant="tonal" color="blue-darken-2">Find Service</v-btn></router-link>
     </section>
   </div>
 </template>
@@ -210,6 +210,7 @@ export default {
       currentLocation: { lat: 0, lng: 0 },
       car: { id: "", type: "", brand: "", plate: "" },
       cars: [],
+      newCar: { id: "", type: "", brand: "", plate: "" },
       selectCarModal: false,
       dialog2: false,
       type: '',

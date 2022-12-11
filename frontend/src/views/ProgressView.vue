@@ -2,8 +2,7 @@
   <div class="pa-5">
     <ProgressBar id='state' :currentState=status />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :location=location :problems=problems :currentState=status />
-
+    <ProgressDetail :shop=shop :car=car :location=shop.location :problems=problems :currentState=status />
     <v-dialog 
       v-model="dialog"
       style="width: 300px;">
@@ -51,7 +50,7 @@ export default {
       },
       car: { id: "1", type: "SUV", brand: "MG", plate: "ก2113" },
       
-      problems: []
+      problems: undefined
     };
   },
   components: {
