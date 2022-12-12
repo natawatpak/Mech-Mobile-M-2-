@@ -1,19 +1,19 @@
 <template>
-  <div class="pa-5">
+  <div class="pa-4 px-lg-16 px-xl-16 mx-lg-auto mx-xl-auto">
     <div class="text-left text-h4 my-2">Incoming order</div>
     
     <v-card-text class="pa-0 ma-0">
       <v-content class="justify-start pa-0">
-        <v-container v-for="t in tickets" :key="t.ticketID" class="pa-0" >
-          <v-card @click="getDetails(t)" width="100%" variant="tonal" v-if="show" class="text-left pa-0 my-4">
-            <v-card-title class="text-h6">
+        <v-container v-for="t in tickets" :key="t.ticketID" fluid class="pa-0" >
+          <v-card @click="getDetails(t)" width="100%" class="text-left pa-0 my-4 rounded-lg elevation-4">
+            <v-card-title class="text-h6 pa-0">
               {{t.cus.fName}} | {{t.car.plate}}
               <v-card-subtitle class="pa-0">{{t.date}}</v-card-subtitle>
             </v-card-title>
-            <v-card-text class="text-h7">
-              Car {{ t.car.type }} | {{ t.car.brand }} <br />
-              Problems {{ t.problem.length }} <br />
-              {{ t.location.distance }} km
+            <v-card-text class="text-h7 pa-0 py-2">
+              Car type and brand: {{ t.car.type }} | {{ t.car.brand }} <br />
+              Total problems: {{ t.problem.length }} <br />
+              Distance: {{ t.location.distance }} km
             </v-card-text>
           </v-card>
         </v-container>
@@ -22,14 +22,19 @@
 
     <v-dialog v-model="dialog" scrollable class="text-left pa-4">
       <v-card class="text-left pa-4">
-        <v-card-title class="text-h5"> Order details</v-card-title>
-        <v-card-text  style="height: 100%;" class="ma-0 pa-0">
-          <v-card class="text-left ma-2 pa-1" variant="outlined" style="height: 100%;">
-          <v-title class="text-h6">Customer</v-title>
-            <v-card-text class="text-h7">
-              Name:  {{(details.cus.fName+' '+details.cus.lName)}}
-            </v-card-text>
-        </v-card>
+        <v-card-title class="text-h5 text-center pa-0"> Order details</v-card-title>
+        <v-card-text  style="height: 100%;" class="ma-0 pa-2">
+          <div class="py-2">
+            <v-text class="text-h6 pa-0">Customer name</v-text>
+            <br />
+            {{details.cus.fName+' '+details.cus.lName}}
+          </div>
+          <v-divider></v-divider>
+          <div class="py-2">
+            <v-text class="text-h6 pa-0">Car detais</v-text>
+            <br />
+            Type: 
+          </div>
         <v-card class="text-left ma-2 pa-1" variant="outlined" style="height: 100%;">
           <v-title class="text-h6">Car Details</v-title>
             <v-card-text class="text-h7">
