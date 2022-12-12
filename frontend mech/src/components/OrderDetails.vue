@@ -6,7 +6,7 @@
       <v-chip color="green" text-color="white" v-if="(item.status == stage[3] || incoming.status == stage[4])">{{item.status}}</v-chip>
     </v-row>
 
-    <v-card class="text-left mb-4 pa-4" variant="tonal">
+    <v-card class="text-left mb-4 pa-4 rounded-lg elevation-4">
       <v-card-title class="text-h6 pa-0">Status</v-card-title>
       <v-timeline direction="horizontal" line-inset="12" class="pa-0" v-for="item in incoming" :key="item.id">
       <v-timeline-item size="large" v-model="items" :dot-color="item.status == stage[0] || item.status == stage[1] || item.status == stage[2] || item.status == stage[3] || item.status == stage[4] ? 'green':'white'" :icon=items[0]>
@@ -43,16 +43,16 @@
       </v-row>
     </v-card>
 
-    <v-card variant="tonal" v-for="item in incoming" :key="item.id" class="text-left mb-4 pa-4 d-flex justify-left align-center">
+    <v-card v-for="item in incoming" :key="item.id" class="text-left mb-4 pa-4 d-flex justify-left align-center rounded-lg elevation-4">
       <section>
-        <v-card-title class="text-h6 pa-0">Customer</v-card-title>
+        <v-card-title class="text-h6 pa-0">Customer name</v-card-title>
         <v-card-text class="pa-0 py-2" v-for="item in incoming" :key="item.id">
           Name:  {{(incoming[0].cus.fName+' '+incoming[0].cus.lName)}}
         </v-card-text>
       </section>
     </v-card>
 
-    <v-card class="text-left mb-4 pa-4" variant="tonal">
+    <v-card class="text-left mb-4 pa-4 rounded-lg elevation-4">
       <v-title class="text-h6 pa-0">Car Details</v-title>
         <v-card-text class="text-h7 pa-0 py-2" v-for="item in incoming" :key="item.id">
           Type: {{item.car.type}} | Brand: {{item.car.brand}}
@@ -63,7 +63,7 @@
 
     
 
-    <v-card variant="tonal" v-for="item in incoming" :key="item.id" class="text-left mb-4 pa-4 d-flex justify-left align-center">
+    <v-card v-for="item in incoming" :key="item.id" class="text-left mb-4 pa-4 d-flex justify-left align-center rounded-lg elevation-4">
       <section>
         <v-card-title class="text-h6 pa-0">Current Location</v-card-title>
         <v-card-text class="pa-0 py-2" v-for="item in incoming" :key="item.id">
@@ -74,21 +74,19 @@
       </section>
     </v-card>
 
-    <v-card class="text-left mb-4 pa-4" variant="tonal">
+    <v-card class="text-left mb-4 pa-4 rounded-lg elevation-4">
       <v-title class="text-h6 pa-0">Problems</v-title>
       <v-card-text class="text-h7">
         <p v-for="p in incoming[0].problem" :key="p">{{'- ' + p}}</p>
       </v-card-text>
     </v-card>
 
-    <v-card class="text-left mb-4 pa-4" variant="tonal">
+    <v-card class="text-left mb-4 pa-4 rounded-lg elevation-4">
       <v-title class="text-h6 pa-0">Description</v-title>
       <v-card-text class="text-h7 pa-0">
         <p>{{incoming[0].description}}</p>
       </v-card-text>
     </v-card> 
-
-    <v-btn class="mx-1" color="error" variant="tonal" @click="dialog3 = true">Cancel</v-btn>
 
     <v-dialog v-model="dialog3" width="1000" class="text-left pa-4">
       <v-card class="text-left pa-4">

@@ -1,5 +1,5 @@
 <template>
-  <v-app :style="{background: '#343A4A'}">
+  <v-app :style="{background: '#F0F1F6'}">
     <Navbar/>
     <v-main>
       <router-view></router-view>

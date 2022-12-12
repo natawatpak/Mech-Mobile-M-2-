@@ -2,36 +2,37 @@
 <template>
   <div>
     <v-card
-      variant="tonal"
       @click="locatorButtonPressed()"
-      class="text-left pa-4 d-flex justify-space-between align-center"
+      class="text-left pa-4 d-flex justify-space-between align-center rounded-lg elevation-4"
+      color="blue-darken-2"
     >
-      <section class="d-flex justify-left align-center">
-        <v-icon icon="mdi-store"></v-icon>
-        <section>
-          <v-card-title>{{shop.shopName}}</v-card-title>
-          <v-card-text>{{shop.shopAddress}}, {{shop.ratings}}</v-card-text>
-        </section>
-      </section>
-      <v-icon icon="mdi-phone" class="px-8"></v-icon>
+      <v-row class="align-center justify-space-between px-4">
+          <section class="d-flex justify-left align-center">
+            <v-icon icon="mdi-store"></v-icon>
+            <section>
+              <v-card-title>{{shop.shopName}}</v-card-title>
+              <v-card-text>{{shop.shopAddress}}, {{shop.ratings}}</v-card-text>
+            </section>
+          </section>
+        <v-icon icon="mdi-phone" class="px-8"></v-icon>
+      </v-row>
     </v-card>
+
     <v-spacer class="mt-3"></v-spacer>
     <v-divider class="my-3"></v-divider>
-    <v-card flat>
+
+    <v-card flat class="rounded-lg elevation-4">
       <v-card-title>Detail</v-card-title>
       <v-card-text>
         ({{shop.location.lat+', '+shop.location.lng}})
         <br />
-        {{car.plate+' '+car.brand}}
+        Car brand: {{car.brand}}
+        <br />
+        Car license plate: {{car.plate}}
         <br />
         <p class="d-inline" v-for="p in problems" :key="p">{{p+' '}}</p>
         <br />
       </v-card-text>
-      <div class="text-center">
-        <v-card-action>
-          <v-btn :disabled="valid" color="red" variant="tonal" @click="checkStage()">Cancel</v-btn>
-        </v-card-action>
-      </div>
     </v-card>
 
     <v-dialog v-model="dialog" width="1000" class="text-left pa-4">
@@ -131,7 +132,7 @@ export default {
       this.axios.post(this.$backendApi + "customer/create-profile",data).then((response)=>{
         console.log(response.data)
       })
-    }
+    },
   }
 };
 </script>
