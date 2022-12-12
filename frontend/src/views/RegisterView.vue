@@ -49,7 +49,7 @@ export default {
         sessionStorage.setItem("lName", response.data.lName)
         sessionStorage.setItem("tel", response.data.tel)
         sessionStorage.setItem("email", response.data.email)
-
+        this.$route.push("/")
       })
     }
   }

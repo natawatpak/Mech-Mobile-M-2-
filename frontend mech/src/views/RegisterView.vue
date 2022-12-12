@@ -52,6 +52,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           sessionStorage.setItem("shopId", response.data.shopId)
+          this.$route.push("/")
         });
     },
   },
