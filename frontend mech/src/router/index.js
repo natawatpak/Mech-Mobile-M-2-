@@ -5,7 +5,10 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    beforeEnter(){
+      return 'example'
+    },
   },
   {
     path: '/order',

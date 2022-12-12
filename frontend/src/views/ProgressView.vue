@@ -1,25 +1,9 @@
 <template>
   <div class="pa-5">
-    <ProgressBar id='state' :currentState=status />
+    {{ ticketID }}
+    <ProgressBar :currentState=status />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :location=location :problems=problems :currentState=status />
-
-    <v-dialog 
-      v-model="dialog"
-      style="width: 300px;">
-      <v-card class="py-6">
-        <v-card-text>
-          Loading, please wait ...
-          <v-progress-linear
-            indeterminate
-            color="deep-purple-accent-4"
-            rounded
-            height="6"
-            class="my-4">
-          </v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+    <ProgressDetail :shop=shop :car=car :problems=problems />
   </div>
 </template>
 
@@ -39,7 +23,6 @@ export default {
       createdTime: undefined,
       acceptedTime: undefined,
       socket: undefined,
-      dialog: true,
       shop: {
         shopID: undefined,
         shopName: "",
@@ -58,30 +41,24 @@ export default {
     ProgressBar,
     ProgressDetail
   },
-  created () {
+  mounted () {
     this.ticketID = sessionStorage.getItem("ticketID")
     console.log(this.ticketID)
     this.cusID = sessionStorage.getItem("cusID")
 
     this.getTicket()
 
-    this.socket = new WebSocket(this.$wsApi + "customer/ws/" + this.ticketID);
+    this.socket = new WebSocket("ws://127.0.0.1:3000/customer/ws/" + this.ticketID);
     console.log("Attempting Connection...");
 
     this.socket.onopen = () => {
         console.log("Successfully Connected");
         this.socket.send("Hi From the Client!")
-        this.dialog = false;
     };
 
     this.socket.addEventListener("message", (event) => {
       console.log("Message from server ", event.data);
-      if(event.data == "Accepted"){
-        this.getTicket();
-      }else{
-        this.status = event.data
-      }
-      
+      this.status = event.data
     });
     
     this.socket.onclose = event => {
@@ -92,6 +69,7 @@ export default {
     this.socket.onerror = error => {
         this.console.log("Socket Error: ", error);
     };
+    
 
   },
   methods: {
@@ -100,7 +78,7 @@ export default {
         ticketID: this.ticketID,
       });
       this.axios
-        .post(this.$backendApi + "customer/get-ticket", data)
+        .post("http://localhost:3000/customer/get-ticket", data)
         .then((response) => {
           console.log(response.data);
           this.carID = response.data.carID;
@@ -120,7 +98,7 @@ export default {
         shopID: this.shopID,
       });
       this.axios
-        .post(this.$backendApi + "customer/get-shop-profile", data)
+        .post("http://localhost:3000/customer/get-shop-profile", data)
         .then((response) => {
           this.shop = response.data;
         });
@@ -130,12 +108,11 @@ export default {
         carID: this.carID,
       });
       this.axios
-        .post(this.$backendApi + "customer/get-car", data)
+        .post("http://localhost:3000/customer/get-car", data)
         .then((response) => {
           this.car = response.data;
         });
     },
-    
   }
 };
 </script>

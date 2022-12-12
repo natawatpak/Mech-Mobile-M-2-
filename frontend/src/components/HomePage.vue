@@ -11,7 +11,9 @@
           <h4>Let us help!</h4>
         </div>
       </v-list-item>
-
+      <v-list-item>
+        cusID {{ cusID }}
+      </v-list-item>
       <v-list-item>
         <router-link to="/callmech" class="text-decoration-none">
           <v-btn color="green-lighten-1" rounded="lg" size="large">Call Mechanic!!</v-btn>
@@ -32,4 +34,14 @@
 }
 </style>
 <script>
+export default{
+  data(){
+    return{
+      cusID: "",
+    }
+  },
+  mounted() {
+    this.cusID = sessionStorage.getItem("cusID")
+  }
+}
 </script>
