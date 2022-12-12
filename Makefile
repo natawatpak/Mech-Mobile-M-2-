@@ -13,7 +13,7 @@ yarn-local-frontend:
 local-frontend-mech:
 	cd frontend\ mech;yarn serve
 
-yarn-local-frontend:
+yarn-local-frontend-mech:
 	cd frontend\ mech;yarn
 
 local-DB:

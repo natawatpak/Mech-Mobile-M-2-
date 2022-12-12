@@ -1,0 +1,34 @@
+mutation ShopConnectCreate($shopConnectInput: shopConnectCreateInput!) {
+  shopConnectCreate(input: $shopConnectInput) {
+    ...shopConnectFragment
+  }
+}
+
+mutation ShopConnectDelete($shopConnectInput: ID!) {
+  shopConnectDelete(input: $shopConnectInput) {
+    ...shopConnectFragment
+  }
+}
+
+mutation ShopConnectDeleteAll() {
+  shopConnectDeleteAll() {
+    ...shopConnectFragment
+  }
+}
+
+query ShopConnectByID($shopConnectInput: ID!) {
+  shopConnectByID(input: $shopConnectInput) {
+    ...shopConnectFragment
+  }
+}
+
+query ShopConnects() {
+  shopConnects() {
+    ...shopConnectFragment
+  }
+}
+
+fragment shopConnectFragment on shopConnect {
+  shopID
+  ConnectionID
+}

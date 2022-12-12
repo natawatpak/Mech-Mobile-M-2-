@@ -68,6 +68,16 @@ func (op *SQLop) CustomerFindByID(ctx context.Context, ID string) (*model.Custom
 	return arrModel, err
 }
 
+func (op *SQLop) CustomerFindByEmail(ctx context.Context, Email string) (*model.Customer, error) {
+	err := ValidateID(Email)
+	if err != nil {
+		return nil, err
+	}
+	arrModel := new(model.Customer)
+	err = op.db.NewSelect().Model(op.cusModel).Where("email = ?", Email).Scan(ctx, arrModel)
+	return arrModel, err
+}
+
 func (op *SQLop) CustomerList(ctx context.Context) ([]*model.Customer, error) {
 	customer := new([]*model.Customer)
 	err := op.db.NewSelect().Model(op.cusModel).Scan(ctx, customer)

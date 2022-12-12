@@ -5,3 +5,7 @@ mutation CreateTable {
 mutation DropTable {
   dropTable()
 }
+
+mutation createConnectionTable{
+  createConnectionTable()
+}
