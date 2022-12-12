@@ -4,7 +4,7 @@
     <RefreshDialog :dialog=dialog :key="dialog"/>
     <ProgressBar :currentState=status />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :problems=problems />
+    <ProgressDetail :shop=shop :car=car :problems=problems :key="shopID" />
   </div>
 </template>
 

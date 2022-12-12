@@ -38,9 +38,9 @@
           {{car.plate}}
         </div>
         <br />
-        <div class="d-inline">
+        <div class="d-inline" v-if="ps.length">
           <v-text class="font-weight-medium text-subtitle-1">Problems:</v-text> 
-          <li v-for="p in splitProblem(problems)" :key="p">{{ p }}</li>
+          <li v-for="p in ps.toString().split(',')" :key="p">{{ p }}</li>
         </div>
       </v-card-text>
     </v-card>
@@ -48,6 +48,11 @@
 </template>
 <script>
 export default {
+  data(){
+    return{
+      ps: this.problems
+    }
+  },
   props: {
     shop: {
       type: Object
@@ -62,14 +67,5 @@ export default {
       type: Array
     }
   },
-  data() {
-    return {
-    };
-  },
-  methods: {
-    splitProblem(p) {
-      return this.problem = p.split(",");
-    },
-  }
 };
 </script>
