@@ -131,6 +131,16 @@ type Shop struct {
 	Latitude  float64 `json:"latitude" bun:",notnull"`
 }
 
+type ShopConnect struct {
+	ShopID       string `json:"shopID" bun:",pk"`
+	ConnectionID string `json:"ConnectionID" bun:",pk"`
+}
+
+type ShopConnectCreateInput struct {
+	ShopID       string `json:"shopID"`
+	ConnectionID string `json:"ConnectionID"`
+}
+
 type ShopCreateInput struct {
 	ID        *string `json:"ID"`
 	Name      string  `json:"name"`
@@ -142,8 +152,8 @@ type ShopCreateInput struct {
 }
 
 type ShopService struct {
-	ShopID    string `json:"shopID"`
-	ServiceID string `json:"serviceID"`
+	ShopID    string `json:"shopID" bun:",pk"`
+	ServiceID string `json:"serviceID" bun:",pk"`
 }
 
 type ShopServiceCreateInput struct {
@@ -192,6 +202,18 @@ type TicketByShopInput struct {
 	FromTime time.Time `json:"fromTime"`
 	ToTime   time.Time `json:"toTime"`
 	Status   *string   `json:"status"`
+}
+
+type TicketConnect struct {
+	TicketID             string `json:"ticketID" bun:",pk"`
+	CustomerConnectionID string `json:"customerConnectionID" bun:",notnull,unique"`
+	ShopConnectionID     string `json:"shopConnectionID" bun:",notnull,unique"`
+}
+
+type TicketConnectCreateInput struct {
+	TicketID             string `json:"ticketID"`
+	CustomerConnectionID string `json:"customerConnectionID"`
+	ShopConnectionID     string `json:"shopConnectionID"`
 }
 
 type TicketCreateInput struct {

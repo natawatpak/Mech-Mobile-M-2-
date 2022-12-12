@@ -28,6 +28,12 @@ query CustomerByID($cusInput: ID!) {
   }
 }
 
+query CustomerByEmail($cusInput: String!) {
+  customerByEmail(input: $cusInput) {
+    ...cusFragment
+  }
+}
+
 query Customers() {
   customers() {
     ...cusFragment

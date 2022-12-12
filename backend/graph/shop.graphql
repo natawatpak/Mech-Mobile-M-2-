@@ -28,6 +28,12 @@ query ShopByID($shopInput: ID!) {
   }
 }
 
+query ShopByEmail($shopInput: String!) {
+  shopByEmail(input: $shopInput) {
+    ...shopFragment
+  }
+}
+
 query Shops() {
   shops() {
     ...shopFragment

@@ -6,6 +6,7 @@ scalar Time
 
 type Query {
   customerByID(input: ID!): customer!
+  customerByEmail(input: String!): customer!
   customers: [customer!]!
 
   carByID(input: ID!): car!
@@ -18,6 +19,7 @@ type Query {
   tickets: [ticket!]!
 
   shopByID(input: ID!): shop!
+  shopByEmail(input: String!): shop!
   shops: [shop!]!
 
   serviceByID(input: ID!): service!
@@ -34,11 +36,18 @@ type Query {
 
   ticketServiceByID(input: ticketServiceCreateInput!): ticketService
   ticketServices: [ticketService!]!
+
+  ticketConnectByID(input: ID!): ticketConnect!
+  ticketConnects: [ticketConnect!]!
+
+  shopConnectByID(input: ID!): [shopConnect!]!
+  shopConnects: [shopConnect!]!
 }
 
 type Mutation {
   dropTable: Boolean!
   createTable: Boolean!
+  createConnectionTable: Boolean!
 
   customerCreate(input: customerCreateInput!): customer!
   customerUpdateMulti(input: customerUpdateInput!): customer!
@@ -78,6 +87,15 @@ type Mutation {
   ticketServiceCreate(input: ticketServiceCreateInput!): ticketService!
   ticketServiceDelete(input: ticketServiceCreateInput!): ticketService!
   ticketServiceDeleteAll: [ticketService!]
+
+  ticketConnectCreate(input: ticketConnectCreateInput!): ticketConnect!
+  ticketConnectUpdate(input: ticketConnectCreateInput!): ticketConnect!
+  ticketConnectDelete(input: ID!): ticketConnect!
+  ticketConnectDeleteAll: [ticketConnect!]
+
+  shopConnectCreate(input: shopConnectCreateInput!): shopConnect!
+  shopConnectDelete(input: ID!): [shopConnect!]!
+  shopConnectDeleteAll: [shopConnect!]!
 }
 
 input DeleteIDInput {
@@ -304,4 +322,26 @@ type ticketService {
 input ticketServiceCreateInput {
   ticketID: ID!
   serviceID: ID!
+}
+
+type ticketConnect {
+  ticketID: ID!
+  customerConnectionID: ID!
+  shopConnectionID: ID!
+}
+
+input ticketConnectCreateInput {
+  ticketID: ID!
+  customerConnectionID: ID!
+  shopConnectionID: ID!
+}
+
+type shopConnect {
+  shopID: ID!
+  ConnectionID: ID!
+}
+
+input shopConnectCreateInput {
+  shopID: ID!
+  ConnectionID: ID!
 }
