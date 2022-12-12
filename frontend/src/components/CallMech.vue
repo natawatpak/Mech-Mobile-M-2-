@@ -266,6 +266,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           sessionStorage.setItem("ticketID", response.data.ticketID);
+        }).then(()=>{
           this.$router.push('/progress');
         });
     },

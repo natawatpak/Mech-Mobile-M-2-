@@ -1,5 +1,6 @@
 <template>
   <div class="text-center ma-4">
+    cusID {{ cusID }}
     <v-list>
       <v-list-item>
         <router-link to="/callmech" class="text-decoration-none">
@@ -18,4 +19,14 @@
 <style>
 </style>
 <script>
+export default{
+  data(){
+    return{
+      cusID: "",
+    }
+  },
+  mounted() {
+    this.cusID = sessionStorage.getItem("cusID")
+  }
+}
 </script>

@@ -73,7 +73,7 @@ export default {
       this.axios
         .post(this.$backendApi + "shop/update-ticket", data)
         .then((response) => {
-          console.log(response.data);
+          console.log(response);
           this.ticket.status = response.data.status
         })
     },

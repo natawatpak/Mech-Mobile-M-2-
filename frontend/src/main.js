@@ -10,11 +10,12 @@ import VueGoogleMaps from '@fawmi/vue-google-maps'
 
 loadFonts()
 
-let app = createApp(App).use(router)
+let app = createApp(App)
 app.config.globalProperties.$backendApi = 'http://localhost:3000/'
 app.config.globalProperties.$wsApi = 'ws://localhost:3000/'
-app.use(vuetify)
-  .use(VueAxios, axios)
+app.use(VueAxios, axios)
+  .use(router)
+  .use(vuetify)
   .use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyBzVgz4sJ1dYzVOOybCqLRV1p7sX34HuuQ',

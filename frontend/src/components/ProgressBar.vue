@@ -23,15 +23,18 @@
         <v-card variant="outlined" class="text-left ma-2 pa-1">
           <section>
             <v-card-title>Shop name: {{shop.name}}</v-card-title>
-            <v-card-text>
-              {{shop.address}} | {{shop.ratings}} rating
-              <br />
-              Complete stage: {{complete}}
-            </v-card-text>
+            <v-card-text>{{shop.address}}, {{shop.ratings}}</v-card-text>
           </section>
+          <div class="text-center">
+            <v-rating
+              v-model="rating"
+              clearable
+            ></v-rating>
+          </div>
         </v-card>
         <v-row justify="end" class="pa-4">
-          <v-btn class="mx-1 " variant="tonal" color="blue" @click="dialog=false">Ok</v-btn>
+          <v-btn class="mx-1 " variant="tonal" color="error" @click="dialog=false">Cancel</v-btn>
+          <v-btn class="mx-1 " variant="tonal" color="blue" @click="dialog=false">Submit</v-btn>
         </v-row>
       </v-card>
     </v-dialog>
@@ -48,7 +51,6 @@ export default {
     return {
       dialog: true,
       rating: 0,
-      complete: 'All fixed!',
       items: ['mdi-thumb-up', 'mdi-car', 'mdi-wrench', 'mdi-check'],
       shop: {
         name: "A",

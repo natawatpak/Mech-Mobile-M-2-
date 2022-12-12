@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ shopID }}
     <v-card v-for="t in tickets" :key="t.ticketID">
       <v-card-title>
         {{ t.ticketID }}
@@ -19,10 +20,13 @@ export default {
   data() {
     return {
       tickets: [],
+      shopID: "",
     };
   },
   mounted() {
     this.getActiveTicket();
+    console.log(sessionStorage.getItem("shopID"))
+    this.shopID = sessionStorage.getItem("shopID")
     this.socket = new WebSocket(this.$wsApi + "shop/ws/active-ticket");
     console.log("Attempting Connection...");
 

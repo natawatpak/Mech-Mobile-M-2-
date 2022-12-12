@@ -50,9 +50,9 @@ export default {
       this.axios
         .post(this.$backendApi + "shop/create-profile", data)
         .then((response) => {
-          console.log(response.data);
-          sessionStorage.setItem("shopId", response.data.shopId)
-          this.$route.push("/")
+          console.log(response.data.shopID);
+          sessionStorage.setItem("shopID", response.data.shopID)
+          this.$router.push("/")
         });
     },
   },
