@@ -44,6 +44,7 @@ export default {
       })
       this.axios.post(this.$backendApi + "customer/create-profile",data).then((response)=>{
         console.log(response.data)
+        sessionStorage.setItem("cusID", response.data.ID)
       })
     }
   }
