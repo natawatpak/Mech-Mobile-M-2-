@@ -8,15 +8,15 @@
       />
       <v-text-field
         v-model="lName"
-        placeholder="please input your first name"
+        placeholder="please input your last name"
       />
       <v-text-field
         v-model="tel"
-        placeholder="please input your first name"
+        placeholder="please input your telephone no."
       />
       <v-text-field
         v-model="email"
-        placeholder="please input your first name"
+        placeholder="please input your email"
       />
 
       <v-btn @click="submitForm()" >submit</v-btn>
