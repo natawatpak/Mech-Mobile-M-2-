@@ -1,6 +1,7 @@
 <template>
   <div class="pa-5">
     {{ ticketID }}
+    <RefreshDialog :dialog=dialog :key="dialog"/>
     <ProgressBar :currentState=status />
     <v-spacer class="my-5"></v-spacer>
     <ProgressDetail :shop=shop :car=car :problems=problems />
@@ -11,6 +12,7 @@
 // @ is an alias to /src
 import ProgressBar from "@/components/ProgressBar.vue";
 import ProgressDetail from "@/components/ProgressDetail.vue";
+import RefreshDialog from "@/components/RefreshDialog";
 
 export default {
   data() {
@@ -23,6 +25,7 @@ export default {
       createdTime: undefined,
       acceptedTime: undefined,
       socket: undefined,
+      dialog: false,
       shop: {
         shopID: undefined,
         shopName: "",
@@ -39,7 +42,8 @@ export default {
   },
   components: {
     ProgressBar,
-    ProgressDetail
+    ProgressDetail,
+    RefreshDialog
   },
   mounted () {
     this.ticketID = sessionStorage.getItem("ticketID")
@@ -62,15 +66,16 @@ export default {
     });
     
     this.socket.onclose = event => {
+        this.dialog = true
         console.log("Socket Closed Connection: ", event);
         this.socket.send("Client Closed!")
+        
     };
 
     this.socket.onerror = error => {
+        this.dialog = true
         this.console.log("Socket Error: ", error);
     };
-    
-
   },
   methods: {
     getTicket(){
