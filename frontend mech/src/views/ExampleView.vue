@@ -1,7 +1,19 @@
 <template>
-  <div>
-    <v-dialog>dialog-transition</v-dialog>
+  <div class="pa-4 px-lg-16 px-xl-16 mx-lg-auto mx-xl-auto">
+    <div class="text-left text-h4 my-2">Incoming order</div>
     {{ shopID }}
+    <v-card-text class="pa-0 ma-0">
+      <v-content class="justify-start pa-0">
+        <v-container v-for="t in tickets" :key="t.ticketID" class="pa-0">
+          <v-card width="100%" class="text-left pa-4 rounded-lg elevation-4">
+            <v-card-title class="text-h6 pa-0">
+              {{t.cus.fName}} | {{t.car.plate}}
+              <v-card-subtitle class="pa-0">{{t.date}}</v-card-subtitle>
+            </v-card-title>
+          </v-card>
+        </v-container>
+      </v-content>
+    </v-card-text>
     <v-card v-for="t in tickets" :key="t.ticketID">
       <v-card-title>
         {{ t.ticketID }}
