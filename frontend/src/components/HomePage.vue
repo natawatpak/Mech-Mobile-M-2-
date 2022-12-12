@@ -1,6 +1,17 @@
 <template>
   <div class="text-center ma-4">
-    <v-list>
+    <v-list class="herosection justify-center">
+      <div class="d-flex justify-center ma-4">
+        <v-img :aspect-ratio="16/9" :max-width="200" src="@/assets/car-repair.png" class="img-fluid"></v-img>
+      </div>
+      <v-list-item class="justify-center">
+        <div class="ma-4 text-center"> 
+          <h2>Mech Mobile</h2>
+          <h4>Are you facing some car problems?</h4>
+          <h4>Let us help!</h4>
+        </div>
+      </v-list-item>
+      
       <v-list-item>
         <router-link to="/callmech" class="text-decoration-none">
           <v-btn variant="tonal" color="green" size="large">Call Mechanic!!</v-btn>
@@ -16,6 +27,9 @@
 </template>
 
 <style>
+.herosection {
+  background-color: transparent;
+}
 </style>
 <script>
 </script>

@@ -2,8 +2,7 @@
   <div class="pa-5">
     <ProgressBar id='state' :currentState=status />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :location=location :problems=problems :currentState=status />
-
+    <ProgressDetail :shop=shop :car=car :location=shop.location :problems=problems :currentState=status />
     <v-dialog 
       v-model="dialog"
       style="width: 300px;">
@@ -12,7 +11,7 @@
           Loading, please wait ...
           <v-progress-linear
             indeterminate
-            color="deep-purple-accent-4"
+            color="blue-darken-1"
             rounded
             height="6"
             class="my-4">
@@ -51,7 +50,7 @@ export default {
       },
       car: { id: "1", type: "SUV", brand: "MG", plate: "ก2113" },
       
-      problems: []
+      problems: undefined
     };
   },
   components: {
@@ -65,8 +64,7 @@ export default {
 
     this.getTicket()
 
-    //this.socket = new WebSocket(this.$wsApi + "customer/ws/" + this.ticketID);
-    this.socket = new WebSocket(this.$wsApi);
+    this.socket = new WebSocket("wss://7c2mohris1.execute-api.us-east-1.amazonaws.com/production?ticketID=" + this.ticketID);
 
     console.log("Attempting Connection...");
 

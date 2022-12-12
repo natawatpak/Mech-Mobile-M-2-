@@ -32,6 +32,16 @@ const routes = [
     name: 'history',
     component: () => import('../views/HistoryView.vue')
   },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/RegisterView.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'error404',
+    component: () => import('../views/Error404View.vue')
+  }
 ]
 
 const router = createRouter({

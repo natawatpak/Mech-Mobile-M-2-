@@ -25,9 +25,9 @@ func main() {
 		http.Error(w, fmt.Sprintf("Not found: %s", r.RequestURI), http.StatusNotFound)
 	})
 	
-	r.HandleFunc("/customer/ws/{ticketID}", controller.CustomerWs)
-	r.HandleFunc("/shop/ws/active-ticket", controller.ShopActiveTicketWs)
-	r.HandleFunc("/shop/ws/{ticketID}", controller.ShopWs)
+	// r.HandleFunc("/customer/ws/{ticketID}", controller.CustomerWs)
+	// r.HandleFunc("/shop/ws/active-ticket", controller.ShopActiveTicketWs)
+	// r.HandleFunc("/shop/ws/{ticketID}", controller.ShopWs)
 	
 	r.HandleFunc("/customer/create-profile", controller.CustomerCreateProfile)
 	r.HandleFunc("/customer/update-profile", controller.CustomerUpdateProfile)
@@ -53,6 +53,7 @@ func main() {
 	r.HandleFunc("/shop/get-today-completed-ticket", controller.ShopGetTodayCompletedTicket)
 	r.HandleFunc("/shop/create-profile", controller.ShopCreateProfile)
 	r.HandleFunc("/shop/update-profile", controller.ShopUpdateProfile)
+	r.HandleFunc("/shop/get-profile", controller.ShopGetProfile)
 	r.HandleFunc("/shop/get-customer-profile", controller.ShopGetCustomerProfile)
 
 	if runtime_api, _ := os.LookupEnv("AWS_LAMBDA_RUNTIME_API"); runtime_api != "" {

@@ -6,7 +6,6 @@
     <v-btn @click="updateTicketStatus('Processing')">Processing</v-btn>
     <v-btn @click="updateTicketStatus('Finish:Garage')">Finish:Garage</v-btn>
     <v-btn @click="updateTicketStatus('Finish:Completed')">Finish:Completed</v-btn>
-
   </div>
 </template>
 
