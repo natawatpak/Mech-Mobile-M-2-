@@ -18,7 +18,7 @@
     <!-- <div v-if="tickets.length > 0"> -->
     <v-card-text class="pa-0 ma-0">
       <v-content class="justify-start pa-0">
-        <v-container v-for="t in tickets" :key="t.ticketID" class="pa-0">
+        <v-container v-for="t in tickets" :key="t.ticketID" fluid class="pa-0">
           <v-card
             @click="getDetails(t)"
             width="100%"

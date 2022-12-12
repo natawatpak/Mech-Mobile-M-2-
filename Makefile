@@ -5,13 +5,13 @@ local-graphql:
 	go run backend/server.go
 
 local-frontend:
-	cd frontend;yarn serve
+	cd frontend;yarn && yarn serve
 
 yarn-local-frontend:
 	cd frontend;yarn
 
 local-frontend-mech:
-	cd frontend\ mech;yarn serve
+	cd frontend\ mech;yarn && yarn serve
 
 yarn-local-frontend-mech:
 	cd frontend\ mech;yarn
