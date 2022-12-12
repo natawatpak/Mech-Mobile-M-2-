@@ -1,12 +1,11 @@
 <template>
+  {{ ticket }}
   <div>
-    {{ ticket }}
     <v-divider></v-divider>
     <v-btn @click="updateTicketStatus('On the way')">On the way</v-btn>
     <v-btn @click="updateTicketStatus('Processing')">Processing</v-btn>
     <v-btn @click="updateTicketStatus('Finish:Garage')">Finish:Garage</v-btn>
     <v-btn @click="updateTicketStatus('Finish:Completed')">Finish:Completed</v-btn>
-
   </div>
 </template>
 
@@ -53,6 +52,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.ticket = response.data;
+          Object.keys(response.data).forEach((prop)=> console.log(prop));
         });
     },
     updateTicketStatus(status){
@@ -65,9 +65,9 @@ export default {
         problem: this.ticket.problem,
         shopID: sessionStorage.getItem("shopID"),
         status: status,
-        // lat:
-        // lng:
-        // description:
+        lat: this.ticket.location.lat,
+        lng: this.ticket.location.lng,
+        description: this.ticket.description
       });
 
       this.axios
