@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" style="width: 400px;">
+    <v-dialog v-model="d" style="width: 400px;">
     <v-card class="justify-center">
       <v-card-title class="pa-4">Connection error</v-card-title>
       <div class="d-flex justify-center align-row ma-4">
@@ -13,15 +13,20 @@
 
 <script>
 export default {
-  data() {
-    return {
-      dialog: true
+  data(){
+    return{
+      d: this.dialog
     }
+  },
+  props: {
+    dialog: {
+      type: Boolean
+    },
   },
   methods: {
         reloadPage(){
           window.location.reload()
-          this.dialog = false;
+          this.d = false
         }
       },
 };  
