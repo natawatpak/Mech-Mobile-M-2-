@@ -40,6 +40,7 @@ const routes = [
     name: 'home',
     component: HomeView,
     beforeEnter: () => {
+      if(!sessionStorage.getItem('auth')){return 'register'}
       if(sessionStorage.getItem('ticketID') && checkTicket(sessionStorage.getItem('ticketID'))){return 'progress'}
       return true
     },
@@ -57,6 +58,7 @@ const routes = [
     name: 'callmech',
     component: () => import('../views/CallMechView.vue'),
     beforeEnter: () => {
+      if(!sessionStorage.getItem('auth')){return 'register'}
       if(sessionStorage.getItem('cusID')){return true}
       if(sessionStorage.getItem('ticketID')&& checkTicket(sessionStorage.getItem('ticketID'))){return 'progress'}
       return true
@@ -72,6 +74,7 @@ const routes = [
     name: 'progress',
     component: () => import('../views/ProgressView.vue'),
     beforeEnter: () => {
+      if(!sessionStorage.getItem('auth')){return 'register'}
       if(sessionStorage.getItem('ticketID') && checkTicket(sessionStorage.getItem('ticketID'))){return true}
       if(sessionStorage.getItem('cusID')){return 'callmech'}
       return true

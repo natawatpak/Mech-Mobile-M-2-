@@ -44,6 +44,7 @@ export default {
       })
       this.axios.post(this.$backendApi + "customer/create-profile",data).then((response)=>{
         console.log(response.data)
+        sessionStorage.setItem("auth", true)
         sessionStorage.setItem("cusID", response.data.ID)
         sessionStorage.setItem("fName", response.data.fName)
         sessionStorage.setItem("lName", response.data.lName)

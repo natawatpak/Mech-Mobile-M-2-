@@ -61,7 +61,11 @@ func CustomerWs(w http.ResponseWriter, r *http.Request) {
 	fmt.Print("ticket_id: ")
 	fmt.Println(vars["ticketID"]);
 
-	WsTickets[vars["ticketID"]] = newWsTicket(vars["ticketID"], conn)
+	if WsTickets[vars["ticketID"]] == nil {
+		WsTickets[vars["ticketID"]] = newWsTicket(vars["ticketID"], conn)
+	}else{
+		WsTickets[vars["ticketID"]].Customer_conn = conn
+	}
 	// go WsTickets[r.FormValue("ticket_id")].readPump()
 }
 
