@@ -5,7 +5,7 @@
     <v-card-text class="pa-0 ma-0">
           <v-content class="justify-start pa-0">
             <v-container v-for="item in incoming" :key="item.id" class="pa-0" >
-              <v-card @click="dialog=true" width="100%" variant="tonal" class="text-left pa-0 my-4">
+              <v-card @click="dialog=true" width="100%" class="text-left pa-0 my-4 rounded-lg elevation-4">
                 <v-row class="px-4 pt-4 d-flex justify-space-between align-center">
                   <v-card-title class="text-h6">
                     {{item.cus.fName}} | {{item.car.plate}}
@@ -16,7 +16,7 @@
                 <v-card-text class="text-h7">
                   Car {{ item.car.type }} | {{ item.car.brand }} <br />
                   Total problems: {{ item.problem.length }} <br />
-                  {{ item.location.distance }} km
+                  Distance: {{ item.location.distance }} km
                 </v-card-text>
               </v-card>
             </v-container>

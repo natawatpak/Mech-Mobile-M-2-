@@ -21,17 +21,27 @@
     <v-divider class="my-3"></v-divider>
     <v-card flat class="rounded-lg elevation-4">
       <v-card-title>Detail</v-card-title>
+      <v-divider></v-divider>
       <v-card-text>
-        Location: {{shop.location.lat+', '+shop.location.lng}}
+        <div class="d-inline">
+          <v-text class="font-weight-medium text-subtitle-1">Location:</v-text> 
+          {{shop.location.lat+', '+shop.location.lng}}
+        </div>
         <br />
-        Car brand: {{car.brand}}
+        <div class="d-inline">
+          <v-text class="font-weight-medium text-subtitle-1">Car brand:</v-text> 
+          {{car.brand}}
+        </div>
         <br />
-        Car license plate: {{car.plate}}
+        <div class="d-inline">
+          <v-text class="font-weight-medium text-subtitle-1">Car license plate:</v-text> 
+          {{car.plate}}
+        </div>
         <br />
-        Problems
-        <br />
-        <p v-for="p in problems" :key="p">{{'- '+ p}}</p>
-        <br />
+        <div class="d-inline">
+          <v-text class="font-weight-medium text-subtitle-1">Problems:</v-text> 
+          <li v-for="p in splitProblem(problems)" :key="p">{{ p }}</li>
+        </div>
       </v-card-text>
     </v-card>
   </div>
@@ -53,7 +63,13 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+    };
+  },
+  methods: {
+    splitProblem(p) {
+      return this.problem = p.split(",");
+    },
   }
 };
 </script>

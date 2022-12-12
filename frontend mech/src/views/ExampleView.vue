@@ -71,7 +71,7 @@
           <v-divider></v-divider>
           <div class="py-2">
             <v-text class="text-h6 pa-0">Problems</v-text>
-            <br />
+            <br /> 
             <li v-for="p in splitProblem(details.problem)" :key="p">{{ p }}</li>
           </div>
           <v-divider></v-divider>
