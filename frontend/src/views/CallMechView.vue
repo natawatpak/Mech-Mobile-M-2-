@@ -7,11 +7,10 @@
 <script>
 // @ is an alias to /src
 import CallMech from '@/components/CallMech.vue'
-
 export default {
   name: 'CallMechView',
   components: {
-    CallMech
+    CallMech,
   }
 }
 </script>

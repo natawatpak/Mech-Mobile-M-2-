@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-dialog>dialog-transition</v-dialog>
     {{ shopID }}
     <v-card v-for="t in tickets" :key="t.ticketID">
       <v-card-title>
@@ -12,16 +13,23 @@
         <v-btn flat @click="acceptTicket(t)">accept</v-btn>
       </v-card-actions>
     </v-card>
+    <RefreshDialog :dialog=dialog :key="dialog"/>
   </div>
 </template>
 
 <script>
+import RefreshDialog from '@/components/RefreshDialog.vue';
+
 export default {
   data() {
     return {
       tickets: [],
       shopID: "",
+      dialog: true,
     };
+  },
+  components(){
+    RefreshDialog
   },
   mounted() {
     this.getActiveTicket();
@@ -43,10 +51,12 @@ export default {
     this.socket.onclose = (event) => {
       console.log("Socket Closed Connection: ", event);
       this.socket.send("Client Closed!");
+      this.dialog = true
     };
 
     this.socket.onerror = (error) => {
       this.console.log("Socket Error: ", error);
+      this.dialog = true
     };
   },
   methods: {
