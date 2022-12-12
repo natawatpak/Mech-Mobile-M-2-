@@ -4,16 +4,20 @@
     <v-card-text class="pa-0 ma-0">
       <v-content class="justify-start pa-0">
         <v-container v-for="t in tickets" :key="t.ticketID" class="pa-0">
-          <v-card @click="getDetails(t)" width="100%" class="text-left pa-4 rounded-lg elevation-4">
+          <v-card
+            @click="getDetails(t)"
+            width="100%"
+            class="text-left pa-4 rounded-lg elevation-4"
+          >
             <v-card-title class="text-h6 pa-0">
-              {{t.cus.fName}} | {{t.car.plate}}
+              {{ t.cus.fName }} | {{ t.car.plate }}
             </v-card-title>
             <v-card-text class="text-subtitle-2 pa-0 py-2">
-              Car type: {{t.car.type}}
+              Car type: {{ t.car.type }}
               <br />
-              Car brand: {{t.car.brand}}
+              Car brand: {{ t.car.brand }}
               <br />
-              Total problems: {{splitProblem(t.problem).length}}
+              Total problems: {{ splitProblem(t.problem).length }}
             </v-card-text>
           </v-card>
         </v-container>
@@ -22,51 +26,64 @@
 
     <v-dialog v-model="dialog" scrollable class="text-left pa-4">
       <v-card class="text-left pa-4">
-        <v-card-title class="text-h5 text-center pa-0">Order details</v-card-title>
-        <v-card-text style="height: 100%;" class="ma-0 pa-0">
+        <v-card-title class="text-h5 text-center pa-0"
+          >Order details</v-card-title
+        >
+        <v-card-text style="height: 100%" class="ma-0 pa-0">
           <div class="py-2">
             <v-text class="text-h6 pa-0">Customer name</v-text>
-            <br>
-            {{(details.cus.fName+' '+details.cus.lName)}}
+            <br />
+            {{ details.cus.fName + " " + details.cus.lName }}
           </div>
           <v-divider></v-divider>
           <div class="py-2">
             <v-text class="text-h6 pa-0">Car details</v-text>
-            <br>
-            Type: {{details.car.type}}
-            <br>
-            Brand: {{details.car.brand}}
-            <br>
-            License plate: {{details.car.plate}}
+            <br />
+            Type: {{ details.car.type }}
+            <br />
+            Brand: {{ details.car.brand }}
+            <br />
+            License plate: {{ details.car.plate }}
           </div>
           <v-divider></v-divider>
           <div class="py-2">
             <v-text class="text-h6 pa-0">Location</v-text>
-            <br>
-            Latitude: {{details.location.lat}}
-            <br>
-            Longtitude: {{details.location.lng}}
+            <br />
+            Latitude: {{ details.location.lat }}
+            <br />
+            Longtitude: {{ details.location.lng }}
           </div>
           <v-divider></v-divider>
           <div class="py-2">
             <v-text class="text-h6 pa-0">Problems</v-text>
-            <br>
-            <li v-for="p in splitProblem(details.problem)" :key="p">{{p}}</li>
+            <br />
+            <li v-for="p in splitProblem(details.problem)" :key="p">{{ p }}</li>
           </div>
           <v-divider></v-divider>
           <div class="py-2">
             <v-text class="text-h6 pa-0">Description</v-text>
-            <br>
-            {{details.description}}
+            <br />
+            {{ details.description }}
           </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-row class="justify-end pt-2">
           <v-card-action class="py-4 justify-end">
-            <v-btn @click="dialog=false" class="mx-1" variant="tonal" color="error">
+            <v-btn
+              @click="dialog = false"
+              class="mx-1"
+              variant="tonal"
+              color="error"
+            >
               Decline
             </v-btn>
-            <v-btn flat @click="acceptTicket(t)" class="mx-1" color="blue" variant="tonal">
+            <v-btn
+              flat
+              @click="acceptTicket(details)"
+              class="mx-1"
+              color="blue"
+              variant="tonal"
+            >
               Accept
             </v-btn>
           </v-card-action>
@@ -77,7 +94,7 @@
 </template>
 
 <script>
-import RefreshDialog from '@/components/RefreshDialog.vue';
+import RefreshDialog from "@/components/RefreshDialog.vue";
 
 export default {
   data() {
@@ -86,16 +103,16 @@ export default {
       shopID: "",
       problems: [],
       dialog: false,
-      details: []
+      details: [],
     };
   },
-  components(){
-    RefreshDialog
+  components() {
+    RefreshDialog;
   },
   mounted() {
     this.getActiveTicket();
-    console.log(sessionStorage.getItem("shopID"))
-    this.shopID = sessionStorage.getItem("shopID")
+    console.log(sessionStorage.getItem("shopID"));
+    this.shopID = sessionStorage.getItem("shopID");
     this.socket = new WebSocket(this.$wsApi + "shop/ws/active-ticket");
     console.log("Attempting Connection...");
 
@@ -112,21 +129,21 @@ export default {
     this.socket.onclose = (event) => {
       console.log("Socket Closed Connection: ", event);
       this.socket.send("Client Closed!");
-      this.dialog = true
+      this.dialog = true;
     };
 
     this.socket.onerror = (error) => {
       this.console.log("Socket Error: ", error);
-      this.dialog = true
+      this.dialog = true;
     };
   },
   methods: {
     splitProblem(p) {
-      return this.problems = p.split(",")
+      return (this.problems = p.split(","));
     },
     getDetails(t) {
       this.details = t;
-      console.log(this.details)
+      console.log(this.details);
       this.dialog = true;
     },
     getActiveTicket() {
@@ -155,7 +172,7 @@ export default {
         .post(this.$backendApi + "shop/accept-ticket", data)
         .then((response) => {
           console.log(response.data);
-          this.$router.push("/example2")
+          this.$router.push("/example2");
         });
     },
   },
