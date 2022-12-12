@@ -33,10 +33,10 @@
           full-width 
           single-line 
           variant="outlined"
-          label="Last name" 
+          label="Telephone number" 
           color="blue-darken-3" 
           prepend-inner-icon="mdi-phone-outline"
-          placeholder="Last name"
+          placeholder="Telephone number"
         />
         <v-text-field 
           v-model="email" 
@@ -44,10 +44,10 @@
           full-width 
           single-line 
           variant="outlined"
-          label="Last name" 
+          label="Email" 
           color="blue-darken-3" 
           prepend-inner-icon="mdi-email-outline"
-          placeholder="Last name"
+          placeholder="Email"
         />
         <v-btn @click="submitForm()" color="blue-darken-2" block size="large" >Sign up</v-btn>
       </v-form>
