@@ -221,29 +221,27 @@ export default {
     };
   },
   mounted() {
-    this.getTicket(sessionStorage.getItem("ticketID"))
-
-    this.socket = new WebSocket(this.$wsApi + "shop/ws/"+sessionStorage.getItem("ticketID"));
+    this.getTicket(sessionStorage.getItem("ticketID"));
+    this.socket = new WebSocket(
+      this.$wsApi + "shop/ws/" + sessionStorage.getItem("ticketID")
+    );
     console.log("Attempting Connection...");
-
     this.socket.onopen = () => {
       console.log("Successfully Connected");
       this.socket.send("Accepted");
     };
-
     this.socket.addEventListener("message", (event) => {
       console.log("Message from server ", event.data);
     });
-
     this.socket.onclose = (event) => {
       console.log("Socket Closed Connection: ", event);
       this.socket.send("Client Closed!");
+      this.dialog = true
     };
-
     this.socket.onerror = (error) => {
       this.console.log("Socket Error: ", error);
+      this.dialog = true
     };
-
   },
   methods: {
     splitProblem(p) {
@@ -292,18 +290,16 @@ export default {
       const data = new URLSearchParams({
         ticketID: id,
       });
-
       this.axios
-        .post(this.$backendApi + "shop/get-ticket",data)
+        .post(this.$backendApi + "shop/get-ticket", data)
         .then((response) => {
           console.log(response.data);
           this.ticket = response.data;
-          Object.keys(response.data).forEach((prop)=> console.log(prop));
+          Object.keys(response.data).forEach((prop) => console.log(prop));
         });
     },
-    updateTicketStatus(status){
+    updateTicketStatus(status) {
       this.socket.send(status);
-
       const data = new URLSearchParams({
         ticketID: this.ticket.ticketID,
         cusID: this.ticket.cus.cusID,
@@ -313,15 +309,18 @@ export default {
         status: status,
         lat: this.ticket.location.lat,
         lng: this.ticket.location.lng,
-        description: this.ticket.description
+        description: this.ticket.description,
       });
-
       this.axios
         .post(this.$backendApi + "shop/update-ticket", data)
         .then((response) => {
           console.log(response);
-          this.ticket.status = response.data.status
-        })
+          this.ticket.status = response.data.status;
+        });
+    },
+    reloadPage() {
+      window.location.reload();
+      this.dialog = false;
     },
   },
 };

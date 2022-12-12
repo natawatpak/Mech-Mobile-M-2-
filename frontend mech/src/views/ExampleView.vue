@@ -14,7 +14,8 @@
 
    
     <div class="text-left text-h4 my-2">Incoming order</div> 
-    <div v-if="tickets.length > 0">
+
+    <!-- <div v-if="tickets.length > 0"> -->
     <v-card-text class="pa-0 ma-0">
       <v-content class="justify-start pa-0">
         <v-container v-for="t in tickets" :key="t.ticketID" class="pa-0">
@@ -104,12 +105,11 @@
         </v-row>
       </v-card>
     </v-dialog>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
-import RefreshDialog from "@/components/RefreshDialog.vue";
 
 export default {
   data() {
@@ -120,9 +120,6 @@ export default {
       dialog: false,
       details: [],
     };
-  },
-  components() {
-    RefreshDialog
   },
   mounted() {
     this.getActiveTicket();
@@ -192,7 +189,7 @@ export default {
     reloadPage(){
           window.location.reload()
           this.dialog = false
-    }
+    },
   },
 };
 </script>
