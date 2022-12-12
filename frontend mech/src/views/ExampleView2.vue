@@ -1,6 +1,6 @@
 <template>
-  {{ ticket }}
-  <div>
+  <div> 
+    {{ ticket }}
     <v-divider></v-divider>
     <v-btn @click="updateTicketStatus('On the way')">On the way</v-btn>
     <v-btn @click="updateTicketStatus('Processing')">Processing</v-btn>
