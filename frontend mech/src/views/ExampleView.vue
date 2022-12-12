@@ -1,6 +1,20 @@
 <template>
   <div class="pa-4 px-lg-16 px-xl-16 mx-lg-auto mx-xl-auto">
-    <div class="text-left text-h4 my-2">Incoming order</div>
+
+    <v-dialog v-model="dialog" style="width: 400px;">
+    <v-card class="justify-center">
+      <v-card-title class="pa-4">Connection error</v-card-title>
+      <div class="d-flex justify-center align-row ma-4">
+        <v-img :aspect-ratio="16/9" :max-width="200" src="@/assets/connection-error.png" class="img-fluid"></v-img>
+      </div>
+      <v-card-text class="pb-2">Please click refresh to reload the page.</v-card-text>
+      <v-btn @click="reloadPage()" variant="tonal" color="blue">Refresh</v-btn>
+    </v-card>
+  </v-dialog>
+
+   
+    <div class="text-left text-h4 my-2">Incoming order</div> 
+    <div v-if="tickets.length > 0">
     <v-card-text class="pa-0 ma-0">
       <v-content class="justify-start pa-0">
         <v-container v-for="t in tickets" :key="t.ticketID" class="pa-0">
@@ -90,6 +104,7 @@
         </v-row>
       </v-card>
     </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -107,7 +122,7 @@ export default {
     };
   },
   components() {
-    RefreshDialog;
+    RefreshDialog
   },
   mounted() {
     this.getActiveTicket();
@@ -157,7 +172,6 @@ export default {
 
     acceptTicket(ticket) {
       sessionStorage.setItem("ticketID", ticket.ticketID);
-
       const data = new URLSearchParams({
         ticketID: ticket.ticketID,
         cusID: ticket.cus.cusID,
@@ -175,6 +189,10 @@ export default {
           this.$router.push("/example2");
         });
     },
+    reloadPage(){
+          window.location.reload()
+          this.dialog = false
+    }
   },
 };
 </script>

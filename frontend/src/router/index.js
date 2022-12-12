@@ -83,7 +83,10 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: () => import('../views/RegisterView.vue')
+    component: () => import('../views/RegisterView.vue'),
+    beforeEnter(){
+      if(sessionStorage.getItem('auth')){return '/'}
+    }
   },
   {
     path: '/:pathMatch(.*)*',
