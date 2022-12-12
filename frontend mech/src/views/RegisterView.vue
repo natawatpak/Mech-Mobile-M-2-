@@ -51,6 +51,7 @@ export default {
         .post(this.$backendApi + "shop/create-profile", data)
         .then((response) => {
           console.log(response.data.shopID);
+          sessionStorage.setItem("auth", true)
           sessionStorage.setItem("shopID", response.data.shopID)
           this.$router.push("/")
         });

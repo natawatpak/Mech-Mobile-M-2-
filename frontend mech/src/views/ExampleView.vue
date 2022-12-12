@@ -77,6 +77,8 @@
 </template>
 
 <script>
+import RefreshDialog from '@/components/RefreshDialog.vue';
+
 export default {
   data() {
     return {
@@ -86,6 +88,9 @@ export default {
       dialog: false,
       details: []
     };
+  },
+  components(){
+    RefreshDialog
   },
   mounted() {
     this.getActiveTicket();
@@ -107,10 +112,12 @@ export default {
     this.socket.onclose = (event) => {
       console.log("Socket Closed Connection: ", event);
       this.socket.send("Client Closed!");
+      this.dialog = true
     };
 
     this.socket.onerror = (error) => {
       this.console.log("Socket Error: ", error);
+      this.dialog = true
     };
   },
   methods: {

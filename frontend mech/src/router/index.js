@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/order',
     name: 'order',
-    component: () => import('../views/OrderView.vue')
+    component: () => import('../views/OrderView.vue'),
   },
   {
     path: '/details',
@@ -23,12 +23,18 @@ const routes = [
   {
     path: '/example',
     name: 'examples',
-    component: () => import('../views/ExampleView.vue')
+    component: () => import('../views/ExampleView.vue'),
+    beforeEnter(){
+      if(!sessionStorage.getItem('auth')){return 'register'}
+    },
   },
   {
     path: '/example2',
     name: 'examples2',
-    component: () => import('../views/ExampleView2.vue')
+    component: () => import('../views/ExampleView2.vue'),
+    beforeEnter(){
+      if(!sessionStorage.getItem('auth')){return 'register'}
+    },
   },
   {
     path: '/history',
@@ -40,6 +46,11 @@ const routes = [
     name: 'register',
     component: () => import('../views/RegisterView.vue')
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'error404',
+    component: () => import('../views/Error404View.vue')
+  }
 ]
 
 const router = createRouter({
