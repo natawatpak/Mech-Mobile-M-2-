@@ -11,13 +11,13 @@ function checkActiveTicket(id){
   return axios
     .post(backendApi + "customer/get-active-ticket", data)
     .then((response) => {
-      console.log(response.data === null)
-      if (response.data === null){
-        return false
+      if (response.data.ticketID){
+        sessionStorage.setItem("ticketID", response.data.ticketID)
+        return true
       }
-      console.log(response.data.ticketID)
-      sessionStorage.setItem("ticketID", response.data.ticketID)
-      return true
+    })
+    .catch(()=>{
+      return false
     })
 
 }
@@ -29,9 +29,14 @@ const routes = [
     component: HomeView,
     beforeEnter: () => {
       if(!sessionStorage.getItem('auth')){return 'register'}
-      console.log(checkActiveTicket(sessionStorage.getItem('cusID')))
-      if(checkActiveTicket(sessionStorage.getItem('cusID'))){return 'progress'}
-      return true
+      console.log("entering")
+      return checkActiveTicket(sessionStorage.getItem('cusID')).then((hasticket) => {
+        console.log(hasticket)
+        if(hasticket){
+          return 'progress'
+        }
+        return true
+      })
     },
   },
   {
@@ -48,8 +53,12 @@ const routes = [
     component: () => import('../views/CallMechView.vue'),
     beforeEnter: () => {
       if(!sessionStorage.getItem('auth')){return 'register'}
-      if(checkActiveTicket(sessionStorage.getItem('cusID'))){return 'progress'}
-      return true
+      return checkActiveTicket(sessionStorage.getItem('cusID')).then((hasticket) => {
+        if(hasticket){
+          return 'progress'
+        }
+        return true
+      })
     },
   },
   {
@@ -63,9 +72,12 @@ const routes = [
     component: () => import('../views/ProgressView.vue'),
     beforeEnter: () => {
       if(!sessionStorage.getItem('auth')){return 'register'}
-      if(checkActiveTicket(sessionStorage.getItem('cusID'))){return true}
-      if(sessionStorage.getItem('cusID')){return '/'}
-      return true
+      return checkActiveTicket(sessionStorage.getItem('cusID')).then((hasticket) => {
+        if(hasticket){
+          return true
+        }
+        return '/'
+      })
     },
   },
   {
