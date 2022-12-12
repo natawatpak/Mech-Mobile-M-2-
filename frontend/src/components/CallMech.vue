@@ -9,7 +9,7 @@
       >
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
-      <v-card-title class="text-h5 text-center"> Call mech</v-card-title>
+      <div class="text-h5 text-center font-weight-bold"> Call mech</div>
     </v-row>
 
     <v-card text-left pa-4 d-flex justify-left align-center class="rounded-lg elevation-4">
@@ -122,7 +122,7 @@
       </v-card>
     </v-dialog>
 
-    <v-spacer class="my-5"></v-spacer>
+    <v-spacer class="my-4"></v-spacer>
 
     <v-card class="text-left pa-4 rounded-lg elevation-4">
       <v-card-title class="pa-0">Problems</v-card-title>
@@ -197,7 +197,7 @@
       </v-card-text>
     </v-card>
 
-    <v-spacer class="my-5"></v-spacer>
+    <v-spacer class="my-4"></v-spacer>
 
     <v-card class="text-left pa-4 rounded-lg elevation-4">
       <v-card-title class="pa-0">Details</v-card-title>
@@ -213,7 +213,7 @@
       ></v-textarea>
     </v-card>
 
-    <v-spacer class="my-5"></v-spacer>
+    <v-spacer class="my-4"></v-spacer>
 
     <section class="text-center">
       <div class="text-decoration-none" @click= "addTicket()"

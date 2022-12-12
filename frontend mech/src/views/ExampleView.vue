@@ -1,6 +1,6 @@
 <template>
   <div class="pa-4 px-lg-16 px-xl-16 mx-lg-auto mx-xl-auto">
-    <div class="text-left text-h4 my-2">Incoming order</div>
+    <div class="text-left text-h5 my-2">Incoming order</div>
     <v-card-text class="pa-0 ma-0">
       <v-content class="justify-start pa-0">
         <v-container v-for="t in tickets" :key="t.ticketID" class="pa-0">
@@ -56,7 +56,7 @@
           <v-divider></v-divider>
           <div class="py-2">
             <v-text class="text-h6 pa-0">Problems</v-text>
-            <br />
+            <br /> 
             <li v-for="p in splitProblem(details.problem)" :key="p">{{ p }}</li>
           </div>
           <v-divider></v-divider>

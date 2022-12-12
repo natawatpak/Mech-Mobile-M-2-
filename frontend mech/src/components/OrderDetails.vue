@@ -277,9 +277,6 @@ export default {
 
         }
       }
-      // else {
-      //   this.valid2 = true;
-      // }
     },
     checkStage() {
       if (this.currentState == 1) {
