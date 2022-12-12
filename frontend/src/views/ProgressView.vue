@@ -33,7 +33,7 @@ export default {
         shopTel: "",
         shopEmail: "",
         ratings: "",
-        location: { lat:"20", lng:"90"},
+        location: { lat:"", lng:""},
       },
       car: { id: "1", type: "SUV", brand: "MG", plate: "ก2113" },
       

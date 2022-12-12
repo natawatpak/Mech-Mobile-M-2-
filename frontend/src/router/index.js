@@ -4,34 +4,22 @@ import axios from 'axios'
 
 const backendApi = 'http://localhost:3000/'
 
-function checkTicket(id){
+function checkActiveTicket(id){
   const data = new URLSearchParams({
-    ticketID: id,
+    cusID: id,
   });
-  axios
-    .post(backendApi + "shop/get-ticket", data)
-    .catch((error) => {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log("data"+error.response.data);
-        console.log("status"+error.response.status);
-        console.log(error.response.headers);
-        sessionStorage.removeItem("ticketID")
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log("request", error.request);
-        sessionStorage.removeItem("ticketID")
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
+  return axios
+    .post(backendApi + "customer/get-active-ticket", data)
+    .then((response) => {
+      console.log(response.data === null)
+      if (response.data === null){
+        return false
       }
-      console.log(error.config);
+      console.log(response.data.ticketID)
+      sessionStorage.setItem("ticketID", response.data.ticketID)
       return true
     })
-    return true
+
 }
 
 const routes = [
@@ -41,7 +29,8 @@ const routes = [
     component: HomeView,
     beforeEnter: () => {
       if(!sessionStorage.getItem('auth')){return 'register'}
-      if(sessionStorage.getItem('ticketID') && checkTicket(sessionStorage.getItem('ticketID'))){return 'progress'}
+      console.log(checkActiveTicket(sessionStorage.getItem('cusID')))
+      if(checkActiveTicket(sessionStorage.getItem('cusID'))){return 'progress'}
       return true
     },
   },
@@ -59,8 +48,7 @@ const routes = [
     component: () => import('../views/CallMechView.vue'),
     beforeEnter: () => {
       if(!sessionStorage.getItem('auth')){return 'register'}
-      if(sessionStorage.getItem('cusID')){return true}
-      if(sessionStorage.getItem('ticketID')&& checkTicket(sessionStorage.getItem('ticketID'))){return 'progress'}
+      if(checkActiveTicket(sessionStorage.getItem('cusID'))){return 'progress'}
       return true
     },
   },
@@ -75,8 +63,8 @@ const routes = [
     component: () => import('../views/ProgressView.vue'),
     beforeEnter: () => {
       if(!sessionStorage.getItem('auth')){return 'register'}
-      if(sessionStorage.getItem('ticketID') && checkTicket(sessionStorage.getItem('ticketID'))){return true}
-      if(sessionStorage.getItem('cusID')){return 'callmech'}
+      if(checkActiveTicket(sessionStorage.getItem('cusID'))){return true}
+      if(sessionStorage.getItem('cusID')){return '/'}
       return true
     },
   },
@@ -86,6 +74,7 @@ const routes = [
     component: () => import('../views/RegisterView.vue'),
     beforeEnter(){
       if(sessionStorage.getItem('auth')){return '/'}
+      return true
     }
   },
   {

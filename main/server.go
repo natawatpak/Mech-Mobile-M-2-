@@ -36,7 +36,7 @@ func main() {
 	r.HandleFunc("/customer/add-car", controller.CustomerAddCar)
 	r.HandleFunc("/customer/remove-car", controller.CustomerRemoveCar)
 	r.HandleFunc("/customer/add-ticket", controller.CustomerAddTicket)
-	// r.HandleFunc("/customer/get-active-ticket", controller.CustomerGetActiveTicket)
+	r.HandleFunc("/customer/get-active-ticket", controller.CustomerGetActiveTicket)
 	r.HandleFunc("/customer/get-ticket", controller.CustomerGetTicket)
 	r.HandleFunc("/customer/cancel-ticket", controller.CustomerCancelTicket)
 	r.HandleFunc("/customer/history", controller.CustomerGetHistory)
