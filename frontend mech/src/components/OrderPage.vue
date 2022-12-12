@@ -115,7 +115,6 @@ export default {
   },
   mounted() {
     this.getActiveTicket();
-    sessionStorage.setItem("shopID", 1);
     this.socket = new WebSocket(this.$wsApi + "shop/ws/active-ticket");
     console.log("Attempting Connection...");
 
