@@ -194,11 +194,6 @@ export default {
     this.initMap();
     this.locatorButtonPressed();
     this.setMarker(this.mapCenter, "A");
-    sessionStorage.setItem("cusID", "9eeb700d-01f3-4697-a66d-6acce03f3d34");
-    sessionStorage.setItem("fName", "phum");
-    sessionStorage.setItem("lName", "kitiphum");
-    sessionStorage.setItem("tel", "0123456789");
-    sessionStorage.setItem("email", "phum@gmail.com");
     this.getCarList();
   },
   methods: {
