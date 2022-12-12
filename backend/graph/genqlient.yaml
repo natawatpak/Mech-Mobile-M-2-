@@ -11,6 +11,8 @@ operations:
 - ticket.graphql
 - ticketService.graphql
 - tableOp.graphql
+- shopConnect.graphql
+- ticketConnect.graphql
 
 generated: client_gen.go
 

@@ -2212,6 +2212,92 @@ type CreateTableResponse struct {
 // GetCreateTable returns CreateTableResponse.CreateTable, and is useful for accessing the field via an interface.
 func (v *CreateTableResponse) GetCreateTable() bool { return v.CreateTable }
 
+// CustomerByEmailCustomerByEmailCustomer includes the requested fields of the GraphQL type customer.
+type CustomerByEmailCustomerByEmailCustomer struct {
+	cusFragment `json:"-"`
+}
+
+// GetID returns CustomerByEmailCustomerByEmailCustomer.ID, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetID() string { return v.cusFragment.ID }
+
+// GetFName returns CustomerByEmailCustomerByEmailCustomer.FName, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetFName() string { return v.cusFragment.FName }
+
+// GetLName returns CustomerByEmailCustomerByEmailCustomer.LName, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetLName() string { return v.cusFragment.LName }
+
+// GetTel returns CustomerByEmailCustomerByEmailCustomer.Tel, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetTel() string { return v.cusFragment.Tel }
+
+// GetEmail returns CustomerByEmailCustomerByEmailCustomer.Email, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailCustomerByEmailCustomer) GetEmail() string { return v.cusFragment.Email }
+
+func (v *CustomerByEmailCustomerByEmailCustomer) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CustomerByEmailCustomerByEmailCustomer
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CustomerByEmailCustomerByEmailCustomer = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.cusFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCustomerByEmailCustomerByEmailCustomer struct {
+	ID string `json:"ID"`
+
+	FName string `json:"fName"`
+
+	LName string `json:"lName"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+}
+
+func (v *CustomerByEmailCustomerByEmailCustomer) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CustomerByEmailCustomerByEmailCustomer) __premarshalJSON() (*__premarshalCustomerByEmailCustomerByEmailCustomer, error) {
+	var retval __premarshalCustomerByEmailCustomerByEmailCustomer
+
+	retval.ID = v.cusFragment.ID
+	retval.FName = v.cusFragment.FName
+	retval.LName = v.cusFragment.LName
+	retval.Tel = v.cusFragment.Tel
+	retval.Email = v.cusFragment.Email
+	return &retval, nil
+}
+
+// CustomerByEmailResponse is returned by CustomerByEmail on success.
+type CustomerByEmailResponse struct {
+	CustomerByEmail *CustomerByEmailCustomerByEmailCustomer `json:"customerByEmail"`
+}
+
+// GetCustomerByEmail returns CustomerByEmailResponse.CustomerByEmail, and is useful for accessing the field via an interface.
+func (v *CustomerByEmailResponse) GetCustomerByEmail() *CustomerByEmailCustomerByEmailCustomer {
+	return v.CustomerByEmail
+}
+
 // CustomerByIDCustomerByIDCustomer includes the requested fields of the GraphQL type customer.
 type CustomerByIDCustomerByIDCustomer struct {
 	cusFragment `json:"-"`
@@ -3219,6 +3305,102 @@ func (v *ServicesServicesService) __premarshalJSON() (*__premarshalServicesServi
 	return &retval, nil
 }
 
+// ShopByEmailResponse is returned by ShopByEmail on success.
+type ShopByEmailResponse struct {
+	ShopByEmail *ShopByEmailShopByEmailShop `json:"shopByEmail"`
+}
+
+// GetShopByEmail returns ShopByEmailResponse.ShopByEmail, and is useful for accessing the field via an interface.
+func (v *ShopByEmailResponse) GetShopByEmail() *ShopByEmailShopByEmailShop { return v.ShopByEmail }
+
+// ShopByEmailShopByEmailShop includes the requested fields of the GraphQL type shop.
+type ShopByEmailShopByEmailShop struct {
+	shopFragment `json:"-"`
+}
+
+// GetID returns ShopByEmailShopByEmailShop.ID, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetID() string { return v.shopFragment.ID }
+
+// GetName returns ShopByEmailShopByEmailShop.Name, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetName() string { return v.shopFragment.Name }
+
+// GetTel returns ShopByEmailShopByEmailShop.Tel, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetTel() string { return v.shopFragment.Tel }
+
+// GetEmail returns ShopByEmailShopByEmailShop.Email, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetEmail() string { return v.shopFragment.Email }
+
+// GetAddress returns ShopByEmailShopByEmailShop.Address, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetAddress() string { return v.shopFragment.Address }
+
+// GetLongitude returns ShopByEmailShopByEmailShop.Longitude, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetLongitude() float64 { return v.shopFragment.Longitude }
+
+// GetLatitude returns ShopByEmailShopByEmailShop.Latitude, and is useful for accessing the field via an interface.
+func (v *ShopByEmailShopByEmailShop) GetLatitude() float64 { return v.shopFragment.Latitude }
+
+func (v *ShopByEmailShopByEmailShop) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopByEmailShopByEmailShop
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopByEmailShopByEmailShop = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopByEmailShopByEmailShop struct {
+	ID string `json:"ID"`
+
+	Name string `json:"name"`
+
+	Tel string `json:"tel"`
+
+	Email string `json:"email"`
+
+	Address string `json:"address"`
+
+	Longitude float64 `json:"longitude"`
+
+	Latitude float64 `json:"latitude"`
+}
+
+func (v *ShopByEmailShopByEmailShop) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopByEmailShopByEmailShop) __premarshalJSON() (*__premarshalShopByEmailShopByEmailShop, error) {
+	var retval __premarshalShopByEmailShopByEmailShop
+
+	retval.ID = v.shopFragment.ID
+	retval.Name = v.shopFragment.Name
+	retval.Tel = v.shopFragment.Tel
+	retval.Email = v.shopFragment.Email
+	retval.Address = v.shopFragment.Address
+	retval.Longitude = v.shopFragment.Longitude
+	retval.Latitude = v.shopFragment.Latitude
+	return &retval, nil
+}
+
 // ShopByIDResponse is returned by ShopByID on success.
 type ShopByIDResponse struct {
 	ShopByID *ShopByIDShopByIDShop `json:"shopByID"`
@@ -3312,6 +3494,375 @@ func (v *ShopByIDShopByIDShop) __premarshalJSON() (*__premarshalShopByIDShopByID
 	retval.Address = v.shopFragment.Address
 	retval.Longitude = v.shopFragment.Longitude
 	retval.Latitude = v.shopFragment.Latitude
+	return &retval, nil
+}
+
+// ShopConnectByIDResponse is returned by ShopConnectByID on success.
+type ShopConnectByIDResponse struct {
+	ShopConnectByID []*ShopConnectByIDShopConnectByIDShopConnect `json:"shopConnectByID"`
+}
+
+// GetShopConnectByID returns ShopConnectByIDResponse.ShopConnectByID, and is useful for accessing the field via an interface.
+func (v *ShopConnectByIDResponse) GetShopConnectByID() []*ShopConnectByIDShopConnectByIDShopConnect {
+	return v.ShopConnectByID
+}
+
+// ShopConnectByIDShopConnectByIDShopConnect includes the requested fields of the GraphQL type shopConnect.
+type ShopConnectByIDShopConnectByIDShopConnect struct {
+	shopConnectFragment `json:"-"`
+}
+
+// GetShopID returns ShopConnectByIDShopConnectByIDShopConnect.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopConnectByIDShopConnectByIDShopConnect) GetShopID() string {
+	return v.shopConnectFragment.ShopID
+}
+
+// GetConnectionID returns ShopConnectByIDShopConnectByIDShopConnect.ConnectionID, and is useful for accessing the field via an interface.
+func (v *ShopConnectByIDShopConnectByIDShopConnect) GetConnectionID() string {
+	return v.shopConnectFragment.ConnectionID
+}
+
+func (v *ShopConnectByIDShopConnectByIDShopConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopConnectByIDShopConnectByIDShopConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopConnectByIDShopConnectByIDShopConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopConnectByIDShopConnectByIDShopConnect struct {
+	ShopID string `json:"shopID"`
+
+	ConnectionID string `json:"ConnectionID"`
+}
+
+func (v *ShopConnectByIDShopConnectByIDShopConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopConnectByIDShopConnectByIDShopConnect) __premarshalJSON() (*__premarshalShopConnectByIDShopConnectByIDShopConnect, error) {
+	var retval __premarshalShopConnectByIDShopConnectByIDShopConnect
+
+	retval.ShopID = v.shopConnectFragment.ShopID
+	retval.ConnectionID = v.shopConnectFragment.ConnectionID
+	return &retval, nil
+}
+
+type ShopConnectCreateInput struct {
+	ShopID       string `json:"shopID"`
+	ConnectionID string `json:"ConnectionID"`
+}
+
+// GetShopID returns ShopConnectCreateInput.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopConnectCreateInput) GetShopID() string { return v.ShopID }
+
+// GetConnectionID returns ShopConnectCreateInput.ConnectionID, and is useful for accessing the field via an interface.
+func (v *ShopConnectCreateInput) GetConnectionID() string { return v.ConnectionID }
+
+// ShopConnectCreateResponse is returned by ShopConnectCreate on success.
+type ShopConnectCreateResponse struct {
+	ShopConnectCreate *ShopConnectCreateShopConnectCreateShopConnect `json:"shopConnectCreate"`
+}
+
+// GetShopConnectCreate returns ShopConnectCreateResponse.ShopConnectCreate, and is useful for accessing the field via an interface.
+func (v *ShopConnectCreateResponse) GetShopConnectCreate() *ShopConnectCreateShopConnectCreateShopConnect {
+	return v.ShopConnectCreate
+}
+
+// ShopConnectCreateShopConnectCreateShopConnect includes the requested fields of the GraphQL type shopConnect.
+type ShopConnectCreateShopConnectCreateShopConnect struct {
+	shopConnectFragment `json:"-"`
+}
+
+// GetShopID returns ShopConnectCreateShopConnectCreateShopConnect.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopConnectCreateShopConnectCreateShopConnect) GetShopID() string {
+	return v.shopConnectFragment.ShopID
+}
+
+// GetConnectionID returns ShopConnectCreateShopConnectCreateShopConnect.ConnectionID, and is useful for accessing the field via an interface.
+func (v *ShopConnectCreateShopConnectCreateShopConnect) GetConnectionID() string {
+	return v.shopConnectFragment.ConnectionID
+}
+
+func (v *ShopConnectCreateShopConnectCreateShopConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopConnectCreateShopConnectCreateShopConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopConnectCreateShopConnectCreateShopConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopConnectCreateShopConnectCreateShopConnect struct {
+	ShopID string `json:"shopID"`
+
+	ConnectionID string `json:"ConnectionID"`
+}
+
+func (v *ShopConnectCreateShopConnectCreateShopConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopConnectCreateShopConnectCreateShopConnect) __premarshalJSON() (*__premarshalShopConnectCreateShopConnectCreateShopConnect, error) {
+	var retval __premarshalShopConnectCreateShopConnectCreateShopConnect
+
+	retval.ShopID = v.shopConnectFragment.ShopID
+	retval.ConnectionID = v.shopConnectFragment.ConnectionID
+	return &retval, nil
+}
+
+// ShopConnectDeleteAllResponse is returned by ShopConnectDeleteAll on success.
+type ShopConnectDeleteAllResponse struct {
+	ShopConnectDeleteAll []*ShopConnectDeleteAllShopConnectDeleteAllShopConnect `json:"shopConnectDeleteAll"`
+}
+
+// GetShopConnectDeleteAll returns ShopConnectDeleteAllResponse.ShopConnectDeleteAll, and is useful for accessing the field via an interface.
+func (v *ShopConnectDeleteAllResponse) GetShopConnectDeleteAll() []*ShopConnectDeleteAllShopConnectDeleteAllShopConnect {
+	return v.ShopConnectDeleteAll
+}
+
+// ShopConnectDeleteAllShopConnectDeleteAllShopConnect includes the requested fields of the GraphQL type shopConnect.
+type ShopConnectDeleteAllShopConnectDeleteAllShopConnect struct {
+	shopConnectFragment `json:"-"`
+}
+
+// GetShopID returns ShopConnectDeleteAllShopConnectDeleteAllShopConnect.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopConnectDeleteAllShopConnectDeleteAllShopConnect) GetShopID() string {
+	return v.shopConnectFragment.ShopID
+}
+
+// GetConnectionID returns ShopConnectDeleteAllShopConnectDeleteAllShopConnect.ConnectionID, and is useful for accessing the field via an interface.
+func (v *ShopConnectDeleteAllShopConnectDeleteAllShopConnect) GetConnectionID() string {
+	return v.shopConnectFragment.ConnectionID
+}
+
+func (v *ShopConnectDeleteAllShopConnectDeleteAllShopConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopConnectDeleteAllShopConnectDeleteAllShopConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopConnectDeleteAllShopConnectDeleteAllShopConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopConnectDeleteAllShopConnectDeleteAllShopConnect struct {
+	ShopID string `json:"shopID"`
+
+	ConnectionID string `json:"ConnectionID"`
+}
+
+func (v *ShopConnectDeleteAllShopConnectDeleteAllShopConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopConnectDeleteAllShopConnectDeleteAllShopConnect) __premarshalJSON() (*__premarshalShopConnectDeleteAllShopConnectDeleteAllShopConnect, error) {
+	var retval __premarshalShopConnectDeleteAllShopConnectDeleteAllShopConnect
+
+	retval.ShopID = v.shopConnectFragment.ShopID
+	retval.ConnectionID = v.shopConnectFragment.ConnectionID
+	return &retval, nil
+}
+
+// ShopConnectDeleteResponse is returned by ShopConnectDelete on success.
+type ShopConnectDeleteResponse struct {
+	ShopConnectDelete []*ShopConnectDeleteShopConnectDeleteShopConnect `json:"shopConnectDelete"`
+}
+
+// GetShopConnectDelete returns ShopConnectDeleteResponse.ShopConnectDelete, and is useful for accessing the field via an interface.
+func (v *ShopConnectDeleteResponse) GetShopConnectDelete() []*ShopConnectDeleteShopConnectDeleteShopConnect {
+	return v.ShopConnectDelete
+}
+
+// ShopConnectDeleteShopConnectDeleteShopConnect includes the requested fields of the GraphQL type shopConnect.
+type ShopConnectDeleteShopConnectDeleteShopConnect struct {
+	shopConnectFragment `json:"-"`
+}
+
+// GetShopID returns ShopConnectDeleteShopConnectDeleteShopConnect.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopConnectDeleteShopConnectDeleteShopConnect) GetShopID() string {
+	return v.shopConnectFragment.ShopID
+}
+
+// GetConnectionID returns ShopConnectDeleteShopConnectDeleteShopConnect.ConnectionID, and is useful for accessing the field via an interface.
+func (v *ShopConnectDeleteShopConnectDeleteShopConnect) GetConnectionID() string {
+	return v.shopConnectFragment.ConnectionID
+}
+
+func (v *ShopConnectDeleteShopConnectDeleteShopConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopConnectDeleteShopConnectDeleteShopConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopConnectDeleteShopConnectDeleteShopConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopConnectDeleteShopConnectDeleteShopConnect struct {
+	ShopID string `json:"shopID"`
+
+	ConnectionID string `json:"ConnectionID"`
+}
+
+func (v *ShopConnectDeleteShopConnectDeleteShopConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopConnectDeleteShopConnectDeleteShopConnect) __premarshalJSON() (*__premarshalShopConnectDeleteShopConnectDeleteShopConnect, error) {
+	var retval __premarshalShopConnectDeleteShopConnectDeleteShopConnect
+
+	retval.ShopID = v.shopConnectFragment.ShopID
+	retval.ConnectionID = v.shopConnectFragment.ConnectionID
+	return &retval, nil
+}
+
+// ShopConnectsResponse is returned by ShopConnects on success.
+type ShopConnectsResponse struct {
+	ShopConnects []*ShopConnectsShopConnectsShopConnect `json:"shopConnects"`
+}
+
+// GetShopConnects returns ShopConnectsResponse.ShopConnects, and is useful for accessing the field via an interface.
+func (v *ShopConnectsResponse) GetShopConnects() []*ShopConnectsShopConnectsShopConnect {
+	return v.ShopConnects
+}
+
+// ShopConnectsShopConnectsShopConnect includes the requested fields of the GraphQL type shopConnect.
+type ShopConnectsShopConnectsShopConnect struct {
+	shopConnectFragment `json:"-"`
+}
+
+// GetShopID returns ShopConnectsShopConnectsShopConnect.ShopID, and is useful for accessing the field via an interface.
+func (v *ShopConnectsShopConnectsShopConnect) GetShopID() string { return v.shopConnectFragment.ShopID }
+
+// GetConnectionID returns ShopConnectsShopConnectsShopConnect.ConnectionID, and is useful for accessing the field via an interface.
+func (v *ShopConnectsShopConnectsShopConnect) GetConnectionID() string {
+	return v.shopConnectFragment.ConnectionID
+}
+
+func (v *ShopConnectsShopConnectsShopConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ShopConnectsShopConnectsShopConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ShopConnectsShopConnectsShopConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.shopConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalShopConnectsShopConnectsShopConnect struct {
+	ShopID string `json:"shopID"`
+
+	ConnectionID string `json:"ConnectionID"`
+}
+
+func (v *ShopConnectsShopConnectsShopConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ShopConnectsShopConnectsShopConnect) __premarshalJSON() (*__premarshalShopConnectsShopConnectsShopConnect, error) {
+	var retval __premarshalShopConnectsShopConnectsShopConnect
+
+	retval.ShopID = v.shopConnectFragment.ShopID
+	retval.ConnectionID = v.shopConnectFragment.ConnectionID
 	return &retval, nil
 }
 
@@ -4663,6 +5214,501 @@ func (v *TicketByShopTicketByShopTicket) __premarshalJSON() (*__premarshalTicket
 	return &retval, nil
 }
 
+type TicketConnectCreateInput struct {
+	TicketID             string `json:"ticketID"`
+	CustomerConnectionID string `json:"customerConnectionID"`
+	ShopConnectionID     string `json:"shopConnectionID"`
+}
+
+// GetTicketID returns TicketConnectCreateInput.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketConnectCreateInput) GetTicketID() string { return v.TicketID }
+
+// GetCustomerConnectionID returns TicketConnectCreateInput.CustomerConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectCreateInput) GetCustomerConnectionID() string { return v.CustomerConnectionID }
+
+// GetShopConnectionID returns TicketConnectCreateInput.ShopConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectCreateInput) GetShopConnectionID() string { return v.ShopConnectionID }
+
+// TicketConnectsByIDResponse is returned by TicketConnectsByID on success.
+type TicketConnectsByIDResponse struct {
+	TicketConnectByID *TicketConnectsByIDTicketConnectByIDTicketConnect `json:"ticketConnectByID"`
+}
+
+// GetTicketConnectByID returns TicketConnectsByIDResponse.TicketConnectByID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsByIDResponse) GetTicketConnectByID() *TicketConnectsByIDTicketConnectByIDTicketConnect {
+	return v.TicketConnectByID
+}
+
+// TicketConnectsByIDTicketConnectByIDTicketConnect includes the requested fields of the GraphQL type ticketConnect.
+type TicketConnectsByIDTicketConnectByIDTicketConnect struct {
+	ticketConnectFragment `json:"-"`
+}
+
+// GetTicketID returns TicketConnectsByIDTicketConnectByIDTicketConnect.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsByIDTicketConnectByIDTicketConnect) GetTicketID() string {
+	return v.ticketConnectFragment.TicketID
+}
+
+// GetCustomerConnectionID returns TicketConnectsByIDTicketConnectByIDTicketConnect.CustomerConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsByIDTicketConnectByIDTicketConnect) GetCustomerConnectionID() string {
+	return v.ticketConnectFragment.CustomerConnectionID
+}
+
+// GetShopConnectionID returns TicketConnectsByIDTicketConnectByIDTicketConnect.ShopConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsByIDTicketConnectByIDTicketConnect) GetShopConnectionID() string {
+	return v.ticketConnectFragment.ShopConnectionID
+}
+
+func (v *TicketConnectsByIDTicketConnectByIDTicketConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketConnectsByIDTicketConnectByIDTicketConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketConnectsByIDTicketConnectByIDTicketConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketConnectsByIDTicketConnectByIDTicketConnect struct {
+	TicketID string `json:"ticketID"`
+
+	CustomerConnectionID string `json:"customerConnectionID"`
+
+	ShopConnectionID string `json:"shopConnectionID"`
+}
+
+func (v *TicketConnectsByIDTicketConnectByIDTicketConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketConnectsByIDTicketConnectByIDTicketConnect) __premarshalJSON() (*__premarshalTicketConnectsByIDTicketConnectByIDTicketConnect, error) {
+	var retval __premarshalTicketConnectsByIDTicketConnectByIDTicketConnect
+
+	retval.TicketID = v.ticketConnectFragment.TicketID
+	retval.CustomerConnectionID = v.ticketConnectFragment.CustomerConnectionID
+	retval.ShopConnectionID = v.ticketConnectFragment.ShopConnectionID
+	return &retval, nil
+}
+
+// TicketConnectsCreateResponse is returned by TicketConnectsCreate on success.
+type TicketConnectsCreateResponse struct {
+	TicketConnectCreate *TicketConnectsCreateTicketConnectCreateTicketConnect `json:"ticketConnectCreate"`
+}
+
+// GetTicketConnectCreate returns TicketConnectsCreateResponse.TicketConnectCreate, and is useful for accessing the field via an interface.
+func (v *TicketConnectsCreateResponse) GetTicketConnectCreate() *TicketConnectsCreateTicketConnectCreateTicketConnect {
+	return v.TicketConnectCreate
+}
+
+// TicketConnectsCreateTicketConnectCreateTicketConnect includes the requested fields of the GraphQL type ticketConnect.
+type TicketConnectsCreateTicketConnectCreateTicketConnect struct {
+	ticketConnectFragment `json:"-"`
+}
+
+// GetTicketID returns TicketConnectsCreateTicketConnectCreateTicketConnect.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsCreateTicketConnectCreateTicketConnect) GetTicketID() string {
+	return v.ticketConnectFragment.TicketID
+}
+
+// GetCustomerConnectionID returns TicketConnectsCreateTicketConnectCreateTicketConnect.CustomerConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsCreateTicketConnectCreateTicketConnect) GetCustomerConnectionID() string {
+	return v.ticketConnectFragment.CustomerConnectionID
+}
+
+// GetShopConnectionID returns TicketConnectsCreateTicketConnectCreateTicketConnect.ShopConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsCreateTicketConnectCreateTicketConnect) GetShopConnectionID() string {
+	return v.ticketConnectFragment.ShopConnectionID
+}
+
+func (v *TicketConnectsCreateTicketConnectCreateTicketConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketConnectsCreateTicketConnectCreateTicketConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketConnectsCreateTicketConnectCreateTicketConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketConnectsCreateTicketConnectCreateTicketConnect struct {
+	TicketID string `json:"ticketID"`
+
+	CustomerConnectionID string `json:"customerConnectionID"`
+
+	ShopConnectionID string `json:"shopConnectionID"`
+}
+
+func (v *TicketConnectsCreateTicketConnectCreateTicketConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketConnectsCreateTicketConnectCreateTicketConnect) __premarshalJSON() (*__premarshalTicketConnectsCreateTicketConnectCreateTicketConnect, error) {
+	var retval __premarshalTicketConnectsCreateTicketConnectCreateTicketConnect
+
+	retval.TicketID = v.ticketConnectFragment.TicketID
+	retval.CustomerConnectionID = v.ticketConnectFragment.CustomerConnectionID
+	retval.ShopConnectionID = v.ticketConnectFragment.ShopConnectionID
+	return &retval, nil
+}
+
+// TicketConnectsDeleteAllResponse is returned by TicketConnectsDeleteAll on success.
+type TicketConnectsDeleteAllResponse struct {
+	TicketConnectDeleteAll []*TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect `json:"ticketConnectDeleteAll"`
+}
+
+// GetTicketConnectDeleteAll returns TicketConnectsDeleteAllResponse.TicketConnectDeleteAll, and is useful for accessing the field via an interface.
+func (v *TicketConnectsDeleteAllResponse) GetTicketConnectDeleteAll() []*TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect {
+	return v.TicketConnectDeleteAll
+}
+
+// TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect includes the requested fields of the GraphQL type ticketConnect.
+type TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect struct {
+	ticketConnectFragment `json:"-"`
+}
+
+// GetTicketID returns TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect) GetTicketID() string {
+	return v.ticketConnectFragment.TicketID
+}
+
+// GetCustomerConnectionID returns TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect.CustomerConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect) GetCustomerConnectionID() string {
+	return v.ticketConnectFragment.CustomerConnectionID
+}
+
+// GetShopConnectionID returns TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect.ShopConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect) GetShopConnectionID() string {
+	return v.ticketConnectFragment.ShopConnectionID
+}
+
+func (v *TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect struct {
+	TicketID string `json:"ticketID"`
+
+	CustomerConnectionID string `json:"customerConnectionID"`
+
+	ShopConnectionID string `json:"shopConnectionID"`
+}
+
+func (v *TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect) __premarshalJSON() (*__premarshalTicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect, error) {
+	var retval __premarshalTicketConnectsDeleteAllTicketConnectDeleteAllTicketConnect
+
+	retval.TicketID = v.ticketConnectFragment.TicketID
+	retval.CustomerConnectionID = v.ticketConnectFragment.CustomerConnectionID
+	retval.ShopConnectionID = v.ticketConnectFragment.ShopConnectionID
+	return &retval, nil
+}
+
+// TicketConnectsDeleteResponse is returned by TicketConnectsDelete on success.
+type TicketConnectsDeleteResponse struct {
+	TicketConnectDelete *TicketConnectsDeleteTicketConnectDeleteTicketConnect `json:"ticketConnectDelete"`
+}
+
+// GetTicketConnectDelete returns TicketConnectsDeleteResponse.TicketConnectDelete, and is useful for accessing the field via an interface.
+func (v *TicketConnectsDeleteResponse) GetTicketConnectDelete() *TicketConnectsDeleteTicketConnectDeleteTicketConnect {
+	return v.TicketConnectDelete
+}
+
+// TicketConnectsDeleteTicketConnectDeleteTicketConnect includes the requested fields of the GraphQL type ticketConnect.
+type TicketConnectsDeleteTicketConnectDeleteTicketConnect struct {
+	ticketConnectFragment `json:"-"`
+}
+
+// GetTicketID returns TicketConnectsDeleteTicketConnectDeleteTicketConnect.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsDeleteTicketConnectDeleteTicketConnect) GetTicketID() string {
+	return v.ticketConnectFragment.TicketID
+}
+
+// GetCustomerConnectionID returns TicketConnectsDeleteTicketConnectDeleteTicketConnect.CustomerConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsDeleteTicketConnectDeleteTicketConnect) GetCustomerConnectionID() string {
+	return v.ticketConnectFragment.CustomerConnectionID
+}
+
+// GetShopConnectionID returns TicketConnectsDeleteTicketConnectDeleteTicketConnect.ShopConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsDeleteTicketConnectDeleteTicketConnect) GetShopConnectionID() string {
+	return v.ticketConnectFragment.ShopConnectionID
+}
+
+func (v *TicketConnectsDeleteTicketConnectDeleteTicketConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketConnectsDeleteTicketConnectDeleteTicketConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketConnectsDeleteTicketConnectDeleteTicketConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketConnectsDeleteTicketConnectDeleteTicketConnect struct {
+	TicketID string `json:"ticketID"`
+
+	CustomerConnectionID string `json:"customerConnectionID"`
+
+	ShopConnectionID string `json:"shopConnectionID"`
+}
+
+func (v *TicketConnectsDeleteTicketConnectDeleteTicketConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketConnectsDeleteTicketConnectDeleteTicketConnect) __premarshalJSON() (*__premarshalTicketConnectsDeleteTicketConnectDeleteTicketConnect, error) {
+	var retval __premarshalTicketConnectsDeleteTicketConnectDeleteTicketConnect
+
+	retval.TicketID = v.ticketConnectFragment.TicketID
+	retval.CustomerConnectionID = v.ticketConnectFragment.CustomerConnectionID
+	retval.ShopConnectionID = v.ticketConnectFragment.ShopConnectionID
+	return &retval, nil
+}
+
+// TicketConnectsResponse is returned by TicketConnects on success.
+type TicketConnectsResponse struct {
+	TicketConnects []*TicketConnectsTicketConnectsTicketConnect `json:"ticketConnects"`
+}
+
+// GetTicketConnects returns TicketConnectsResponse.TicketConnects, and is useful for accessing the field via an interface.
+func (v *TicketConnectsResponse) GetTicketConnects() []*TicketConnectsTicketConnectsTicketConnect {
+	return v.TicketConnects
+}
+
+// TicketConnectsTicketConnectsTicketConnect includes the requested fields of the GraphQL type ticketConnect.
+type TicketConnectsTicketConnectsTicketConnect struct {
+	ticketConnectFragment `json:"-"`
+}
+
+// GetTicketID returns TicketConnectsTicketConnectsTicketConnect.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsTicketConnectsTicketConnect) GetTicketID() string {
+	return v.ticketConnectFragment.TicketID
+}
+
+// GetCustomerConnectionID returns TicketConnectsTicketConnectsTicketConnect.CustomerConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsTicketConnectsTicketConnect) GetCustomerConnectionID() string {
+	return v.ticketConnectFragment.CustomerConnectionID
+}
+
+// GetShopConnectionID returns TicketConnectsTicketConnectsTicketConnect.ShopConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsTicketConnectsTicketConnect) GetShopConnectionID() string {
+	return v.ticketConnectFragment.ShopConnectionID
+}
+
+func (v *TicketConnectsTicketConnectsTicketConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketConnectsTicketConnectsTicketConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketConnectsTicketConnectsTicketConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketConnectsTicketConnectsTicketConnect struct {
+	TicketID string `json:"ticketID"`
+
+	CustomerConnectionID string `json:"customerConnectionID"`
+
+	ShopConnectionID string `json:"shopConnectionID"`
+}
+
+func (v *TicketConnectsTicketConnectsTicketConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketConnectsTicketConnectsTicketConnect) __premarshalJSON() (*__premarshalTicketConnectsTicketConnectsTicketConnect, error) {
+	var retval __premarshalTicketConnectsTicketConnectsTicketConnect
+
+	retval.TicketID = v.ticketConnectFragment.TicketID
+	retval.CustomerConnectionID = v.ticketConnectFragment.CustomerConnectionID
+	retval.ShopConnectionID = v.ticketConnectFragment.ShopConnectionID
+	return &retval, nil
+}
+
+// TicketConnectsUpdateMultiResponse is returned by TicketConnectsUpdateMulti on success.
+type TicketConnectsUpdateMultiResponse struct {
+	TicketConnectUpdate *TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect `json:"ticketConnectUpdate"`
+}
+
+// GetTicketConnectUpdate returns TicketConnectsUpdateMultiResponse.TicketConnectUpdate, and is useful for accessing the field via an interface.
+func (v *TicketConnectsUpdateMultiResponse) GetTicketConnectUpdate() *TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect {
+	return v.TicketConnectUpdate
+}
+
+// TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect includes the requested fields of the GraphQL type ticketConnect.
+type TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect struct {
+	ticketConnectFragment `json:"-"`
+}
+
+// GetTicketID returns TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect.TicketID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect) GetTicketID() string {
+	return v.ticketConnectFragment.TicketID
+}
+
+// GetCustomerConnectionID returns TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect.CustomerConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect) GetCustomerConnectionID() string {
+	return v.ticketConnectFragment.CustomerConnectionID
+}
+
+// GetShopConnectionID returns TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect.ShopConnectionID, and is useful for accessing the field via an interface.
+func (v *TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect) GetShopConnectionID() string {
+	return v.ticketConnectFragment.ShopConnectionID
+}
+
+func (v *TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ticketConnectFragment)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalTicketConnectsUpdateMultiTicketConnectUpdateTicketConnect struct {
+	TicketID string `json:"ticketID"`
+
+	CustomerConnectionID string `json:"customerConnectionID"`
+
+	ShopConnectionID string `json:"shopConnectionID"`
+}
+
+func (v *TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *TicketConnectsUpdateMultiTicketConnectUpdateTicketConnect) __premarshalJSON() (*__premarshalTicketConnectsUpdateMultiTicketConnectUpdateTicketConnect, error) {
+	var retval __premarshalTicketConnectsUpdateMultiTicketConnectUpdateTicketConnect
+
+	retval.TicketID = v.ticketConnectFragment.TicketID
+	retval.CustomerConnectionID = v.ticketConnectFragment.CustomerConnectionID
+	retval.ShopConnectionID = v.ticketConnectFragment.ShopConnectionID
+	return &retval, nil
+}
+
 type TicketCreateInput struct {
 	ID           *string    `json:"ID"`
 	CustomerID   string     `json:"customerID"`
@@ -5477,7 +6523,7 @@ type TicketUpdateInput struct {
 	CarID        string     `json:"carID"`
 	Problem      string     `json:"problem"`
 	Description  *string    `json:"description"`
-	CreateTime   time.Time  `json:"createTime,omitempty"`
+	CreateTime   time.Time  `json:"createTime"`
 	ShopID       *string    `json:"shopID"`
 	AcceptedTime *time.Time `json:"acceptedTime"`
 	Status       *string    `json:"status"`
@@ -5886,6 +6932,14 @@ type __CarUpdateMultiInput struct {
 // GetCarInput returns __CarUpdateMultiInput.CarInput, and is useful for accessing the field via an interface.
 func (v *__CarUpdateMultiInput) GetCarInput() *CarUpdateInput { return v.CarInput }
 
+// __CustomerByEmailInput is used internally by genqlient
+type __CustomerByEmailInput struct {
+	CusInput string `json:"cusInput"`
+}
+
+// GetCusInput returns __CustomerByEmailInput.CusInput, and is useful for accessing the field via an interface.
+func (v *__CustomerByEmailInput) GetCusInput() string { return v.CusInput }
+
 // __CustomerByIDInput is used internally by genqlient
 type __CustomerByIDInput struct {
 	CusInput string `json:"cusInput"`
@@ -5950,6 +7004,14 @@ type __ServiceUpdateMultiInput struct {
 // GetServiceInput returns __ServiceUpdateMultiInput.ServiceInput, and is useful for accessing the field via an interface.
 func (v *__ServiceUpdateMultiInput) GetServiceInput() *ServiceUpdateInput { return v.ServiceInput }
 
+// __ShopByEmailInput is used internally by genqlient
+type __ShopByEmailInput struct {
+	ShopInput string `json:"shopInput"`
+}
+
+// GetShopInput returns __ShopByEmailInput.ShopInput, and is useful for accessing the field via an interface.
+func (v *__ShopByEmailInput) GetShopInput() string { return v.ShopInput }
+
 // __ShopByIDInput is used internally by genqlient
 type __ShopByIDInput struct {
 	ShopInput string `json:"shopInput"`
@@ -5957,6 +7019,32 @@ type __ShopByIDInput struct {
 
 // GetShopInput returns __ShopByIDInput.ShopInput, and is useful for accessing the field via an interface.
 func (v *__ShopByIDInput) GetShopInput() string { return v.ShopInput }
+
+// __ShopConnectByIDInput is used internally by genqlient
+type __ShopConnectByIDInput struct {
+	ShopConnectInput string `json:"shopConnectInput"`
+}
+
+// GetShopConnectInput returns __ShopConnectByIDInput.ShopConnectInput, and is useful for accessing the field via an interface.
+func (v *__ShopConnectByIDInput) GetShopConnectInput() string { return v.ShopConnectInput }
+
+// __ShopConnectCreateInput is used internally by genqlient
+type __ShopConnectCreateInput struct {
+	ShopConnectInput *ShopConnectCreateInput `json:"shopConnectInput,omitempty"`
+}
+
+// GetShopConnectInput returns __ShopConnectCreateInput.ShopConnectInput, and is useful for accessing the field via an interface.
+func (v *__ShopConnectCreateInput) GetShopConnectInput() *ShopConnectCreateInput {
+	return v.ShopConnectInput
+}
+
+// __ShopConnectDeleteInput is used internally by genqlient
+type __ShopConnectDeleteInput struct {
+	ShopConnectInput string `json:"shopConnectInput"`
+}
+
+// GetShopConnectInput returns __ShopConnectDeleteInput.ShopConnectInput, and is useful for accessing the field via an interface.
+func (v *__ShopConnectDeleteInput) GetShopConnectInput() string { return v.ShopConnectInput }
 
 // __ShopCreateInput is used internally by genqlient
 type __ShopCreateInput struct {
@@ -6035,6 +7123,42 @@ type __TicketByShopInput struct {
 
 // GetTicketInput returns __TicketByShopInput.TicketInput, and is useful for accessing the field via an interface.
 func (v *__TicketByShopInput) GetTicketInput() *TicketByShopInput { return v.TicketInput }
+
+// __TicketConnectsByIDInput is used internally by genqlient
+type __TicketConnectsByIDInput struct {
+	ShopConnectInput string `json:"shopConnectInput"`
+}
+
+// GetShopConnectInput returns __TicketConnectsByIDInput.ShopConnectInput, and is useful for accessing the field via an interface.
+func (v *__TicketConnectsByIDInput) GetShopConnectInput() string { return v.ShopConnectInput }
+
+// __TicketConnectsCreateInput is used internally by genqlient
+type __TicketConnectsCreateInput struct {
+	TicketConnectsInput *TicketConnectCreateInput `json:"ticketConnectsInput,omitempty"`
+}
+
+// GetTicketConnectsInput returns __TicketConnectsCreateInput.TicketConnectsInput, and is useful for accessing the field via an interface.
+func (v *__TicketConnectsCreateInput) GetTicketConnectsInput() *TicketConnectCreateInput {
+	return v.TicketConnectsInput
+}
+
+// __TicketConnectsDeleteInput is used internally by genqlient
+type __TicketConnectsDeleteInput struct {
+	ShopConnectInput string `json:"shopConnectInput"`
+}
+
+// GetShopConnectInput returns __TicketConnectsDeleteInput.ShopConnectInput, and is useful for accessing the field via an interface.
+func (v *__TicketConnectsDeleteInput) GetShopConnectInput() string { return v.ShopConnectInput }
+
+// __TicketConnectsUpdateMultiInput is used internally by genqlient
+type __TicketConnectsUpdateMultiInput struct {
+	TicketConnectsInput *TicketConnectCreateInput `json:"ticketConnectsInput,omitempty"`
+}
+
+// GetTicketConnectsInput returns __TicketConnectsUpdateMultiInput.TicketConnectsInput, and is useful for accessing the field via an interface.
+func (v *__TicketConnectsUpdateMultiInput) GetTicketConnectsInput() *TicketConnectCreateInput {
+	return v.TicketConnectsInput
+}
 
 // __TicketCreateInput is used internally by genqlient
 type __TicketCreateInput struct {
@@ -6170,6 +7294,16 @@ func (v *carFragment) GetBrand() string { return v.Brand }
 // GetBuild returns carFragment.Build, and is useful for accessing the field via an interface.
 func (v *carFragment) GetBuild() *string { return v.Build }
 
+// createConnectionTableResponse is returned by createConnectionTable on success.
+type createConnectionTableResponse struct {
+	CreateConnectionTable bool `json:"createConnectionTable"`
+}
+
+// GetCreateConnectionTable returns createConnectionTableResponse.CreateConnectionTable, and is useful for accessing the field via an interface.
+func (v *createConnectionTableResponse) GetCreateConnectionTable() bool {
+	return v.CreateConnectionTable
+}
+
 // cusFragment includes the GraphQL fields of customer requested by the fragment cusFragment.
 type cusFragment struct {
 	ID    string `json:"ID"`
@@ -6205,6 +7339,18 @@ func (v *serviceFragment) GetID() string { return v.ID }
 
 // GetName returns serviceFragment.Name, and is useful for accessing the field via an interface.
 func (v *serviceFragment) GetName() string { return v.Name }
+
+// shopConnectFragment includes the GraphQL fields of shopConnect requested by the fragment shopConnectFragment.
+type shopConnectFragment struct {
+	ShopID       string `json:"shopID"`
+	ConnectionID string `json:"ConnectionID"`
+}
+
+// GetShopID returns shopConnectFragment.ShopID, and is useful for accessing the field via an interface.
+func (v *shopConnectFragment) GetShopID() string { return v.ShopID }
+
+// GetConnectionID returns shopConnectFragment.ConnectionID, and is useful for accessing the field via an interface.
+func (v *shopConnectFragment) GetConnectionID() string { return v.ConnectionID }
 
 // shopFragment includes the GraphQL fields of shop requested by the fragment shopFragment.
 type shopFragment struct {
@@ -6249,6 +7395,22 @@ func (v *shopServiceFragment) GetShopID() string { return v.ShopID }
 
 // GetServiceID returns shopServiceFragment.ServiceID, and is useful for accessing the field via an interface.
 func (v *shopServiceFragment) GetServiceID() string { return v.ServiceID }
+
+// ticketConnectFragment includes the GraphQL fields of ticketConnect requested by the fragment ticketConnectFragment.
+type ticketConnectFragment struct {
+	TicketID             string `json:"ticketID"`
+	CustomerConnectionID string `json:"customerConnectionID"`
+	ShopConnectionID     string `json:"shopConnectionID"`
+}
+
+// GetTicketID returns ticketConnectFragment.TicketID, and is useful for accessing the field via an interface.
+func (v *ticketConnectFragment) GetTicketID() string { return v.TicketID }
+
+// GetCustomerConnectionID returns ticketConnectFragment.CustomerConnectionID, and is useful for accessing the field via an interface.
+func (v *ticketConnectFragment) GetCustomerConnectionID() string { return v.CustomerConnectionID }
+
+// GetShopConnectionID returns ticketConnectFragment.ShopConnectionID, and is useful for accessing the field via an interface.
+func (v *ticketConnectFragment) GetShopConnectionID() string { return v.ShopConnectionID }
 
 // ticketFragment includes the GraphQL fields of ticket requested by the fragment ticketFragment.
 type ticketFragment struct {
@@ -7051,6 +8213,45 @@ mutation CreateTable {
 	return &data, err
 }
 
+func CustomerByEmail(
+	ctx context.Context,
+	client graphql.Client,
+	cusInput string,
+) (*CustomerByEmailResponse, error) {
+	req := &graphql.Request{
+		OpName: "CustomerByEmail",
+		Query: `
+query CustomerByEmail ($cusInput: String!) {
+	customerByEmail(input: $cusInput) {
+		... cusFragment
+	}
+}
+fragment cusFragment on customer {
+	ID
+	fName
+	lName
+	tel
+	email
+}
+`,
+		Variables: &__CustomerByEmailInput{
+			CusInput: cusInput,
+		},
+	}
+	var err error
+
+	var data CustomerByEmailResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CustomerByID(
 	ctx context.Context,
 	client graphql.Client,
@@ -7511,6 +8712,47 @@ fragment serviceFragment on service {
 	return &data, err
 }
 
+func ShopByEmail(
+	ctx context.Context,
+	client graphql.Client,
+	shopInput string,
+) (*ShopByEmailResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopByEmail",
+		Query: `
+query ShopByEmail ($shopInput: String!) {
+	shopByEmail(input: $shopInput) {
+		... shopFragment
+	}
+}
+fragment shopFragment on shop {
+	ID
+	name
+	tel
+	email
+	address
+	longitude
+	latitude
+}
+`,
+		Variables: &__ShopByEmailInput{
+			ShopInput: shopInput,
+		},
+	}
+	var err error
+
+	var data ShopByEmailResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func ShopByID(
 	ctx context.Context,
 	client graphql.Client,
@@ -7541,6 +8783,178 @@ fragment shopFragment on shop {
 	var err error
 
 	var data ShopByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopConnectByID(
+	ctx context.Context,
+	client graphql.Client,
+	shopConnectInput string,
+) (*ShopConnectByIDResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopConnectByID",
+		Query: `
+query ShopConnectByID ($shopConnectInput: ID!) {
+	shopConnectByID(input: $shopConnectInput) {
+		... shopConnectFragment
+	}
+}
+fragment shopConnectFragment on shopConnect {
+	shopID
+	ConnectionID
+}
+`,
+		Variables: &__ShopConnectByIDInput{
+			ShopConnectInput: shopConnectInput,
+		},
+	}
+	var err error
+
+	var data ShopConnectByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopConnectCreate(
+	ctx context.Context,
+	client graphql.Client,
+	shopConnectInput *ShopConnectCreateInput,
+) (*ShopConnectCreateResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopConnectCreate",
+		Query: `
+mutation ShopConnectCreate ($shopConnectInput: shopConnectCreateInput!) {
+	shopConnectCreate(input: $shopConnectInput) {
+		... shopConnectFragment
+	}
+}
+fragment shopConnectFragment on shopConnect {
+	shopID
+	ConnectionID
+}
+`,
+		Variables: &__ShopConnectCreateInput{
+			ShopConnectInput: shopConnectInput,
+		},
+	}
+	var err error
+
+	var data ShopConnectCreateResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopConnectDelete(
+	ctx context.Context,
+	client graphql.Client,
+	shopConnectInput string,
+) (*ShopConnectDeleteResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopConnectDelete",
+		Query: `
+mutation ShopConnectDelete ($shopConnectInput: ID!) {
+	shopConnectDelete(input: $shopConnectInput) {
+		... shopConnectFragment
+	}
+}
+fragment shopConnectFragment on shopConnect {
+	shopID
+	ConnectionID
+}
+`,
+		Variables: &__ShopConnectDeleteInput{
+			ShopConnectInput: shopConnectInput,
+		},
+	}
+	var err error
+
+	var data ShopConnectDeleteResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopConnectDeleteAll(
+	ctx context.Context,
+	client graphql.Client,
+) (*ShopConnectDeleteAllResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopConnectDeleteAll",
+		Query: `
+mutation ShopConnectDeleteAll {
+	shopConnectDeleteAll {
+		... shopConnectFragment
+	}
+}
+fragment shopConnectFragment on shopConnect {
+	shopID
+	ConnectionID
+}
+`,
+	}
+	var err error
+
+	var data ShopConnectDeleteAllResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ShopConnects(
+	ctx context.Context,
+	client graphql.Client,
+) (*ShopConnectsResponse, error) {
+	req := &graphql.Request{
+		OpName: "ShopConnects",
+		Query: `
+query ShopConnects {
+	shopConnects {
+		... shopConnectFragment
+	}
+}
+fragment shopConnectFragment on shopConnect {
+	shopID
+	ConnectionID
+}
+`,
+	}
+	var err error
+
+	var data ShopConnectsResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -8056,6 +9470,220 @@ fragment ticketFragment on ticket {
 	return &data, err
 }
 
+func TicketConnects(
+	ctx context.Context,
+	client graphql.Client,
+) (*TicketConnectsResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketConnects",
+		Query: `
+query TicketConnects {
+	ticketConnects {
+		... ticketConnectFragment
+	}
+}
+fragment ticketConnectFragment on ticketConnect {
+	ticketID
+	customerConnectionID
+	shopConnectionID
+}
+`,
+	}
+	var err error
+
+	var data TicketConnectsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketConnectsByID(
+	ctx context.Context,
+	client graphql.Client,
+	shopConnectInput string,
+) (*TicketConnectsByIDResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketConnectsByID",
+		Query: `
+query TicketConnectsByID ($shopConnectInput: ID!) {
+	ticketConnectByID(input: $shopConnectInput) {
+		... ticketConnectFragment
+	}
+}
+fragment ticketConnectFragment on ticketConnect {
+	ticketID
+	customerConnectionID
+	shopConnectionID
+}
+`,
+		Variables: &__TicketConnectsByIDInput{
+			ShopConnectInput: shopConnectInput,
+		},
+	}
+	var err error
+
+	var data TicketConnectsByIDResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketConnectsCreate(
+	ctx context.Context,
+	client graphql.Client,
+	ticketConnectsInput *TicketConnectCreateInput,
+) (*TicketConnectsCreateResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketConnectsCreate",
+		Query: `
+mutation TicketConnectsCreate ($ticketConnectsInput: ticketConnectCreateInput!) {
+	ticketConnectCreate(input: $ticketConnectsInput) {
+		... ticketConnectFragment
+	}
+}
+fragment ticketConnectFragment on ticketConnect {
+	ticketID
+	customerConnectionID
+	shopConnectionID
+}
+`,
+		Variables: &__TicketConnectsCreateInput{
+			TicketConnectsInput: ticketConnectsInput,
+		},
+	}
+	var err error
+
+	var data TicketConnectsCreateResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketConnectsDelete(
+	ctx context.Context,
+	client graphql.Client,
+	shopConnectInput string,
+) (*TicketConnectsDeleteResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketConnectsDelete",
+		Query: `
+mutation TicketConnectsDelete ($shopConnectInput: ID!) {
+	ticketConnectDelete(input: $shopConnectInput) {
+		... ticketConnectFragment
+	}
+}
+fragment ticketConnectFragment on ticketConnect {
+	ticketID
+	customerConnectionID
+	shopConnectionID
+}
+`,
+		Variables: &__TicketConnectsDeleteInput{
+			ShopConnectInput: shopConnectInput,
+		},
+	}
+	var err error
+
+	var data TicketConnectsDeleteResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketConnectsDeleteAll(
+	ctx context.Context,
+	client graphql.Client,
+) (*TicketConnectsDeleteAllResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketConnectsDeleteAll",
+		Query: `
+mutation TicketConnectsDeleteAll {
+	ticketConnectDeleteAll {
+		... ticketConnectFragment
+	}
+}
+fragment ticketConnectFragment on ticketConnect {
+	ticketID
+	customerConnectionID
+	shopConnectionID
+}
+`,
+	}
+	var err error
+
+	var data TicketConnectsDeleteAllResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func TicketConnectsUpdateMulti(
+	ctx context.Context,
+	client graphql.Client,
+	ticketConnectsInput *TicketConnectCreateInput,
+) (*TicketConnectsUpdateMultiResponse, error) {
+	req := &graphql.Request{
+		OpName: "TicketConnectsUpdateMulti",
+		Query: `
+mutation TicketConnectsUpdateMulti ($ticketConnectsInput: ticketConnectCreateInput!) {
+	ticketConnectUpdate(input: $ticketConnectsInput) {
+		... ticketConnectFragment
+	}
+}
+fragment ticketConnectFragment on ticketConnect {
+	ticketID
+	customerConnectionID
+	shopConnectionID
+}
+`,
+		Variables: &__TicketConnectsUpdateMultiInput{
+			TicketConnectsInput: ticketConnectsInput,
+		},
+	}
+	var err error
+
+	var data TicketConnectsUpdateMultiResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func TicketCreate(
 	ctx context.Context,
 	client graphql.Client,
@@ -8434,6 +10062,32 @@ fragment ticketFragment on ticket {
 	var err error
 
 	var data TicketsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func createConnectionTable(
+	ctx context.Context,
+	client graphql.Client,
+) (*createConnectionTableResponse, error) {
+	req := &graphql.Request{
+		OpName: "createConnectionTable",
+		Query: `
+mutation createConnectionTable {
+	createConnectionTable
+}
+`,
+	}
+	var err error
+
+	var data createConnectionTableResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

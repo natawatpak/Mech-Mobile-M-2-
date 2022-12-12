@@ -55,6 +55,7 @@ type ComplexityRoot struct {
 		CarDelete                func(childComplexity int, input model.DeleteIDInput) int
 		CarDeleteAll             func(childComplexity int) int
 		CarUpdateMulti           func(childComplexity int, input model.CarUpdateInput) int
+		CreateConnectionTable    func(childComplexity int) int
 		CreateTable              func(childComplexity int) int
 		CustomerCreate           func(childComplexity int, input model.CustomerCreateInput) int
 		CustomerDelete           func(childComplexity int, input model.DeleteIDInput) int
@@ -65,6 +66,9 @@ type ComplexityRoot struct {
 		ServiceDelete            func(childComplexity int, input model.DeleteIDInput) int
 		ServiceDeleteAll         func(childComplexity int) int
 		ServiceUpdateMulti       func(childComplexity int, input model.ServiceUpdateInput) int
+		ShopConnectCreate        func(childComplexity int, input model.ShopConnectCreateInput) int
+		ShopConnectDelete        func(childComplexity int, input string) int
+		ShopConnectDeleteAll     func(childComplexity int) int
 		ShopCreate               func(childComplexity int, input model.ShopCreateInput) int
 		ShopDelete               func(childComplexity int, input model.DeleteIDInput) int
 		ShopDeleteAll            func(childComplexity int) int
@@ -72,6 +76,10 @@ type ComplexityRoot struct {
 		ShopServiceDelete        func(childComplexity int, input model.ShopServiceDeleteInput) int
 		ShopServiceDeleteAll     func(childComplexity int) int
 		ShopUpdateMulti          func(childComplexity int, input model.ShopUpdateInput) int
+		TicketConnectCreate      func(childComplexity int, input model.TicketConnectCreateInput) int
+		TicketConnectDelete      func(childComplexity int, input string) int
+		TicketConnectDeleteAll   func(childComplexity int) int
+		TicketConnectUpdate      func(childComplexity int, input model.TicketConnectCreateInput) int
 		TicketCreate             func(childComplexity int, input model.TicketCreateInput) int
 		TicketDelete             func(childComplexity int, input model.DeleteIDInput) int
 		TicketDeleteAll          func(childComplexity int) int
@@ -90,17 +98,23 @@ type ComplexityRoot struct {
 		CarByID                func(childComplexity int, input string) int
 		CarByOwner             func(childComplexity int, input string) int
 		Cars                   func(childComplexity int) int
+		CustomerByEmail        func(childComplexity int, input string) int
 		CustomerByID           func(childComplexity int, input string) int
 		Customers              func(childComplexity int) int
 		ServiceByID            func(childComplexity int, input string) int
 		Services               func(childComplexity int) int
+		ShopByEmail            func(childComplexity int, input string) int
 		ShopByID               func(childComplexity int, input string) int
+		ShopConnectByID        func(childComplexity int, input string) int
+		ShopConnects           func(childComplexity int) int
 		ShopServiceByID        func(childComplexity int, input model.ShopServiceCreateInput) int
 		ShopServices           func(childComplexity int) int
 		Shops                  func(childComplexity int) int
 		TicketByCustomer       func(childComplexity int, input model.TicketByCustomerInput) int
 		TicketByID             func(childComplexity int, input string) int
 		TicketByShop           func(childComplexity int, input model.TicketByShopInput) int
+		TicketConnectByID      func(childComplexity int, input string) int
+		TicketConnects         func(childComplexity int) int
 		TicketServiceByID      func(childComplexity int, input model.TicketServiceCreateInput) int
 		TicketServices         func(childComplexity int) int
 		Tickets                func(childComplexity int) int
@@ -153,6 +167,11 @@ type ComplexityRoot struct {
 		Tel       func(childComplexity int) int
 	}
 
+	ShopConnect struct {
+		ConnectionID func(childComplexity int) int
+		ShopID       func(childComplexity int) int
+	}
+
 	ShopService struct {
 		ServiceID func(childComplexity int) int
 		ShopID    func(childComplexity int) int
@@ -172,6 +191,12 @@ type ComplexityRoot struct {
 		Status       func(childComplexity int) int
 	}
 
+	TicketConnect struct {
+		CustomerConnectionID func(childComplexity int) int
+		ShopConnectionID     func(childComplexity int) int
+		TicketID             func(childComplexity int) int
+	}
+
 	TicketService struct {
 		ServiceID func(childComplexity int) int
 		TicketID  func(childComplexity int) int
@@ -181,6 +206,7 @@ type ComplexityRoot struct {
 type MutationResolver interface {
 	DropTable(ctx context.Context) (bool, error)
 	CreateTable(ctx context.Context) (bool, error)
+	CreateConnectionTable(ctx context.Context) (bool, error)
 	CustomerCreate(ctx context.Context, input model.CustomerCreateInput) (*model.Customer, error)
 	CustomerUpdateMulti(ctx context.Context, input model.CustomerUpdateInput) (*model.Customer, error)
 	CustomerDelete(ctx context.Context, input model.DeleteIDInput) (*model.Customer, error)
@@ -212,9 +238,17 @@ type MutationResolver interface {
 	TicketServiceCreate(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error)
 	TicketServiceDelete(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error)
 	TicketServiceDeleteAll(ctx context.Context) ([]*model.TicketService, error)
+	TicketConnectCreate(ctx context.Context, input model.TicketConnectCreateInput) (*model.TicketConnect, error)
+	TicketConnectUpdate(ctx context.Context, input model.TicketConnectCreateInput) (*model.TicketConnect, error)
+	TicketConnectDelete(ctx context.Context, input string) (*model.TicketConnect, error)
+	TicketConnectDeleteAll(ctx context.Context) ([]*model.TicketConnect, error)
+	ShopConnectCreate(ctx context.Context, input model.ShopConnectCreateInput) (*model.ShopConnect, error)
+	ShopConnectDelete(ctx context.Context, input string) ([]*model.ShopConnect, error)
+	ShopConnectDeleteAll(ctx context.Context) ([]*model.ShopConnect, error)
 }
 type QueryResolver interface {
 	CustomerByID(ctx context.Context, input string) (*model.Customer, error)
+	CustomerByEmail(ctx context.Context, input string) (*model.Customer, error)
 	Customers(ctx context.Context) ([]*model.Customer, error)
 	CarByID(ctx context.Context, input string) (*model.Car, error)
 	CarByOwner(ctx context.Context, input string) ([]*model.Car, error)
@@ -224,6 +258,7 @@ type QueryResolver interface {
 	TicketByShop(ctx context.Context, input model.TicketByShopInput) ([]*model.Ticket, error)
 	Tickets(ctx context.Context) ([]*model.Ticket, error)
 	ShopByID(ctx context.Context, input string) (*model.Shop, error)
+	ShopByEmail(ctx context.Context, input string) (*model.Shop, error)
 	Shops(ctx context.Context) ([]*model.Shop, error)
 	ServiceByID(ctx context.Context, input string) (*model.Service, error)
 	Services(ctx context.Context) ([]*model.Service, error)
@@ -236,6 +271,10 @@ type QueryResolver interface {
 	ActiveTickets(ctx context.Context) ([]*model.ActiveTicket, error)
 	TicketServiceByID(ctx context.Context, input model.TicketServiceCreateInput) (*model.TicketService, error)
 	TicketServices(ctx context.Context) ([]*model.TicketService, error)
+	TicketConnectByID(ctx context.Context, input string) (*model.TicketConnect, error)
+	TicketConnects(ctx context.Context) ([]*model.TicketConnect, error)
+	ShopConnectByID(ctx context.Context, input string) ([]*model.ShopConnect, error)
+	ShopConnects(ctx context.Context) ([]*model.ShopConnect, error)
 }
 
 type executableSchema struct {
@@ -351,6 +390,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.CarUpdateMulti(childComplexity, args["input"].(model.CarUpdateInput)), true
 
+	case "Mutation.createConnectionTable":
+		if e.complexity.Mutation.CreateConnectionTable == nil {
+			break
+		}
+
+		return e.complexity.Mutation.CreateConnectionTable(childComplexity), true
+
 	case "Mutation.createTable":
 		if e.complexity.Mutation.CreateTable == nil {
 			break
@@ -451,6 +497,37 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.ServiceUpdateMulti(childComplexity, args["input"].(model.ServiceUpdateInput)), true
 
+	case "Mutation.shopConnectCreate":
+		if e.complexity.Mutation.ShopConnectCreate == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_shopConnectCreate_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.ShopConnectCreate(childComplexity, args["input"].(model.ShopConnectCreateInput)), true
+
+	case "Mutation.shopConnectDelete":
+		if e.complexity.Mutation.ShopConnectDelete == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_shopConnectDelete_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.ShopConnectDelete(childComplexity, args["input"].(string)), true
+
+	case "Mutation.shopConnectDeleteAll":
+		if e.complexity.Mutation.ShopConnectDeleteAll == nil {
+			break
+		}
+
+		return e.complexity.Mutation.ShopConnectDeleteAll(childComplexity), true
+
 	case "Mutation.shopCreate":
 		if e.complexity.Mutation.ShopCreate == nil {
 			break
@@ -524,6 +601,49 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.ShopUpdateMulti(childComplexity, args["input"].(model.ShopUpdateInput)), true
+
+	case "Mutation.ticketConnectCreate":
+		if e.complexity.Mutation.TicketConnectCreate == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_ticketConnectCreate_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.TicketConnectCreate(childComplexity, args["input"].(model.TicketConnectCreateInput)), true
+
+	case "Mutation.ticketConnectDelete":
+		if e.complexity.Mutation.TicketConnectDelete == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_ticketConnectDelete_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.TicketConnectDelete(childComplexity, args["input"].(string)), true
+
+	case "Mutation.ticketConnectDeleteAll":
+		if e.complexity.Mutation.TicketConnectDeleteAll == nil {
+			break
+		}
+
+		return e.complexity.Mutation.TicketConnectDeleteAll(childComplexity), true
+
+	case "Mutation.ticketConnectUpdate":
+		if e.complexity.Mutation.TicketConnectUpdate == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_ticketConnectUpdate_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.TicketConnectUpdate(childComplexity, args["input"].(model.TicketConnectCreateInput)), true
 
 	case "Mutation.ticketCreate":
 		if e.complexity.Mutation.TicketCreate == nil {
@@ -685,6 +805,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.Cars(childComplexity), true
 
+	case "Query.customerByEmail":
+		if e.complexity.Query.CustomerByEmail == nil {
+			break
+		}
+
+		args, err := ec.field_Query_customerByEmail_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.CustomerByEmail(childComplexity, args["input"].(string)), true
+
 	case "Query.customerByID":
 		if e.complexity.Query.CustomerByID == nil {
 			break
@@ -723,6 +855,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.Services(childComplexity), true
 
+	case "Query.shopByEmail":
+		if e.complexity.Query.ShopByEmail == nil {
+			break
+		}
+
+		args, err := ec.field_Query_shopByEmail_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.ShopByEmail(childComplexity, args["input"].(string)), true
+
 	case "Query.shopByID":
 		if e.complexity.Query.ShopByID == nil {
 			break
@@ -734,6 +878,25 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.ShopByID(childComplexity, args["input"].(string)), true
+
+	case "Query.shopConnectByID":
+		if e.complexity.Query.ShopConnectByID == nil {
+			break
+		}
+
+		args, err := ec.field_Query_shopConnectByID_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.ShopConnectByID(childComplexity, args["input"].(string)), true
+
+	case "Query.shopConnects":
+		if e.complexity.Query.ShopConnects == nil {
+			break
+		}
+
+		return e.complexity.Query.ShopConnects(childComplexity), true
 
 	case "Query.shopServiceByID":
 		if e.complexity.Query.ShopServiceByID == nil {
@@ -796,6 +959,25 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.TicketByShop(childComplexity, args["input"].(model.TicketByShopInput)), true
+
+	case "Query.ticketConnectByID":
+		if e.complexity.Query.TicketConnectByID == nil {
+			break
+		}
+
+		args, err := ec.field_Query_ticketConnectByID_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.TicketConnectByID(childComplexity, args["input"].(string)), true
+
+	case "Query.ticketConnects":
+		if e.complexity.Query.TicketConnects == nil {
+			break
+		}
+
+		return e.complexity.Query.TicketConnects(childComplexity), true
 
 	case "Query.ticketServiceByID":
 		if e.complexity.Query.TicketServiceByID == nil {
@@ -1047,6 +1229,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Shop.Tel(childComplexity), true
 
+	case "shopConnect.ConnectionID":
+		if e.complexity.ShopConnect.ConnectionID == nil {
+			break
+		}
+
+		return e.complexity.ShopConnect.ConnectionID(childComplexity), true
+
+	case "shopConnect.shopID":
+		if e.complexity.ShopConnect.ShopID == nil {
+			break
+		}
+
+		return e.complexity.ShopConnect.ShopID(childComplexity), true
+
 	case "shopService.serviceID":
 		if e.complexity.ShopService.ServiceID == nil {
 			break
@@ -1138,6 +1334,27 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Ticket.Status(childComplexity), true
 
+	case "ticketConnect.customerConnectionID":
+		if e.complexity.TicketConnect.CustomerConnectionID == nil {
+			break
+		}
+
+		return e.complexity.TicketConnect.CustomerConnectionID(childComplexity), true
+
+	case "ticketConnect.shopConnectionID":
+		if e.complexity.TicketConnect.ShopConnectionID == nil {
+			break
+		}
+
+		return e.complexity.TicketConnect.ShopConnectionID(childComplexity), true
+
+	case "ticketConnect.ticketID":
+		if e.complexity.TicketConnect.TicketID == nil {
+			break
+		}
+
+		return e.complexity.TicketConnect.TicketID(childComplexity), true
+
 	case "ticketService.serviceID":
 		if e.complexity.TicketService.ServiceID == nil {
 			break
@@ -1169,12 +1386,14 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 		ec.unmarshalInputcustomerUpdateInput,
 		ec.unmarshalInputserviceCreateInput,
 		ec.unmarshalInputserviceUpdateInput,
+		ec.unmarshalInputshopConnectCreateInput,
 		ec.unmarshalInputshopCreateInput,
 		ec.unmarshalInputshopServiceCreateInput,
 		ec.unmarshalInputshopServiceDeleteInput,
 		ec.unmarshalInputshopUpdateInput,
 		ec.unmarshalInputticketByCustomerInput,
 		ec.unmarshalInputticketByShopInput,
+		ec.unmarshalInputticketConnectCreateInput,
 		ec.unmarshalInputticketCreateInput,
 		ec.unmarshalInputticketServiceCreateInput,
 		ec.unmarshalInputticketUpdateInput,
@@ -1246,6 +1465,7 @@ scalar Time
 
 type Query {
   customerByID(input: ID!): customer!
+  customerByEmail(input: String!): customer!
   customers: [customer!]!
 
   carByID(input: ID!): car!
@@ -1258,6 +1478,7 @@ type Query {
   tickets: [ticket!]!
 
   shopByID(input: ID!): shop!
+  shopByEmail(input: String!): shop!
   shops: [shop!]!
 
   serviceByID(input: ID!): service!
@@ -1274,11 +1495,18 @@ type Query {
 
   ticketServiceByID(input: ticketServiceCreateInput!): ticketService
   ticketServices: [ticketService!]!
+
+  ticketConnectByID(input: ID!): ticketConnect!
+  ticketConnects: [ticketConnect!]!
+
+  shopConnectByID(input: ID!): [shopConnect!]!
+  shopConnects: [shopConnect!]!
 }
 
 type Mutation {
   dropTable: Boolean!
   createTable: Boolean!
+  createConnectionTable: Boolean!
 
   customerCreate(input: customerCreateInput!): customer!
   customerUpdateMulti(input: customerUpdateInput!): customer!
@@ -1318,6 +1546,15 @@ type Mutation {
   ticketServiceCreate(input: ticketServiceCreateInput!): ticketService!
   ticketServiceDelete(input: ticketServiceCreateInput!): ticketService!
   ticketServiceDeleteAll: [ticketService!]
+
+  ticketConnectCreate(input: ticketConnectCreateInput!): ticketConnect!
+  ticketConnectUpdate(input: ticketConnectCreateInput!): ticketConnect!
+  ticketConnectDelete(input: ID!): ticketConnect!
+  ticketConnectDeleteAll: [ticketConnect!]
+
+  shopConnectCreate(input: shopConnectCreateInput!): shopConnect!
+  shopConnectDelete(input: ID!): [shopConnect!]!
+  shopConnectDeleteAll: [shopConnect!]!
 }
 
 input DeleteIDInput {
@@ -1545,6 +1782,28 @@ input ticketServiceCreateInput {
   ticketID: ID!
   serviceID: ID!
 }
+
+type ticketConnect {
+  ticketID: ID!
+  customerConnectionID: ID!
+  shopConnectionID: ID!
+}
+
+input ticketConnectCreateInput {
+  ticketID: ID!
+  customerConnectionID: ID!
+  shopConnectionID: ID!
+}
+
+type shopConnect {
+  shopID: ID!
+  ConnectionID: ID!
+}
+
+input shopConnectCreateInput {
+  shopID: ID!
+  ConnectionID: ID!
+}
 `, BuiltIn: false},
 }
 var parsedSchema = gqlparser.MustLoadSchema(sources...)
@@ -1748,6 +2007,36 @@ func (ec *executionContext) field_Mutation_serviceUpdateMulti_args(ctx context.C
 	return args, nil
 }
 
+func (ec *executionContext) field_Mutation_shopConnectCreate_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.ShopConnectCreateInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNshopConnectCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnectCreateInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_shopConnectDelete_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Mutation_shopCreate_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -1815,6 +2104,51 @@ func (ec *executionContext) field_Mutation_shopUpdateMulti_args(ctx context.Cont
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNshopUpdateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopUpdateInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_ticketConnectCreate_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.TicketConnectCreateInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNticketConnectCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnectCreateInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_ticketConnectDelete_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_ticketConnectUpdate_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.TicketConnectCreateInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNticketConnectCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnectCreateInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -2003,6 +2337,21 @@ func (ec *executionContext) field_Query_carByOwner_args(ctx context.Context, raw
 	return args, nil
 }
 
+func (ec *executionContext) field_Query_customerByEmail_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Query_customerByID_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -2033,7 +2382,37 @@ func (ec *executionContext) field_Query_serviceByID_args(ctx context.Context, ra
 	return args, nil
 }
 
+func (ec *executionContext) field_Query_shopByEmail_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Query_shopByID_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_shopConnectByID_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 string
@@ -2100,6 +2479,21 @@ func (ec *executionContext) field_Query_ticketByShop_args(ctx context.Context, r
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNticketByShopInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketByShopInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_ticketConnectByID_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -2237,6 +2631,50 @@ func (ec *executionContext) _Mutation_createTable(ctx context.Context, field gra
 }
 
 func (ec *executionContext) fieldContext_Mutation_createTable(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_createConnectionTable(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_createConnectionTable(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().CreateConnectionTable(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_createConnectionTable(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Mutation",
 		Field:      field,
@@ -4287,6 +4725,416 @@ func (ec *executionContext) fieldContext_Mutation_ticketServiceDeleteAll(ctx con
 	return fc, nil
 }
 
+func (ec *executionContext) _Mutation_ticketConnectCreate(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_ticketConnectCreate(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().TicketConnectCreate(rctx, fc.Args["input"].(model.TicketConnectCreateInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.TicketConnect)
+	fc.Result = res
+	return ec.marshalNticketConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnect(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_ticketConnectCreate(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ticketID":
+				return ec.fieldContext_ticketConnect_ticketID(ctx, field)
+			case "customerConnectionID":
+				return ec.fieldContext_ticketConnect_customerConnectionID(ctx, field)
+			case "shopConnectionID":
+				return ec.fieldContext_ticketConnect_shopConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ticketConnect", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_ticketConnectCreate_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_ticketConnectUpdate(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_ticketConnectUpdate(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().TicketConnectUpdate(rctx, fc.Args["input"].(model.TicketConnectCreateInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.TicketConnect)
+	fc.Result = res
+	return ec.marshalNticketConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnect(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_ticketConnectUpdate(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ticketID":
+				return ec.fieldContext_ticketConnect_ticketID(ctx, field)
+			case "customerConnectionID":
+				return ec.fieldContext_ticketConnect_customerConnectionID(ctx, field)
+			case "shopConnectionID":
+				return ec.fieldContext_ticketConnect_shopConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ticketConnect", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_ticketConnectUpdate_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_ticketConnectDelete(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_ticketConnectDelete(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().TicketConnectDelete(rctx, fc.Args["input"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.TicketConnect)
+	fc.Result = res
+	return ec.marshalNticketConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnect(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_ticketConnectDelete(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ticketID":
+				return ec.fieldContext_ticketConnect_ticketID(ctx, field)
+			case "customerConnectionID":
+				return ec.fieldContext_ticketConnect_customerConnectionID(ctx, field)
+			case "shopConnectionID":
+				return ec.fieldContext_ticketConnect_shopConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ticketConnect", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_ticketConnectDelete_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_ticketConnectDeleteAll(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_ticketConnectDeleteAll(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().TicketConnectDeleteAll(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*model.TicketConnect)
+	fc.Result = res
+	return ec.marshalOticketConnect2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnectᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_ticketConnectDeleteAll(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ticketID":
+				return ec.fieldContext_ticketConnect_ticketID(ctx, field)
+			case "customerConnectionID":
+				return ec.fieldContext_ticketConnect_customerConnectionID(ctx, field)
+			case "shopConnectionID":
+				return ec.fieldContext_ticketConnect_shopConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ticketConnect", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_shopConnectCreate(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_shopConnectCreate(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().ShopConnectCreate(rctx, fc.Args["input"].(model.ShopConnectCreateInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.ShopConnect)
+	fc.Result = res
+	return ec.marshalNshopConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnect(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_shopConnectCreate(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "shopID":
+				return ec.fieldContext_shopConnect_shopID(ctx, field)
+			case "ConnectionID":
+				return ec.fieldContext_shopConnect_ConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type shopConnect", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_shopConnectCreate_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_shopConnectDelete(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_shopConnectDelete(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().ShopConnectDelete(rctx, fc.Args["input"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.ShopConnect)
+	fc.Result = res
+	return ec.marshalNshopConnect2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnectᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_shopConnectDelete(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "shopID":
+				return ec.fieldContext_shopConnect_shopID(ctx, field)
+			case "ConnectionID":
+				return ec.fieldContext_shopConnect_ConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type shopConnect", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_shopConnectDelete_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_shopConnectDeleteAll(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_shopConnectDeleteAll(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().ShopConnectDeleteAll(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.ShopConnect)
+	fc.Result = res
+	return ec.marshalNshopConnect2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnectᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_shopConnectDeleteAll(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "shopID":
+				return ec.fieldContext_shopConnect_shopID(ctx, field)
+			case "ConnectionID":
+				return ec.fieldContext_shopConnect_ConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type shopConnect", field.Name)
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Query_customerByID(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Query_customerByID(ctx, field)
 	if err != nil {
@@ -4348,6 +5196,73 @@ func (ec *executionContext) fieldContext_Query_customerByID(ctx context.Context,
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Query_customerByID_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_customerByEmail(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_customerByEmail(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().CustomerByEmail(rctx, fc.Args["input"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.Customer)
+	fc.Result = res
+	return ec.marshalNcustomer2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐCustomer(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_customerByEmail(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ID":
+				return ec.fieldContext_customer_ID(ctx, field)
+			case "fName":
+				return ec.fieldContext_customer_fName(ctx, field)
+			case "lName":
+				return ec.fieldContext_customer_lName(ctx, field)
+			case "tel":
+				return ec.fieldContext_customer_tel(ctx, field)
+			case "email":
+				return ec.fieldContext_customer_email(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type customer", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_customerByEmail_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
 	}
@@ -4994,6 +5909,77 @@ func (ec *executionContext) fieldContext_Query_shopByID(ctx context.Context, fie
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Query_shopByID_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_shopByEmail(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_shopByEmail(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().ShopByEmail(rctx, fc.Args["input"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.Shop)
+	fc.Result = res
+	return ec.marshalNshop2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShop(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_shopByEmail(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ID":
+				return ec.fieldContext_shop_ID(ctx, field)
+			case "name":
+				return ec.fieldContext_shop_name(ctx, field)
+			case "tel":
+				return ec.fieldContext_shop_tel(ctx, field)
+			case "email":
+				return ec.fieldContext_shop_email(ctx, field)
+			case "address":
+				return ec.fieldContext_shop_address(ctx, field)
+			case "longitude":
+				return ec.fieldContext_shop_longitude(ctx, field)
+			case "latitude":
+				return ec.fieldContext_shop_latitude(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type shop", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_shopByEmail_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
 	}
@@ -5743,6 +6729,232 @@ func (ec *executionContext) fieldContext_Query_ticketServices(ctx context.Contex
 				return ec.fieldContext_ticketService_serviceID(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type ticketService", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_ticketConnectByID(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_ticketConnectByID(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().TicketConnectByID(rctx, fc.Args["input"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.TicketConnect)
+	fc.Result = res
+	return ec.marshalNticketConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnect(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_ticketConnectByID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ticketID":
+				return ec.fieldContext_ticketConnect_ticketID(ctx, field)
+			case "customerConnectionID":
+				return ec.fieldContext_ticketConnect_customerConnectionID(ctx, field)
+			case "shopConnectionID":
+				return ec.fieldContext_ticketConnect_shopConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ticketConnect", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_ticketConnectByID_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_ticketConnects(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_ticketConnects(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().TicketConnects(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.TicketConnect)
+	fc.Result = res
+	return ec.marshalNticketConnect2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnectᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_ticketConnects(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "ticketID":
+				return ec.fieldContext_ticketConnect_ticketID(ctx, field)
+			case "customerConnectionID":
+				return ec.fieldContext_ticketConnect_customerConnectionID(ctx, field)
+			case "shopConnectionID":
+				return ec.fieldContext_ticketConnect_shopConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ticketConnect", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_shopConnectByID(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_shopConnectByID(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().ShopConnectByID(rctx, fc.Args["input"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.ShopConnect)
+	fc.Result = res
+	return ec.marshalNshopConnect2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnectᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_shopConnectByID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "shopID":
+				return ec.fieldContext_shopConnect_shopID(ctx, field)
+			case "ConnectionID":
+				return ec.fieldContext_shopConnect_ConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type shopConnect", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_shopConnectByID_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_shopConnects(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_shopConnects(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().ShopConnects(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*model.ShopConnect)
+	fc.Result = res
+	return ec.marshalNshopConnect2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnectᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_shopConnects(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "shopID":
+				return ec.fieldContext_shopConnect_shopID(ctx, field)
+			case "ConnectionID":
+				return ec.fieldContext_shopConnect_ConnectionID(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type shopConnect", field.Name)
 		},
 	}
 	return fc, nil
@@ -9030,6 +10242,94 @@ func (ec *executionContext) fieldContext_shop_latitude(ctx context.Context, fiel
 	return fc, nil
 }
 
+func (ec *executionContext) _shopConnect_shopID(ctx context.Context, field graphql.CollectedField, obj *model.ShopConnect) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_shopConnect_shopID(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ShopID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNID2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_shopConnect_shopID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "shopConnect",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type ID does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _shopConnect_ConnectionID(ctx context.Context, field graphql.CollectedField, obj *model.ShopConnect) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_shopConnect_ConnectionID(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ConnectionID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNID2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_shopConnect_ConnectionID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "shopConnect",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type ID does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _shopService_shopID(ctx context.Context, field graphql.CollectedField, obj *model.ShopService) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_shopService_shopID(ctx, field)
 	if err != nil {
@@ -9585,6 +10885,138 @@ func (ec *executionContext) fieldContext_ticket_latitude(ctx context.Context, fi
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ticketConnect_ticketID(ctx context.Context, field graphql.CollectedField, obj *model.TicketConnect) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ticketConnect_ticketID(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.TicketID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNID2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ticketConnect_ticketID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ticketConnect",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type ID does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ticketConnect_customerConnectionID(ctx context.Context, field graphql.CollectedField, obj *model.TicketConnect) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ticketConnect_customerConnectionID(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.CustomerConnectionID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNID2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ticketConnect_customerConnectionID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ticketConnect",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type ID does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ticketConnect_shopConnectionID(ctx context.Context, field graphql.CollectedField, obj *model.TicketConnect) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ticketConnect_shopConnectionID(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ShopConnectionID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNID2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ticketConnect_shopConnectionID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ticketConnect",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type ID does not have child fields")
 		},
 	}
 	return fc, nil
@@ -10270,6 +11702,42 @@ func (ec *executionContext) unmarshalInputserviceUpdateInput(ctx context.Context
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputshopConnectCreateInput(ctx context.Context, obj interface{}) (model.ShopConnectCreateInput, error) {
+	var it model.ShopConnectCreateInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"shopID", "ConnectionID"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "shopID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("shopID"))
+			it.ShopID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ConnectionID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ConnectionID"))
+			it.ConnectionID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputshopCreateInput(ctx context.Context, obj interface{}) (model.ShopCreateInput, error) {
 	var it model.ShopCreateInput
 	asMap := map[string]interface{}{}
@@ -10598,6 +12066,50 @@ func (ec *executionContext) unmarshalInputticketByShopInput(ctx context.Context,
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputticketConnectCreateInput(ctx context.Context, obj interface{}) (model.TicketConnectCreateInput, error) {
+	var it model.TicketConnectCreateInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"ticketID", "customerConnectionID", "shopConnectionID"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "ticketID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ticketID"))
+			it.TicketID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "customerConnectionID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("customerConnectionID"))
+			it.CustomerConnectionID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shopConnectionID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("shopConnectionID"))
+			it.ShopConnectionID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputticketCreateInput(ctx context.Context, obj interface{}) (model.TicketCreateInput, error) {
 	var it model.TicketCreateInput
 	asMap := map[string]interface{}{}
@@ -10895,6 +12407,15 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "createConnectionTable":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_createConnectionTable(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "customerCreate":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
@@ -11147,6 +12668,66 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 				return ec._Mutation_ticketServiceDeleteAll(ctx, field)
 			})
 
+		case "ticketConnectCreate":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_ticketConnectCreate(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "ticketConnectUpdate":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_ticketConnectUpdate(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "ticketConnectDelete":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_ticketConnectDelete(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "ticketConnectDeleteAll":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_ticketConnectDeleteAll(ctx, field)
+			})
+
+		case "shopConnectCreate":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_shopConnectCreate(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "shopConnectDelete":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_shopConnectDelete(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "shopConnectDeleteAll":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_shopConnectDeleteAll(ctx, field)
+			})
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -11187,6 +12768,29 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_customerByID(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "customerByEmail":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_customerByEmail(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -11394,6 +12998,29 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_shopByID(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "shopByEmail":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_shopByEmail(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -11661,6 +13288,98 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_ticketServices(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "ticketConnectByID":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_ticketConnectByID(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "ticketConnects":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_ticketConnects(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "shopConnectByID":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_shopConnectByID(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "shopConnects":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_shopConnects(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -12316,6 +14035,41 @@ func (ec *executionContext) _shop(ctx context.Context, sel ast.SelectionSet, obj
 	return out
 }
 
+var shopConnectImplementors = []string{"shopConnect"}
+
+func (ec *executionContext) _shopConnect(ctx context.Context, sel ast.SelectionSet, obj *model.ShopConnect) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, shopConnectImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("shopConnect")
+		case "shopID":
+
+			out.Values[i] = ec._shopConnect_shopID(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "ConnectionID":
+
+			out.Values[i] = ec._shopConnect_ConnectionID(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var shopServiceImplementors = []string{"shopService"}
 
 func (ec *executionContext) _shopService(ctx context.Context, sel ast.SelectionSet, obj *model.ShopService) graphql.Marshaler {
@@ -12422,6 +14176,48 @@ func (ec *executionContext) _ticket(ctx context.Context, sel ast.SelectionSet, o
 		case "latitude":
 
 			out.Values[i] = ec._ticket_latitude(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var ticketConnectImplementors = []string{"ticketConnect"}
+
+func (ec *executionContext) _ticketConnect(ctx context.Context, sel ast.SelectionSet, obj *model.TicketConnect) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, ticketConnectImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("ticketConnect")
+		case "ticketID":
+
+			out.Values[i] = ec._ticketConnect_ticketID(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "customerConnectionID":
+
+			out.Values[i] = ec._ticketConnect_customerConnectionID(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "shopConnectionID":
+
+			out.Values[i] = ec._ticketConnect_shopConnectionID(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
 				invalids++
@@ -13139,6 +14935,69 @@ func (ec *executionContext) marshalNshop2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑM
 	return ec._shop(ctx, sel, v)
 }
 
+func (ec *executionContext) marshalNshopConnect2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnect(ctx context.Context, sel ast.SelectionSet, v model.ShopConnect) graphql.Marshaler {
+	return ec._shopConnect(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNshopConnect2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnectᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.ShopConnect) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNshopConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnect(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
+}
+
+func (ec *executionContext) marshalNshopConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnect(ctx context.Context, sel ast.SelectionSet, v *model.ShopConnect) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._shopConnect(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNshopConnectCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopConnectCreateInput(ctx context.Context, v interface{}) (model.ShopConnectCreateInput, error) {
+	res, err := ec.unmarshalInputshopConnectCreateInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNshopCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐShopCreateInput(ctx context.Context, v interface{}) (model.ShopCreateInput, error) {
 	res, err := ec.unmarshalInputshopCreateInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -13282,6 +15141,69 @@ func (ec *executionContext) unmarshalNticketByCustomerInput2githubᚗcomᚋnataw
 
 func (ec *executionContext) unmarshalNticketByShopInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketByShopInput(ctx context.Context, v interface{}) (model.TicketByShopInput, error) {
 	res, err := ec.unmarshalInputticketByShopInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNticketConnect2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnect(ctx context.Context, sel ast.SelectionSet, v model.TicketConnect) graphql.Marshaler {
+	return ec._ticketConnect(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNticketConnect2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnectᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.TicketConnect) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNticketConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnect(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
+}
+
+func (ec *executionContext) marshalNticketConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnect(ctx context.Context, sel ast.SelectionSet, v *model.TicketConnect) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._ticketConnect(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNticketConnectCreateInput2githubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnectCreateInput(ctx context.Context, v interface{}) (model.TicketConnectCreateInput, error) {
+	res, err := ec.unmarshalInputticketConnectCreateInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -13951,6 +15873,53 @@ func (ec *executionContext) marshalOticket2ᚕᚖgithubᚗcomᚋnatawatpakᚋMec
 				defer wg.Done()
 			}
 			ret[i] = ec.marshalNticket2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicket(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
+}
+
+func (ec *executionContext) marshalOticketConnect2ᚕᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnectᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.TicketConnect) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNticketConnect2ᚖgithubᚗcomᚋnatawatpakᚋMechᚑMobileᚑMᚑ2ᚑᚋbackendᚋgraphᚋmodelᚐTicketConnect(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)

@@ -199,6 +199,49 @@ func TestCustomerByID(t *testing.T) {
 	graph.CustomerDeleteAll(ctx, graphqlClient)
 }
 
+func TestCustomerByEmail(t *testing.T) {
+	ctx := context.Background()
+	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
+
+	type createInput struct {
+		FName string
+		LName string
+		Tel   string
+		Email string
+	}
+	createInputTest := []createInput{
+		{
+			FName: "Phone",
+			LName: "Phum",
+			Tel:   "098-278-9331",
+			Email: "Chic@gmail.com",
+		},
+	}
+
+	respCreate, err := graph.CustomerCreate(ctx, graphqlClient, &graph.CustomerCreateInput{
+		FName: createInputTest[0].FName,
+		LName: createInputTest[0].LName,
+		Tel:   createInputTest[0].Tel,
+		Email: createInputTest[0].Email,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	createID := respCreate.CustomerCreate.Email
+
+	respDelete, err := graph.CustomerByEmail(ctx, graphqlClient, createID)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	assert.Equal(t, createInputTest[0].FName, respDelete.CustomerByEmail.FName)
+	assert.Equal(t, createInputTest[0].LName, respDelete.CustomerByEmail.LName)
+	assert.Equal(t, createInputTest[0].Tel, respDelete.CustomerByEmail.Tel)
+	assert.Equal(t, createInputTest[0].Email, respDelete.CustomerByEmail.Email)
+
+	graph.CustomerDeleteAll(ctx, graphqlClient)
+}
+
 func TestCustomers(t *testing.T) {
 	ctx := context.Background()
 	graphqlClient := graphql.NewClient("http://localhost:8081/", http.DefaultClient)
