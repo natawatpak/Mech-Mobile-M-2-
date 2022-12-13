@@ -210,7 +210,7 @@ export default {
     return {
       show: true,
       ticket: null,
-      finishOption: null,
+      finishOption: "Finish:Completed",
       dialog: false,
       dialog2: false,
       stage: [ 'Accepted', 'On the way', 'Processing', 'Finish:Garage', 'Finish:Completed'],
