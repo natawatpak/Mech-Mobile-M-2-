@@ -365,6 +365,8 @@ func ShopUpdateTicket(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(resp.ActiveTicketUpdateMulti.ID)
 
+	
+
 	data := map[string]interface{}{
 		"ticketID":    resp.ActiveTicketUpdateMulti.ID,
 		"cusID":       resp.ActiveTicketUpdateMulti.CustomerID,

@@ -1,10 +1,16 @@
 <template>
   <div class="pa-5">
-    {{ ticketID }}
-    <RefreshDialog :dialog=dialog :key="dialog"/>
-    <ProgressBar :currentState=status />
+    <div> {{ ticketID }} </div>
+    {{ shopID }}
+    <RefreshDialog :dialog="dialog" :key="dialog" />
+    <ProgressBar :currentState="status" :key="status" />
     <v-spacer class="my-5"></v-spacer>
-    <ProgressDetail :shop=shop :car=car :problems=problems :key="shopID" />
+    <ProgressDetail
+      :shop="shop"
+      :car="car"
+      :problems="problems"
+      :key="shopID"
+    />
   </div>
 </template>
 
@@ -33,53 +39,60 @@ export default {
         shopTel: "",
         shopEmail: "",
         ratings: "",
-        location: { lat:"", lng:""},
+        location: { lat: "", lng: "" },
       },
       car: { id: "1", type: "SUV", brand: "MG", plate: "ก2113" },
-      
-      problems: []
+
+      problems: [],
     };
   },
   components: {
     ProgressBar,
     ProgressDetail,
-    RefreshDialog
+    RefreshDialog,
   },
-  mounted () {
-    this.ticketID = sessionStorage.getItem("ticketID")
-    console.log(this.ticketID)
-    this.cusID = sessionStorage.getItem("cusID")
+  mounted() {
+    this.ticketID = sessionStorage.getItem("ticketID");
+    console.log(this.ticketID);
+    this.cusID = sessionStorage.getItem("cusID");
 
-    this.getTicket()
+    this.getTicket();
 
-    this.socket = new WebSocket("ws://127.0.0.1:3000/customer/ws/" + this.ticketID);
+    this.socket = new WebSocket(
+      "ws://127.0.0.1:3000/customer/ws/" + this.ticketID
+    );
     console.log("Attempting Connection...");
 
     this.socket.onopen = () => {
-        console.log("Successfully Connected");
-        this.socket.send("Hi From the Client!")
+      console.log("Successfully Connected");
+      this.socket.send("Hi From the Client!");
     };
 
     this.socket.addEventListener("message", (event) => {
       console.log("Message from server ", event.data);
-      this.status = event.data
-      this.getTicket()
+      if (event.data.startsWith('t: ')){
+        this.shopID = event.data.slice(2)
+        console.log(event.data.slice(2))
+        this.getShopProfile()
+      }else{
+        this.status = event.data
+      }
+      
     });
-    
-    this.socket.onclose = event => {
-        this.dialog = true
-        console.log("Socket Closed Connection: ", event);
-        this.socket.send("Client Closed!")
-        
+
+    this.socket.onclose = (event) => {
+      this.dialog = true;
+      console.log("Socket Closed Connection: ", event);
+      this.socket.send("Client Closed!");
     };
 
-    this.socket.onerror = error => {
-        this.dialog = true
-        this.console.log("Socket Error: ", error);
+    this.socket.onerror = (error) => {
+      this.dialog = true;
+      this.console.log("Socket Error: ", error);
     };
   },
   methods: {
-    getTicket(){
+    getTicket() {
       const data = new URLSearchParams({
         ticketID: this.ticketID,
       });
@@ -93,13 +106,13 @@ export default {
           this.problems = response.data.problem;
           this.createdTime = response.data.createdTime;
           this.acceptedTime = response.data.acceptedTime;
-          this.getCarDetail()
-          if(this.status!="Active"){
-            this.getShopProfile()
+          this.getCarDetail();
+          if (this.status != "Active") {
+            this.getShopProfile();
           }
-        })
+        });
     },
-    getShopProfile(){
+    getShopProfile() {
       const data = new URLSearchParams({
         shopID: this.shopID,
       });
@@ -109,7 +122,7 @@ export default {
           this.shop = response.data;
         });
     },
-    getCarDetail(){
+    getCarDetail() {
       const data = new URLSearchParams({
         carID: this.carID,
       });
@@ -119,6 +132,6 @@ export default {
           this.car = response.data;
         });
     },
-  }
+  },
 };
 </script>

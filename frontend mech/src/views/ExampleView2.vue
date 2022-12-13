@@ -229,6 +229,7 @@ export default {
     this.socket.onopen = () => {
       console.log("Successfully Connected");
       this.socket.send("Accepted");
+      this.socket.send("t: "+sessionStorage.getItem("shopID"));
     };
     this.socket.addEventListener("message", (event) => {
       console.log("Message from server ", event.data);
